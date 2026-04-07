@@ -72,6 +72,15 @@ body {
   color: var(--green);
   text-decoration: none;
   letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-logo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
 .nav-links {
@@ -610,7 +619,7 @@ body {
 <!-- ===================== NAV ===================== -->
 <nav class="site-nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-brand">AIOpsForge</a>
+    <a href="index.html" class="nav-brand"><img src="favicon.png" alt="AIOpsForge" class="nav-logo">AIOpsForge</a>
     <div class="nav-links">
       <a href="index.html">Home</a>
       <a href="blogs.html">Blog</a>
