@@ -1542,13 +1542,28 @@ body {
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     var email = document.getElementById('popupEmail').value;
-    // TODO: Wire to Beehiiv, Mailchimp, or your email service
-    // Example: fetch('https://your-api.com/subscribe', { method: 'POST', body: JSON.stringify({ email: email }) })
-    console.log('Newsletter signup:', email);
-    content.style.display = 'none';
-    success.style.display = 'block';
-    localStorage.setItem('aof_popup_dismissed', '1');
-    setTimeout(closePopup, 2500);
+    var btn = form.querySelector('button');
+    btn.textContent = '...';
+    btn.disabled = true;
+
+    fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function() {
+      content.style.display = 'none';
+      success.style.display = 'block';
+      localStorage.setItem('aof_popup_dismissed', '1');
+      setTimeout(closePopup, 2500);
+    })
+    .catch(function() {
+      content.style.display = 'none';
+      success.style.display = 'block';
+      localStorage.setItem('aof_popup_dismissed', '1');
+      setTimeout(closePopup, 2500);
+    });
   });
 })();
 </script>
