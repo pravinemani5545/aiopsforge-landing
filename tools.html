@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Build Roadmap — AIOpsForge</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Outfit:wght@300;400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #00FF41;
+  --green-dim: #00cc34;
+  --green-glow: rgba(0, 255, 65, 0.12);
+  --green-glow-strong: rgba(0, 255, 65, 0.3);
+  --green-border: rgba(0, 255, 65, 0.2);
+  --bg-0: #060606;
+  --bg-1: #0c0c0c;
+  --bg-2: #131313;
+  --bg-card: #161616;
+  --bg-card-hover: #1c1c1c;
+  --border: #222;
+  --text-1: #eee;
+  --text-2: #999;
+  --text-3: #555;
+  --amber: #FFB800;
+  --blue: #4488ff;
+  --red: #ff4444;
+  --cyan: #22d3ee;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: var(--bg-0);
+  color: var(--text-1);
+  line-height: 1.6;
+}
+
+.container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+/* ===== NAV ===== */
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(6, 6, 6, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+}
+
+.nav-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+
+.nav-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--green);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-links a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-3);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--green);
+}
+
+.nav-cta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: #000 !important;
+  background: var(--green);
+  padding: 6px 14px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.nav-cta:hover {
+  background: #33ff66;
+  box-shadow: 0 0 16px rgba(0, 255, 65, 0.3);
+}
+
+/* ===== HEADER ===== */
+.page-header {
+  padding: 120px 0 60px;
+  border-bottom: 1px solid var(--border);
+}
+
+.page-header .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 16px;
+  opacity: 0.7;
+}
+
+.page-header h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(32px, 6vw, 56px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.page-header h1 .accent { color: var(--green); }
+
+.page-header .subtitle {
+  font-size: 16px;
+  color: var(--text-2);
+  max-width: 600px;
+  line-height: 1.7;
+}
+
+/* ===== LEGEND ===== */
+.legend {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-2);
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.legend-dot.agent { background: var(--green); }
+.legend-dot.hybrid { background: var(--amber); }
+.legend-dot.infra { background: var(--cyan); }
+
+/* ===== PROJECT CARDS ===== */
+.project-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card {
+  border-bottom: 1px solid var(--border);
+  padding: 48px 0;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 24px;
+  transition: background 0.3s;
+}
+
+.project-card:hover {
+  background: var(--bg-1);
+  margin: 0 -20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.project-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-3);
+  padding-top: 4px;
+}
+
+.project-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.project-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.project-type {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1px solid;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.project-type.agent {
+  color: var(--green);
+  border-color: var(--green-border);
+  background: rgba(0,255,65,0.05);
+}
+
+.project-type.hybrid {
+  color: var(--amber);
+  border-color: rgba(255,184,0,0.25);
+  background: rgba(255,184,0,0.05);
+}
+
+.project-type.infra {
+  color: var(--cyan);
+  border-color: rgba(34,211,238,0.25);
+  background: rgba(34,211,238,0.05);
+}
+
+.project-desc {
+  font-size: 15px;
+  color: var(--text-2);
+  margin-bottom: 20px;
+  line-height: 1.7;
+  max-width: 700px;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.detail-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 16px;
+}
+
+.detail-box:hover {
+  border-color: var(--green-border);
+}
+
+.detail-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 10px;
+}
+
+.detail-box ul { list-style: none; }
+
+.detail-box ul li {
+  font-size: 13px;
+  color: var(--text-2);
+  padding: 3px 0;
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.6;
+}
+
+.detail-box ul li::before {
+  content: '\2192';
+  position: absolute;
+  left: 0;
+  color: var(--green);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+}
+
+.tech-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.tech-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-3);
+  border: 1px solid var(--border);
+  padding: 3px 10px;
+  background: var(--bg-2);
+}
+
+/* ===== FOOTER ===== */
+.page-footer {
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-3);
+}
+
+.footer-inner a {
+  color: var(--text-3);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-inner a:hover { color: var(--green); }
+
+.footer-links { display: flex; gap: 24px; }
+
+/* Animations */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.page-header .label,
+.page-header h1,
+.page-header .subtitle {
+  animation: fade-in 0.5s ease-out both;
+}
+
+.page-header h1 { animation-delay: 0.05s; }
+.page-header .subtitle { animation-delay: 0.1s; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .detail-grid { grid-template-columns: 1fr; }
+  .project-card { grid-template-columns: 1fr; }
+  .project-num { display: none; }
+  .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+  .nav-links { gap: 12px; }
+  .nav-links a:not(.nav-cta) { font-size: 11px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">AIOpsForge</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="blogs.html">Blog</a>
+      <a href="tools.html" class="active">Tools</a>
+      <a href="https://whop.com/ai-ops-forge/" class="nav-cta" target="_blank" rel="noopener">Join</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header class="page-header">
+    <div class="label">build roadmap</div>
+    <h1>11 Systems.<br><span class="accent">MVP Specs.</span></h1>
+    <p class="subtitle">
+      Each project is a skill-builder, a content piece, and a sellable system. Detailed enough to start building today.
+    </p>
+  </header>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot agent"></span> Claude Code Agent</div>
+    <div class="legend-item"><span class="legend-dot hybrid"></span> Hybrid (Agent + n8n)</div>
+    <div class="legend-item"><span class="legend-dot infra"></span> Infrastructure</div>
+  </div>
+
+  <!-- PROJECT LIST -->
+  <div class="project-list">
+
+    <!-- ========== 01 ========== -->
+    <div class="project-card">
+      <div class="project-num">01</div>
+      <div class="project-body">
+        <div class="project-top">
+          <div class="project-title">Client Onboarding Automation</div>
+          <span class="project-type hybrid">hybrid</span>
+        </div>
+        <div class="project-desc">
+          A system that takes a new client from intake form submission to a generated proposal and automated follow-up sequence — zero manual steps. Client fills out a Typeform or Tally form, the system enriches their data, generates a custom proposal using Claude, sends it via email, and triggers a follow-up drip if they don't respond within 48 hours.
+        </div>
+        <div class="detail-grid">
+          <div class="detail-box">
+            <div class="detail-label">MVP Features</div>
+            <ul>
+              <li>Webhook trigger on form submission</li>
+              <li>Claude generates custom proposal from template + form data</li>
+              <li>Auto-sends proposal PDF via Gmail/Resend</li>
+              <li>48-hour follow-up if no reply detected</li>
+              <li>Logs every run to Google Sheets with token cost</li>
+            </ul>
+          </div>
+          <div class="detail-box">
+            <div class="detail-label">Why Hybrid</div>
+            <ul>
+              <li>n8n handles the webhook trigger, email sending, and scheduling</li>
+              <li>Claude Code builds the proposal generation logic and prompt chains</li>
+              <li>If selling to clients, n8n's visual canvas makes handoff easy</li>
+              <li>Show token cost per proposal: target under $0.15</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-tag">n8n</span>
+          <span class="tech-tag">claude api</span>
+          <span class="tech-tag">tally / typeform</span>
+          <span class="tech-tag">gmail / resend</span>
+          <span class="tech-tag">google sheets</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== 02 ========== -->
+    <div class="project-card">
+      <div class="project-num">02</div>
+      <div class="project-body">
+        <div class="project-top">
+          <div class="project-title">AI Content Repurposing Pipeline</div>
+          <span class="project-type hybrid">hybrid</span>
+        </div>
+        <div class="project-desc">
+          Feed in one long-form script, blog post, or video transcript. The system outputs an X thread, 3-5 standalone tweets, a YouTube description, a newsletter section, and TikTok/Reels captions — all in your blended voice. You use this every week for your own content, so it pays for itself immediately.
+        </div>
+        <div class="detail-grid">
+          <div class="detail-box">
+            <div class="detail-label">MVP Features</div>
+            <ul>
+              <li>Input: paste or upload long-form text</li>
+              <li>Claude extracts key points and generates each format</li>
+              <li>Voice calibration via system prompt with your style rules</li>
+              <li>Outputs to a structured Google Doc or Notion page</li>
+              <li>One-click scheduling via Typefully API for X posts</li>
+            </ul>
+          </div>
+          <div class="detail-box">
+            <div class="detail-label">Content Output Per Run</div>
+            <ul>
+              <li>1 X thread (8-15 tweets)</li>
+              <li>3-5 standalone tweets</li>
+              <li>1 YouTube description with timestamps</li>
+              <li>1 newsletter block (200-300 words)</li>
+              <li>2-3 short-form captions for TikTok/Reels</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-tag">claude api</span>
+          <span class="tech-tag">n8n</span>
+          <span class="tech-tag">typefully api</span>
+          <span class="tech-tag">notion / google docs</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== 03 ========== -->
+    <div class="project-card">
+      <div class="project-num">03</div>
+      <div class="project-body">
+        <div class="project-top">
+          <div class="project-title">Competitive Research Agent</div>
+          <span class="project-type agent">claude code agent</span>
+        </div>
+        <div class="project-desc">
+          A scheduled Claude Code agent that monitors competitors — their websites, social accounts, product pages, pricing changes. Runs daily or weekly via Remote Tasks, compiles a structured digest, and delivers it to you via Telegram or Discord. No manual research sessions needed.
+        </div>
+        <div class="detail-grid">
+          <div class="detail-box">
+            <div class="detail-label">MVP Features</div>
+            <ul>
+              <li>Define 3-5 competitor URLs and X handles to monitor</li>
+              <li>Agent scrapes public pages and recent posts</li>
+              <li>Claude analyzes changes, new content, pricing shifts</li>
+              <li>Generates structured markdown report</li>
+              <li>Sends digest via Telegram Channel</li>
+            </ul>
+          </div>
+          <div class="detail-box">
+            <div class="detail-label">Architecture</div>
+            <ul>
+              <li>Scheduled Remote Task: runs every Monday 8 AM</li>
+              <li>MCP servers: web scraping, Telegram</li>
+              <li>Stores previous reports for diff comparison</li>
+              <li>Flags significant changes vs noise</li>
+              <li>Token budget cap per run to control costs</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-tag">claude code</span>
+          <span class="tech-tag">remote tasks</span>
+          <span class="tech-tag">mcp</span>
+          <span class="tech-tag">telegram</span>
+          <span class="tech-tag">web scraping</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== 04 ========== -->
+    <div class="project-card">
+      <div class="project-num">04</div>
+      <div class="project-body">
+        <div class="project-top">
+          <div class="project-title">Token Usage Dashboard</div>
+          <span class="project-type agent">claude code agent</span>
+        </div>
+        <div class="project-desc">
+          A web app that tracks your actual API spend across Anthropic, OpenAI, and any other providers — broken down by project, workflow, and time period. Screenshot this in every video and thread. It becomes your signature transparency element that no other creator uses consistently.
+        </div>
+        <div class="detail-grid">
+          <div class="detail-box">
+            <div class="detail-label">MVP Features</div>
+            <ul>
+              <li>Pulls usage data from Anthropic and OpenAI APIs</li>
+              <li>Dashboard: daily/weekly/monthly spend per project</li>
+              <li>Cost-per-run breakdown for each workflow</li>
+              <li>Visual charts: spend over time, model comparison</li>
+              <li>Alert threshold: notify when daily spend exceeds limit</li>
+            </ul>
+          </div>
+          <div class="detail-box">
+            <div class="detail-label">Why This Matters</div>
+            <ul>
+              <li>Screenshot it for every content piece you publish</li>
+              <li>Proves engineering-grade transparency positioning</li>
+              <li>"this automation costs $0.08/run" backed by real data</li>
+              <li>Becomes a free tool you can share with your audience</li>
+              <li>Nobody else in the space does this consistently</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-tag">claude code</span>
+          <span class="tech-tag">react / next.js</span>
+          <span class="tech-tag">anthropic api</span>
+          <span class="tech-tag">openai api</span>
+          <span class="tech-tag">charts</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== 05 ========== -->
+    <div class="project-card">
+      <div class="project-num">05</div>
+      <div class="project-body">
+        <div class="project-top">
+          <div class="project-title">AI SEO Content System</div>
+          <span class="project-type hybrid">hybrid</span>
+        </div>
+        <div class="project-desc">
+          End-to-end content generation pipeline: keyword research → content brief → article draft → internal linking suggestions → CMS publishing. Document the real cost per article and build time. This is the system behind an AI SEO agency — build it, run it for yourself, then teach it.
+        </div>
+        <div class="detail-grid">
+          <div class="detail-box">
+            <div class="detail-label">MVP Features</div>
+            <ul>
+              <li>Input: target keyword or topic cluster</li>
+              <li>Agent researches SERP, analyzes top-ranking content</li>
+              <li>Generates content brief with outline and target length</li>
+              <li>Drafts full article with Claude (with source citations)</li>
+              <li>Suggests internal links from existing content</li>
+            </ul>
+          </div>
+          <div class="detail-box">
+            <div class="detail-label">Production Metrics to Track</div>
+            <ul>
+              <li>Token cost per article (target: under $0.50)</li>
+              <li>Time from keyword to published draft</li>
+              <li>Human edit time required post-generation</li>
+              <li>SEO score before vs after optimization pass</li>
+              <li>Indexing and ranking performance over 30/60/90 days</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-tag">claude api</span>
+          <span class="tech-tag">n8n</span>
+          <span class="tech-tag">serp api</span>
+          <span class="tech-tag">wordpress / webflow</span>
+          <span class="tech-tag">google search console</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== 06 ========== -->
+    <div class="project-card">
+      <div class="project-num">06</div>
+      <div class="project-body">
+        <div class="project-top">
+          <div class="project-title">Lead Gen &amp; Cold Outreach System</div>
+          <span class="project-type hybrid">hybrid</span>
+        </div>
+        <div class="project-desc">
+          Finds prospects from directories and public sources, enriches their data with company info and pain points, generates hyper-personalized cold emails with Claude, and queues them for sending with follow-up sequences. Saraev teaches this as a $1,500-$10,000 sellable automation.
+        </div>
+        <div class="detail-grid">
+          <div class="detail-box">
+            <div class="detail-label">MVP Features</div>
+            <ul>
+              <li>Scrape leads from Google Maps, Apollo, or LinkedIn</li>
+              <li>Enrich with company size, industry, tech stack</li>
+              <li>Claude writes personalized first line + email body</li>
+              <li>3-email follow-up sequence auto-generated</li>
+              <li>Sends via Instantly, Smartlead, or custom SMTP</li>
+            </ul>
+          </div>
+          <div class="detail-box">
+            <div class="detail-label">Edge Cases to Handle</div>
+            <ul>
+              <li>Rate limiting on scraping sources</li>
+              <li>Email validation before sending (bounce prevention)</li>
+              <li>Duplicate detection across runs</li>
+              <li>Unsubscribe handling and CAN-SPAM compliance</li>
+              <li>Cost tracking: token spend per lead generated</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-tag">n8n</span>
+          <span class="tech-tag">claude api</span>
+          <span class="tech-tag">apollo / apify</span>
+          <span class="tech-tag">instantly / smartlead</span>
+          <span class="tech-tag">google sheets</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== 07 ========== -->
+    <div class="project-card">
+      <div class="project-num">07</div>
+      <div class="project-body">
+        <div class="project-top">
+          <div class="project-title">Workflow Monitoring &amp; Alerting</div>
+          <span class="project-type agent">claude code agent</span>
+        </div>
+        <div class="project-desc">
+          A meta-system that watches all your other automations. Checks health, monitors token cost spikes, tracks success/failure rates, and alerts you via Telegram when something needs attention. This is the production reliability content that separates you from every demo-only creator.
+        </div>
+        <div class="detail-grid">
+          <div class="detail-box">
+            <div class="detail-label">MVP Features</div>
+            <ul>
+              <li>Polls n8n execution logs via API every hour</li>
+              <li>Tracks success rate per workflow over 24h/7d/30d</li>
+              <li>Monitors API spend and flags cost anomalies</li>
+              <li>Sends Telegram alert on failure or threshold breach</li>
+              <li>Weekly summary report: all systems health status</li>
+            </ul>
+          </div>
+          <div class="detail-box">
+            <div class="detail-label">Alert Rules</div>
+            <ul>
+              <li>Workflow failure rate exceeds 10% in 24 hours</li>
+              <li>Token spend exceeds 2x daily average</li>
+              <li>Any workflow hasn't run when expected (missed schedule)</li>
+              <li>API response time exceeds 10s (latency degradation)</li>
+              <li>Configurable thresholds per workflow</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-tag">claude code</span>
+          <span class="tech-tag">remote tasks</span>
+          <span class="tech-tag">n8n api</span>
+          <span class="tech-tag">telegram mcp</span>
+          <span class="tech-tag">sentry</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== 08 ========== -->
+    <div class="project-card">
+      <div class="project-num">08</div>
+      <div class="project-body">
+        <div class="project-top">
+          <div class="project-title">Community Platform Infrastructure</div>
+          <span class="project-type infra">infrastructure</span>
+        </div>
+        <div class="project-desc">
+          The revenue engine: your deployed landing page, newsletter system, payment integration, and community backend. Not a "project" you demo — it's the infrastructure that makes everything else monetizable. Get this live before building anything else.
+        </div>
+        <div class="detail-grid">
+          <div class="detail-box">
+            <div class="detail-label">MVP Components</div>
+            <ul>
+              <li>Landing page deployed on Vercel or Cloudflare Pages</li>
+              <li>Beehiiv newsletter with welcome sequence</li>
+              <li>Whop or Skool community at $9.99/month</li>
+              <li>Free tier for first 10 founding members</li>
+              <li>Linktree or Beacons page linking everything</li>
+            </ul>
+          </div>
+          <div class="detail-box">
+            <div class="detail-label">Launch Sequence</div>
+            <ul>
+              <li>Buy domain + set up DNS</li>
+              <li>Deploy landing page (the one already built)</li>
+              <li>Connect Whop payment link to CTA buttons</li>
+              <li>Set up Beehiiv with lead magnet delivery</li>
+              <li>Wire analytics: Plausible or Umami (privacy-first)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-tag">next.js / html</span>
+          <span class="tech-tag">vercel</span>
+          <span class="tech-tag">beehiiv</span>
+          <span class="tech-tag">whop / skool</span>
+          <span class="tech-tag">plausible</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== 09 ========== -->
+    <div class="project-card">
+      <div class="project-num">09</div>
+      <div class="project-body">
+        <div class="project-top">
+          <div class="project-title">AI Meeting Summarizer</div>
+          <span class="project-type agent">claude code agent</span>
+        </div>
+        <div class="project-desc">
+          Drop in a meeting recording or transcript. The agent extracts action items, assigns owners, estimates time, and pushes tasks to your project management tool. Cover the failure modes — bad audio, cross-talk, ambiguous commitments — that real production systems need to handle.
+        </div>
+        <div class="detail-grid">
+          <div class="detail-box">
+            <div class="detail-label">MVP Features</div>
+            <ul>
+              <li>Input: audio file, transcript, or meeting notes paste</li>
+              <li>Whisper API for audio to text if needed</li>
+              <li>Claude extracts: decisions, action items, owners, deadlines</li>
+              <li>Structured output: JSON or markdown summary</li>
+              <li>Push tasks to Linear, Notion, or Todoist via API</li>
+            </ul>
+          </div>
+          <div class="detail-box">
+            <div class="detail-label">Edge Cases to Handle</div>
+            <ul>
+              <li>Ambiguous ownership ("someone should...")</li>
+              <li>No explicit deadlines mentioned — infer or flag</li>
+              <li>Multiple topics in one meeting — section by topic</li>
+              <li>Poor audio quality — confidence scoring on transcript</li>
+              <li>Long meetings (60min+) — chunking for context limits</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-tag">claude code</span>
+          <span class="tech-tag">whisper api</span>
+          <span class="tech-tag">linear / notion api</span>
+          <span class="tech-tag">telegram mcp</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== 10 ========== -->
+    <div class="project-card">
+      <div class="project-num">10</div>
+      <div class="project-body">
+        <div class="project-top">
+          <div class="project-title">Build-in-Public Journal System</div>
+          <span class="project-type agent">claude code agent</span>
+        </div>
+        <div class="project-desc">
+          A scheduled agent that pulls your daily git commits, n8n workflow changes, X post analytics, and YouTube stats — then drafts a weekly build log for your blog or newsletter. Feeds your "build logs and transparency" content pillar (15% of content) on autopilot.
+        </div>
+        <div class="detail-grid">
+          <div class="detail-box">
+            <div class="detail-label">MVP Features</div>
+            <ul>
+              <li>Pulls GitHub commit history for the week</li>
+              <li>Pulls X analytics: top posts, follower growth, impressions</li>
+              <li>Pulls YouTube: views, subs gained, top-performing content</li>
+              <li>Claude drafts a build log in your voice</li>
+              <li>Outputs to Ghost, markdown file, or Beehiiv draft</li>
+            </ul>
+          </div>
+          <div class="detail-box">
+            <div class="detail-label">Architecture</div>
+            <ul>
+              <li>Scheduled Remote Task: runs every Sunday 6 PM</li>
+              <li>MCP servers: GitHub, X API, YouTube Data API</li>
+              <li>Template: wins / losses / metrics / next week's focus</li>
+              <li>Human review step before publishing</li>
+              <li>Archives all logs for long-term trend tracking</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-tag">claude code</span>
+          <span class="tech-tag">remote tasks</span>
+          <span class="tech-tag">github api</span>
+          <span class="tech-tag">x api</span>
+          <span class="tech-tag">youtube data api</span>
+          <span class="tech-tag">beehiiv / ghost</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== 11 ========== -->
+    <div class="project-card">
+      <div class="project-num">11</div>
+      <div class="project-body">
+        <div class="project-top">
+          <div class="project-title">SMS AI Task Manager</div>
+          <span class="project-type agent">claude code agent</span>
+        </div>
+        <div class="project-desc">
+          A to-do list with an AI agent behind it, connected to your phone number. Text it tasks, it organizes them by priority and context. Ask it "what's next?" and it knows your schedule, your current projects, and what's overdue. Persistent memory across every conversation. You carry your entire task system in your text messages.
+        </div>
+        <div class="detail-grid">
+          <div class="detail-box">
+            <div class="detail-label">MVP Features</div>
+            <ul>
+              <li>SMS interface via Twilio — text to add/complete/query tasks</li>
+              <li>Natural language: "remind me to ship the video tomorrow 9am"</li>
+              <li>Agent categorizes by project, priority, and deadline</li>
+              <li>Daily morning text: today's tasks ranked by priority</li>
+              <li>Persistent memory: remembers context across all messages</li>
+            </ul>
+          </div>
+          <div class="detail-box">
+            <div class="detail-label">Advanced Features</div>
+            <ul>
+              <li>"What's overdue?" — scans all tasks and reports</li>
+              <li>"What did I do this week?" — generates summary</li>
+              <li>Snooze via text: "push the Beehiiv setup to Friday"</li>
+              <li>Project awareness: links tasks to active projects</li>
+              <li>Web dashboard companion for full task view</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-row">
+          <span class="tech-tag">claude code</span>
+          <span class="tech-tag">twilio sms</span>
+          <span class="tech-tag">remote tasks</span>
+          <span class="tech-tag">supabase / sqlite</span>
+          <span class="tech-tag">react dashboard</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /project-list -->
+
+  <!-- FOOTER -->
+  <footer class="page-footer">
+    <div class="footer-inner">
+      <span>AIOpsForge · build roadmap · 11 production systems</span>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="blogs.html">Blog</a>
+        <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener">Join</a>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /container -->
+
+</body>
+</html>
