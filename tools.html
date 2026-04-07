@@ -575,13 +575,33 @@ body {
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 600px) {
-  .detail-grid { grid-template-columns: 1fr; }
+@media (max-width: 700px) {
+  .nav-links { gap: 8px; }
+  .nav-links a:not(.nav-cta) { font-size: 10px; }
   .project-card { grid-template-columns: 1fr; }
   .project-num { display: none; }
+}
+
+@media (max-width: 600px) {
+  .detail-grid { grid-template-columns: 1fr; }
   .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
-  .nav-links { gap: 12px; }
-  .nav-links a:not(.nav-cta) { font-size: 11px; }
+  .site-nav { padding: 0 12px; }
+  .nav-links { gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+  .nav-links a:not(.nav-cta) { font-size: 10px; }
+  .page-header { padding: 100px 0 40px; }
+  .project-btns { flex-direction: column; }
+  .btn-standalone, .btn-community { text-align: center; justify-content: center; }
+  .tech-row { gap: 6px; }
+  .tech-tag { font-size: 10px; }
+}
+
+@media (max-width: 400px) {
+  .container { padding: 0 16px; }
+  .page-header h1 { font-size: 28px; }
+  .project-title { font-size: 18px; }
+  .project-desc { font-size: 14px; }
+  .detail-box { padding: 12px; }
+  .project-card { padding: 32px 0; }
 }
 </style>
 </head>
