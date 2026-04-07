@@ -134,12 +134,12 @@ body {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 16px;
 }
 
 .nav-links a {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-dim);
   text-decoration: none;
   letter-spacing: 0.5px;
@@ -211,7 +211,7 @@ body {
 .nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
 .nav-open .nav-toggle span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .nav-toggle { display: block; }
   .nav-links {
     position: fixed;
@@ -708,6 +708,62 @@ body {
   margin-top: 12px;
 }
 
+.spots-bar-wrap {
+  margin-top: 20px;
+  margin-bottom: 4px;
+}
+
+.spots-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  margin-bottom: 8px;
+}
+
+.spots-bar-label .spots-count {
+  color: var(--green);
+  font-weight: 700;
+}
+
+.spots-bar-label .spots-total {
+  color: var(--text-dim);
+}
+
+.spots-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.spots-bar-fill {
+  height: 100%;
+  background: var(--green);
+  width: 0%;
+  transition: width 1.2s ease-out;
+  box-shadow: 0 0 8px var(--green-glow-strong);
+}
+
+.spots-bar-note {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-top: 8px;
+}
+
+.founding-badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--green);
+  padding: 4px 10px;
+  border: 1px solid var(--border-green);
+  background: var(--green-glow);
+  margin-bottom: 16px;
+}
+
 .popup-success {
   display: none;
   text-align: center;
@@ -758,6 +814,7 @@ body {
       <a href="tools.html">Tools</a>
       <a href="pricing.html">Pricing</a>
       <a href="custom-solutions.html">Custom Solutions</a>
+      <a href="newsletter.html">Newsletter</a>
       <a href="#" class="nav-cta waitlist-trigger">Waitlist</a>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">&#9728;</button>
     </div>
@@ -1004,11 +1061,22 @@ function filterPosts(category) {
     <button class="popup-close" id="popupClose">x</button>
     <div id="popupContent">
       <div class="popup-label">join the waitlist</div>
-      <div class="popup-title">Get early access.<br>Be first in line.</div>
-      <p class="popup-desc">Join the waitlist for AIOpsForge — production-grade AI tools, community access, and weekly engineering builds. We'll notify you when spots open.</p>
+      <div class="founding-badge">founding member access</div>
+      <div class="popup-title">First 10 members get in free.</div>
+      <p class="popup-desc">Founding members get free beta access and lock in $9.99/month when we launch. After 10 spots fill, price increases to $19.99/month.</p>
+      <div class="spots-bar-wrap">
+        <div class="spots-bar-label">
+          <span class="spots-count">7 of 10 spots remaining</span>
+          <span class="spots-total">30%</span>
+        </div>
+        <div class="spots-bar">
+          <div class="spots-bar-fill" id="spotsBarFill"></div>
+        </div>
+        <div class="spots-bar-note">Price increases to $19.99/month after all spots fill</div>
+      </div>
       <form class="popup-form" id="popupForm">
         <input type="email" placeholder="your@email.com" required id="popupEmail">
-        <button type="submit">Subscribe →</button>
+        <button type="submit">Claim your spot →</button>
       </form>
       <div class="popup-note">We'll email you when access opens. No spam.</div>
     </div>
@@ -1027,18 +1095,42 @@ function filterPosts(category) {
   var form = document.getElementById('popupForm');
   var content = document.getElementById('popupContent');
   var success = document.getElementById('popupSuccess');
-  if (localStorage.getItem('aof_popup_dismissed')) return;
-  setTimeout(function() { popup.classList.add('active'); }, 5000);
-  function closePopup() { popup.classList.remove('active'); localStorage.setItem('aof_popup_dismissed', '1'); }
+  var spotsBar = document.getElementById('spotsBarFill');
+
+  function closePopup() {
+    popup.classList.remove('active');
+  }
+
   closeBtn.addEventListener('click', closePopup);
-  popup.addEventListener('click', function(e) { if (e.target === popup) closePopup(); });
-  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closePopup(); });
+
+  popup.addEventListener('click', function(e) {
+    if (e.target === popup) closePopup();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closePopup();
+  });
+
+  var observer = new MutationObserver(function() {
+    if (popup.classList.contains('active') && spotsBar) {
+      setTimeout(function() { spotsBar.style.width = '30%'; }, 200);
+    }
+  });
+  observer.observe(popup, { attributes: true, attributeFilter: ['class'] });
+
+  if (!localStorage.getItem('aof_popup_dismissed')) {
+    setTimeout(function() {
+      popup.classList.add('active');
+    }, 5000);
+  }
+
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     var email = document.getElementById('popupEmail').value;
     var btn = form.querySelector('button');
     btn.textContent = '...';
     btn.disabled = true;
+
     fetch('/api/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
