@@ -117,6 +117,49 @@ body {
   box-shadow: 0 0 16px var(--green-glow-strong);
 }
 
+/* ============ HAMBURGER ============ */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 1001;
+}
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--green);
+  margin: 5px 0;
+  transition: all 0.3s;
+}
+.nav-open .nav-toggle span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
+.nav-open .nav-toggle span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+@media (max-width: 768px) {
+  .nav-toggle { display: block; }
+  .nav-links {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(10, 10, 10, 0.98);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    display: none;
+  }
+  .nav-open .nav-links { display: flex; }
+  .nav-links a { font-size: 16px !important; }
+  .nav-cta { padding: 12px 24px !important; font-size: 13px !important; }
+}
+
 /* ============ UTILITY ============ */
 .container {
   max-width: 1100px;
@@ -658,30 +701,281 @@ body {
 
 .compare-card.highlight .verdict { color: var(--green-dim); }
 
-/* ============ MATH SECTION ============ */
-.math-section { max-width: 700px; margin: 0 auto; }
-
-.math-block {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  padding: 28px;
-  margin: 24px 0;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
-  line-height: 2;
+/* ============ TOOLS PREVIEW ============ */
+.tools-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 32px;
 }
 
-.math-block .line { color: var(--text-secondary); }
-.math-block .highlight { color: var(--green); font-weight: 700; }
-.math-block .dim { color: var(--text-dim); }
+.tool-preview-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 24px;
+  transition: all 0.3s;
+}
 
-.math-block .result {
-  color: var(--green);
+.tool-preview-card:hover {
+  border-color: var(--border-green);
+  background: var(--bg-card-hover);
+}
+
+.tool-preview-card .tool-name {
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 16px;
   font-weight: 700;
-  margin-top: 8px;
-  padding-top: 12px;
+  margin-bottom: 8px;
+}
+
+.tool-preview-card .tool-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.tool-preview-card .tool-meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.tool-preview-card .tool-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+}
+
+.tool-badge.live {
+  color: var(--green);
+  border: 1px solid var(--border-green);
+  background: var(--green-glow);
+}
+
+.tool-badge.soon {
+  color: #FFB800;
+  border: 1px solid rgba(255, 184, 0, 0.25);
+  background: rgba(255, 184, 0, 0.05);
+}
+
+.tool-preview-card .tool-credits {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.tools-preview-cta {
+  text-align: center;
+  margin-top: 32px;
+}
+
+.tools-preview-cta a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--green);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: gap 0.2s;
+}
+
+.tools-preview-cta a:hover { gap: 12px; }
+
+/* ============ REQUEST SECTION ============ */
+.request-section {
+  background: var(--bg-secondary);
   border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.request-form {
+  max-width: 600px;
+  margin: 32px auto 0;
+}
+
+.request-form textarea {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  padding: 16px;
+  resize: vertical;
+  min-height: 100px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.request-form textarea::placeholder { color: var(--text-dim); }
+.request-form textarea:focus { border-color: var(--border-green); }
+
+.request-form button {
+  margin-top: 12px;
+  background: var(--green);
+  color: #000;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 12px 24px;
+  border: 1px solid var(--green);
+  cursor: pointer;
+  transition: all 0.25s;
+  letter-spacing: 0.5px;
+}
+
+.request-form button:hover {
+  background: #33ff66;
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+}
+
+.request-success {
+  display: none;
+  text-align: center;
+  padding: 20px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--green);
+}
+
+/* ============ CHATBOT ============ */
+.chatbot-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  width: 52px;
+  height: 52px;
+  background: var(--green);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  box-shadow: 0 4px 20px rgba(0, 255, 65, 0.3);
+}
+
+.chatbot-toggle:hover {
+  background: #33ff66;
+  box-shadow: 0 4px 30px rgba(0, 255, 65, 0.5);
+}
+
+.chatbot-toggle svg { width: 24px; height: 24px; fill: #000; }
+
+.chatbot-panel {
+  position: fixed;
+  bottom: 88px;
+  right: 24px;
+  z-index: 999;
+  width: 360px;
+  max-height: 480px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-green);
+  display: none;
+  flex-direction: column;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+}
+
+.chatbot-panel.open { display: flex; }
+
+.chatbot-header {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chatbot-header span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--green);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.chatbot-header button {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 18px;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 0 4px;
+}
+
+.chatbot-header button:hover { color: var(--green); }
+
+.chatbot-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 340px;
+}
+
+.chat-msg {
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 10px 14px;
+  max-width: 85%;
+}
+
+.chat-msg.bot {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  align-self: flex-start;
+}
+
+.chat-msg.user {
+  background: rgba(0, 255, 65, 0.08);
+  border: 1px solid var(--border-green);
+  color: var(--text-primary);
+  align-self: flex-end;
+}
+
+.chatbot-input {
+  display: flex;
+  border-top: 1px solid var(--border);
+}
+
+.chatbot-input input {
+  flex: 1;
+  background: var(--bg-primary);
+  border: none;
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  padding: 14px;
+  outline: none;
+}
+
+.chatbot-input input::placeholder { color: var(--text-dim); }
+
+.chatbot-input button {
+  background: var(--green);
+  color: #000;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 14px 16px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.chatbot-input button:hover { background: #33ff66; }
+
+@media (max-width: 500px) {
+  .chatbot-panel { left: 16px; right: 16px; width: auto; bottom: 80px; }
 }
 
 /* ============ PROMISE SECTION ============ */
@@ -879,8 +1173,6 @@ body {
 @media (max-width: 700px) {
   .who-grid { grid-template-columns: 1fr; }
   .choices-grid { grid-template-columns: 1fr; }
-  .nav-links { gap: 8px; }
-  .nav-links a:not(.nav-cta) { font-size: 10px; }
 }
 
 @media (max-width: 600px) {
@@ -891,9 +1183,6 @@ body {
   .hero .subtitle { font-size: 16px; }
   .section-pad { padding: 64px 0; }
   .footer-inner { flex-direction: column; gap: 16px; }
-  .site-nav { padding: 0 12px; }
-  .nav-links { gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
-  .nav-links a:not(.nav-cta) { font-size: 10px; }
   .testimonials-grid { grid-template-columns: 1fr; }
 }
 
@@ -1099,12 +1388,12 @@ body {
 <nav class="site-nav">
   <div class="nav-inner">
     <a href="index.html" class="nav-brand"><img src="favicon.png" alt="AIOpsForge" class="nav-logo">AIOpsForge</a>
+    <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
     <div class="nav-links">
       <a href="index.html" class="active">Home</a>
       <a href="blogs.html">Blog</a>
       <a href="tools.html">Tools</a>
-      <a href="#pricing">Pricing</a>
-      <a href="https://aithings-landing-m6swhso68-pravinemani5545s-projects.vercel.app/" target="_blank" rel="noopener">AI Task Manager</a>
+      <a href="pricing.html">Pricing</a>
       <a href="https://whop.com/ai-ops-forge/" class="nav-cta" target="_blank" rel="noopener">Join</a>
     </div>
   </div>
@@ -1380,27 +1669,66 @@ body {
   </div>
 </section>
 
-<!-- ===================== MATH / PRICING ===================== -->
-<section class="section-pad" id="pricing">
+<!-- ===================== TOOLS PREVIEW ===================== -->
+<section class="section-pad" id="tools">
   <div class="container">
-    <div class="math-section">
-      <p class="section-label">the math</p>
-      <div class="section-title">let's do some math.</div>
-      <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px;">if you're building AI automations for clients or your own business, one broken workflow costs you more than a year of membership.</p>
-      <div class="math-block">
-        <div class="line"><span class="dim"># scenario: workflow fails at 3 AM</span></div>
-        <div class="line">debug_time = <span class="highlight">4 hours</span></div>
-        <div class="line">your_hourly_rate = <span class="highlight">$75</span></div>
-        <div class="line">client_trust_damage = <span class="highlight">unquantifiable</span></div>
-        <div class="line"><span class="dim">---</span></div>
-        <div class="line">cost_of_one_failure = <span class="highlight">$300+</span></div>
-        <br>
-        <div class="line"><span class="dim"># scenario: you built it right the first time</span></div>
-        <div class="line">monthly_membership = <span class="highlight">$9.99</span></div>
-        <div class="line">failures_prevented = <span class="highlight">all of them</span></div>
-        <div class="result">→ ROI: one prevented failure pays for 2.5 years</div>
+    <div style="text-align: center;">
+      <p class="section-label">the toolkit</p>
+      <div class="section-title">11 Production-Grade AI Systems</div>
+      <p style="color: var(--text-secondary); line-height: 1.8; max-width: 600px; margin: 16px auto 0;">Each tool is a complete system — architecture, error handling, token costs, and deployment instructions included.</p>
+    </div>
+    <div class="tools-preview-grid">
+      <div class="tool-preview-card" style="border-color: var(--border-green);">
+        <div class="tool-name">SMS AI Task Manager</div>
+        <div class="tool-desc">Text tasks to your AI agent. It organizes by priority, tracks deadlines, sends daily summaries. Persistent memory across every conversation.</div>
+        <div class="tool-meta">
+          <span class="tool-badge live">live</span>
+          <span class="tool-credits">25 credits/run</span>
+        </div>
       </div>
-      <p style="color: var(--text-secondary); line-height: 1.8;">the real cost isn't the subscription. it's shipping systems that break because you skipped the edge cases. every build here includes the failure modes, the fallback logic, and the monitoring — so your systems work when nobody's watching.</p>
+      <div class="tool-preview-card">
+        <div class="tool-name">Client Onboarding Agent</div>
+        <div class="tool-desc">14-node n8n + Claude automation. Runs 31 days without intervention. $0.08/run.</div>
+        <div class="tool-meta">
+          <span class="tool-badge soon">coming soon</span>
+          <span class="tool-credits">45 credits/run</span>
+        </div>
+      </div>
+      <div class="tool-preview-card">
+        <div class="tool-name">Content Repurposing Pipeline</div>
+        <div class="tool-desc">One input, seven outputs. Blog to X thread, newsletter, TikTok captions, and more.</div>
+        <div class="tool-meta">
+          <span class="tool-badge soon">coming soon</span>
+          <span class="tool-credits">32 credits/run</span>
+        </div>
+      </div>
+      <div class="tool-preview-card">
+        <div class="tool-name">Competitive Research Agent</div>
+        <div class="tool-desc">Monitors competitors daily. Scrapes, analyzes, and sends structured Telegram digests.</div>
+        <div class="tool-meta">
+          <span class="tool-badge soon">coming soon</span>
+          <span class="tool-credits">38 credits/run</span>
+        </div>
+      </div>
+      <div class="tool-preview-card">
+        <div class="tool-name">Workflow Monitoring System</div>
+        <div class="tool-desc">Meta-system that watches all your automations. Health checks, cost alerts, Telegram notifications.</div>
+        <div class="tool-meta">
+          <span class="tool-badge soon">coming soon</span>
+          <span class="tool-credits">15 credits/run</span>
+        </div>
+      </div>
+      <div class="tool-preview-card">
+        <div class="tool-name">Lead Scoring Engine</div>
+        <div class="tool-desc">AI-powered lead qualification. Scores, segments, and routes leads automatically.</div>
+        <div class="tool-meta">
+          <span class="tool-badge soon">coming soon</span>
+          <span class="tool-credits">22 credits/run</span>
+        </div>
+      </div>
+    </div>
+    <div class="tools-preview-cta">
+      <a href="tools.html">View all 11 systems + detailed specs →</a>
     </div>
   </div>
 </section>
@@ -1488,7 +1816,7 @@ body {
     </div>
     <div class="cta-group">
       <a href="https://whop.com/ai-ops-forge/" class="cta-btn" target="_blank" rel="noopener">Join the community — $9.99/month →</a>
-      <span class="cta-sub">first 10 founding members get lifetime access free</span>
+      <span class="cta-sub"><a href="pricing.html" style="color: var(--green); text-decoration: none;">View full pricing and credit details →</a></span>
       <div class="trust-bar">
         <span class="trust-item"><span class="check">✓</span> Cancel anytime</span>
         <span class="trust-item"><span class="check">✓</span> No long-term commitment</span>
@@ -1496,6 +1824,25 @@ body {
         <span class="trust-item"><span class="check">✓</span> Secure checkout</span>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ===================== REQUEST TOOLS ===================== -->
+<section class="request-section section-pad">
+  <div class="container">
+    <div style="text-align: center;">
+      <p class="section-label">shape the roadmap</p>
+      <div class="section-title">Request a Tool or Feature</div>
+      <p style="color: var(--text-secondary); line-height: 1.8; max-width: 550px; margin: 12px auto 0;">Building something specific? Need a system we haven't listed? Tell us what you need and we'll prioritize it.</p>
+    </div>
+    <div class="request-form" id="requestForm">
+      <textarea placeholder="Describe the tool, feature, or integration you'd like to see built..." id="requestText"></textarea>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <input type="email" placeholder="your@email.com (optional)" id="requestEmail" style="flex: 1; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-primary); font-family: 'JetBrains Mono', monospace; font-size: 13px; padding: 12px 16px; outline: none;">
+        <button type="button" onclick="submitRequest()">Submit Request →</button>
+      </div>
+    </div>
+    <div class="request-success" id="requestSuccess">Request submitted. We'll review it and update the roadmap.</div>
   </div>
 </section>
 
@@ -1515,7 +1862,7 @@ body {
 <!-- ===================== NEWSLETTER POPUP ===================== -->
 <div class="popup-overlay" id="newsletterPopup">
   <div class="popup-box">
-    <button class="popup-close" id="popupClose">+</button>
+    <button class="popup-close" id="popupClose">x</button>
     <div id="popupContent">
       <div class="popup-label">join the forge</div>
       <div class="popup-title">Get the blueprint.<br>Every week.</div>
@@ -1593,6 +1940,104 @@ body {
       setTimeout(closePopup, 2500);
     });
   });
+})();
+</script>
+
+<!-- ===================== AI CHATBOT ===================== -->
+<button class="chatbot-toggle" id="chatbotToggle" aria-label="Chat with AI">
+  <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+</button>
+
+<div class="chatbot-panel" id="chatbotPanel">
+  <div class="chatbot-header">
+    <span>AIOpsForge AI</span>
+    <button id="chatbotClose">x</button>
+  </div>
+  <div class="chatbot-messages" id="chatbotMessages">
+    <div class="chat-msg bot">Hey — I'm the AIOpsForge assistant. Ask me about the tools, pricing, credit system, or anything about the community.</div>
+  </div>
+  <div class="chatbot-input">
+    <input type="text" id="chatbotInput" placeholder="Ask a question...">
+    <button id="chatbotSend">→</button>
+  </div>
+</div>
+
+<script>
+// Hamburger menu
+document.querySelector('.nav-toggle').addEventListener('click', function() {
+  document.querySelector('.site-nav').classList.toggle('nav-open');
+});
+document.querySelectorAll('.nav-links a').forEach(function(link) {
+  link.addEventListener('click', function() {
+    document.querySelector('.site-nav').classList.remove('nav-open');
+  });
+});
+
+// Request form
+function submitRequest() {
+  var text = document.getElementById('requestText').value.trim();
+  if (!text) return;
+  document.getElementById('requestForm').style.display = 'none';
+  document.getElementById('requestSuccess').style.display = 'block';
+}
+
+// Chatbot
+(function() {
+  var toggle = document.getElementById('chatbotToggle');
+  var panel = document.getElementById('chatbotPanel');
+  var closeBtn = document.getElementById('chatbotClose');
+  var input = document.getElementById('chatbotInput');
+  var sendBtn = document.getElementById('chatbotSend');
+  var messages = document.getElementById('chatbotMessages');
+
+  // Knowledge base — add your own context here
+  var knowledge = {
+    tools: 'AIOpsForge has 11 production-grade AI systems. The SMS AI Task Manager is live now — the rest are coming soon: Client Onboarding Agent, Content Repurposing Pipeline, Competitive Research Agent, AI Content Writer, Workflow Monitoring System, Lead Scoring Engine, Invoice Processing Pipeline, Customer Support Bot, Data Enrichment Pipeline, and Meeting Summarizer.',
+    pricing: 'We have three plans: Explorer (free, 50 credits/month, 3 starter tools), Builder ($9.99/month, 2,000 credits/month, all 11 tools), and Whop Community ($9.99/month founding price, locks in before $19.99 — includes live build sessions and direct access). Only 10 founding spots. 1 credit = 1,000 tokens.',
+    credits: '1 credit equals approximately 1,000 tokens. Each tool has a per-run credit cost ranging from 15 to 45 credits. Your credits reset monthly. Builder plan gets 2,000 credits/month.',
+    community: 'AIOpsForge is an engineering-focused AI systems community. Members get weekly production-grade builds with architecture, error handling, token costs, and deployment instructions. Join via Whop at whop.com/ai-ops-forge/',
+    builds: 'Every week you get a new production-grade AI system build. Each includes the full architecture, error handling patterns, fallback logic, token cost analysis, and deployment instructions. No fluff — just engineering.',
+    cancel: 'You can cancel anytime with one click through Whop. No questions asked, no annual commitment.',
+    taskmanager: 'The AI Task Manager is one of our 11 tools. It provides intelligent task management with AI-powered prioritization. You can try the standalone version at aithings-landing.vercel.app'
+  };
+
+  function findAnswer(q) {
+    q = q.toLowerCase();
+    if (q.match(/pric|cost|pay|money|plan|tier|free|9\.99|\$/)) return knowledge.pricing;
+    if (q.match(/credit|token/)) return knowledge.credits;
+    if (q.match(/tool|system|agent|pipeline|bot|11/)) return knowledge.tools;
+    if (q.match(/cancel|refund|stop/)) return knowledge.cancel;
+    if (q.match(/build|week|new|content|what do i get/)) return knowledge.builds;
+    if (q.match(/community|join|whop|member/)) return knowledge.community;
+    if (q.match(/task manager|task/)) return knowledge.taskmanager;
+    return 'Great question. For detailed answers, check our Tools page or Pricing page, or join the community at whop.com/ai-ops-forge/ — we\'re happy to help there.';
+  }
+
+  function addMsg(text, type) {
+    var div = document.createElement('div');
+    div.className = 'chat-msg ' + type;
+    div.textContent = text;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function send() {
+    var q = input.value.trim();
+    if (!q) return;
+    addMsg(q, 'user');
+    input.value = '';
+    setTimeout(function() { addMsg(findAnswer(q), 'bot'); }, 400);
+  }
+
+  toggle.addEventListener('click', function() {
+    panel.classList.toggle('open');
+    if (panel.classList.contains('open')) input.focus();
+  });
+
+  closeBtn.addEventListener('click', function() { panel.classList.remove('open'); });
+
+  sendBtn.addEventListener('click', send);
+  input.addEventListener('keydown', function(e) { if (e.key === 'Enter') send(); });
 })();
 </script>
 

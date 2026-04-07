@@ -117,6 +117,49 @@ body {
   box-shadow: 0 0 16px var(--green-glow-strong);
 }
 
+/* Hamburger */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 1001;
+}
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--green);
+  margin: 5px 0;
+  transition: all 0.3s;
+}
+.nav-open .nav-toggle span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
+.nav-open .nav-toggle span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+@media (max-width: 768px) {
+  .nav-toggle { display: block; }
+  .nav-links {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(10, 10, 10, 0.98);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    display: none;
+  }
+  .nav-open .nav-links { display: flex; }
+  .nav-links a { font-size: 16px !important; }
+  .nav-cta { padding: 12px 24px !important; font-size: 13px !important; }
+}
+
 /* ============ LAYOUT ============ */
 .container {
   max-width: 1100px;
@@ -417,17 +460,12 @@ body {
 
 /* ============ RESPONSIVE ============ */
 @media (max-width: 700px) {
-  .nav-links { gap: 8px; }
-  .nav-links a:not(.nav-cta) { font-size: 10px; }
   .blog-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 600px) {
   .featured-post { padding: 24px; }
   .footer-inner { flex-direction: column; gap: 16px; }
-  .site-nav { padding: 0 12px; }
-  .nav-links { gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
-  .nav-links a:not(.nav-cta) { font-size: 10px; }
   .page-header { padding: 100px 0 40px; }
   .filter-bar { gap: 6px; }
   .filter-btn { font-size: 10px; padding: 5px 10px; }
@@ -634,12 +672,12 @@ body {
 <nav class="site-nav">
   <div class="nav-inner">
     <a href="index.html" class="nav-brand"><img src="favicon.png" alt="AIOpsForge" class="nav-logo">AIOpsForge</a>
+    <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
     <div class="nav-links">
       <a href="index.html">Home</a>
       <a href="blogs.html" class="active">Blog</a>
       <a href="tools.html">Tools</a>
-      <a href="index.html#pricing">Pricing</a>
-      <a href="https://aithings-landing-m6swhso68-pravinemani5545s-projects.vercel.app/" target="_blank" rel="noopener">AI Task Manager</a>
+      <a href="pricing.html">Pricing</a>
       <a href="https://whop.com/ai-ops-forge/" class="nav-cta" target="_blank" rel="noopener">Join</a>
     </div>
   </div>
@@ -882,7 +920,7 @@ function filterPosts(category) {
 <!-- ===================== NEWSLETTER POPUP ===================== -->
 <div class="popup-overlay" id="newsletterPopup">
   <div class="popup-box">
-    <button class="popup-close" id="popupClose">+</button>
+    <button class="popup-close" id="popupClose">x</button>
     <div id="popupContent">
       <div class="popup-label">join the forge</div>
       <div class="popup-title">Get the blueprint.<br>Every week.</div>
@@ -940,6 +978,17 @@ function filterPosts(category) {
     });
   });
 })();
+</script>
+
+<script>
+document.querySelector('.nav-toggle').addEventListener('click', function() {
+  document.querySelector('.site-nav').classList.toggle('nav-open');
+});
+document.querySelectorAll('.nav-links a').forEach(function(link) {
+  link.addEventListener('click', function() {
+    document.querySelector('.site-nav').classList.remove('nav-open');
+  });
+});
 </script>
 
 </body>
