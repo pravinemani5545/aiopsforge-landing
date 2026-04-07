@@ -30,6 +30,58 @@
   --cyan: #22d3ee;
 }
 
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --green: #00892e;
+    --green-dim: #006b24;
+    --green-glow: rgba(0, 137, 46, 0.08);
+    --green-glow-strong: rgba(0, 137, 46, 0.25);
+    --green-border: rgba(0, 137, 46, 0.2);
+    --bg-0: #f8f8f8;
+    --bg-1: #f0f0f0;
+    --bg-2: #e8e8e8;
+    --bg-card: #ffffff;
+    --bg-card-hover: #fafafa;
+    --border: #d4d4d4;
+    --text-1: #1a1a1a;
+    --text-2: #555555;
+    --text-3: #888888;
+    --amber: #cc8800;
+    --blue: #2266cc;
+    --red: #cc3333;
+    --cyan: #0d8fa0;
+  }
+}
+
+:root[data-theme="light"] {
+  --green: #00892e;
+  --green-dim: #006b24;
+  --green-glow: rgba(0, 137, 46, 0.08);
+  --green-glow-strong: rgba(0, 137, 46, 0.25);
+  --green-border: rgba(0, 137, 46, 0.2);
+  --bg-0: #f8f8f8;
+  --bg-1: #f0f0f0;
+  --bg-2: #e8e8e8;
+  --bg-card: #ffffff;
+  --bg-card-hover: #fafafa;
+  --border: #d4d4d4;
+  --text-1: #1a1a1a;
+  --text-2: #555555;
+  --text-3: #888888;
+  --amber: #cc8800;
+  --blue: #2266cc;
+  --red: #cc3333;
+  --cyan: #0d8fa0;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .site-nav { background: rgba(248, 248, 248, 0.85); }
+  :root:not([data-theme="dark"]) .popup-overlay { background: rgba(255, 255, 255, 0.7); }
+}
+:root[data-theme="light"] .site-nav { background: rgba(248, 248, 248, 0.85); }
+:root[data-theme="light"] .popup-overlay { background: rgba(255, 255, 255, 0.7); }
+:root[data-theme="light"] .nav-links { background: rgba(248, 248, 248, 0.98) !important; }
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
@@ -118,6 +170,29 @@ body {
   background: #33ff66;
   box-shadow: 0 0 16px rgba(0, 255, 65, 0.3);
 }
+
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  color: #ffffff;
+  cursor: pointer;
+  padding: 6px 10px;
+  min-width: 36px;
+  min-height: 36px;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+.theme-toggle:hover {
+  color: var(--green);
+  border-color: var(--green-border);
+}
+:root[data-theme="light"] .theme-toggle { color: #1a1a1a; }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .theme-toggle { color: #1a1a1a; } }
 
 /* Hamburger */
 .nav-toggle {
@@ -688,6 +763,12 @@ body {
   .project-card { padding: 32px 0; }
 }
 </style>
+<script>
+(function() {
+  var t = localStorage.getItem('aof_theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  document.documentElement.setAttribute('data-theme', t);
+})();
+</script>
 </head>
 <body>
 
@@ -701,7 +782,9 @@ body {
       <a href="blogs.html">Blog</a>
       <a href="tools.html" class="active">Tools</a>
       <a href="pricing.html">Pricing</a>
-      <a href="https://whop.com/ai-ops-forge/" class="nav-cta" target="_blank" rel="noopener">Join</a>
+      <a href="custom-solutions.html">Custom Solutions</a>
+      <a href="#" class="nav-cta waitlist-trigger">Waitlist</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">&#9728;</button>
     </div>
   </div>
 </nav>
@@ -777,7 +860,7 @@ body {
         <div class="project-btns">
           <a href="tools/ai-task-manager/" class="btn-standalone">Launch Tool →</a>
           <a href="pricing.html" class="btn-pricing">View Pricing →</a>
-          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Get Access via Community →</a>
+          <a href="#" class="btn-community waitlist-trigger">Join Waitlist →</a>
         </div>
       </div>
     </div>
@@ -831,7 +914,7 @@ body {
         <div class="project-btns">
           <span class="btn-standalone disabled">Coming Soon</span>
           <a href="pricing.html" class="btn-pricing">View Pricing →</a>
-          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Get Access via Community →</a>
+          <a href="#" class="btn-community waitlist-trigger">Join Waitlist →</a>
         </div>
       </div>
     </div>
@@ -885,7 +968,7 @@ body {
         <div class="project-btns">
           <span class="btn-standalone disabled">Coming Soon</span>
           <a href="pricing.html" class="btn-pricing">View Pricing →</a>
-          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Get Access via Community →</a>
+          <a href="#" class="btn-community waitlist-trigger">Join Waitlist →</a>
         </div>
       </div>
     </div>
@@ -940,7 +1023,7 @@ body {
         <div class="project-btns">
           <span class="btn-standalone disabled">Coming Soon</span>
           <a href="pricing.html" class="btn-pricing">View Pricing →</a>
-          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Get Access via Community →</a>
+          <a href="#" class="btn-community waitlist-trigger">Join Waitlist →</a>
         </div>
       </div>
     </div>
@@ -995,7 +1078,7 @@ body {
         <div class="project-btns">
           <span class="btn-standalone disabled">Coming Soon</span>
           <a href="pricing.html" class="btn-pricing">View Pricing →</a>
-          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Get Access via Community →</a>
+          <a href="#" class="btn-community waitlist-trigger">Join Waitlist →</a>
         </div>
       </div>
     </div>
@@ -1050,7 +1133,7 @@ body {
         <div class="project-btns">
           <span class="btn-standalone disabled">Coming Soon</span>
           <a href="pricing.html" class="btn-pricing">View Pricing →</a>
-          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Get Access via Community →</a>
+          <a href="#" class="btn-community waitlist-trigger">Join Waitlist →</a>
         </div>
       </div>
     </div>
@@ -1105,7 +1188,7 @@ body {
         <div class="project-btns">
           <span class="btn-standalone disabled">Coming Soon</span>
           <a href="pricing.html" class="btn-pricing">View Pricing →</a>
-          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Get Access via Community →</a>
+          <a href="#" class="btn-community waitlist-trigger">Join Waitlist →</a>
         </div>
       </div>
     </div>
@@ -1160,7 +1243,7 @@ body {
         <div class="project-btns">
           <span class="btn-standalone disabled">Coming Soon</span>
           <a href="pricing.html" class="btn-pricing">View Pricing →</a>
-          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Get Access via Community →</a>
+          <a href="#" class="btn-community waitlist-trigger">Join Waitlist →</a>
         </div>
       </div>
     </div>
@@ -1215,7 +1298,7 @@ body {
         <div class="project-btns">
           <span class="btn-standalone disabled">Coming Soon</span>
           <a href="pricing.html" class="btn-pricing">View Pricing →</a>
-          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Get Access via Community →</a>
+          <a href="#" class="btn-community waitlist-trigger">Join Waitlist →</a>
         </div>
       </div>
     </div>
@@ -1269,7 +1352,7 @@ body {
         <div class="project-btns">
           <span class="btn-standalone disabled">Coming Soon</span>
           <a href="pricing.html" class="btn-pricing">View Pricing →</a>
-          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Get Access via Community →</a>
+          <a href="#" class="btn-community waitlist-trigger">Join Waitlist →</a>
         </div>
       </div>
     </div>
@@ -1325,7 +1408,7 @@ body {
         <div class="project-btns">
           <span class="btn-standalone disabled">Coming Soon</span>
           <a href="pricing.html" class="btn-pricing">View Pricing →</a>
-          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Get Access via Community →</a>
+          <a href="#" class="btn-community waitlist-trigger">Join Waitlist →</a>
         </div>
       </div>
     </div>
@@ -1351,19 +1434,19 @@ body {
   <div class="popup-box">
     <button class="popup-close" id="popupClose">x</button>
     <div id="popupContent">
-      <div class="popup-label">join the forge</div>
-      <div class="popup-title">Get the blueprint.<br>Every week.</div>
-      <p class="popup-desc">Production-grade AI system builds, token cost breakdowns, and engineering insights — delivered to your inbox. No fluff. No spam.</p>
+      <div class="popup-label">join the waitlist</div>
+      <div class="popup-title">Get early access.<br>Be first in line.</div>
+      <p class="popup-desc">Join the waitlist for AIOpsForge — production-grade AI tools, community access, and weekly engineering builds. We'll notify you when spots open.</p>
       <form class="popup-form" id="popupForm">
         <input type="email" placeholder="your@email.com" required id="popupEmail">
         <button type="submit">Subscribe →</button>
       </form>
-      <div class="popup-note">Free. Unsubscribe anytime. Weekly builds only.</div>
+      <div class="popup-note">We'll email you when access opens. No spam.</div>
     </div>
     <div class="popup-success" id="popupSuccess">
       <div class="check-mark">&#10003;</div>
-      <p>you're in.</p>
-      <span>check your inbox for the first build.</span>
+      <p>you're on the list.</p>
+      <span>we'll reach out when access opens.</span>
     </div>
   </div>
 </div>
@@ -1410,11 +1493,34 @@ body {
 </script>
 
 <script>
+(function() {
+  var root = document.documentElement;
+  var toggle = document.getElementById('themeToggle');
+  var stored = localStorage.getItem('aof_theme');
+  function getSystemTheme() { return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'; }
+  function applyTheme(theme) { root.setAttribute('data-theme', theme); toggle.textContent = theme === 'light' ? '\u263E' : '\u2600'; }
+  if (stored) { applyTheme(stored); } else { applyTheme(getSystemTheme()); }
+  toggle.addEventListener('click', function() { var n = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light'; localStorage.setItem('aof_theme', n); applyTheme(n); });
+  window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) { if (!localStorage.getItem('aof_theme')) applyTheme(e.matches ? 'light' : 'dark'); });
+})();
+</script>
+
+<script>
 document.querySelector('.nav-toggle').addEventListener('click', function() {
   document.querySelector('.site-nav').classList.toggle('nav-open');
 });
 document.querySelectorAll('.nav-links a').forEach(function(link) {
   link.addEventListener('click', function() {
+    document.querySelector('.site-nav').classList.remove('nav-open');
+  });
+});
+</script>
+
+<script>
+document.querySelectorAll('.waitlist-trigger').forEach(function(el) {
+  el.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('newsletterPopup').classList.add('active');
     document.querySelector('.site-nav').classList.remove('nav-open');
   });
 });
