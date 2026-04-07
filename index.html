@@ -785,6 +785,17 @@ body {
 
 .tools-preview-cta a:hover { gap: 12px; }
 
+/* ============ ACCESS MODEL ============ */
+.access-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* ============ REQUEST SECTION ============ */
 .request-section {
   background: var(--bg-secondary);
@@ -1168,6 +1179,7 @@ body {
 /* ============ RESPONSIVE ============ */
 @media (max-width: 800px) {
   .compare-grid { grid-template-columns: 1fr; }
+  .access-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 700px) {
@@ -1729,6 +1741,37 @@ body {
     </div>
     <div class="tools-preview-cta">
       <a href="tools.html">View all 11 systems + detailed specs →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== HOW ACCESS WORKS ===================== -->
+<section class="section-pad" style="background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <div style="text-align: center;">
+      <p class="section-label">how access works</p>
+      <div class="section-title">Use tools with credits.<br>Get credits through a plan or the community.</div>
+      <p style="color: var(--text-secondary); line-height: 1.8; max-width: 550px; margin: 12px auto 0;">Every tool costs credits per run. You choose how to get them.</p>
+    </div>
+    <div class="access-grid">
+      <div style="background: var(--bg-card); border: 1px solid var(--border); padding: 28px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 12px;">step 1</div>
+        <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 10px;">Pick a tool</h3>
+        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.7;">Browse the 11 systems. Each shows a per-run credit cost — from 15 to 45 credits depending on complexity.</p>
+      </div>
+      <div style="background: var(--bg-card); border: 1px solid var(--border); padding: 28px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 12px;">step 2</div>
+        <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 10px;">Get credits</h3>
+        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.7;">Free plan gives 50/month. Builder plan gives 2,000. Community members get credits included. Top up anytime if you need more.</p>
+      </div>
+      <div style="background: var(--bg-card); border: 1px solid var(--border-green); padding: 28px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 12px;">or</div>
+        <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 10px;">Join the community</h3>
+        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.7;">$9.99/month gets you 2,000 credits, live build sessions, architecture reviews, and direct access. 10 founding spots at this price.</p>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 32px;">
+      <a href="pricing.html" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--green); text-decoration: none;">See full pricing and credit details →</a>
     </div>
   </div>
 </section>

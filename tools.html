@@ -388,6 +388,7 @@ body {
 }
 
 .btn-standalone,
+.btn-pricing,
 .btn-community {
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
@@ -403,27 +404,38 @@ body {
 }
 
 .btn-standalone {
+  background: var(--green);
+  color: #000;
+  border: 1px solid var(--green);
+}
+
+.btn-standalone:hover {
+  background: #33ff66;
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-pricing {
   background: transparent;
   color: var(--green);
   border: 1px solid var(--green-border);
 }
 
-.btn-standalone:hover {
+.btn-pricing:hover {
   background: rgba(0, 255, 65, 0.08);
   border-color: var(--green);
   box-shadow: 0 0 16px rgba(0, 255, 65, 0.15);
 }
 
 .btn-community {
-  background: var(--green);
-  color: #000;
-  border: 1px solid var(--green);
+  background: transparent;
+  color: var(--text-2);
+  border: 1px solid var(--border);
 }
 
 .btn-community:hover {
-  background: #33ff66;
-  box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
-  transform: translateY(-1px);
+  border-color: var(--green-border);
+  color: var(--green);
 }
 
 .btn-standalone.disabled {
@@ -432,19 +444,12 @@ body {
   border: 1px solid var(--border);
   cursor: default;
   opacity: 0.5;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 10px 20px;
-  letter-spacing: 0.5px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
 }
 .btn-standalone.disabled:hover {
   background: transparent;
   border-color: var(--border);
   box-shadow: none;
+  transform: none;
 }
 
 /* ===== FOOTER ===== */
@@ -669,7 +674,7 @@ body {
   .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
   .page-header { padding: 100px 0 40px; }
   .project-btns { flex-direction: column; }
-  .btn-standalone, .btn-community { text-align: center; justify-content: center; }
+  .btn-standalone, .btn-pricing, .btn-community { text-align: center; justify-content: center; }
   .tech-row { gap: 6px; }
   .tech-tag { font-size: 10px; }
 }
@@ -770,8 +775,9 @@ body {
           <span class="tech-tag">react dashboard</span>
         </div>
         <div class="project-btns">
-          <a href="https://aithings-landing.vercel.app/" class="btn-standalone" target="_blank" rel="noopener">Access Standalone →</a>
-          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Join Community →</a>
+          <a href="https://aithings-landing.vercel.app/" class="btn-standalone" target="_blank" rel="noopener">Launch Tool →</a>
+          <a href="pricing.html" class="btn-pricing">View Pricing →</a>
+          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Get Access via Community →</a>
         </div>
       </div>
     </div>
@@ -824,7 +830,8 @@ body {
         </div>
         <div class="project-btns">
           <span class="btn-standalone disabled">Coming Soon</span>
-          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Join Community →</a>
+          <a href="pricing.html" class="btn-pricing">View Pricing →</a>
+          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Get Access via Community →</a>
         </div>
       </div>
     </div>
@@ -877,7 +884,8 @@ body {
         </div>
         <div class="project-btns">
           <span class="btn-standalone disabled">Coming Soon</span>
-          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Join Community →</a>
+          <a href="pricing.html" class="btn-pricing">View Pricing →</a>
+          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Get Access via Community →</a>
         </div>
       </div>
     </div>
@@ -931,7 +939,8 @@ body {
         </div>
         <div class="project-btns">
           <span class="btn-standalone disabled">Coming Soon</span>
-          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Join Community →</a>
+          <a href="pricing.html" class="btn-pricing">View Pricing →</a>
+          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Get Access via Community →</a>
         </div>
       </div>
     </div>
@@ -985,7 +994,8 @@ body {
         </div>
         <div class="project-btns">
           <span class="btn-standalone disabled">Coming Soon</span>
-          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Join Community →</a>
+          <a href="pricing.html" class="btn-pricing">View Pricing →</a>
+          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Get Access via Community →</a>
         </div>
       </div>
     </div>
@@ -1039,7 +1049,8 @@ body {
         </div>
         <div class="project-btns">
           <span class="btn-standalone disabled">Coming Soon</span>
-          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Join Community →</a>
+          <a href="pricing.html" class="btn-pricing">View Pricing →</a>
+          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Get Access via Community →</a>
         </div>
       </div>
     </div>
@@ -1093,7 +1104,8 @@ body {
         </div>
         <div class="project-btns">
           <span class="btn-standalone disabled">Coming Soon</span>
-          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Join Community →</a>
+          <a href="pricing.html" class="btn-pricing">View Pricing →</a>
+          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Get Access via Community →</a>
         </div>
       </div>
     </div>
@@ -1147,7 +1159,8 @@ body {
         </div>
         <div class="project-btns">
           <span class="btn-standalone disabled">Coming Soon</span>
-          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Join Community →</a>
+          <a href="pricing.html" class="btn-pricing">View Pricing →</a>
+          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Get Access via Community →</a>
         </div>
       </div>
     </div>
@@ -1201,7 +1214,8 @@ body {
         </div>
         <div class="project-btns">
           <span class="btn-standalone disabled">Coming Soon</span>
-          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Join Community →</a>
+          <a href="pricing.html" class="btn-pricing">View Pricing →</a>
+          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Get Access via Community →</a>
         </div>
       </div>
     </div>
@@ -1254,7 +1268,8 @@ body {
         </div>
         <div class="project-btns">
           <span class="btn-standalone disabled">Coming Soon</span>
-          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Join Community →</a>
+          <a href="pricing.html" class="btn-pricing">View Pricing →</a>
+          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Get Access via Community →</a>
         </div>
       </div>
     </div>
@@ -1309,7 +1324,8 @@ body {
         </div>
         <div class="project-btns">
           <span class="btn-standalone disabled">Coming Soon</span>
-          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Join Community →</a>
+          <a href="pricing.html" class="btn-pricing">View Pricing →</a>
+          <a href="https://whop.com/ai-ops-forge/" target="_blank" rel="noopener" class="btn-community">Get Access via Community →</a>
         </div>
       </div>
     </div>
