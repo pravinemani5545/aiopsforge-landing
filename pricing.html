@@ -165,12 +165,12 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 4px;
+  padding: 10px 8px;
   z-index: 1001;
 }
 .nav-toggle span {
   display: block;
-  width: 22px;
+  width: 24px;
   height: 2px;
   background: var(--green);
   margin: 5px 0;
@@ -839,7 +839,6 @@ body {
 }
 :root[data-theme="light"] .site-nav { background: rgba(245, 245, 245, 0.85); }
 :root[data-theme="light"] .popup-overlay { background: rgba(255, 255, 255, 0.7); }
-:root[data-theme="light"] .nav-links { background: rgba(245, 245, 245, 0.98) !important; }
 
 /* ============ RESPONSIVE ============ */
 .how-access-grid {
@@ -852,7 +851,7 @@ body {
 
 @media (max-width: 900px) {
   .how-access-grid { grid-template-columns: 1fr; }
-  .nav-toggle { display: block; }
+  .nav-toggle { display: flex; flex-direction: column; align-items: center; justify-content: center; }
   .nav-links {
     position: fixed;
     top: 56px;
@@ -869,6 +868,9 @@ body {
     display: none;
   }
   .nav-open .nav-links { display: flex; }
+  :root[data-theme="light"] .nav-links {
+    background: rgba(245, 245, 245, 0.98) !important;
+  }
   .nav-links a { font-size: 16px !important; }
   .nav-cta { padding: 12px 24px !important; font-size: 13px !important; }
   .pricing-grid { grid-template-columns: 1fr; }
