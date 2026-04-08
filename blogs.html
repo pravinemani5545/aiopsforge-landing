@@ -217,7 +217,7 @@ body {
     top: 56px;
     left: 0;
     right: 0;
-    bottom: 0;
+    height: calc(100vh - 56px);
     background: rgba(10, 10, 10, 0.98);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -226,6 +226,8 @@ body {
     justify-content: center;
     gap: 32px;
     display: none;
+    z-index: 999;
+    overflow-y: auto;
   }
   .nav-open .nav-links { display: flex; }
   :root[data-theme="light"] .nav-links {
