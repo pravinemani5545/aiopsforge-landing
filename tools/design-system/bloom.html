@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bloom — Design System Library</title>
+<meta name="description" content="Bloom: A cute, elegant design system with pastel greens, rounded corners, and airy whitespace. Every token, component, and layout — rendered live.">
+<link rel="icon" type="image/png" href="../../favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ══════ PRIMITIVE TOKENS ══════ */
+:root {
+  --color-green-500: #A8D8A8;
+  --color-green-400: #8EC88E;
+  --color-green-300: #CFECCF;
+  --color-green-200: #E4F2E4;
+  --color-green-100: #F0F8F0;
+  --color-green-50: #F5FBF5;
+  --color-green-a15: rgba(168, 216, 168, 0.15);
+  --color-green-a30: rgba(168, 216, 168, 0.3);
+  --color-green-a08: rgba(168, 216, 168, 0.08);
+
+  --color-neutral-900: #2F3A33;
+  --color-neutral-700: #3D4A41;
+  --color-neutral-600: #4A5A4E;
+  --color-neutral-400: #6F7C73;
+  --color-neutral-300: #8A9690;
+  --color-neutral-200: #9BA69E;
+  --color-neutral-100: #C2CBC5;
+
+  --color-white: #FFFFFF;
+  --color-bg-warm: #F8FCF8;
+  --color-bg-alt: #F5FBF5;
+
+  --color-red-500: #E87171;
+  --color-red-100: #FDE8E8;
+  --color-amber-500: #F0B429;
+  --color-amber-100: #FEF3C7;
+  --color-blue-500: #6B9FFF;
+  --color-blue-100: #E0EDFF;
+
+  /* ══════ SEMANTIC TOKENS ══════ */
+  --bg-page: var(--color-bg-warm);
+  --bg-section-alt: var(--color-bg-alt);
+  --bg-card: var(--color-white);
+  --bg-card-hover: var(--color-green-100);
+  --bg-surface-deep: var(--color-green-50);
+
+  --text-primary: var(--color-neutral-900);
+  --text-secondary: var(--color-neutral-600);
+  --text-dim: var(--color-neutral-400);
+  --text-muted: var(--color-neutral-200);
+
+  --border-default: #E4EFE4;
+  --border-hover: rgba(168, 216, 168, 0.6);
+
+  --accent: var(--color-green-500);
+  --accent-hover: var(--color-green-400);
+  --accent-soft: var(--color-green-300);
+  --accent-glow: var(--color-green-a15);
+
+  /* ══════ SHADOWS ══════ */
+  --shadow-sm: 0 1px 3px rgba(47, 58, 51, 0.04);
+  --shadow-md: 0 4px 12px rgba(47, 58, 51, 0.06);
+  --shadow-lg: 0 8px 24px rgba(47, 58, 51, 0.08);
+  --shadow-xl: 0 16px 40px rgba(47, 58, 51, 0.1);
+  --shadow-green: 0 4px 16px rgba(168, 216, 168, 0.25);
+
+  /* ══════ SPACING ══════ */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-25: 100px;
+
+  /* ══════ RADII ══════ */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  /* ══════ MOTION ══════ */
+  --duration-instant: 100ms;
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-moderate: 350ms;
+  --duration-slow: 500ms;
+  --duration-slower: 600ms;
+
+  --ease-out: cubic-bezier(0, 0, 0.58, 1);
+  --ease-in: cubic-bezier(0.42, 0, 1, 1);
+  --ease-standard: cubic-bezier(0.42, 0, 0.58, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-gentle: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+.accent { color: var(--accent-hover); }
+
+/* ══════ NAV ══════ */
+.ds-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(248, 252, 248, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-default);
+  padding: 0 24px;
+}
+.ds-nav-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: 60px;
+}
+.ds-nav-brand {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+.ds-nav-brand:hover { color: var(--text-primary); }
+.ds-nav-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.ds-nav-title span { color: var(--accent-hover); }
+.ds-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+}
+.ds-nav-links a {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.ds-nav-links a:hover { color: var(--accent-hover); }
+.btn-copy-system {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-white);
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-standard);
+  white-space: nowrap;
+}
+.btn-copy-system:hover {
+  background: var(--accent-hover);
+  box-shadow: var(--shadow-green);
+}
+
+/* ══════ HERO ══════ */
+.hero {
+  padding: 140px 24px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.4;
+  pointer-events: none;
+}
+.hero-blob-1 {
+  width: 300px;
+  height: 300px;
+  background: var(--color-green-300);
+  top: 40px;
+  left: -60px;
+  animation: float-1 8s ease-in-out infinite;
+}
+.hero-blob-2 {
+  width: 200px;
+  height: 200px;
+  background: var(--color-green-200);
+  top: 100px;
+  right: -40px;
+  animation: float-2 10s ease-in-out infinite;
+}
+.hero-blob-3 {
+  width: 160px;
+  height: 160px;
+  background: var(--color-green-100);
+  bottom: -20px;
+  left: 30%;
+  animation: float-3 12s ease-in-out infinite;
+}
+@keyframes float-1 { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-20px) scale(1.05); } }
+@keyframes float-2 { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-15px) rotate(5deg); } }
+@keyframes float-3 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-25px); } }
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent-hover);
+  border: 1px solid var(--border-default);
+  background: var(--color-white);
+  padding: 8px 20px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+.pulse-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  position: relative;
+}
+.hero-subtitle {
+  font-size: 16px;
+  color: var(--text-secondary);
+  max-width: 520px;
+  margin: 0 auto 32px;
+  line-height: 1.7;
+  position: relative;
+}
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+}
+.cta-primary {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-white);
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 14px 32px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s var(--ease-standard);
+}
+.cta-primary:hover {
+  background: var(--accent-hover);
+  box-shadow: var(--shadow-green);
+  transform: translateY(-1px);
+}
+.cta-secondary {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent-hover);
+  background: var(--color-white);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-pill);
+  padding: 14px 32px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s var(--ease-standard);
+}
+.cta-secondary:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  margin-top: 48px;
+  position: relative;
+}
+.hero-stat-num {
+  font-family: 'Manrope', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--accent-hover);
+}
+.hero-stat-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-dim);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ══════ SECTIONS ══════ */
+.section {
+  padding: 100px 0;
+  border-top: 1px solid var(--border-default);
+}
+.section-alt { background: var(--bg-section-alt); }
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.section-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-hover);
+  margin-bottom: 8px;
+}
+.section-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(24px, 4vw, 40px);
+  font-weight: 700;
+  line-height: 1.15;
+}
+.section-desc {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+.btn-view-md {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-dim);
+  background: var(--color-white);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-pill);
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.btn-view-md:hover {
+  color: var(--accent-hover);
+  border-color: var(--accent);
+}
+
+/* ══════ COLORS ══════ */
+.swatch-group-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  margin-top: 32px;
+}
+.swatch-group-title:first-child { margin-top: 0; }
+
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+}
+
+.swatch-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  transition: all 0.25s var(--ease-standard);
+  box-shadow: var(--shadow-sm);
+}
+.swatch-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.swatch-color {
+  height: 72px;
+  border-bottom: 1px solid var(--border-default);
+}
+.swatch-info {
+  padding: 12px;
+}
+.swatch-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+.swatch-hex {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 0.5px;
+}
+
+/* ══════ TYPOGRAPHY ══════ */
+.type-specimens { display: flex; flex-direction: column; gap: 32px; }
+.type-row {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  display: flex;
+  align-items: baseline;
+  gap: 32px;
+  flex-wrap: wrap;
+  box-shadow: var(--shadow-sm);
+}
+.type-meta {
+  min-width: 160px;
+}
+.type-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent-hover);
+  margin-bottom: 4px;
+}
+.type-spec {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+.type-sample { flex: 1; min-width: 200px; }
+
+/* ══════ SPACING ══════ */
+.spacing-scale { display: flex; flex-direction: column; gap: 12px; }
+.spacing-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.spacing-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-dim);
+  min-width: 90px;
+  text-align: right;
+}
+.spacing-bar {
+  height: 28px;
+  background: var(--accent-soft);
+  border-radius: var(--radius-pill);
+  transition: all 0.3s var(--ease-standard);
+}
+.spacing-bar:hover {
+  background: var(--accent);
+}
+
+/* ══════ RADIUS ══════ */
+.radius-demos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 24px;
+}
+.radius-demo {
+  text-align: center;
+}
+.radius-box {
+  width: 100%;
+  height: 80px;
+  background: var(--bg-card);
+  border: 2px solid var(--accent-soft);
+  margin-bottom: 12px;
+  transition: all 0.3s var(--ease-standard);
+}
+.radius-box:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-green);
+}
+.radius-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.radius-value {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+/* ══════ MOTION ══════ */
+.animation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.anim-demo {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+.anim-demo h4 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.anim-demo p {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+}
+.anim-stage {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.anim-box {
+  width: 48px;
+  height: 48px;
+  background: var(--accent-soft);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--accent);
+}
+.btn-replay {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-dim);
+  background: var(--bg-section-alt);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-pill);
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-replay:hover { color: var(--accent-hover); border-color: var(--accent); }
+
+/* ══════ COMPONENTS ══════ */
+.component-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+.component-demo {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.component-demo-header {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: var(--bg-section-alt);
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border-default);
+}
+.component-demo-body {
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Demo Buttons */
+.demo-btn-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.demo-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all 0.25s var(--ease-standard);
+  border: none;
+}
+.demo-btn-primary {
+  background: var(--accent);
+  color: var(--color-white);
+}
+.demo-btn-primary:hover {
+  background: var(--accent-hover);
+  box-shadow: var(--shadow-green);
+  transform: translateY(-1px);
+}
+.demo-btn-secondary {
+  background: var(--color-white);
+  color: var(--accent-hover);
+  border: 1.5px solid var(--accent);
+}
+.demo-btn-secondary:hover {
+  background: var(--color-green-100);
+}
+.demo-btn-outline {
+  background: transparent;
+  color: var(--accent-hover);
+  border: 1.5px solid var(--border-default);
+}
+.demo-btn-outline:hover {
+  border-color: var(--accent);
+  background: var(--color-green-100);
+}
+.demo-btn-ghost {
+  background: transparent;
+  color: var(--accent-hover);
+}
+.demo-btn-ghost:hover {
+  background: var(--color-green-100);
+}
+
+/* Demo Cards */
+.demo-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s var(--ease-standard);
+}
+.demo-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.demo-card h4 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.demo-card p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.demo-card-highlight {
+  background: var(--color-green-100);
+  border-left: 3px solid var(--accent);
+}
+.demo-card-note {
+  border-style: dashed;
+  background: var(--bg-section-alt);
+}
+.demo-card-note::before {
+  content: 'Note';
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent-hover);
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* Demo Inputs */
+.demo-input {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  width: 100%;
+  padding: 14px 18px;
+  background: var(--color-white);
+  color: var(--text-primary);
+  border: 1.5px solid var(--border-default);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: all 0.25s var(--ease-standard);
+}
+.demo-input::placeholder { color: var(--text-muted); }
+.demo-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--color-green-a15);
+}
+
+/* Demo Badges & Chips */
+.demo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+}
+.badge-green { background: var(--color-green-200); color: #3D6B3D; }
+.badge-amber { background: var(--color-amber-100); color: #92610A; }
+.badge-red { background: var(--color-red-100); color: #9E2A2A; }
+.badge-blue { background: var(--color-blue-100); color: #2A5BA9; }
+
+.demo-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-section-alt);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-pill);
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.demo-chip:hover {
+  border-color: var(--accent);
+  background: var(--color-green-100);
+}
+.chip-close {
+  font-size: 14px;
+  color: var(--text-dim);
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* Demo Tabs */
+.demo-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--border-default);
+}
+.demo-tab {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-dim);
+  background: none;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s;
+}
+.demo-tab:hover { color: var(--text-primary); }
+.demo-tab.active {
+  color: var(--accent-hover);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+.demo-tab-content {
+  padding: 16px 0 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* Demo Toggles & Checkboxes */
+.demo-toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.demo-toggle {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: var(--border-default);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background 0.25s var(--ease-standard);
+  border: none;
+}
+.demo-toggle.active { background: var(--accent); }
+.demo-toggle::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: var(--color-white);
+  border-radius: 50%;
+  transition: transform 0.25s var(--ease-spring);
+  box-shadow: var(--shadow-sm);
+}
+.demo-toggle.active::after { transform: translateX(20px); }
+
+.demo-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.demo-checkbox-box {
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s var(--ease-standard);
+  flex-shrink: 0;
+}
+.demo-checkbox.checked .demo-checkbox-box {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.demo-checkbox.checked .demo-checkbox-box::after {
+  content: '';
+  width: 6px;
+  height: 10px;
+  border: 2px solid white;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg) translateY(-1px);
+}
+.demo-checkbox.checked span {
+  text-decoration: line-through;
+  color: var(--text-dim);
+}
+
+/* Hero Demo */
+.demo-hero-mini {
+  position: relative;
+  background: var(--bg-page);
+  border-radius: var(--radius-xl);
+  padding: 40px 24px;
+  text-align: center;
+  overflow: hidden;
+}
+.demo-hero-mini .mini-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(30px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+.mini-blob-1 { width: 120px; height: 120px; background: var(--color-green-300); top: -20px; left: -20px; animation: float-1 6s ease-in-out infinite; }
+.mini-blob-2 { width: 80px; height: 80px; background: var(--color-green-200); bottom: -10px; right: -10px; animation: float-2 8s ease-in-out infinite; }
+.demo-hero-mini h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  position: relative;
+  margin-bottom: 8px;
+}
+.demo-hero-mini p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  position: relative;
+  margin-bottom: 16px;
+}
+.demo-hero-mini .mini-cta {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  background: var(--accent);
+  border-radius: var(--radius-pill);
+  padding: 10px 24px;
+  position: relative;
+}
+
+/* ══════ BLOOMDO TODO APP ══════ */
+.bloomdo {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  max-width: 480px;
+  margin: 0 auto;
+}
+.bloomdo-header {
+  padding: 24px;
+  border-bottom: 1px solid var(--border-default);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.bloomdo-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+.bloomdo-title span { color: var(--accent-hover); }
+.bloomdo-count {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-dim);
+  background: var(--color-green-100);
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+}
+
+.bloomdo-input-row {
+  display: flex;
+  gap: 8px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border-default);
+}
+.bloomdo-input {
+  flex: 1;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  padding: 12px 16px;
+  background: var(--bg-section-alt);
+  color: var(--text-primary);
+  border: 1.5px solid var(--border-default);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: all 0.2s;
+}
+.bloomdo-input::placeholder { color: var(--text-muted); }
+.bloomdo-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--color-green-a15); }
+.bloomdo-add {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.bloomdo-add:hover { background: var(--accent-hover); }
+
+.bloomdo-filters {
+  display: flex;
+  gap: 0;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--border-default);
+}
+.bloomdo-filter {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-dim);
+  background: none;
+  border: none;
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.2s;
+}
+.bloomdo-filter:hover { color: var(--text-primary); }
+.bloomdo-filter.active { color: var(--accent-hover); border-bottom-color: var(--accent); font-weight: 600; }
+
+.bloomdo-list {
+  list-style: none;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.bloomdo-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--border-default);
+  transition: background 0.15s;
+}
+.bloomdo-item:hover { background: var(--color-green-100); }
+.bloomdo-item:last-child { border-bottom: none; }
+.bloomdo-check {
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.bloomdo-item.done .bloomdo-check {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.bloomdo-item.done .bloomdo-check::after {
+  content: '';
+  width: 6px;
+  height: 10px;
+  border: 2px solid white;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg) translateY(-1px);
+}
+.bloomdo-item-text {
+  flex: 1;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.bloomdo-item.done .bloomdo-item-text {
+  text-decoration: line-through;
+  color: var(--text-dim);
+}
+.bloomdo-delete {
+  font-size: 16px;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.2s;
+  padding: 4px;
+  line-height: 1;
+}
+.bloomdo-item:hover .bloomdo-delete { opacity: 1; }
+.bloomdo-delete:hover { color: var(--color-red-500); }
+
+.bloomdo-footer {
+  padding: 14px 24px;
+  font-size: 12px;
+  color: var(--text-dim);
+  background: var(--bg-section-alt);
+  text-align: center;
+}
+
+/* ══════ LAYOUTS ══════ */
+.layout-demos { display: flex; flex-direction: column; gap: 32px; }
+.layout-demo {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+.layout-demo h4 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.layout-spec {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+}
+.layout-wireframe {
+  display: flex;
+  gap: 12px;
+}
+.layout-box {
+  flex: 1;
+  background: var(--color-green-100);
+  border: 1.5px dashed var(--accent);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-dim);
+}
+
+/* ══════ FOOTER ══════ */
+.ds-footer {
+  border-top: 1px solid var(--border-default);
+  padding: 32px 24px;
+}
+.ds-footer-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--text-dim);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.ds-footer-inner a {
+  color: var(--accent-hover);
+  text-decoration: none;
+}
+
+/* ══════ SLIDING PANEL ══════ */
+.md-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(47, 58, 51, 0.3);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: flex-end;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-standard);
+}
+.md-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.md-panel {
+  width: 560px;
+  min-width: 400px;
+  max-width: 90%;
+  background: var(--bg-card);
+  border-left: 1px solid var(--border-default);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.35s var(--ease-out);
+  border-radius: var(--radius-xl) 0 0 var(--radius-xl);
+}
+.md-overlay.active .md-panel { transform: translateX(0); }
+.md-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-default);
+}
+.md-panel-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+.md-panel-actions { display: flex; gap: 8px; }
+.btn-copy-section, .btn-close-panel {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-copy-section {
+  color: white;
+  background: var(--accent);
+  border: none;
+}
+.btn-copy-section:hover { background: var(--accent-hover); }
+.btn-close-panel {
+  color: var(--text-dim);
+  background: none;
+  border: 1px solid var(--border-default);
+}
+.btn-close-panel:hover { color: var(--text-primary); border-color: var(--text-dim); }
+.md-panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+.md-panel-body pre {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ══════ SCROLL ANIMATION ══════ */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+}
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ══════ KEYFRAMES ══════ */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ══════ REDUCED MOTION ══════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ══════ RESPONSIVE ══════ */
+@media (max-width: 900px) {
+  .ds-nav-links { display: none; }
+}
+@media (max-width: 700px) {
+  .section { padding: 64px 0; }
+  .hero { padding-top: 100px; padding-bottom: 60px; }
+  .hero-stats { gap: 24px; flex-wrap: wrap; }
+  .ds-footer-inner { flex-direction: column; gap: 12px; }
+  .md-panel { min-width: 100%; width: 100%; border-radius: 0; }
+  .component-grid { grid-template-columns: 1fr; }
+  .animation-grid { grid-template-columns: 1fr; }
+  .swatch-grid { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+  .type-row { flex-direction: column; gap: 16px; }
+}
+@media (max-width: 500px) {
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-actions .cta-primary, .hero-actions .cta-secondary { text-align: center; }
+  .container { padding: 0 16px; }
+  .hero-stats { flex-direction: column; gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════ NAV ══════ -->
+<nav class="ds-nav">
+  <div class="ds-nav-inner">
+    <a href="index.html" class="ds-nav-brand">&larr; Library</a>
+    <span class="ds-nav-title">Bloom <span>Design System</span></span>
+    <div class="ds-nav-links">
+      <a href="#colors">Colors</a>
+      <a href="#typography">Typography</a>
+      <a href="#spacing">Spacing</a>
+      <a href="#motion">Motion</a>
+      <a href="#components">Components</a>
+      <a href="#layouts">Layouts</a>
+    </div>
+    <button class="btn-copy-system" id="copySystem">Copy Full System</button>
+  </div>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<section class="hero">
+  <div class="hero-blob hero-blob-1"></div>
+  <div class="hero-blob hero-blob-2"></div>
+  <div class="hero-blob hero-blob-3"></div>
+  <div class="container">
+    <div class="hero-badge"><span class="pulse-dot"></span> Bloom Design System</div>
+    <h1 class="hero-title">Soft. Elegant.<br><span class="accent">Beautiful.</span></h1>
+    <p class="hero-subtitle">A wellness-inspired design system with pastel greens, generous whitespace, and rounded everything. Copy tokens and components as production-ready markdown.</p>
+    <div class="hero-actions">
+      <a href="#colors" class="cta-primary">Browse System</a>
+      <button class="cta-secondary" id="copySystemHero">Copy Full Markdown</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">25+</div><div class="hero-stat-label">COLOR TOKENS</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">12</div><div class="hero-stat-label">COMPONENTS</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">5</div><div class="hero-stat-label">LAYOUT PATTERNS</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">5</div><div class="hero-stat-label">ANIMATIONS</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ COLORS ══════ -->
+<section class="section section-alt" id="colors">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-label">01 — Colors</div>
+        <h2 class="section-title">Color <span class="accent">Palette</span></h2>
+        <p class="section-desc">Pastel greens on white surfaces. 80% white, 15% light green, 5% accent green.</p>
+      </div>
+      <button class="btn-view-md" data-section="colors">&lt;/&gt; View Markdown</button>
+    </div>
+
+    <h3 class="swatch-group-title">Primary & Accent</h3>
+    <div class="swatch-grid">
+      <div class="swatch-card animate-on-scroll"><div class="swatch-color" style="background:#CFECCF"></div><div class="swatch-info"><div class="swatch-name">Primary</div><div class="swatch-hex">#CFECCF</div></div></div>
+      <div class="swatch-card animate-on-scroll"><div class="swatch-color" style="background:#A8D8A8"></div><div class="swatch-info"><div class="swatch-name">Accent</div><div class="swatch-hex">#A8D8A8</div></div></div>
+      <div class="swatch-card animate-on-scroll"><div class="swatch-color" style="background:#8EC88E"></div><div class="swatch-info"><div class="swatch-name">Accent Hover</div><div class="swatch-hex">#8EC88E</div></div></div>
+      <div class="swatch-card animate-on-scroll"><div class="swatch-color" style="background:#E4F2E4"></div><div class="swatch-info"><div class="swatch-name">Tint</div><div class="swatch-hex">#E4F2E4</div></div></div>
+      <div class="swatch-card animate-on-scroll"><div class="swatch-color" style="background:#F0F8F0"></div><div class="swatch-info"><div class="swatch-name">Soft</div><div class="swatch-hex">#F0F8F0</div></div></div>
+    </div>
+
+    <h3 class="swatch-group-title">Backgrounds</h3>
+    <div class="swatch-grid">
+      <div class="swatch-card animate-on-scroll"><div class="swatch-color" style="background:#FFFFFF; border-bottom: 1px solid #E4EFE4;"></div><div class="swatch-info"><div class="swatch-name">White</div><div class="swatch-hex">#FFFFFF</div></div></div>
+      <div class="swatch-card animate-on-scroll"><div class="swatch-color" style="background:#F8FCF8"></div><div class="swatch-info"><div class="swatch-name">Page</div><div class="swatch-hex">#F8FCF8</div></div></div>
+      <div class="swatch-card animate-on-scroll"><div class="swatch-color" style="background:#F5FBF5"></div><div class="swatch-info"><div class="swatch-name">Section Alt</div><div class="swatch-hex">#F5FBF5</div></div></div>
+    </div>
+
+    <h3 class="swatch-group-title">Text</h3>
+    <div class="swatch-grid">
+      <div class="swatch-card animate-on-scroll"><div class="swatch-color" style="background:#2F3A33"></div><div class="swatch-info"><div class="swatch-name">Primary</div><div class="swatch-hex">#2F3A33</div></div></div>
+      <div class="swatch-card animate-on-scroll"><div class="swatch-color" style="background:#4A5A4E"></div><div class="swatch-info"><div class="swatch-name">Secondary</div><div class="swatch-hex">#4A5A4E</div></div></div>
+      <div class="swatch-card animate-on-scroll"><div class="swatch-color" style="background:#6F7C73"></div><div class="swatch-info"><div class="swatch-name">Muted</div><div class="swatch-hex">#6F7C73</div></div></div>
+      <div class="swatch-card animate-on-scroll"><div class="swatch-color" style="background:#9BA69E"></div><div class="swatch-info"><div class="swatch-name">Dim</div><div class="swatch-hex">#9BA69E</div></div></div>
+    </div>
+
+    <h3 class="swatch-group-title">Semantic</h3>
+    <div class="swatch-grid">
+      <div class="swatch-card animate-on-scroll"><div class="swatch-color" style="background:#E4EFE4"></div><div class="swatch-info"><div class="swatch-name">Border</div><div class="swatch-hex">#E4EFE4</div></div></div>
+      <div class="swatch-card animate-on-scroll"><div class="swatch-color" style="background:#E87171"></div><div class="swatch-info"><div class="swatch-name">Error</div><div class="swatch-hex">#E87171</div></div></div>
+      <div class="swatch-card animate-on-scroll"><div class="swatch-color" style="background:#F0B429"></div><div class="swatch-info"><div class="swatch-name">Warning</div><div class="swatch-hex">#F0B429</div></div></div>
+      <div class="swatch-card animate-on-scroll"><div class="swatch-color" style="background:#6B9FFF"></div><div class="swatch-info"><div class="swatch-name">Info</div><div class="swatch-hex">#6B9FFF</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ TYPOGRAPHY ══════ -->
+<section class="section" id="typography">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-label">02 — Typography</div>
+        <h2 class="section-title">Type <span class="accent">Scale</span></h2>
+        <p class="section-desc">Manrope for headings, Inter for everything else. Clean, readable, and warm.</p>
+      </div>
+      <button class="btn-view-md" data-section="typography">&lt;/&gt; View Markdown</button>
+    </div>
+
+    <div class="type-specimens">
+      <div class="type-row animate-on-scroll">
+        <div class="type-meta"><div class="type-label">HERO</div><div class="type-spec">Manrope 800 / clamp(36px, 6vw, 64px)</div></div>
+        <div class="type-sample" style="font-family:'Manrope',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:800; line-height:1.1;">Beautiful things grow here</div>
+      </div>
+      <div class="type-row animate-on-scroll">
+        <div class="type-meta"><div class="type-label">SECTION TITLE</div><div class="type-spec">Manrope 700 / clamp(24px, 4vw, 40px)</div></div>
+        <div class="type-sample" style="font-family:'Manrope',sans-serif; font-size:clamp(20px,3vw,32px); font-weight:700; line-height:1.15;">Sections that breathe</div>
+      </div>
+      <div class="type-row animate-on-scroll">
+        <div class="type-meta"><div class="type-label">CARD TITLE</div><div class="type-spec">Manrope 600 / 18px</div></div>
+        <div class="type-sample" style="font-family:'Manrope',sans-serif; font-size:18px; font-weight:600;">Card headings at rest</div>
+      </div>
+      <div class="type-row animate-on-scroll">
+        <div class="type-meta"><div class="type-label">BODY</div><div class="type-spec">Inter 400 / 16px / 1.7</div></div>
+        <div class="type-sample" style="font-family:'Inter',sans-serif; font-size:16px; font-weight:400; line-height:1.7; color:var(--text-secondary);">Body text should feel effortless to read. Generous line-height and subtle color keep things calm and inviting.</div>
+      </div>
+      <div class="type-row animate-on-scroll">
+        <div class="type-meta"><div class="type-label">LABEL</div><div class="type-spec">Inter 600 / 11px / uppercase / 1.5px spacing</div></div>
+        <div class="type-sample" style="font-family:'Inter',sans-serif; font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:var(--accent-hover);">SECTION LABEL</div>
+      </div>
+      <div class="type-row animate-on-scroll">
+        <div class="type-meta"><div class="type-label">BUTTON</div><div class="type-spec">Inter 600 / 14px</div></div>
+        <div class="type-sample" style="font-family:'Inter',sans-serif; font-size:14px; font-weight:600;">Get Started Today</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SPACING ══════ -->
+<section class="section section-alt" id="spacing">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-label">03 — Spacing & Radius</div>
+        <h2 class="section-title">Space <span class="accent">& Shape</span></h2>
+        <p class="section-desc">Generous whitespace and soft, rounded corners define the Bloom feel.</p>
+      </div>
+      <button class="btn-view-md" data-section="spacing">&lt;/&gt; View Markdown</button>
+    </div>
+
+    <h3 class="swatch-group-title">Spacing Scale</h3>
+    <div class="spacing-scale">
+      <div class="spacing-row"><span class="spacing-label">--space-1 (4px)</span><div class="spacing-bar" style="width:4px"></div></div>
+      <div class="spacing-row"><span class="spacing-label">--space-2 (8px)</span><div class="spacing-bar" style="width:8px"></div></div>
+      <div class="spacing-row"><span class="spacing-label">--space-3 (12px)</span><div class="spacing-bar" style="width:12px"></div></div>
+      <div class="spacing-row"><span class="spacing-label">--space-4 (16px)</span><div class="spacing-bar" style="width:16px"></div></div>
+      <div class="spacing-row"><span class="spacing-label">--space-6 (24px)</span><div class="spacing-bar" style="width:24px"></div></div>
+      <div class="spacing-row"><span class="spacing-label">--space-8 (32px)</span><div class="spacing-bar" style="width:32px"></div></div>
+      <div class="spacing-row"><span class="spacing-label">--space-12 (48px)</span><div class="spacing-bar" style="width:48px"></div></div>
+      <div class="spacing-row"><span class="spacing-label">--space-16 (64px)</span><div class="spacing-bar" style="width:64px"></div></div>
+      <div class="spacing-row"><span class="spacing-label">--space-20 (80px)</span><div class="spacing-bar" style="width:80px"></div></div>
+      <div class="spacing-row"><span class="spacing-label">--space-25 (100px)</span><div class="spacing-bar" style="width:100px"></div></div>
+    </div>
+
+    <h3 class="swatch-group-title" style="margin-top:48px">Border Radius</h3>
+    <div class="radius-demos">
+      <div class="radius-demo animate-on-scroll">
+        <div class="radius-box" style="border-radius:8px"></div>
+        <div class="radius-label">Small</div>
+        <div class="radius-value">8px</div>
+      </div>
+      <div class="radius-demo animate-on-scroll">
+        <div class="radius-box" style="border-radius:14px"></div>
+        <div class="radius-label">Medium</div>
+        <div class="radius-value">14px — Inputs</div>
+      </div>
+      <div class="radius-demo animate-on-scroll">
+        <div class="radius-box" style="border-radius:16px"></div>
+        <div class="radius-label">Large</div>
+        <div class="radius-value">16px — Buttons</div>
+      </div>
+      <div class="radius-demo animate-on-scroll">
+        <div class="radius-box" style="border-radius:20px"></div>
+        <div class="radius-label">XL</div>
+        <div class="radius-value">20px — Cards</div>
+      </div>
+      <div class="radius-demo animate-on-scroll">
+        <div class="radius-box" style="border-radius:999px"></div>
+        <div class="radius-label">Pill</div>
+        <div class="radius-value">999px — Badges</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ MOTION ══════ -->
+<section class="section" id="motion">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-label">04 — Motion</div>
+        <h2 class="section-title">Animation <span class="accent">System</span></h2>
+        <p class="section-desc">Gentle, organic animations that feel alive without being distracting.</p>
+      </div>
+      <button class="btn-view-md" data-section="motion">&lt;/&gt; View Markdown</button>
+    </div>
+
+    <div class="animation-grid">
+      <div class="anim-demo animate-on-scroll">
+        <h4>Fade Up</h4>
+        <p>Primary entrance animation</p>
+        <div class="anim-stage">
+          <div class="anim-box" style="animation: fade-up 600ms var(--ease-out) both;"></div>
+        </div>
+        <button class="btn-replay" onclick="replayAnim(this, 'fade-up')">Replay</button>
+      </div>
+
+      <div class="anim-demo animate-on-scroll">
+        <h4>Fade In</h4>
+        <p>Subtle opacity entrance</p>
+        <div class="anim-stage">
+          <div class="anim-box" style="animation: fade-in 500ms var(--ease-out) both;"></div>
+        </div>
+        <button class="btn-replay" onclick="replayAnim(this, 'fade-in')">Replay</button>
+      </div>
+
+      <div class="anim-demo animate-on-scroll">
+        <h4>Scale In</h4>
+        <p>Soft scale entrance for modals</p>
+        <div class="anim-stage">
+          <div class="anim-box" style="animation: scale-in 500ms var(--ease-spring) both;"></div>
+        </div>
+        <button class="btn-replay" onclick="replayAnim(this, 'scale-in')">Replay</button>
+      </div>
+
+      <div class="anim-demo animate-on-scroll">
+        <h4>Float</h4>
+        <p>Continuous blob decoration</p>
+        <div class="anim-stage">
+          <div style="width:48px; height:48px; background:var(--accent-soft); border-radius:50%; animation: float-1 4s ease-in-out infinite;"></div>
+        </div>
+        <span style="font-size:11px; color:var(--text-dim);">Continuous</span>
+      </div>
+
+      <div class="anim-demo animate-on-scroll">
+        <h4>Pulse</h4>
+        <p>Gentle status indicator</p>
+        <div class="anim-stage">
+          <div style="width:12px; height:12px; background:var(--accent); border-radius:50%; animation: pulse-soft 2s ease-in-out infinite;"></div>
+        </div>
+        <span style="font-size:11px; color:var(--text-dim);">Continuous</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ COMPONENTS ══════ -->
+<section class="section section-alt" id="components">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-label">05 — Components</div>
+        <h2 class="section-title">Live <span class="accent">Components</span></h2>
+        <p class="section-desc">Interactive component demos. Everything you need to build a Bloom UI.</p>
+      </div>
+      <button class="btn-view-md" data-section="components">&lt;/&gt; View Markdown</button>
+    </div>
+
+    <div class="component-grid">
+
+      <!-- Buttons -->
+      <div class="component-demo animate-on-scroll">
+        <div class="component-demo-header">Buttons</div>
+        <div class="component-demo-body">
+          <div class="demo-btn-row">
+            <button class="demo-btn demo-btn-primary">Primary</button>
+            <button class="demo-btn demo-btn-secondary">Secondary</button>
+          </div>
+          <div class="demo-btn-row">
+            <button class="demo-btn demo-btn-outline">Outline</button>
+            <button class="demo-btn demo-btn-ghost">Ghost</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inputs -->
+      <div class="component-demo animate-on-scroll">
+        <div class="component-demo-header">Inputs</div>
+        <div class="component-demo-body">
+          <input type="text" class="demo-input" placeholder="Default input...">
+          <input type="text" class="demo-input" placeholder="Click to see focus state...">
+        </div>
+      </div>
+
+      <!-- Badges & Chips -->
+      <div class="component-demo animate-on-scroll">
+        <div class="component-demo-header">Badges & Chips</div>
+        <div class="component-demo-body">
+          <div class="demo-btn-row">
+            <span class="demo-badge badge-green">Active</span>
+            <span class="demo-badge badge-amber">Pending</span>
+            <span class="demo-badge badge-red">Error</span>
+            <span class="demo-badge badge-blue">Info</span>
+          </div>
+          <div class="demo-btn-row">
+            <span class="demo-chip">Wellness <span class="chip-close">&times;</span></span>
+            <span class="demo-chip">Design <span class="chip-close">&times;</span></span>
+            <span class="demo-chip">Minimal <span class="chip-close">&times;</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="component-demo animate-on-scroll">
+        <div class="component-demo-header">Tabs</div>
+        <div class="component-demo-body" style="display:block;">
+          <div class="demo-tabs">
+            <button class="demo-tab active" onclick="switchTab(this)">Overview</button>
+            <button class="demo-tab" onclick="switchTab(this)">Features</button>
+            <button class="demo-tab" onclick="switchTab(this)">Pricing</button>
+          </div>
+          <div class="demo-tab-content">Tab content renders here. Click the tabs above to switch the active state.</div>
+        </div>
+      </div>
+
+      <!-- Checkboxes & Toggles -->
+      <div class="component-demo animate-on-scroll">
+        <div class="component-demo-header">Checkboxes & Toggles</div>
+        <div class="component-demo-body">
+          <div class="demo-checkbox checked" onclick="this.classList.toggle('checked')">
+            <div class="demo-checkbox-box"></div>
+            <span>Enable notifications</span>
+          </div>
+          <div class="demo-checkbox" onclick="this.classList.toggle('checked')">
+            <div class="demo-checkbox-box"></div>
+            <span>Dark mode (N/A for Bloom)</span>
+          </div>
+          <div class="demo-toggle-row">
+            <button class="demo-toggle active" onclick="this.classList.toggle('active')"></button>
+            <span style="font-size:13px; color:var(--text-secondary);">Auto-save enabled</span>
+          </div>
+          <div class="demo-toggle-row">
+            <button class="demo-toggle" onclick="this.classList.toggle('active')"></button>
+            <span style="font-size:13px; color:var(--text-secondary);">Compact mode</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cards -->
+      <div class="component-demo animate-on-scroll">
+        <div class="component-demo-header">Cards</div>
+        <div class="component-demo-body">
+          <div class="demo-card">
+            <h4>Basic Card</h4>
+            <p>White surface, soft shadow, 20px radius. Lifts on hover.</p>
+          </div>
+          <div class="demo-card demo-card-highlight">
+            <h4>Highlighted Card</h4>
+            <p>Green-tinted background with accent left border.</p>
+          </div>
+          <div class="demo-card demo-card-note">
+            <p>A note card for callouts and tips. Dashed border with muted background.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Demo -->
+      <div class="component-demo animate-on-scroll" style="grid-column: 1 / -1;">
+        <div class="component-demo-header">Hero Section</div>
+        <div class="component-demo-body" style="padding:0;">
+          <div class="demo-hero-mini">
+            <div class="mini-blob mini-blob-1"></div>
+            <div class="mini-blob mini-blob-2"></div>
+            <h3>Welcome to <span class="accent">Bloom</span></h3>
+            <p>A fresh start for beautiful interfaces</p>
+            <span class="mini-cta">Get Started</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloomdo Todo App -->
+      <div class="component-demo animate-on-scroll" style="grid-column: 1 / -1;">
+        <div class="component-demo-header">Bloomdo — Example Todo App</div>
+        <div class="component-demo-body" style="display:flex; justify-content:center; padding:32px 20px;">
+          <div class="bloomdo" id="bloomdoApp">
+            <div class="bloomdo-header">
+              <div class="bloomdo-title">Bloom<span>do</span></div>
+              <span class="bloomdo-count" id="bloomdoCount">3 tasks</span>
+            </div>
+            <div class="bloomdo-input-row">
+              <input type="text" class="bloomdo-input" id="bloomdoInput" placeholder="Add a new task...">
+              <button class="bloomdo-add" id="bloomdoAdd">Add</button>
+            </div>
+            <div class="bloomdo-filters">
+              <button class="bloomdo-filter active" data-filter="all" onclick="filterTodos(this)">All</button>
+              <button class="bloomdo-filter" data-filter="active" onclick="filterTodos(this)">Active</button>
+              <button class="bloomdo-filter" data-filter="completed" onclick="filterTodos(this)">Completed</button>
+            </div>
+            <ul class="bloomdo-list" id="bloomdoList"></ul>
+            <div class="bloomdo-footer" id="bloomdoFooter">3 items remaining</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ LAYOUTS ══════ -->
+<section class="section" id="layouts">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-label">06 — Layouts</div>
+        <h2 class="section-title">Layout <span class="accent">Patterns</span></h2>
+        <p class="section-desc">Airy grid definitions with generous spacing. Copy the pattern, fill in your content.</p>
+      </div>
+      <button class="btn-view-md" data-section="layouts">&lt;/&gt; View Markdown</button>
+    </div>
+
+    <div class="layout-demos">
+      <div class="layout-demo animate-on-scroll">
+        <h4>Card Grid</h4>
+        <div class="layout-spec">repeat(auto-fit, minmax(280px, 1fr)) | gap: 24px</div>
+        <div class="layout-wireframe"><div class="layout-box">1fr</div><div class="layout-box">1fr</div><div class="layout-box">1fr</div></div>
+      </div>
+      <div class="layout-demo animate-on-scroll">
+        <h4>Two-Column Split</h4>
+        <div class="layout-spec">1fr 1fr | gap: 48px | collapse at 700px</div>
+        <div class="layout-wireframe"><div class="layout-box">Text Content</div><div class="layout-box">Visual</div></div>
+      </div>
+      <div class="layout-demo animate-on-scroll">
+        <h4>Centered Hero</h4>
+        <div class="layout-spec">max-width: 640px | text-align: center | generous vertical padding</div>
+        <div style="background:var(--color-green-100); border:1.5px dashed var(--accent); border-radius:var(--radius-md); padding:24px; text-align:center; font-family:'Inter',sans-serif; font-size:11px; color:var(--text-dim);">Centered content area — 640px max</div>
+      </div>
+      <div class="layout-demo animate-on-scroll">
+        <h4>Container</h4>
+        <div class="layout-spec">max-width: 1000px | padding: 0 24px | margin: 0 auto</div>
+        <div style="background:var(--color-green-100); border:1.5px dashed var(--accent); border-radius:var(--radius-md); padding:16px; text-align:center; font-family:'Inter',sans-serif; font-size:11px; color:var(--text-dim);">1000px max content area</div>
+      </div>
+      <div class="layout-demo animate-on-scroll">
+        <h4>Section Alternation</h4>
+        <div class="layout-spec">#F8FCF8 / #F5FBF5 / #FFFFFF — alternating with 1px border separators</div>
+        <div style="display:flex; gap:0; border-radius:var(--radius-md); overflow:hidden;">
+          <div style="flex:1; background:#F8FCF8; padding:16px; text-align:center; font-family:'Inter',sans-serif; font-size:10px; color:var(--text-dim); border:1px solid var(--border-default);">Page</div>
+          <div style="flex:1; background:#F5FBF5; padding:16px; text-align:center; font-family:'Inter',sans-serif; font-size:10px; color:var(--text-dim); border:1px solid var(--border-default);">Alt</div>
+          <div style="flex:1; background:#FFFFFF; padding:16px; text-align:center; font-family:'Inter',sans-serif; font-size:10px; color:var(--text-dim); border:1px solid var(--border-default);">Card</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer class="ds-footer">
+  <div class="ds-footer-inner">
+    <span>Bloom Design System</span>
+    <a href="index.html">&larr; Back to Library</a>
+    <span>cute + elegant + modern</span>
+  </div>
+</footer>
+
+<!-- ══════ SLIDING PANEL ══════ -->
+<div class="md-overlay" id="mdOverlay">
+  <div class="md-panel">
+    <div class="md-panel-header">
+      <span class="md-panel-title" id="mdPanelTitle">Section</span>
+      <div class="md-panel-actions">
+        <button class="btn-copy-section" id="btnCopySection">Copy</button>
+        <button class="btn-close-panel" id="btnClosePanel">&times;</button>
+      </div>
+    </div>
+    <div class="md-panel-body">
+      <pre id="mdContent"></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ SCRIPTS ══════ -->
+<script>
+// Scroll animation
+var scrollObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      scrollObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.animate-on-scroll').forEach(function(el, i) {
+  el.style.transitionDelay = (i % 6) * 60 + 'ms';
+  scrollObserver.observe(el);
+});
+
+// Replay animation
+function replayAnim(btn, animName) {
+  var box = btn.closest('.anim-demo').querySelector('.anim-box');
+  if (!box) return;
+  box.style.animation = 'none';
+  box.offsetHeight;
+  box.style.animation = animName + ' 600ms var(--ease-out) both';
+}
+
+// Tab switching
+function switchTab(tab) {
+  var tabs = tab.parentElement.querySelectorAll('.demo-tab');
+  tabs.forEach(function(t) { t.classList.remove('active'); });
+  tab.classList.add('active');
+}
+
+// ══════ BLOOMDO TODO APP ══════
+var todos = [
+  { id: 1, text: 'Design the color palette', done: true },
+  { id: 2, text: 'Build component library', done: false },
+  { id: 3, text: 'Write documentation', done: false }
+];
+var todoFilter = 'all';
+var nextId = 4;
+
+function renderTodos() {
+  var list = document.getElementById('bloomdoList');
+  var filtered = todos.filter(function(t) {
+    if (todoFilter === 'active') return !t.done;
+    if (todoFilter === 'completed') return t.done;
+    return true;
+  });
+
+  list.innerHTML = '';
+  filtered.forEach(function(todo) {
+    var li = document.createElement('li');
+    li.className = 'bloomdo-item' + (todo.done ? ' done' : '');
+    li.innerHTML = '<div class="bloomdo-check" onclick="toggleTodo(' + todo.id + ')"></div>' +
+      '<span class="bloomdo-item-text">' + escapeHtml(todo.text) + '</span>' +
+      '<button class="bloomdo-delete" onclick="deleteTodo(' + todo.id + ')">&times;</button>';
+    list.appendChild(li);
+  });
+
+  var remaining = todos.filter(function(t) { return !t.done; }).length;
+  document.getElementById('bloomdoCount').textContent = todos.length + ' task' + (todos.length !== 1 ? 's' : '');
+  document.getElementById('bloomdoFooter').textContent = remaining + ' item' + (remaining !== 1 ? 's' : '') + ' remaining';
+}
+
+function escapeHtml(str) {
+  var div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function addTodo() {
+  var input = document.getElementById('bloomdoInput');
+  var text = input.value.trim();
+  if (!text) return;
+  todos.push({ id: nextId++, text: text, done: false });
+  input.value = '';
+  renderTodos();
+}
+
+function toggleTodo(id) {
+  todos.forEach(function(t) { if (t.id === id) t.done = !t.done; });
+  renderTodos();
+}
+
+function deleteTodo(id) {
+  todos = todos.filter(function(t) { return t.id !== id; });
+  renderTodos();
+}
+
+function filterTodos(btn) {
+  document.querySelectorAll('.bloomdo-filter').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  todoFilter = btn.dataset.filter;
+  renderTodos();
+}
+
+document.getElementById('bloomdoAdd').addEventListener('click', addTodo);
+document.getElementById('bloomdoInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') addTodo();
+});
+
+renderTodos();
+
+// ══════ MARKDOWN ══════
+var mdSections = {
+  colors: '## Colors\n\n### Primitive Tokens\n```css\n:root {\n  --color-green-500: #A8D8A8;  /* Accent / CTAs */\n  --color-green-400: #8EC88E;  /* Accent hover */\n  --color-green-300: #CFECCF;  /* Primary pastel */\n  --color-green-200: #E4F2E4;  /* Tint */\n  --color-green-100: #F0F8F0;  /* Soft surface */\n  --color-green-50: #F5FBF5;   /* Section alt bg */\n\n  --color-neutral-900: #2F3A33; /* Text primary */\n  --color-neutral-600: #4A5A4E; /* Text secondary */\n  --color-neutral-400: #6F7C73; /* Text muted */\n  --color-neutral-200: #9BA69E; /* Text dim */\n\n  --color-red-500: #E87171;\n  --color-amber-500: #F0B429;\n  --color-blue-500: #6B9FFF;\n}\n```\n\n### Semantic Tokens\n```css\n:root {\n  --bg-page: #F8FCF8;\n  --bg-section-alt: #F5FBF5;\n  --bg-card: #FFFFFF;\n  --bg-card-hover: #F0F8F0;\n\n  --text-primary: #2F3A33;\n  --text-secondary: #4A5A4E;\n  --text-dim: #6F7C73;\n\n  --border-default: #E4EFE4;\n  --accent: #A8D8A8;\n  --accent-hover: #8EC88E;\n}\n```\n\n### Color Formula\n80% white surfaces, 15% light green tints, 5% accent green for CTAs and highlights.',
+
+  typography: '## Typography\n\n### Font Stack\n| Role | Font | Weights | Usage |\n|------|------|---------|-------|\n| Headings | Manrope | 600, 700, 800 | All headings, titles, hero text |\n| Body | Inter | 300-600 | Body, labels, buttons, captions |\n\n### Type Scale\n```css\n/* Hero */\nfont-family: Manrope; font-weight: 800;\nfont-size: clamp(36px, 6vw, 64px); line-height: 1.1;\n\n/* Section title */\nfont-family: Manrope; font-weight: 700;\nfont-size: clamp(24px, 4vw, 40px); line-height: 1.15;\n\n/* Card title */\nfont-family: Manrope; font-weight: 600;\nfont-size: 18px;\n\n/* Body */\nfont-family: Inter; font-weight: 400;\nfont-size: 16px; line-height: 1.7;\ncolor: var(--text-secondary);\n\n/* Label */\nfont-family: Inter; font-weight: 600;\nfont-size: 11px; text-transform: uppercase;\nletter-spacing: 1.5px; color: var(--accent-hover);\n\n/* Button */\nfont-family: Inter; font-weight: 600;\nfont-size: 14px;\n```',
+
+  spacing: '## Spacing & Radius\n\n### Spacing Scale\n```css\n:root {\n  --space-1: 4px;\n  --space-2: 8px;\n  --space-3: 12px;\n  --space-4: 16px;\n  --space-5: 20px;\n  --space-6: 24px;\n  --space-8: 32px;\n  --space-10: 40px;\n  --space-12: 48px;\n  --space-16: 64px;\n  --space-20: 80px;\n  --space-25: 100px;\n}\n```\n\n### Border Radius\n```css\n:root {\n  --radius-sm: 8px;     /* Checkboxes, small elements */\n  --radius-md: 14px;    /* Inputs */\n  --radius-lg: 16px;    /* Buttons */\n  --radius-xl: 20px;    /* Cards, panels */\n  --radius-pill: 999px; /* Badges, pills, CTAs */\n}\n```\n\n### Borders\n- Default: 1px solid #E4EFE4\n- Focus ring: 0 0 0 3px rgba(168, 216, 168, 0.15)\n- Rounded everything -- NO sharp corners\n\n### Shadows\n```css\n--shadow-sm: 0 1px 3px rgba(47, 58, 51, 0.04);\n--shadow-md: 0 4px 12px rgba(47, 58, 51, 0.06);\n--shadow-lg: 0 8px 24px rgba(47, 58, 51, 0.08);\n--shadow-green: 0 4px 16px rgba(168, 216, 168, 0.25);\n```',
+
+  motion: '## Motion System\n\n### Duration Tokens\n```css\n--duration-instant: 100ms;\n--duration-fast: 150ms;\n--duration-normal: 250ms;\n--duration-moderate: 350ms;\n--duration-slow: 500ms;\n--duration-slower: 600ms;\n```\n\n### Easing Curves\n```css\n--ease-out: cubic-bezier(0, 0, 0.58, 1);          /* Entrances */\n--ease-in: cubic-bezier(0.42, 0, 1, 1);            /* Exits */\n--ease-standard: cubic-bezier(0.42, 0, 0.58, 1);   /* State changes */\n--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);  /* Delightful bounces */\n--ease-gentle: cubic-bezier(0.25, 0.1, 0.25, 1);   /* Slow, organic */\n```\n\n### Animations\n```css\n@keyframes fade-up {\n  from { opacity: 0; transform: translateY(20px); }\n  to { opacity: 1; transform: translateY(0); }\n}\n@keyframes scale-in {\n  from { opacity: 0; transform: scale(0.95); }\n  to { opacity: 1; transform: scale(1); }\n}\n@keyframes float {\n  0%, 100% { transform: translateY(0); }\n  50% { transform: translateY(-20px); }\n}\n@keyframes pulse-soft {\n  0%, 100% { opacity: 1; transform: scale(1); }\n  50% { opacity: 0.5; transform: scale(0.8); }\n}\n```\n\n### Rules\n- Only animate: transform, opacity, box-shadow, border-color, background\n- Never animate: width, height, margin, padding\n- Always include prefers-reduced-motion media query',
+
+  components: '## Components\n\n### Button Primary\n```css\nbackground: var(--accent); /* #A8D8A8 */\ncolor: white;\nfont: 600 14px/1 "Inter", sans-serif;\npadding: 12px 24px;\nborder: none;\nborder-radius: var(--radius-pill);\ntransition: all 250ms ease;\n/* hover: background #8EC88E, shadow var(--shadow-green), translateY(-1px) */\n```\n\n### Button Secondary\n```css\nbackground: white;\ncolor: var(--accent-hover);\nborder: 1.5px solid var(--accent);\nborder-radius: var(--radius-pill);\npadding: 12px 24px;\n```\n\n### Card\n```css\nbackground: white;\nborder: 1px solid #E4EFE4;\nborder-radius: 20px;\npadding: 24px;\nbox-shadow: var(--shadow-sm);\ntransition: all 250ms ease;\n/* hover: shadow-md, translateY(-2px) */\n```\n\n### Input\n```css\nbackground: white;\nborder: 1.5px solid #E4EFE4;\nborder-radius: 14px;\npadding: 14px 18px;\nfont: 400 14px "Inter", sans-serif;\n/* focus: border-color #A8D8A8, box-shadow 0 0 0 3px rgba(168,216,168,0.15) */\n```\n\n### Badge\n```css\nfont: 600 11px "Inter", sans-serif;\npadding: 5px 12px;\nborder-radius: var(--radius-pill);\n/* green: bg #E4F2E4, color #3D6B3D */\n/* amber: bg #FEF3C7, color #92610A */\n/* red: bg #FDE8E8, color #9E2A2A */\n```\n\n### Toggle\n```css\nwidth: 44px; height: 24px;\nbackground: #E4EFE4; /* active: #A8D8A8 */\nborder-radius: 999px;\n/* knob: 18px circle, white, spring easing on transform */\n```',
+
+  layouts: '## Layout Patterns\n\n### Card Grid\n```css\ngrid-template-columns: repeat(auto-fit, minmax(280px, 1fr));\ngap: 24px;\n```\n\n### Two-Column Split\n```css\ngrid-template-columns: 1fr 1fr;\ngap: 48px;\n@media (max-width: 700px) { grid-template-columns: 1fr; }\n```\n\n### Centered Hero\n```css\nmax-width: 640px;\nmargin: 0 auto;\ntext-align: center;\npadding: 140px 24px 80px;\n```\n\n### Container\n```css\nmax-width: 1000px;\nmargin: 0 auto;\npadding: 0 24px;\n```\n\n### Section Alternation\nAlternate between #F8FCF8, #F5FBF5, and #FFFFFF\nSeparate with 1px solid #E4EFE4 borders\n\n### Section Padding\n```css\npadding: 100px 0; /* Desktop */\npadding: 64px 0;  /* Mobile */\n```'
+};
+
+// Full system export
+var fullSystem = '# Bloom Design System\n\n> Cute + elegant + modern. A wellness-inspired design system with pastel greens, rounded corners, and airy whitespace.\n> Paste this into your project as design-system.md or into CLAUDE.md.\n\n## Fonts\n```html\n<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">\n```\n\n' + Object.values(mdSections).join('\n\n---\n\n') + '\n\n---\n\n## Build Rules\n- Rounded corners on EVERYTHING (cards 20px, buttons pill, inputs 14px)\n- Soft green-tinted shadows, low opacity\n- Lots of whitespace -- airy layouts\n- Minimal color: 80% white, 15% light green, 5% accent green\n- Floating blob decorations for hero sections (CSS only, blurred circles)\n- Body text is always --text-secondary, never full black\n- Headlines use Manrope, everything else uses Inter\n- Include prefers-reduced-motion handling';
+
+// Panel logic
+var overlay = document.getElementById('mdOverlay');
+var panelTitle = document.getElementById('mdPanelTitle');
+var mdContent = document.getElementById('mdContent');
+var currentMd = '';
+
+function openPanel(section) {
+  panelTitle.textContent = section.charAt(0).toUpperCase() + section.slice(1);
+  currentMd = mdSections[section] || '';
+  mdContent.textContent = currentMd;
+  overlay.classList.add('active');
+}
+
+function closePanel() {
+  overlay.classList.remove('active');
+}
+
+document.querySelectorAll('.btn-view-md').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    openPanel(this.dataset.section);
+  });
+});
+
+document.getElementById('btnClosePanel').addEventListener('click', closePanel);
+overlay.addEventListener('click', function(e) { if (e.target === overlay) closePanel(); });
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closePanel(); });
+
+document.getElementById('btnCopySection').addEventListener('click', function() {
+  navigator.clipboard.writeText(currentMd).then(function() {
+    var btn = document.getElementById('btnCopySection');
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+  });
+});
+
+// Copy full system
+function copyFullSystem() {
+  navigator.clipboard.writeText(fullSystem).then(function() {
+    var btns = document.querySelectorAll('#copySystem, #copySystemHero');
+    btns.forEach(function(b) {
+      var orig = b.textContent;
+      b.textContent = 'Copied!';
+      setTimeout(function() { b.textContent = orig; }, 2000);
+    });
+  });
+}
+
+document.getElementById('copySystem').addEventListener('click', copyFullSystem);
+document.getElementById('copySystemHero').addEventListener('click', copyFullSystem);
+</script>
+
+</body>
+</html>

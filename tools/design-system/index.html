@@ -402,6 +402,54 @@ body {
   border-radius: 10px;
 }
 
+/* Bloom preview */
+.preview-bloom {
+  background: #F8FCF8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.preview-bloom .bloom-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(25px);
+  opacity: 0.5;
+}
+.bloom-blob-1 { width: 80px; height: 80px; background: #CFECCF; top: -10px; left: -10px; }
+.bloom-blob-2 { width: 50px; height: 50px; background: #E4F2E4; bottom: -5px; right: 20px; }
+.preview-bloom .bloom-pill {
+  width: 80px;
+  height: 28px;
+  background: #A8D8A8;
+  border-radius: 999px;
+  position: relative;
+}
+.preview-bloom .bloom-card {
+  width: 85%;
+  height: 32px;
+  background: #FFFFFF;
+  border: 1px solid #E4EFE4;
+  border-radius: 14px;
+  position: relative;
+}
+.preview-bloom .bloom-chip-row {
+  display: flex;
+  gap: 6px;
+  position: relative;
+}
+.preview-bloom .bloom-chip {
+  height: 18px;
+  padding: 0 10px;
+  background: #F0F8F0;
+  border: 1px solid #E4EFE4;
+  border-radius: 999px;
+}
+
 /* E-Commerce preview */
 .preview-ecom {
   background: #fafaf9;
@@ -699,11 +747,11 @@ body {
   <p>Browse, preview, and export complete design systems. Every token, component, animation, and layout pattern — rendered live and ready to ship.</p>
   <div class="hero-stats">
     <div>
-      <div class="hero-stat-num">1</div>
+      <div class="hero-stat-num">2</div>
       <div class="hero-stat-label">SYSTEMS LIVE</div>
     </div>
     <div>
-      <div class="hero-stat-num">3</div>
+      <div class="hero-stat-num">2</div>
       <div class="hero-stat-label">COMING SOON</div>
     </div>
     <div>
@@ -777,7 +825,43 @@ body {
       </div>
     </div>
 
-    <!-- CARD 2: SaaS Starter (COMING SOON) -->
+    <!-- CARD 2: Bloom (LIVE) -->
+    <div class="system-card" data-category="light">
+      <div class="card-preview preview-bloom">
+        <div class="bloom-blob bloom-blob-1"></div>
+        <div class="bloom-blob bloom-blob-2"></div>
+        <div class="bloom-pill"></div>
+        <div class="bloom-card"></div>
+        <div class="bloom-chip-row">
+          <div class="bloom-chip"></div>
+          <div class="bloom-chip"></div>
+          <div class="bloom-chip"></div>
+        </div>
+      </div>
+      <span class="card-status status-live">LIVE</span>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-category">LIGHT THEME</span>
+          <span class="card-separator"></span>
+          <span class="card-tokens">25+ colors / 12 components / 5 animations</span>
+        </div>
+        <h3 class="card-title">Bloom</h3>
+        <p class="card-desc">Cute, elegant wellness design system with pastel greens, rounded corners, and airy whitespace. Manrope + Inter typography, soft shadows, and a live todo app demo.</p>
+        <div class="card-tags">
+          <span class="card-tag">pastel</span>
+          <span class="card-tag">rounded</span>
+          <span class="card-tag">wellness</span>
+          <span class="card-tag">light</span>
+          <span class="card-tag">airy</span>
+        </div>
+        <div class="card-actions">
+          <a href="bloom.html" class="btn-explore">Explore System</a>
+          <button class="btn-copy" onclick="copySystemLink('bloom')">Copy Link</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3: SaaS Starter (COMING SOON) -->
     <div class="system-card coming-soon" data-category="saas">
       <div class="card-preview preview-saas">
         <div class="mock-badge"></div>
