@@ -4,1664 +4,970 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Design System Library — AIOpsForge</title>
-<meta name="description" content="The complete AIOpsForge design system. Every token, component, animation, and layout pattern — rendered live. Copy the full system as production-ready markdown.">
+<meta name="description" content="Browse production-ready design systems. Every token, component, animation, and layout pattern — rendered live and exportable as markdown.">
 <link rel="icon" type="image/png" href="../../favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script>
+(function(){var t=localStorage.getItem('aof_theme');if(t)document.documentElement.setAttribute('data-theme',t);})();
+</script>
 <style>
-/* ══════ PRIMITIVE TOKENS ══════ */
 :root {
-  --color-green-500: #00FF41;
-  --color-green-400: #00cc34;
-  --color-green-a15: rgba(0, 255, 65, 0.15);
-  --color-green-a30: rgba(0, 255, 65, 0.3);
-  --color-green-a20: rgba(0, 255, 65, 0.2);
-  --color-green-a08: rgba(0, 255, 65, 0.08);
-  --color-green-a05: rgba(0, 255, 65, 0.05);
-  --color-green-a03: rgba(0, 255, 65, 0.03);
-
-  --color-neutral-950: #060606;
-  --color-neutral-900: #0a0a0a;
-  --color-neutral-850: #0c0c0c;
-  --color-neutral-800: #111111;
-  --color-neutral-750: #131313;
-  --color-neutral-700: #161616;
-  --color-neutral-650: #1a1a1a;
-  --color-neutral-600: #1c1c1c;
-  --color-neutral-550: #222222;
-  --color-neutral-400: #2a2a2a;
-  --color-neutral-300: #555555;
-  --color-neutral-200: #666666;
-  --color-neutral-150: #999999;
-  --color-neutral-100: #eeeeee;
-
-  --color-red-500: #ff4444;
-  --color-red-a15: rgba(255, 68, 68, 0.15);
-  --color-red-a03: rgba(255, 68, 68, 0.03);
-  --color-amber-500: #FFB800;
-  --color-cyan-500: #22d3ee;
-  --color-blue-500: #4488ff;
-
-  /* ══════ SEMANTIC TOKENS ══════ */
-  --bg-page: var(--color-neutral-900);
-  --bg-section-alt: var(--color-neutral-800);
-  --bg-card: var(--color-neutral-700);
-  --bg-card-hover: var(--color-neutral-600);
-  --bg-surface-deep: var(--color-neutral-950);
-  --bg-elevated: var(--color-neutral-550);
-
-  --text-primary: var(--color-neutral-100);
-  --text-secondary: var(--color-neutral-150);
-  --text-dim: var(--color-neutral-300);
-
-  --border-default: var(--color-neutral-400);
-  --border-hover: var(--color-green-a20);
-
-  --accent: var(--color-green-500);
-  --accent-dim: var(--color-green-400);
-  --accent-glow: var(--color-green-a15);
-  --accent-glow-strong: var(--color-green-a30);
-
-  --color-negative: var(--color-red-500);
-  --color-positive: var(--color-green-500);
-
-  /* ══════ SPACING ══════ */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-  --space-8: 32px;
-  --space-10: 40px;
-  --space-12: 48px;
-  --space-16: 64px;
-  --space-20: 80px;
-  --space-25: 100px;
-
-  /* ══════ MOTION ══════ */
-  --duration-instant: 100ms;
-  --duration-fast: 150ms;
-  --duration-normal: 250ms;
-  --duration-moderate: 350ms;
-  --duration-slow: 500ms;
-  --duration-slower: 600ms;
-
-  --ease-out: cubic-bezier(0, 0, 0.58, 1);
-  --ease-in: cubic-bezier(0.42, 0, 1, 1);
-  --ease-standard: cubic-bezier(0.42, 0, 0.58, 1);
-  --ease-productive: cubic-bezier(0.2, 0, 0.38, 0.9);
-  --ease-expressive: cubic-bezier(0.4, 0.14, 0.3, 1);
+  --green: #00FF41;
+  --green-dim: #00cc34;
+  --green-glow: rgba(0, 255, 65, 0.12);
+  --green-glow-strong: rgba(0, 255, 65, 0.3);
+  --green-border: rgba(0, 255, 65, 0.2);
+  --bg-0: #060606;
+  --bg-1: #0c0c0c;
+  --bg-2: #131313;
+  --bg-card: #161616;
+  --bg-card-hover: #1c1c1c;
+  --border: #222;
+  --text-1: #eee;
+  --text-2: #999;
+  --text-3: #555;
+  --amber: #FFB800;
+  --blue: #4488ff;
+  --cyan: #22d3ee;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --green: #00892e;
+    --green-dim: #006b24;
+    --green-glow: rgba(0, 137, 46, 0.08);
+    --green-glow-strong: rgba(0, 137, 46, 0.25);
+    --green-border: rgba(0, 137, 46, 0.2);
+    --bg-0: #f8f8f8;
+    --bg-1: #f0f0f0;
+    --bg-2: #e8e8e8;
+    --bg-card: #ffffff;
+    --bg-card-hover: #fafafa;
+    --border: #d4d4d4;
+    --text-1: #1a1a1a;
+    --text-2: #555555;
+    --text-3: #888888;
+    --amber: #cc8800;
+    --blue: #2266cc;
+    --cyan: #0ea5c4;
+  }
+}
+
+:root[data-theme="light"] {
+  --green: #00892e;
+  --green-dim: #006b24;
+  --green-glow: rgba(0, 137, 46, 0.08);
+  --green-glow-strong: rgba(0, 137, 46, 0.25);
+  --green-border: rgba(0, 137, 46, 0.2);
+  --bg-0: #f8f8f8;
+  --bg-1: #f0f0f0;
+  --bg-2: #e8e8e8;
+  --bg-card: #ffffff;
+  --bg-card-hover: #fafafa;
+  --border: #d4d4d4;
+  --text-1: #1a1a1a;
+  --text-2: #555555;
+  --text-3: #888888;
+  --amber: #cc8800;
+  --blue: #2266cc;
+  --cyan: #0ea5c4;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   font-family: 'IBM Plex Sans', sans-serif;
-  background: var(--bg-page);
-  color: var(--text-primary);
+  background: var(--bg-0);
+  color: var(--text-1);
   line-height: 1.6;
-  overflow-x: hidden;
+  min-height: 100vh;
 }
 
 /* ══════ NAV ══════ */
-.ds-nav {
+.site-nav {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(10, 10, 10, 0.9);
+  background: rgba(6, 6, 6, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-default);
+  border-bottom: 1px solid var(--border);
   padding: 0 24px;
 }
-
-.ds-nav-inner {
-  max-width: 1100px;
+.nav-inner {
+  max-width: 1000px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 56px;
 }
-
-.ds-nav-brand {
+.nav-brand {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
-  color: var(--accent);
+  color: var(--green);
   text-decoration: none;
+  letter-spacing: 0.5px;
   display: flex;
   align-items: center;
   gap: 8px;
 }
-
-.ds-nav-brand span {
-  color: var(--text-dim);
-  font-weight: 400;
-}
-
-.ds-nav-links {
+.nav-logo { width: 24px; height: 24px; object-fit: contain; }
+.nav-links {
   display: flex;
   align-items: center;
   gap: 16px;
 }
-
-.ds-nav-links a {
+.nav-links a {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
-  color: var(--text-dim);
+  color: var(--text-3);
   text-decoration: none;
-  transition: color var(--duration-fast);
+  letter-spacing: 0.5px;
+  transition: color 0.2s;
 }
-
-.ds-nav-links a:hover { color: var(--accent); }
-
-.btn-copy-system {
-  background: transparent;
-  border: 1px solid var(--border-hover);
-  color: var(--accent);
+.nav-links a:hover, .nav-links a.active { color: var(--green); }
+.nav-cta {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
   font-weight: 700;
-  padding: 8px 16px;
+  color: #000 !important;
+  background: var(--green);
+  padding: 6px 14px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.nav-cta:hover {
+  background: #33ff66;
+  box-shadow: 0 0 16px rgba(0, 255, 65, 0.3);
+}
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  color: #ffffff;
   cursor: pointer;
-  transition: all var(--duration-normal) var(--ease-standard);
-}
-
-.btn-copy-system:hover {
-  background: var(--color-green-a05);
-  border-color: var(--accent);
-}
-
-/* ══════ UTILITY ══════ */
-.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-
-.section { padding: 100px 0; }
-.section-alt { background: var(--bg-section-alt); border-top: 1px solid var(--border-default); border-bottom: 1px solid var(--border-default); }
-
-.section-label {
+  padding: 6px 10px;
+  min-width: 36px;
+  min-height: 36px;
+  justify-content: center;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--accent);
-  opacity: 0.7;
-  margin-bottom: 16px;
-}
-
-.section-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(28px, 5vw, 44px);
-  font-weight: 700;
-  line-height: 1.15;
-  margin-bottom: 20px;
-}
-
-.section-title .accent { color: var(--accent); }
-
-.section-desc {
-  font-size: 16px;
-  color: var(--text-secondary);
-  line-height: 1.8;
-  max-width: 650px;
-  margin-bottom: 40px;
-}
-
-.section-header {
+  font-size: 14px;
+  transition: all 0.2s;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 40px;
+  align-items: center;
+  line-height: 1;
 }
+.theme-toggle:hover { color: var(--green); border-color: var(--green-border); }
+:root[data-theme="light"] .theme-toggle { color: #1a1a1a; }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .theme-toggle { color: #1a1a1a; } }
 
-.section-header-text { flex: 1; min-width: 300px; }
-
-.btn-view-md {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--text-dim);
-  background: transparent;
-  border: 1px solid var(--border-default);
-  padding: 8px 14px;
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
   cursor: pointer;
-  transition: all var(--duration-normal) var(--ease-standard);
-  white-space: nowrap;
+  padding: 8px;
+  flex-direction: column;
+  gap: 4px;
+}
+.nav-toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--text-1);
+  transition: all 0.3s;
 }
 
-.btn-view-md:hover {
-  color: var(--accent);
-  border-color: var(--border-hover);
+@media (max-width: 900px) {
+  .nav-toggle { display: flex; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 56px;
+    left: 0;
+    right: 0;
+    background: var(--bg-1);
+    flex-direction: column;
+    padding: 16px 24px;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-links.open { display: flex; }
+  .site-nav.nav-open .nav-links { display: flex; }
 }
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .site-nav { background: rgba(248, 248, 248, 0.9); }
+  :root:not([data-theme="dark"]) .nav-links { background: #f0f0f0; }
+}
+:root[data-theme="light"] .site-nav { background: rgba(248, 248, 248, 0.9); }
+:root[data-theme="light"] .nav-links { background: #f0f0f0; }
 
 /* ══════ HERO ══════ */
 .hero {
-  padding-top: 120px;
-  padding-bottom: 80px;
+  padding: 140px 24px 80px;
   text-align: center;
-  position: relative;
+  background: var(--bg-0);
+  border-bottom: 1px solid var(--border);
 }
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 800px;
-  height: 600px;
-  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-  pointer-events: none;
-}
-
 .hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  color: var(--accent);
-  border: 1px solid var(--border-hover);
-  padding: 6px 16px;
-  background: var(--color-green-a05);
-  letter-spacing: 1px;
-  margin-bottom: 32px;
-  animation: fade-up var(--duration-slow) var(--ease-out) both;
-}
-
-.hero-badge .pulse-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--accent);
-  border-radius: 50%;
-  animation: pulse-dot 2s infinite;
-}
-
-.hero-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(36px, 7vw, 72px);
-  font-weight: 800;
-  line-height: 1.05;
-  margin-bottom: 24px;
-  animation: fade-up var(--duration-slow) var(--ease-out) 0.06s both;
-}
-
-.hero-title .accent { color: var(--accent); }
-
-.hero-subtitle {
-  font-size: 17px;
-  color: var(--text-secondary);
-  max-width: 560px;
-  margin: 0 auto 40px;
-  line-height: 1.7;
-  animation: fade-up var(--duration-slow) var(--ease-out) 0.12s both;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 48px;
-  animation: fade-up var(--duration-slow) var(--ease-out) 0.18s both;
-}
-
-.cta-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--accent);
-  color: #000;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
-  font-weight: 700;
-  padding: 16px 32px;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all var(--duration-normal) var(--ease-standard);
-  letter-spacing: 0.5px;
-}
-
-.cta-primary:hover {
-  background: #33ff66;
-  box-shadow: 0 0 30px var(--accent-glow-strong);
-  transform: translateY(-1px);
-}
-
-.cta-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: transparent;
-  color: var(--accent);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
-  font-weight: 700;
-  padding: 16px 32px;
-  border: 1px solid var(--border-hover);
-  cursor: pointer;
-  text-decoration: none;
-  transition: all var(--duration-normal) var(--ease-standard);
-  letter-spacing: 0.5px;
-}
-
-.cta-secondary:hover {
-  background: var(--color-green-a05);
-  border-color: var(--accent);
-}
-
-.hero-stats {
-  display: flex;
-  gap: 48px;
-  justify-content: center;
-  flex-wrap: wrap;
-  animation: fade-up var(--duration-slow) var(--ease-out) 0.24s both;
-}
-
-.hero-stat {
-  text-align: center;
-}
-
-.hero-stat-num {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--accent);
-}
-
-.hero-stat-label {
+  display: inline-block;
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
-  letter-spacing: 1px;
-  color: var(--text-dim);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--green);
+  border: 1px solid var(--green-border);
+  background: var(--green-glow);
+  padding: 6px 16px;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.hero h1 span { color: var(--green); }
+.hero p {
+  font-size: 16px;
+  color: var(--text-2);
+  max-width: 560px;
+  margin: 0 auto 32px;
+  line-height: 1.6;
+}
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 32px;
+}
+.hero-stat-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--green);
+}
+.hero-stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-3);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
   margin-top: 4px;
 }
 
-/* ══════ SWATCH GRID ══════ */
-.swatch-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+/* ══════ LIBRARY GRID ══════ */
+.library-section {
+  padding: 80px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
   gap: 16px;
 }
-
-.swatch-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-default);
-  overflow: hidden;
-  transition: border-color var(--duration-normal) var(--ease-standard);
-}
-
-.swatch-card:hover { border-color: var(--border-hover); }
-
-.swatch-color {
-  height: 64px;
-  width: 100%;
-}
-
-.swatch-info {
-  padding: 12px 16px;
-}
-
-.swatch-name {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
   font-weight: 700;
-  margin-bottom: 4px;
 }
-
-.swatch-hex {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--text-dim);
-  margin-bottom: 4px;
+.section-title span { color: var(--green); }
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
-
-.swatch-var {
+.filter-btn {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
-  color: var(--text-dim);
-}
-
-/* ══════ TYPE SPECIMEN ══════ */
-.type-specimen {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-.type-row {
-  background: var(--bg-card);
-  border: 1px solid var(--border-default);
-  padding: 28px;
-  transition: border-color var(--duration-normal) var(--ease-standard);
-}
-
-.type-row:hover { border-color: var(--border-hover); }
-
-.type-sample { margin-bottom: 16px; }
-
-.type-meta {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-
-.type-meta-item {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--text-dim);
-}
-
-.type-meta-item strong {
-  color: var(--text-secondary);
-}
-
-/* ══════ SPACING SCALE ══════ */
-.spacing-scale {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.spacing-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.spacing-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--text-dim);
-  width: 100px;
-  flex-shrink: 0;
-}
-
-.spacing-bar {
-  height: 12px;
-  background: var(--accent);
-  opacity: 0.6;
-}
-
-.spacing-value {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--text-secondary);
-  flex-shrink: 0;
-}
-
-/* ══════ COMPONENT DEMO ══════ */
-.component-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
-}
-
-.component-demo {
-  background: var(--bg-card);
-  border: 1px solid var(--border-default);
-  overflow: hidden;
-}
-
-.component-demo-header {
-  background: var(--bg-section-alt);
-  border-bottom: 1px solid var(--border-default);
-  padding: 12px 20px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--text-dim);
+  font-weight: 500;
   letter-spacing: 1px;
   text-transform: uppercase;
+  background: var(--bg-card);
+  color: var(--text-3);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-btn:hover { color: var(--text-2); border-color: var(--text-3); }
+.filter-btn.active {
+  color: var(--green);
+  border-color: var(--green-border);
+  background: var(--green-glow);
 }
 
-.component-demo-body {
-  padding: 28px;
+.library-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.system-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 0;
+  transition: all 0.3s;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-}
-
-.component-demo-body.centered {
-  align-items: center;
-}
-
-/* ══════ LIVE COMPONENTS ══════ */
-/* Tag */
-.demo-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--text-dim);
-  background: var(--color-neutral-750);
-  padding: 4px 10px;
-  border: 1px solid var(--border-default);
-}
-
-/* Feature Icon Tag */
-.demo-icon-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  color: var(--accent);
-  background: var(--color-green-a08);
-  border: 1px solid var(--border-hover);
-  padding: 6px 12px;
-  display: inline-flex;
-}
-
-/* Hero Badge */
-.demo-hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  color: var(--accent);
-  border: 1px solid var(--border-hover);
-  padding: 6px 16px;
-  background: var(--color-green-a05);
-  letter-spacing: 1px;
-}
-
-.demo-hero-badge .dot {
-  width: 6px;
-  height: 6px;
-  background: var(--accent);
-  border-radius: 50%;
-  animation: pulse-dot 2s infinite;
-}
-
-/* Card */
-.demo-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-default);
-  padding: 28px;
   position: relative;
   overflow: hidden;
-  transition: all var(--duration-normal) var(--ease-standard);
-  width: 100%;
 }
-
-.demo-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: var(--accent);
-  opacity: 0;
-  transition: opacity var(--duration-normal) var(--ease-standard);
+.system-card:hover {
+  border-color: var(--green-border);
+  box-shadow: 0 0 20px var(--green-glow);
+  transform: translateY(-2px);
 }
+.system-card.coming-soon { opacity: 0.5; pointer-events: none; }
 
-.demo-card:hover {
-  border-color: var(--border-hover);
-  background: var(--bg-card-hover);
-}
-
-.demo-card:hover::before { opacity: 1; }
-
-.demo-card h4 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-.demo-card p {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.7;
-}
-
-/* Card Highlighted */
-.demo-card-highlight {
-  border-color: var(--accent);
-  background: var(--color-green-a03);
-}
-
-.demo-card-highlight::before { opacity: 1; height: 3px; }
-
-.demo-card-highlight h4 { color: var(--accent); }
-
-/* Tech Chip */
-.demo-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-default);
-  padding: 12px 20px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  color: var(--text-secondary);
-  transition: border-color var(--duration-normal) var(--ease-standard);
-}
-
-.demo-chip:hover { border-color: var(--border-hover); }
-
-.demo-chip .chip-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--accent);
-  border-radius: 50%;
-}
-
-/* Trust Bar */
-.demo-trust-bar {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-
-.demo-trust-item {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--text-dim);
-}
-
-.demo-trust-item .check { color: var(--accent); margin-right: 6px; }
-
-/* Terminal Mockup */
-.demo-terminal {
-  background: var(--bg-card);
-  border: 1px solid var(--border-default);
+.card-preview {
+  height: 180px;
+  position: relative;
   overflow: hidden;
-  width: 100%;
+  border-bottom: 1px solid var(--border);
 }
 
-.terminal-bar {
+/* AIOpsForge preview */
+.preview-aiopforge {
+  background: #0a0a0a;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 4px;
+  padding: 16px;
+}
+.preview-aiopforge .swatch {
+  transition: transform 0.2s;
+}
+.system-card:hover .preview-aiopforge .swatch {
+  transform: scale(1.05);
+}
+.swatch-green { background: #00FF41; }
+.swatch-dark-1 { background: #0a0a0a; border: 1px solid #222; }
+.swatch-dark-2 { background: #111111; }
+.swatch-dark-3 { background: #161616; }
+.swatch-dark-4 { background: #1c1c1c; }
+.swatch-dark-5 { background: #222222; }
+.swatch-green-glow { background: rgba(0, 255, 65, 0.15); }
+.swatch-red { background: #ff4444; }
+.swatch-amber { background: #FFB800; }
+.swatch-cyan { background: #22d3ee; }
+.swatch-blue { background: #4488ff; }
+.swatch-text { background: #eeeeee; }
+.swatch-text-dim { background: #999999; }
+.swatch-text-muted { background: #555555; }
+.swatch-green-dim { background: #00cc34; }
+.swatch-surface { background: #131313; }
+.swatch-elevated { background: #2a2a2a; }
+.swatch-green-a08 { background: rgba(0, 255, 65, 0.08); border: 1px solid rgba(0, 255, 65, 0.2); }
+
+/* SaaS Starter preview */
+.preview-saas {
+  background: #0f172a;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 12px 16px;
-  background: var(--color-neutral-650);
-  border-bottom: 1px solid var(--border-default);
+  padding: 24px;
+}
+.preview-saas .mock-btn {
+  width: 120px;
+  height: 28px;
+  background: #6366f1;
+  border-radius: 6px;
+}
+.preview-saas .mock-card {
+  width: 80%;
+  height: 24px;
+  background: #1e293b;
+  border-radius: 8px;
+}
+.preview-saas .mock-badge {
+  width: 60px;
+  height: 16px;
+  background: #22d3ee;
+  border-radius: 10px;
 }
 
-.terminal-dot { width: 10px; height: 10px; }
-.terminal-dot.red { background: #ff5f57; }
-.terminal-dot.yellow { background: #ffbd2e; }
-.terminal-dot.green { background: #28c840; }
-
-.terminal-title {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--text-dim);
-  margin-left: 8px;
-}
-
-.terminal-body {
-  padding: 20px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  line-height: 1.8;
-  color: var(--text-secondary);
-}
-
-.terminal-body .green { color: var(--accent); }
-.terminal-body .dim { color: var(--text-dim); }
-
-.terminal-cursor {
-  display: inline-block;
-  width: 8px;
-  height: 14px;
-  background: var(--accent);
-  margin-left: 4px;
-  animation: cursor-blink 1s infinite;
-}
-
-/* FAQ Accordion */
-.demo-faq-item {
-  border-bottom: 1px solid var(--border-default);
-  padding: 24px 0;
-}
-
-.demo-faq-item:first-child { border-top: 1px solid var(--border-default); }
-
-.demo-faq-q {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
+/* E-Commerce preview */
+.preview-ecom {
+  background: #fafaf9;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  gap: 16px;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px;
+}
+.preview-ecom .mock-product {
+  width: 70%;
+  height: 60px;
+  background: #e7e5e4;
+  border-radius: 2px;
+}
+.preview-ecom .mock-price {
+  width: 50px;
+  height: 16px;
+  background: #dc2626;
+}
+.preview-ecom .mock-cart {
+  width: 100px;
+  height: 28px;
+  background: #18181b;
 }
 
-.demo-faq-q::after {
-  content: '+';
-  font-family: 'JetBrains Mono', monospace;
-  color: var(--accent);
-  font-size: 20px;
-  flex-shrink: 0;
-  transition: transform var(--duration-normal) var(--ease-standard);
-}
-
-.demo-faq-item.open .demo-faq-q::after { transform: rotate(45deg); }
-
-.demo-faq-a {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height var(--duration-moderate) var(--ease-standard);
-}
-
-.demo-faq-item.open .demo-faq-a { max-height: 200px; }
-
-.demo-faq-a-inner {
-  padding-top: 16px;
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.8;
-}
-
-/* Who-For Grid */
-.demo-who-for {
+/* Dashboard preview */
+.preview-dashboard {
+  background: #09090b;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  width: 100%;
+  grid-template-rows: 1fr 1fr;
+  gap: 6px;
+  padding: 16px;
+}
+.preview-dashboard .mock-chart {
+  background: #18181b;
+  border: 1px solid #27272a;
+  display: flex;
+  align-items: flex-end;
+  padding: 8px;
+  gap: 3px;
+}
+.preview-dashboard .mock-bar {
+  flex: 1;
+  background: #a855f7;
+  min-height: 8px;
 }
 
-.demo-col-neg {
-  background: var(--color-red-a03);
-  border: 1px solid var(--color-red-a15);
-  padding: 24px;
-}
-
-.demo-col-neg h4 { color: var(--color-red-500); font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; margin-bottom: 12px; }
-
-.demo-col-pos {
-  background: var(--color-green-a03);
-  border: 1px solid var(--border-hover);
-  padding: 24px;
-}
-
-.demo-col-pos h4 { color: var(--accent); font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; margin-bottom: 12px; }
-
-.demo-who-list {
-  list-style: none;
-  font-size: 13px;
-  color: var(--text-secondary);
-}
-
-.demo-who-list li {
-  padding: 4px 0 4px 20px;
-  position: relative;
-}
-
-.demo-who-list li::before {
+.card-status {
   position: absolute;
-  left: 0;
+  top: 12px;
+  right: 12px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-}
-
-.demo-col-neg .demo-who-list li::before { content: 'x'; color: var(--color-red-500); }
-.demo-col-pos .demo-who-list li::before { content: '>'; color: var(--accent); }
-
-/* ══════ ANIMATION DEMOS ══════ */
-.animation-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
-}
-
-.anim-demo {
-  background: var(--bg-card);
-  border: 1px solid var(--border-default);
-  overflow: hidden;
-}
-
-.anim-demo-header {
-  background: var(--bg-section-alt);
-  border-bottom: 1px solid var(--border-default);
-  padding: 12px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.anim-demo-title {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--text-dim);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-.btn-replay {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: var(--accent);
-  background: none;
-  border: 1px solid var(--border-hover);
-  padding: 4px 10px;
-  cursor: pointer;
-  transition: all var(--duration-fast);
-}
-
-.btn-replay:hover { background: var(--color-green-a05); }
-
-.anim-demo-body {
-  padding: 40px 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 120px;
-}
-
-.anim-box {
-  width: 60px;
-  height: 60px;
-  background: var(--accent);
-  opacity: 0.8;
-}
-
-/* Warning Panel */
-.warning-panel {
-  background: var(--color-red-a03);
-  border: 1px solid var(--color-red-a15);
-  padding: 32px;
-  margin-top: 40px;
-}
-
-.warning-panel h3 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 18px;
+  font-size: 9px;
   font-weight: 700;
-  color: var(--color-red-500);
-  margin-bottom: 16px;
-}
-
-.warning-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-
-.warning-table th {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: var(--text-dim);
-  text-align: left;
-  padding: 10px 16px;
-  border-bottom: 1px solid var(--color-red-a15);
+  padding: 4px 10px;
 }
-
-.warning-table td {
-  padding: 10px 16px;
-  color: var(--text-secondary);
-  border-bottom: 1px solid var(--color-red-a15);
-  vertical-align: top;
+.status-live {
+  color: #000;
+  background: var(--green);
 }
-
-.warning-table td:first-child {
-  font-family: 'JetBrains Mono', monospace;
-  color: var(--color-red-500);
-  font-size: 12px;
-  white-space: nowrap;
-}
-
-/* ══════ LAYOUT PATTERNS ══════ */
-.layout-demos {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-.layout-demo {
+.status-soon {
+  color: var(--text-3);
   background: var(--bg-card);
-  border: 1px solid var(--border-default);
-  padding: 24px;
+  border: 1px solid var(--border);
 }
 
-.layout-demo h4 {
+.card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.card-category {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  color: var(--accent);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.card-separator {
+  width: 3px;
+  height: 3px;
+  background: var(--text-3);
+}
+.card-tokens {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--text-3);
+  letter-spacing: 0.5px;
+}
+
+.card-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
   margin-bottom: 8px;
 }
 
-.layout-demo .layout-spec {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--text-dim);
-  margin-bottom: 16px;
+.card-desc {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.5;
+  margin-bottom: 20px;
+  flex: 1;
 }
 
-.layout-wireframe {
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+.card-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  color: var(--text-3);
+  background: var(--bg-1);
+  border: 1px solid var(--border);
+  padding: 3px 8px;
+}
+
+.card-actions {
   display: flex;
   gap: 8px;
 }
-
-.layout-box {
-  background: var(--color-green-a08);
-  border: 1px solid var(--border-hover);
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: var(--text-dim);
+.btn-explore {
   flex: 1;
-}
-
-/* ══════ SLIDING PANEL ══════ */
-.md-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 2000;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity var(--duration-moderate) var(--ease-standard),
-              visibility var(--duration-moderate) var(--ease-standard);
-}
-
-.md-overlay.active { opacity: 1; visibility: visible; }
-
-.md-panel {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: min(50vw, 600px);
-  min-width: 400px;
-  background: var(--bg-surface-deep);
-  border-left: 1px solid var(--border-default);
-  z-index: 2001;
-  transform: translateX(100%);
-  transition: transform var(--duration-moderate) var(--ease-out);
-  display: flex;
-  flex-direction: column;
-}
-
-.md-overlay.active .md-panel { transform: translateX(0); }
-
-.md-panel-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 24px;
-  border-bottom: 1px solid var(--border-default);
-}
-
-.md-panel-title {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--accent);
-}
-
-.md-panel-actions {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-.btn-copy-section {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
-  color: var(--accent);
-  background: transparent;
-  border: 1px solid var(--border-hover);
-  padding: 6px 12px;
-  cursor: pointer;
-  transition: all var(--duration-fast);
-}
-
-.btn-copy-section:hover { background: var(--color-green-a05); }
-
-.btn-close-panel {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 16px;
-  color: var(--text-dim);
-  background: none;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #000;
+  background: var(--green);
   border: none;
+  padding: 10px 16px;
   cursor: pointer;
-  padding: 4px;
-  transition: color var(--duration-fast);
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.2s;
 }
-
-.btn-close-panel:hover { color: var(--accent); }
-
-.md-panel-body {
+.btn-explore:hover {
+  background: #33ff66;
+  box-shadow: 0 0 16px rgba(0, 255, 65, 0.3);
+}
+.btn-copy {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-3);
+  background: none;
+  border: 1px solid var(--border);
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-copy:hover {
+  color: var(--green);
+  border-color: var(--green-border);
+}
+.btn-disabled {
   flex: 1;
-  overflow-y: auto;
-  padding: 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-3);
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  padding: 10px 16px;
+  text-align: center;
+  cursor: not-allowed;
 }
 
-.md-panel-body pre {
+/* ══════ SUBMIT SECTION ══════ */
+.submit-section {
+  padding: 80px 24px;
+  text-align: center;
+  background: var(--bg-1);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.submit-section h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.submit-section h2 span { color: var(--green); }
+.submit-section p {
+  font-size: 14px;
+  color: var(--text-2);
+  max-width: 500px;
+  margin: 0 auto 32px;
+}
+.submit-form {
+  display: flex;
+  max-width: 480px;
+  margin: 0 auto;
+  gap: 0;
+}
+.submit-form input {
+  flex: 1;
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
-  line-height: 1.7;
-  color: var(--text-secondary);
-  white-space: pre-wrap;
-  word-break: break-word;
+  background: var(--bg-card);
+  color: var(--text-1);
+  border: 1px solid var(--border);
+  padding: 12px 16px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.submit-form input:focus { border-color: var(--green-border); }
+.submit-form input::placeholder { color: var(--text-3); }
+.submit-form button {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: #000;
+  background: var(--green);
+  border: 1px solid var(--green);
+  padding: 12px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.submit-form button:hover {
+  background: #33ff66;
+  box-shadow: 0 0 16px rgba(0, 255, 65, 0.3);
 }
 
 /* ══════ FOOTER ══════ */
-.ds-footer {
-  padding: 40px 24px;
-  border-top: 1px solid var(--border-default);
-}
-
-.ds-footer-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.site-footer {
+  padding: 32px 24px;
+  text-align: center;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  color: var(--text-dim);
+  font-size: 11px;
+  color: var(--text-3);
 }
-
-.ds-footer a {
-  color: var(--text-dim);
+.site-footer a {
+  color: var(--green);
   text-decoration: none;
-  transition: color var(--duration-fast);
-}
-
-.ds-footer a:hover { color: var(--accent); }
-
-/* ══════ SCROLL ANIMATION ══════ */
-.animate-on-scroll {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity var(--duration-slow) var(--ease-out),
-              transform var(--duration-slow) var(--ease-out);
-}
-
-.animate-on-scroll.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ══════ KEYFRAMES ══════ */
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slide-in-left {
-  from { opacity: 0; transform: translateX(-30px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-
-@keyframes cursor-blink {
-  0%, 90%, 100% { opacity: 1; }
-  45% { opacity: 0; }
-}
-
-/* ══════ REDUCED MOTION ══════ */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
 }
 
 /* ══════ RESPONSIVE ══════ */
-@media (max-width: 900px) {
-  .ds-nav-links { display: none; }
-  .hero-title { font-size: clamp(32px, 6vw, 56px); }
-  .demo-who-for { grid-template-columns: 1fr; }
-}
-
 @media (max-width: 700px) {
-  .section { padding: 64px 0; }
-  .hero { padding-top: 100px; padding-bottom: 60px; }
+  .hero { padding: 120px 16px 60px; }
   .hero-stats { gap: 24px; }
-  .ds-footer-inner { flex-direction: column; gap: 12px; }
-  .md-panel { min-width: 100%; width: 100%; }
-  .component-grid { grid-template-columns: 1fr; }
-  .animation-grid { grid-template-columns: 1fr; }
-  .swatch-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .hero-stat-num { font-size: 22px; }
+  .library-section { padding: 60px 16px; }
+  .library-grid { grid-template-columns: 1fr; }
+  .submit-form { flex-direction: column; }
+  .submit-form input, .submit-form button { width: 100%; }
 }
 
-@media (max-width: 500px) {
-  .hero-actions { flex-direction: column; align-items: stretch; }
-  .hero-actions .cta-primary,
-  .hero-actions .cta-secondary { justify-content: center; }
-  .container { padding: 0 16px; }
+@media (max-width: 480px) {
+  .hero-stats { flex-direction: column; gap: 16px; }
+  .filter-bar { gap: 4px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ══════ NAV ══════ -->
-<nav class="ds-nav">
-  <div class="ds-nav-inner">
-    <a href="../../index.html" class="ds-nav-brand">AIOpsForge <span>Design System</span></a>
-    <div class="ds-nav-links">
-      <a href="#colors">Colors</a>
-      <a href="#typography">Typography</a>
-      <a href="#motion">Motion</a>
-      <a href="#components">Components</a>
-      <a href="#layouts">Layouts</a>
+<!-- NAV -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="../../index.html" class="nav-brand"><img src="../../favicon.png" alt="AF" class="nav-logo">AIOpsForge</a>
+    <button class="nav-toggle" aria-label="Toggle navigation" onclick="this.closest('.site-nav').classList.toggle('nav-open')">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../../blogs.html">Blog</a>
+      <a href="../../tools.html" class="active">Tools</a>
+      <a href="../../pricing.html">Pricing</a>
+      <a href="../../custom-solutions.html">Custom Solutions</a>
+      <a href="../../newsletter.html">Newsletter</a>
+      <a href="#" class="nav-cta waitlist-trigger">Waitlist</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">&#9728;</button>
     </div>
-    <button class="btn-copy-system" id="copySystem">Copy Full System</button>
   </div>
 </nav>
 
-<!-- ══════ HERO ══════ -->
+<!-- HERO -->
 <section class="hero">
-  <div class="container">
-    <div class="hero-badge"><span class="pulse-dot"></span> AIOpsForge Design System Library</div>
-    <h1 class="hero-title">The Design System.<br><span class="accent">Copy. Paste. Build.</span></h1>
-    <p class="hero-subtitle">Every token, component, animation, and layout pattern — rendered live. Copy the full system as production-ready markdown for your own projects.</p>
-    <div class="hero-actions">
-      <a href="#colors" class="cta-primary">Browse System</a>
-      <button class="cta-secondary" id="copySystemHero">Copy Full Markdown</button>
+  <div class="hero-badge">DESIGN SYSTEM LIBRARY</div>
+  <h1>Production-Ready <span>Design Systems</span></h1>
+  <p>Browse, preview, and export complete design systems. Every token, component, animation, and layout pattern — rendered live and ready to ship.</p>
+  <div class="hero-stats">
+    <div>
+      <div class="hero-stat-num">1</div>
+      <div class="hero-stat-label">SYSTEMS LIVE</div>
     </div>
-    <div class="hero-stats">
-      <div class="hero-stat"><div class="hero-stat-num">40+</div><div class="hero-stat-label">COLOR TOKENS</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">19</div><div class="hero-stat-label">COMPONENTS</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">8</div><div class="hero-stat-label">LAYOUT PATTERNS</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">10</div><div class="hero-stat-label">ANIMATIONS</div></div>
+    <div>
+      <div class="hero-stat-num">3</div>
+      <div class="hero-stat-label">COMING SOON</div>
     </div>
-  </div>
-</section>
-
-<!-- ══════ COLORS ══════ -->
-<section class="section section-alt" id="colors">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-header-text">
-        <div class="section-label">01 — Colors</div>
-        <h2 class="section-title">Color <span class="accent">tokens</span></h2>
-        <p class="section-desc">Primitive tokens map to semantic aliases. Use semantic tokens in code — never hard-code hex values.</p>
-      </div>
-      <button class="btn-view-md" data-section="colors">&lt;/&gt; View Markdown</button>
+    <div>
+      <div class="hero-stat-num">40+</div>
+      <div class="hero-stat-label">TOKENS EACH</div>
     </div>
-
-    <h3 style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-dim); margin-bottom: 16px; letter-spacing: 1px;">ACCENT + SEMANTIC</h3>
-    <div class="swatch-grid" style="margin-bottom: 40px;">
-      <div class="swatch-card"><div class="swatch-color" style="background: #00FF41;"></div><div class="swatch-info"><div class="swatch-name">Green 500</div><div class="swatch-hex">#00FF41</div><div class="swatch-var">--accent</div></div></div>
-      <div class="swatch-card"><div class="swatch-color" style="background: #00cc34;"></div><div class="swatch-info"><div class="swatch-name">Green 400</div><div class="swatch-hex">#00cc34</div><div class="swatch-var">--accent-dim</div></div></div>
-      <div class="swatch-card"><div class="swatch-color" style="background: #ff4444;"></div><div class="swatch-info"><div class="swatch-name">Red 500</div><div class="swatch-hex">#ff4444</div><div class="swatch-var">--color-negative</div></div></div>
-      <div class="swatch-card"><div class="swatch-color" style="background: #FFB800;"></div><div class="swatch-info"><div class="swatch-name">Amber 500</div><div class="swatch-hex">#FFB800</div><div class="swatch-var">--color-amber-500</div></div></div>
-      <div class="swatch-card"><div class="swatch-color" style="background: #22d3ee;"></div><div class="swatch-info"><div class="swatch-name">Cyan 500</div><div class="swatch-hex">#22d3ee</div><div class="swatch-var">--color-cyan-500</div></div></div>
-      <div class="swatch-card"><div class="swatch-color" style="background: #4488ff;"></div><div class="swatch-info"><div class="swatch-name">Blue 500</div><div class="swatch-hex">#4488ff</div><div class="swatch-var">--color-blue-500</div></div></div>
-    </div>
-
-    <h3 style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-dim); margin-bottom: 16px; letter-spacing: 1px;">BACKGROUNDS</h3>
-    <div class="swatch-grid" style="margin-bottom: 40px;">
-      <div class="swatch-card"><div class="swatch-color" style="background: #060606; border-bottom: 1px solid var(--border-default);"></div><div class="swatch-info"><div class="swatch-name">Surface Deep</div><div class="swatch-hex">#060606</div><div class="swatch-var">--bg-surface-deep</div></div></div>
-      <div class="swatch-card"><div class="swatch-color" style="background: #0a0a0a; border-bottom: 1px solid var(--border-default);"></div><div class="swatch-info"><div class="swatch-name">Page</div><div class="swatch-hex">#0a0a0a</div><div class="swatch-var">--bg-page</div></div></div>
-      <div class="swatch-card"><div class="swatch-color" style="background: #111111; border-bottom: 1px solid var(--border-default);"></div><div class="swatch-info"><div class="swatch-name">Section Alt</div><div class="swatch-hex">#111111</div><div class="swatch-var">--bg-section-alt</div></div></div>
-      <div class="swatch-card"><div class="swatch-color" style="background: #161616; border-bottom: 1px solid var(--border-default);"></div><div class="swatch-info"><div class="swatch-name">Card</div><div class="swatch-hex">#161616</div><div class="swatch-var">--bg-card</div></div></div>
-      <div class="swatch-card"><div class="swatch-color" style="background: #1c1c1c; border-bottom: 1px solid var(--border-default);"></div><div class="swatch-info"><div class="swatch-name">Card Hover</div><div class="swatch-hex">#1c1c1c</div><div class="swatch-var">--bg-card-hover</div></div></div>
-      <div class="swatch-card"><div class="swatch-color" style="background: #222222; border-bottom: 1px solid var(--border-default);"></div><div class="swatch-info"><div class="swatch-name">Elevated</div><div class="swatch-hex">#222222</div><div class="swatch-var">--bg-elevated</div></div></div>
-    </div>
-
-    <h3 style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-dim); margin-bottom: 16px; letter-spacing: 1px;">TEXT</h3>
-    <div class="swatch-grid">
-      <div class="swatch-card"><div class="swatch-color" style="background: #eeeeee;"></div><div class="swatch-info"><div class="swatch-name">Primary</div><div class="swatch-hex">#eeeeee</div><div class="swatch-var">--text-primary</div></div></div>
-      <div class="swatch-card"><div class="swatch-color" style="background: #999999;"></div><div class="swatch-info"><div class="swatch-name">Secondary</div><div class="swatch-hex">#999999</div><div class="swatch-var">--text-secondary</div></div></div>
-      <div class="swatch-card"><div class="swatch-color" style="background: #555555;"></div><div class="swatch-info"><div class="swatch-name">Dim</div><div class="swatch-hex">#555555</div><div class="swatch-var">--text-dim</div></div></div>
+    <div>
+      <div class="hero-stat-num">1-Click</div>
+      <div class="hero-stat-label">EXPORT</div>
     </div>
   </div>
 </section>
 
-<!-- ══════ TYPOGRAPHY ══════ -->
-<section class="section" id="typography">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-header-text">
-        <div class="section-label">02 — Typography</div>
-        <h2 class="section-title">Type <span class="accent">scale</span></h2>
-        <p class="section-desc">Four fonts. Strict hierarchy. Monospace signals data and precision. Sans-serif handles prose.</p>
+<!-- LIBRARY -->
+<section class="library-section">
+  <div class="section-header">
+    <h2 class="section-title">Browse <span>Systems</span></h2>
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="dark">Dark</button>
+      <button class="filter-btn" data-filter="light">Light</button>
+      <button class="filter-btn" data-filter="saas">SaaS</button>
+      <button class="filter-btn" data-filter="ecommerce">E-Commerce</button>
+    </div>
+  </div>
+
+  <div class="library-grid">
+
+    <!-- CARD 1: AIOpsForge (LIVE) -->
+    <div class="system-card" data-category="dark">
+      <div class="card-preview preview-aiopforge">
+        <div class="swatch swatch-green"></div>
+        <div class="swatch swatch-green-dim"></div>
+        <div class="swatch swatch-green-glow"></div>
+        <div class="swatch swatch-green-a08"></div>
+        <div class="swatch swatch-dark-1"></div>
+        <div class="swatch swatch-dark-2"></div>
+        <div class="swatch swatch-dark-3"></div>
+        <div class="swatch swatch-dark-4"></div>
+        <div class="swatch swatch-dark-5"></div>
+        <div class="swatch swatch-surface"></div>
+        <div class="swatch swatch-elevated"></div>
+        <div class="swatch swatch-text"></div>
+        <div class="swatch swatch-text-dim"></div>
+        <div class="swatch swatch-text-muted"></div>
+        <div class="swatch swatch-red"></div>
+        <div class="swatch swatch-amber"></div>
+        <div class="swatch swatch-cyan"></div>
+        <div class="swatch swatch-blue"></div>
       </div>
-      <button class="btn-view-md" data-section="typography">&lt;/&gt; View Markdown</button>
+      <span class="card-status status-live">LIVE</span>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-category">DARK THEME</span>
+          <span class="card-separator"></span>
+          <span class="card-tokens">40+ colors / 19 components / 10 animations</span>
+        </div>
+        <h3 class="card-title">AIOpsForge Terminal</h3>
+        <p class="card-desc">Dark terminal-inspired design system with #00FF41 accent. Sharp corners, JetBrains Mono typography, spring physics animations, and a complete component library.</p>
+        <div class="card-tags">
+          <span class="card-tag">terminal</span>
+          <span class="card-tag">monospace</span>
+          <span class="card-tag">zero-radius</span>
+          <span class="card-tag">spring-motion</span>
+          <span class="card-tag">dark-only</span>
+        </div>
+        <div class="card-actions">
+          <a href="aiopforge.html" class="btn-explore">Explore System</a>
+          <button class="btn-copy" onclick="copySystemLink('aiopforge')">Copy Link</button>
+        </div>
+      </div>
     </div>
 
-    <div class="type-specimen">
-      <div class="type-row">
-        <div class="type-sample" style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(36px, 7vw, 72px); font-weight: 800; line-height: 1.05;">Hero <span style="color: var(--accent);">Headline</span></div>
-        <div class="type-meta"><span class="type-meta-item"><strong>Font:</strong> Space Grotesk</span><span class="type-meta-item"><strong>Size:</strong> clamp(36px, 7vw, 72px)</span><span class="type-meta-item"><strong>Weight:</strong> 800</span><span class="type-meta-item"><strong>Line Height:</strong> 1.05</span></div>
+    <!-- CARD 2: SaaS Starter (COMING SOON) -->
+    <div class="system-card coming-soon" data-category="saas">
+      <div class="card-preview preview-saas">
+        <div class="mock-badge"></div>
+        <div class="mock-card"></div>
+        <div class="mock-card"></div>
+        <div class="mock-btn"></div>
       </div>
-      <div class="type-row">
-        <div class="type-sample" style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 5vw, 44px); font-weight: 700; line-height: 1.15;">Section <span style="color: var(--accent);">Title</span></div>
-        <div class="type-meta"><span class="type-meta-item"><strong>Font:</strong> Space Grotesk</span><span class="type-meta-item"><strong>Size:</strong> clamp(28px, 5vw, 44px)</span><span class="type-meta-item"><strong>Weight:</strong> 700</span><span class="type-meta-item"><strong>Line Height:</strong> 1.15</span></div>
-      </div>
-      <div class="type-row">
-        <div class="type-sample" style="font-family: 'Outfit', sans-serif; font-size: clamp(28px, 5vw, 44px); font-weight: 700; line-height: 1.15;">Product <span style="color: var(--accent);">Headline</span></div>
-        <div class="type-meta"><span class="type-meta-item"><strong>Font:</strong> Outfit (product pages)</span><span class="type-meta-item"><strong>Size:</strong> clamp(28px, 5vw, 44px)</span><span class="type-meta-item"><strong>Weight:</strong> 700</span></div>
-      </div>
-      <div class="type-row">
-        <div class="type-sample" style="font-family: 'IBM Plex Sans', sans-serif; font-size: 16px; color: var(--text-secondary); line-height: 1.8;">Body text is always #999 — never white. White is reserved for headlines and <strong style="color: var(--text-primary);">bold emphasis</strong> within body text. This keeps information density readable.</div>
-        <div class="type-meta"><span class="type-meta-item"><strong>Font:</strong> IBM Plex Sans</span><span class="type-meta-item"><strong>Size:</strong> 16px</span><span class="type-meta-item"><strong>Weight:</strong> 400</span><span class="type-meta-item"><strong>Color:</strong> --text-secondary</span></div>
-      </div>
-      <div class="type-row">
-        <div class="type-sample"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); opacity: 0.7;">section label</span></div>
-        <div class="type-meta"><span class="type-meta-item"><strong>Font:</strong> JetBrains Mono</span><span class="type-meta-item"><strong>Size:</strong> 11px</span><span class="type-meta-item"><strong>Letter Spacing:</strong> 3px</span><span class="type-meta-item"><strong>Transform:</strong> uppercase</span></div>
-      </div>
-      <div class="type-row">
-        <div class="type-sample"><span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; letter-spacing: 0.5px; background: var(--accent); color: #000; padding: 12px 24px; display: inline-block;">CTA Button Text</span></div>
-        <div class="type-meta"><span class="type-meta-item"><strong>Font:</strong> JetBrains Mono</span><span class="type-meta-item"><strong>Size:</strong> 14px</span><span class="type-meta-item"><strong>Weight:</strong> 700</span><span class="type-meta-item"><strong>Letter Spacing:</strong> 0.5px</span></div>
-      </div>
-      <div class="type-row">
-        <div class="type-sample"><span style="font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 700; color: var(--accent);">2,847</span> <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 1px; color: var(--text-dim);">CREDITS REMAINING</span></div>
-        <div class="type-meta"><span class="type-meta-item"><strong>Stat Number:</strong> JetBrains Mono 20px 700 --accent</span><span class="type-meta-item"><strong>Stat Label:</strong> JetBrains Mono 11px --text-dim</span></div>
+      <span class="card-status status-soon">COMING SOON</span>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-category">SAAS</span>
+          <span class="card-separator"></span>
+          <span class="card-tokens">50+ colors / 24 components</span>
+        </div>
+        <h3 class="card-title">SaaS Starter Kit</h3>
+        <p class="card-desc">Clean, modern SaaS design system with indigo primary, rounded corners, and a full dashboard component kit. Light and dark modes included.</p>
+        <div class="card-tags">
+          <span class="card-tag">indigo</span>
+          <span class="card-tag">rounded</span>
+          <span class="card-tag">dashboard</span>
+          <span class="card-tag">dual-mode</span>
+        </div>
+        <div class="card-actions">
+          <span class="btn-disabled">Coming Soon</span>
+        </div>
       </div>
     </div>
+
+    <!-- CARD 3: E-Commerce (COMING SOON) -->
+    <div class="system-card coming-soon" data-category="ecommerce light">
+      <div class="card-preview preview-ecom">
+        <div class="mock-product"></div>
+        <div class="mock-price"></div>
+        <div class="mock-cart"></div>
+      </div>
+      <span class="card-status status-soon">COMING SOON</span>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-category">E-COMMERCE</span>
+          <span class="card-separator"></span>
+          <span class="card-tokens">35+ colors / 20 components</span>
+        </div>
+        <h3 class="card-title">Storefront Minimal</h3>
+        <p class="card-desc">Light, minimal e-commerce system built for product pages, carts, and checkout flows. Sharp typography, generous whitespace, and conversion-focused CTAs.</p>
+        <div class="card-tags">
+          <span class="card-tag">light</span>
+          <span class="card-tag">minimal</span>
+          <span class="card-tag">product</span>
+          <span class="card-tag">checkout</span>
+        </div>
+        <div class="card-actions">
+          <span class="btn-disabled">Coming Soon</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 4: Dashboard Pro (COMING SOON) -->
+    <div class="system-card coming-soon" data-category="dark saas">
+      <div class="card-preview preview-dashboard">
+        <div class="mock-chart">
+          <div class="mock-bar" style="height:40%"></div>
+          <div class="mock-bar" style="height:70%"></div>
+          <div class="mock-bar" style="height:55%"></div>
+          <div class="mock-bar" style="height:85%"></div>
+          <div class="mock-bar" style="height:60%"></div>
+        </div>
+        <div class="mock-chart">
+          <div class="mock-bar" style="height:60%;background:#22d3ee"></div>
+          <div class="mock-bar" style="height:45%;background:#22d3ee"></div>
+          <div class="mock-bar" style="height:80%;background:#22d3ee"></div>
+          <div class="mock-bar" style="height:35%;background:#22d3ee"></div>
+          <div class="mock-bar" style="height:65%;background:#22d3ee"></div>
+        </div>
+        <div class="mock-chart">
+          <div class="mock-bar" style="height:50%;background:#FFB800"></div>
+          <div class="mock-bar" style="height:75%;background:#FFB800"></div>
+          <div class="mock-bar" style="height:30%;background:#FFB800"></div>
+          <div class="mock-bar" style="height:90%;background:#FFB800"></div>
+          <div class="mock-bar" style="height:45%;background:#FFB800"></div>
+        </div>
+        <div class="mock-chart">
+          <div class="mock-bar" style="height:65%;background:#6366f1"></div>
+          <div class="mock-bar" style="height:40%;background:#6366f1"></div>
+          <div class="mock-bar" style="height:85%;background:#6366f1"></div>
+          <div class="mock-bar" style="height:55%;background:#6366f1"></div>
+          <div class="mock-bar" style="height:70%;background:#6366f1"></div>
+        </div>
+      </div>
+      <span class="card-status status-soon">COMING SOON</span>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-category">DASHBOARD</span>
+          <span class="card-separator"></span>
+          <span class="card-tokens">45+ colors / 30 components</span>
+        </div>
+        <h3 class="card-title">Dashboard Pro</h3>
+        <p class="card-desc">Data-heavy dark dashboard system with chart palettes, table components, KPI cards, and sidebar navigation. Built for analytics and admin panels.</p>
+        <div class="card-tags">
+          <span class="card-tag">charts</span>
+          <span class="card-tag">tables</span>
+          <span class="card-tag">kpi</span>
+          <span class="card-tag">sidebar</span>
+          <span class="card-tag">dark</span>
+        </div>
+        <div class="card-actions">
+          <span class="btn-disabled">Coming Soon</span>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- ══════ SPACING ══════ -->
-<section class="section section-alt" id="spacing">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-header-text">
-        <div class="section-label">03 — Spacing</div>
-        <h2 class="section-title">Spacing <span class="accent">scale</span></h2>
-      </div>
-      <button class="btn-view-md" data-section="spacing">&lt;/&gt; View Markdown</button>
-    </div>
-    <div class="spacing-scale">
-      <div class="spacing-row"><span class="spacing-label">--space-1</span><div class="spacing-bar" style="width: 4px;"></div><span class="spacing-value">4px</span></div>
-      <div class="spacing-row"><span class="spacing-label">--space-2</span><div class="spacing-bar" style="width: 8px;"></div><span class="spacing-value">8px</span></div>
-      <div class="spacing-row"><span class="spacing-label">--space-3</span><div class="spacing-bar" style="width: 12px;"></div><span class="spacing-value">12px</span></div>
-      <div class="spacing-row"><span class="spacing-label">--space-4</span><div class="spacing-bar" style="width: 16px;"></div><span class="spacing-value">16px</span></div>
-      <div class="spacing-row"><span class="spacing-label">--space-6</span><div class="spacing-bar" style="width: 24px;"></div><span class="spacing-value">24px</span></div>
-      <div class="spacing-row"><span class="spacing-label">--space-8</span><div class="spacing-bar" style="width: 32px;"></div><span class="spacing-value">32px</span></div>
-      <div class="spacing-row"><span class="spacing-label">--space-12</span><div class="spacing-bar" style="width: 48px;"></div><span class="spacing-value">48px</span></div>
-      <div class="spacing-row"><span class="spacing-label">--space-16</span><div class="spacing-bar" style="width: 64px;"></div><span class="spacing-value">64px</span></div>
-      <div class="spacing-row"><span class="spacing-label">--space-25</span><div class="spacing-bar" style="width: 100px;"></div><span class="spacing-value">100px</span></div>
-    </div>
-  </div>
+<!-- SUBMIT YOUR SYSTEM -->
+<section class="submit-section">
+  <h2>Submit a <span>Design System</span></h2>
+  <p>Have a design system you want featured in the library? Drop us the details and we'll review it for inclusion.</p>
+  <form class="submit-form" onsubmit="handleSubmit(event)">
+    <input type="url" placeholder="Link to your design system..." required>
+    <button type="submit">SUBMIT</button>
+  </form>
 </section>
 
-<!-- ══════ MOTION ══════ -->
-<section class="section" id="motion">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-header-text">
-        <div class="section-label">04 — Motion</div>
-        <h2 class="section-title">Animation <span class="accent">system</span></h2>
-        <p class="section-desc">Exact tokens so AI never guesses. Every duration, easing curve, and animation pattern is specified precisely.</p>
-      </div>
-      <button class="btn-view-md" data-section="motion">&lt;/&gt; View Markdown</button>
-    </div>
-
-    <h3 style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-dim); margin-bottom: 16px; letter-spacing: 1px;">ENTRANCE ANIMATIONS</h3>
-    <div class="animation-grid" style="margin-bottom: 40px;">
-      <div class="anim-demo">
-        <div class="anim-demo-header"><span class="anim-demo-title">Fade Up</span><button class="btn-replay" onclick="replayAnim(this, 'fade-up')">Replay</button></div>
-        <div class="anim-demo-body"><div class="anim-box" style="animation: fade-up 500ms var(--ease-out) both;"></div></div>
-      </div>
-      <div class="anim-demo">
-        <div class="anim-demo-header"><span class="anim-demo-title">Fade In</span><button class="btn-replay" onclick="replayAnim(this, 'fade-in')">Replay</button></div>
-        <div class="anim-demo-body"><div class="anim-box" style="animation: fade-in 250ms var(--ease-out) both;"></div></div>
-      </div>
-      <div class="anim-demo">
-        <div class="anim-demo-header"><span class="anim-demo-title">Slide In Left</span><button class="btn-replay" onclick="replayAnim(this, 'slide-in-left')">Replay</button></div>
-        <div class="anim-demo-body"><div class="anim-box" style="animation: slide-in-left 350ms var(--ease-out) both;"></div></div>
-      </div>
-    </div>
-
-    <h3 style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-dim); margin-bottom: 16px; letter-spacing: 1px;">CONTINUOUS</h3>
-    <div class="animation-grid" style="margin-bottom: 40px;">
-      <div class="anim-demo">
-        <div class="anim-demo-header"><span class="anim-demo-title">Pulse Dot</span></div>
-        <div class="anim-demo-body"><div style="width: 12px; height: 12px; background: var(--accent); border-radius: 50%; animation: pulse-dot 2s infinite;"></div></div>
-      </div>
-      <div class="anim-demo">
-        <div class="anim-demo-header"><span class="anim-demo-title">Cursor Blink</span></div>
-        <div class="anim-demo-body"><span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--accent);">$ _</span><span class="terminal-cursor"></span></div>
-      </div>
-    </div>
-
-    <div class="warning-panel">
-      <h3>Animations AI Cannot Reliably Produce</h3>
-      <table class="warning-table">
-        <thead><tr><th>Type</th><th>Why AI Fails</th><th>Alternative</th></tr></thead>
-        <tbody>
-          <tr><td>Spring physics</td><td>AI cannot feel tension/damping — guesses wrong cubic-bezier values</td><td>Use Motion MCP /css-spring skill</td></tr>
-          <tr><td>height: auto</td><td>CSS cannot transition to auto — AI tries max-height: auto which fails</td><td>Use generous fixed max-height or JS measurement</td></tr>
-          <tr><td>3D transforms</td><td>AI gets perspective, rotateX/Y values wrong — produces distortion</td><td>Avoid 3D transforms. Specify exact values if needed</td></tr>
-          <tr><td>Layout properties</td><td>Animating width/height/margin triggers layout recalculation and jank</td><td>ONLY animate transform and opacity</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- ══════ COMPONENTS ══════ -->
-<section class="section section-alt" id="components">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-header-text">
-        <div class="section-label">05 — Components</div>
-        <h2 class="section-title">Live <span class="accent">components</span></h2>
-        <p class="section-desc">Every component rendered live. Hover, click, and interact. Each is a direct implementation of the spec.</p>
-      </div>
-      <button class="btn-view-md" data-section="components">&lt;/&gt; View Markdown</button>
-    </div>
-
-    <div class="component-grid">
-      <!-- Buttons -->
-      <div class="component-demo">
-        <div class="component-demo-header">CTA Buttons</div>
-        <div class="component-demo-body centered" style="gap: 12px;">
-          <button class="cta-primary">Primary CTA</button>
-          <button class="cta-secondary">Secondary CTA</button>
-        </div>
-      </div>
-
-      <!-- Tags -->
-      <div class="component-demo">
-        <div class="component-demo-header">Tags + Badges</div>
-        <div class="component-demo-body" style="gap: 12px; flex-direction: row; flex-wrap: wrap;">
-          <span class="demo-tag">Infrastructure</span>
-          <span class="demo-icon-tag">> AI Agent</span>
-          <span class="demo-hero-badge"><span class="dot"></span> Live</span>
-        </div>
-      </div>
-
-      <!-- Card -->
-      <div class="component-demo">
-        <div class="component-demo-header">Card (Hover Me)</div>
-        <div class="component-demo-body">
-          <div class="demo-card">
-            <h4>Standard Card</h4>
-            <p>Hover to see the green top bar reveal and border shift. Every card in the system uses this pattern.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card Highlighted -->
-      <div class="component-demo">
-        <div class="component-demo-header">Card (Highlighted)</div>
-        <div class="component-demo-body">
-          <div class="demo-card demo-card-highlight">
-            <h4>Highlighted Card</h4>
-            <p>Green border, tinted background, permanent top bar. Used for featured/recommended items.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tech Chips -->
-      <div class="component-demo">
-        <div class="component-demo-header">Tech Chips</div>
-        <div class="component-demo-body" style="flex-direction: row; flex-wrap: wrap; gap: 8px;">
-          <span class="demo-chip"><span class="chip-dot"></span> Claude API</span>
-          <span class="demo-chip"><span class="chip-dot"></span> n8n</span>
-          <span class="demo-chip"><span class="chip-dot"></span> Vercel</span>
-        </div>
-      </div>
-
-      <!-- Trust Bar -->
-      <div class="component-demo">
-        <div class="component-demo-header">Trust Bar</div>
-        <div class="component-demo-body">
-          <div class="demo-trust-bar">
-            <span class="demo-trust-item"><span class="check">+</span> No lock-in</span>
-            <span class="demo-trust-item"><span class="check">+</span> Cancel anytime</span>
-            <span class="demo-trust-item"><span class="check">+</span> Production-grade</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Terminal -->
-      <div class="component-demo" style="grid-column: 1 / -1;">
-        <div class="component-demo-header">Terminal Mockup</div>
-        <div class="component-demo-body">
-          <div class="demo-terminal">
-            <div class="terminal-bar">
-              <div class="terminal-dot red"></div>
-              <div class="terminal-dot yellow"></div>
-              <div class="terminal-dot green"></div>
-              <span class="terminal-title">design-system.sh</span>
-            </div>
-            <div class="terminal-body">
-              <span class="green">$</span> aof design-system --export markdown<br>
-              <span class="dim"># Exporting 40 color tokens...</span><br>
-              <span class="dim"># Exporting 19 components...</span><br>
-              <span class="dim"># Exporting 10 animation patterns...</span><br>
-              <span class="green">$</span> status: <span class="green">complete</span><br>
-              <span class="green">$</span> output: <span class="green">design-system.md</span> <span class="dim">(12.4kb)</span><span class="terminal-cursor"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- FAQ -->
-      <div class="component-demo" style="grid-column: 1 / -1;">
-        <div class="component-demo-header">FAQ Accordion</div>
-        <div class="component-demo-body" style="display: block;">
-          <div class="demo-faq-item open">
-            <div class="demo-faq-q" onclick="this.parentElement.classList.toggle('open')">How do I use this design system?</div>
-            <div class="demo-faq-a"><div class="demo-faq-a-inner">Click "Copy Full System" in the nav to get the entire system as a markdown file. Paste it into your project as design-system.md or into your CLAUDE.md. Claude Code will use it as the source of truth for all design decisions.</div></div>
-          </div>
-          <div class="demo-faq-item">
-            <div class="demo-faq-q" onclick="this.parentElement.classList.toggle('open')">Can I use this with React or Tailwind?</div>
-            <div class="demo-faq-a"><div class="demo-faq-a-inner">Yes. The exported markdown includes framework-specific notes for HTML/CSS, React (with Motion library), and Tailwind. Map the CSS custom properties to your framework's token system.</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Who-For Grid -->
-      <div class="component-demo" style="grid-column: 1 / -1;">
-        <div class="component-demo-header">Who-For Comparison Grid</div>
-        <div class="component-demo-body">
-          <div class="demo-who-for">
-            <div class="demo-col-neg">
-              <h4>x Not for you if</h4>
-              <ul class="demo-who-list">
-                <li>You want plug-and-play templates</li>
-                <li>You prefer Bootstrap or Material UI</li>
-              </ul>
-            </div>
-            <div class="demo-col-pos">
-              <h4>> Built for you if</h4>
-              <ul class="demo-who-list">
-                <li>You build with AI tools (Claude, GPT)</li>
-                <li>You want a system AI can execute precisely</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════ LAYOUTS ══════ -->
-<section class="section" id="layouts">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-header-text">
-        <div class="section-label">06 — Layouts</div>
-        <h2 class="section-title">Layout <span class="accent">patterns</span></h2>
-        <p class="section-desc">Grid definitions with responsive breakpoints. Copy the pattern, fill in your content.</p>
-      </div>
-      <button class="btn-view-md" data-section="layouts">&lt;/&gt; View Markdown</button>
-    </div>
-
-    <div class="layout-demos">
-      <div class="layout-demo">
-        <h4>Feature Cards Grid</h4>
-        <div class="layout-spec">repeat(auto-fit, minmax(300px, 1fr)) | gap: 20px</div>
-        <div class="layout-wireframe"><div class="layout-box">1fr</div><div class="layout-box">1fr</div><div class="layout-box">1fr</div></div>
-      </div>
-      <div class="layout-demo">
-        <h4>Two-Column Comparison</h4>
-        <div class="layout-spec">1fr 1fr | gap: 32px | collapse at 700px</div>
-        <div class="layout-wireframe"><div class="layout-box">Negative</div><div class="layout-box">Positive</div></div>
-      </div>
-      <div class="layout-demo">
-        <h4>Hero Split</h4>
-        <div class="layout-spec">1fr 380px | gap: 64px | collapse at 900px</div>
-        <div class="layout-wireframe"><div class="layout-box" style="flex: 2;">Text Content</div><div class="layout-box" style="flex: 1;">Mockup</div></div>
-      </div>
-      <div class="layout-demo">
-        <h4>Container</h4>
-        <div class="layout-spec">max-width: 1100px | padding: 0 24px | margin: 0 auto</div>
-        <div style="background: var(--color-green-a05); border: 1px dashed var(--border-hover); padding: 16px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim);">1100px max content area</div>
-      </div>
-      <div class="layout-demo">
-        <h4>Section Alternation</h4>
-        <div class="layout-spec">bg-page (#0a0a0a) / bg-section-alt (#111111) + 1px border separators</div>
-        <div style="display: flex; gap: 0;">
-          <div style="flex: 1; background: #0a0a0a; padding: 16px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-dim); border: 1px solid var(--border-default);">Section 1</div>
-          <div style="flex: 1; background: #111111; padding: 16px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-dim); border: 1px solid var(--border-default);">Section 2</div>
-          <div style="flex: 1; background: #0a0a0a; padding: 16px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-dim); border: 1px solid var(--border-default);">Section 3</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════ FOOTER ══════ -->
-<footer class="ds-footer">
-  <div class="ds-footer-inner">
-    <span>AIOpsForge Design System</span>
-    <a href="../../index.html">Back to AIOpsForge</a>
-    <span>built by an engineer who ships</span>
-  </div>
+<!-- FOOTER -->
+<footer class="site-footer">
+  <a href="../../tools.html">&larr; Back to Tools</a> &nbsp;&middot;&nbsp; AIOpsForge &copy; 2025
 </footer>
 
-<!-- ══════ SLIDING PANEL ══════ -->
-<div class="md-overlay" id="mdOverlay">
-  <div class="md-panel">
-    <div class="md-panel-header">
-      <span class="md-panel-title" id="mdPanelTitle">Section</span>
-      <div class="md-panel-actions">
-        <button class="btn-copy-section" id="btnCopySection">Copy</button>
-        <button class="btn-close-panel" id="btnClosePanel">x</button>
-      </div>
-    </div>
-    <div class="md-panel-body">
-      <pre id="mdContent"></pre>
-    </div>
-  </div>
-</div>
-
-<!-- ══════ SCRIPTS ══════ -->
 <script>
-// Scroll animation
-var observer = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
-    }
+// Theme toggle
+(function(){
+  var toggle = document.getElementById('themeToggle');
+  function setTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    localStorage.setItem('aof_theme', t);
+    toggle.innerHTML = t === 'dark' ? '&#9728;' : '&#9790;';
+  }
+  var saved = localStorage.getItem('aof_theme');
+  if (saved) setTheme(saved);
+  else if (window.matchMedia('(prefers-color-scheme: light)').matches) toggle.innerHTML = '&#9790;';
+  toggle.addEventListener('click', function() {
+    var current = document.documentElement.getAttribute('data-theme');
+    if (!current) current = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    setTheme(current === 'dark' ? 'light' : 'dark');
   });
-}, { threshold: 0.1 });
+})();
 
-document.querySelectorAll('.animate-on-scroll').forEach(function(el, i) {
-  el.style.setProperty('--i', i);
-  el.style.transitionDelay = (i * 60) + 'ms';
-  observer.observe(el);
-});
-
-// Replay animation
-function replayAnim(btn, animName) {
-  var box = btn.closest('.anim-demo').querySelector('.anim-box, [style*="animation"]');
-  if (!box) return;
-  var orig = box.style.animation;
-  box.style.animation = 'none';
-  box.offsetHeight;
-  box.style.animation = orig || animName + ' 500ms var(--ease-out) both';
-}
-
-// Markdown content for each section
-var mdSections = {
-  colors: '## Colors\n\n### Primitive Tokens\n```css\n:root {\n  --color-green-500: #00FF41;\n  --color-green-400: #00cc34;\n  --color-green-a15: rgba(0, 255, 65, 0.15);\n  --color-green-a30: rgba(0, 255, 65, 0.3);\n  --color-green-a20: rgba(0, 255, 65, 0.2);\n  --color-green-a08: rgba(0, 255, 65, 0.08);\n  --color-green-a05: rgba(0, 255, 65, 0.05);\n  --color-green-a03: rgba(0, 255, 65, 0.03);\n\n  --color-neutral-950: #060606;\n  --color-neutral-900: #0a0a0a;\n  --color-neutral-800: #111111;\n  --color-neutral-700: #161616;\n  --color-neutral-650: #1a1a1a;\n  --color-neutral-600: #1c1c1c;\n  --color-neutral-550: #222222;\n  --color-neutral-400: #2a2a2a;\n  --color-neutral-300: #555555;\n  --color-neutral-150: #999999;\n  --color-neutral-100: #eeeeee;\n\n  --color-red-500: #ff4444;\n  --color-amber-500: #FFB800;\n  --color-cyan-500: #22d3ee;\n  --color-blue-500: #4488ff;\n}\n```\n\n### Semantic Tokens\n```css\n:root {\n  --bg-page: var(--color-neutral-900);\n  --bg-section-alt: var(--color-neutral-800);\n  --bg-card: var(--color-neutral-700);\n  --bg-card-hover: var(--color-neutral-600);\n  --bg-surface-deep: var(--color-neutral-950);\n\n  --text-primary: var(--color-neutral-100);\n  --text-secondary: var(--color-neutral-150);\n  --text-dim: var(--color-neutral-300);\n\n  --border-default: var(--color-neutral-400);\n  --border-hover: var(--color-green-a20);\n\n  --accent: var(--color-green-500);\n  --accent-dim: var(--color-green-400);\n  --accent-glow: var(--color-green-a15);\n  --accent-glow-strong: var(--color-green-a30);\n}\n```',
-
-  typography: '## Typography\n\n### Font Stack\n| Role | Font | Weights | Usage |\n|------|------|---------|-------|\n| System/Code | JetBrains Mono | 400, 500, 700, 800 | Labels, tags, CTAs, terminal text, stats |\n| Headlines A | Space Grotesk | 300-700 | Brand/community pages |\n| Headlines B | Outfit | 400-800 | Product pages |\n| Body | IBM Plex Sans | 300-600 | All body text, descriptions |\n\n### Type Scale\n```css\n--font-hero: clamp(36px, 7vw, 72px); /* weight 700-800, line-height 1.05 */\n--font-section-title: clamp(28px, 5vw, 44px); /* weight 700, line-height 1.15 */\n--font-body: 16px; /* IBM Plex Sans 400, line-height 1.8, color: --text-secondary */\n--font-label: 11px; /* JetBrains Mono, uppercase, letter-spacing 3px, --accent */\n--font-cta: 14px; /* JetBrains Mono 700, letter-spacing 0.5px */\n--font-stat: 20px; /* JetBrains Mono 700, --accent */\n--font-terminal: 13px; /* JetBrains Mono 400, line-height 1.8 */\n```\n\n### Rules\n- Body text is ALWAYS --text-secondary (#999), never white\n- Headlines must have at least one green accent span\n- Never use Arial, Inter, Roboto, or system fonts',
-
-  spacing: '## Spacing\n\n```css\n:root {\n  --space-1: 4px;\n  --space-2: 8px;\n  --space-3: 12px;\n  --space-4: 16px;\n  --space-5: 20px;\n  --space-6: 24px;\n  --space-8: 32px;\n  --space-10: 40px;\n  --space-12: 48px;\n  --space-16: 64px;\n  --space-20: 80px;\n  --space-25: 100px;\n}\n```\n\n### Borders\n- All borders: `1px solid var(--border-default)` (#2a2a2a)\n- Zero border-radius on everything -- all sharp corners\n- Hover borders: `1px solid var(--border-hover)` (green-a20)',
-
-  motion: '## Motion System\n\n### Duration Tokens\n```css\n--duration-instant: 100ms;  /* Press states */\n--duration-fast: 150ms;     /* Micro-interactions */\n--duration-normal: 250ms;   /* Hover transitions */\n--duration-moderate: 350ms; /* Panel reveals */\n--duration-slow: 500ms;     /* Page entrances */\n--duration-slower: 600ms;   /* Hero reveals */\n```\n\n### Easing Curves\n```css\n--ease-out: cubic-bezier(0, 0, 0.58, 1);         /* ENTRANCES */\n--ease-in: cubic-bezier(0.42, 0, 1, 1);           /* EXITS */\n--ease-standard: cubic-bezier(0.42, 0, 0.58, 1);  /* STATE CHANGES */\n--ease-productive: cubic-bezier(0.2, 0, 0.38, 0.9); /* FUNCTIONAL */\n--ease-expressive: cubic-bezier(0.4, 0.14, 0.3, 1); /* DELIGHTFUL */\n```\n\n### Animations\n```css\n@keyframes fade-up {\n  from { opacity: 0; transform: translateY(20px); }\n  to { opacity: 1; transform: translateY(0); }\n}\n\n@keyframes pulse-dot {\n  0%, 100% { opacity: 1; }\n  50% { opacity: 0.3; }\n}\n\n@keyframes cursor-blink {\n  0%, 90%, 100% { opacity: 1; }\n  45% { opacity: 0; }\n}\n```\n\n### Performance Rules\nONLY animate: transform, opacity, filter, box-shadow, border-color, background-color\nNEVER animate: width, height, margin, padding, top, left, font-size\n\n### Reduced Motion\n```css\n@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after {\n    animation-duration: 0.01ms !important;\n    transition-duration: 0.01ms !important;\n  }\n}\n```',
-
-  components: '## Components\n\n### CTA Button Primary\n```css\nbackground: var(--accent);\ncolor: #000;\nfont: 700 14px/1 "JetBrains Mono", monospace;\npadding: 16px 32px;\nborder: none;\nletter-spacing: 0.5px;\ntransition: all 250ms cubic-bezier(0.42, 0, 0.58, 1);\n/* hover: background #33ff66, box-shadow 0 0 30px accent-glow-strong, translateY(-1px) */\n```\n\n### Card\n```css\nbackground: var(--bg-card);\nborder: 1px solid var(--border-default);\npadding: 28px;\nposition: relative;\n/* ::before - height 2px green bar, opacity 0 -> 1 on hover */\n/* hover: border-color var(--border-hover), bg var(--bg-card-hover) */\n```\n\n### Section Label\n```css\nfont: 400 11px/1 "JetBrains Mono", monospace;\nletter-spacing: 3px;\ntext-transform: uppercase;\ncolor: var(--accent);\nopacity: 0.7;\n```\n\n### Terminal Mockup\nTop bar: 3 colored dots (#ff5f57, #ffbd2e, #28c840) + title\nBody: monospace 13px, green $ prompts, #999 text, #555 comments',
-
-  layouts: '## Layout Patterns\n\n### Feature Cards\n```css\ngrid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\ngap: 20px;\n```\n\n### Two-Column Comparison\n```css\ngrid-template-columns: 1fr 1fr;\ngap: 32px;\n@media (max-width: 700px) { grid-template-columns: 1fr; }\n```\n\n### Hero Split\n```css\ngrid-template-columns: 1fr 380px;\ngap: 64px;\n@media (max-width: 900px) { grid-template-columns: 1fr; }\n```\n\n### Container\n```css\nmax-width: 1100px;\nmargin: 0 auto;\npadding: 0 24px;\n```\n\n### Section Padding\n```css\npadding: 100px 0; /* Desktop */\npadding: 64px 0;  /* Mobile (max-width: 700px) */\n```\n\n### Section Alternation\nSections alternate bg-page (#0a0a0a) and bg-section-alt (#111111)\nAlternating sections get border-top and border-bottom: 1px solid #2a2a2a'
-};
-
-// Full system markdown
-var fullSystem = '# AIOpsForge Design System\\n\\n> Paste this file into your project as design-system.md or into your CLAUDE.md.\\n> Every token, component, animation, and build rule needed to recreate this system.\\n\\n## Setup\\n\\n### Required Skills (Claude Code)\\n```bash\\nnpx skills add anthropics/skills/frontend-design\\nnpx skills add delphi-ai/animate-skill\\n```\\n\\n### Motion MCP Server\\nAdd to .mcp.json:\\n```json\\n{\\n  "mcpServers": {\\n    "motion": {\\n      "command": "npx",\\n      "args": ["-y", "https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest"]\\n    }\\n  }\\n}\\n```\\n\\n' + Object.values(mdSections).join('\\n\\n---\\n\\n') + '\\n\\n---\\n\\n## Build Rules\\n- Zero border-radius on everything\\n- No emojis in UI\\n- Sections alternate bg-page / bg-section-alt\\n- All interactive elements need visible hover states\\n- Include prefers-reduced-motion handling\\n- Single HTML file with inline CSS (no frameworks)\\n- Only external dependency: Google Fonts';
-
-// Panel logic
-var overlay = document.getElementById('mdOverlay');
-var panelTitle = document.getElementById('mdPanelTitle');
-var mdContent = document.getElementById('mdContent');
-var currentMd = '';
-
-function openPanel(section) {
-  panelTitle.textContent = section.charAt(0).toUpperCase() + section.slice(1);
-  currentMd = mdSections[section] || '';
-  mdContent.textContent = currentMd;
-  overlay.classList.add('active');
-}
-
-function closePanel() {
-  overlay.classList.remove('active');
-}
-
-document.querySelectorAll('.btn-view-md').forEach(function(btn) {
-  btn.addEventListener('click', function() {
-    openPanel(this.dataset.section);
-  });
-});
-
-document.getElementById('btnClosePanel').addEventListener('click', closePanel);
-
-overlay.addEventListener('click', function(e) {
-  if (e.target === overlay) closePanel();
-});
-
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closePanel();
-});
-
-document.getElementById('btnCopySection').addEventListener('click', function() {
-  navigator.clipboard.writeText(currentMd).then(function() {
-    var btn = document.getElementById('btnCopySection');
-    btn.textContent = 'Copied!';
-    setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
-  });
-});
-
-// Copy full system
-function copyFullSystem() {
-  var full = fullSystem.replace(/\\n/g, '\n');
-  navigator.clipboard.writeText(full).then(function() {
-    var btns = document.querySelectorAll('#copySystem, #copySystemHero');
-    btns.forEach(function(b) {
-      var orig = b.textContent;
-      b.textContent = 'Copied!';
-      setTimeout(function() { b.textContent = orig; }, 2000);
+// Filter
+(function(){
+  var btns = document.querySelectorAll('.filter-btn');
+  var cards = document.querySelectorAll('.system-card');
+  btns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      btns.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      var filter = btn.getAttribute('data-filter');
+      cards.forEach(function(card) {
+        if (filter === 'all' || card.getAttribute('data-category').indexOf(filter) !== -1) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
     });
   });
+})();
+
+// Copy link
+function copySystemLink(name) {
+  var url = window.location.origin + window.location.pathname.replace('index.html', '') + name + '.html';
+  navigator.clipboard.writeText(url).then(function() {
+    var btn = event.target;
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = 'Copy Link'; }, 1500);
+  });
 }
 
-document.getElementById('copySystem').addEventListener('click', copyFullSystem);
-document.getElementById('copySystemHero').addEventListener('click', copyFullSystem);
+// Submit
+function handleSubmit(e) {
+  e.preventDefault();
+  var input = e.target.querySelector('input');
+  var btn = e.target.querySelector('button');
+  btn.textContent = 'SUBMITTED';
+  btn.style.background = 'var(--green-dim)';
+  input.value = '';
+  setTimeout(function() {
+    btn.textContent = 'SUBMIT';
+    btn.style.background = '';
+  }, 2000);
+}
 </script>
 
 </body>
