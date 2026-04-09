@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design System Library — AIOpsForge</title>
+<meta name="description" content="The complete AIOpsForge design system. Every token, component, animation, and layout pattern — rendered live. Copy the full system as production-ready markdown.">
+<link rel="icon" type="image/png" href="../../favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ══════ PRIMITIVE TOKENS ══════ */
+:root {
+  --color-green-500: #00FF41;
+  --color-green-400: #00cc34;
+  --color-green-a15: rgba(0, 255, 65, 0.15);
+  --color-green-a30: rgba(0, 255, 65, 0.3);
+  --color-green-a20: rgba(0, 255, 65, 0.2);
+  --color-green-a08: rgba(0, 255, 65, 0.08);
+  --color-green-a05: rgba(0, 255, 65, 0.05);
+  --color-green-a03: rgba(0, 255, 65, 0.03);
+
+  --color-neutral-950: #060606;
+  --color-neutral-900: #0a0a0a;
+  --color-neutral-850: #0c0c0c;
+  --color-neutral-800: #111111;
+  --color-neutral-750: #131313;
+  --color-neutral-700: #161616;
+  --color-neutral-650: #1a1a1a;
+  --color-neutral-600: #1c1c1c;
+  --color-neutral-550: #222222;
+  --color-neutral-400: #2a2a2a;
+  --color-neutral-300: #555555;
+  --color-neutral-200: #666666;
+  --color-neutral-150: #999999;
+  --color-neutral-100: #eeeeee;
+
+  --color-red-500: #ff4444;
+  --color-red-a15: rgba(255, 68, 68, 0.15);
+  --color-red-a03: rgba(255, 68, 68, 0.03);
+  --color-amber-500: #FFB800;
+  --color-cyan-500: #22d3ee;
+  --color-blue-500: #4488ff;
+
+  /* ══════ SEMANTIC TOKENS ══════ */
+  --bg-page: var(--color-neutral-900);
+  --bg-section-alt: var(--color-neutral-800);
+  --bg-card: var(--color-neutral-700);
+  --bg-card-hover: var(--color-neutral-600);
+  --bg-surface-deep: var(--color-neutral-950);
+  --bg-elevated: var(--color-neutral-550);
+
+  --text-primary: var(--color-neutral-100);
+  --text-secondary: var(--color-neutral-150);
+  --text-dim: var(--color-neutral-300);
+
+  --border-default: var(--color-neutral-400);
+  --border-hover: var(--color-green-a20);
+
+  --accent: var(--color-green-500);
+  --accent-dim: var(--color-green-400);
+  --accent-glow: var(--color-green-a15);
+  --accent-glow-strong: var(--color-green-a30);
+
+  --color-negative: var(--color-red-500);
+  --color-positive: var(--color-green-500);
+
+  /* ══════ SPACING ══════ */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-25: 100px;
+
+  /* ══════ MOTION ══════ */
+  --duration-instant: 100ms;
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-moderate: 350ms;
+  --duration-slow: 500ms;
+  --duration-slower: 600ms;
+
+  --ease-out: cubic-bezier(0, 0, 0.58, 1);
+  --ease-in: cubic-bezier(0.42, 0, 1, 1);
+  --ease-standard: cubic-bezier(0.42, 0, 0.58, 1);
+  --ease-productive: cubic-bezier(0.2, 0, 0.38, 0.9);
+  --ease-expressive: cubic-bezier(0.4, 0.14, 0.3, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ══════ NAV ══════ */
+.ds-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(10, 10, 10, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-default);
+  padding: 0 24px;
+}
+
+.ds-nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+
+.ds-nav-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ds-nav-brand span {
+  color: var(--text-dim);
+  font-weight: 400;
+}
+
+.ds-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ds-nav-links a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color var(--duration-fast);
+}
+
+.ds-nav-links a:hover { color: var(--accent); }
+
+.btn-copy-system {
+  background: transparent;
+  border: 1px solid var(--border-hover);
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.btn-copy-system:hover {
+  background: var(--color-green-a05);
+  border-color: var(--accent);
+}
+
+/* ══════ UTILITY ══════ */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+.section { padding: 100px 0; }
+.section-alt { background: var(--bg-section-alt); border-top: 1px solid var(--border-default); border-bottom: 1px solid var(--border-default); }
+
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.7;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+
+.section-title .accent { color: var(--accent); }
+
+.section-desc {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  max-width: 650px;
+  margin-bottom: 40px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.section-header-text { flex: 1; min-width: 300px; }
+
+.btn-view-md {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  background: transparent;
+  border: 1px solid var(--border-default);
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-standard);
+  white-space: nowrap;
+}
+
+.btn-view-md:hover {
+  color: var(--accent);
+  border-color: var(--border-hover);
+}
+
+/* ══════ HERO ══════ */
+.hero {
+  padding-top: 120px;
+  padding-bottom: 80px;
+  text-align: center;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 600px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--accent);
+  border: 1px solid var(--border-hover);
+  padding: 6px 16px;
+  background: var(--color-green-a05);
+  letter-spacing: 1px;
+  margin-bottom: 32px;
+  animation: fade-up var(--duration-slow) var(--ease-out) both;
+}
+
+.hero-badge .pulse-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse-dot 2s infinite;
+}
+
+.hero-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(36px, 7vw, 72px);
+  font-weight: 800;
+  line-height: 1.05;
+  margin-bottom: 24px;
+  animation: fade-up var(--duration-slow) var(--ease-out) 0.06s both;
+}
+
+.hero-title .accent { color: var(--accent); }
+
+.hero-subtitle {
+  font-size: 17px;
+  color: var(--text-secondary);
+  max-width: 560px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+  animation: fade-up var(--duration-slow) var(--ease-out) 0.12s both;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+  animation: fade-up var(--duration-slow) var(--ease-out) 0.18s both;
+}
+
+.cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--accent);
+  color: #000;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 16px 32px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--duration-normal) var(--ease-standard);
+  letter-spacing: 0.5px;
+}
+
+.cta-primary:hover {
+  background: #33ff66;
+  box-shadow: 0 0 30px var(--accent-glow-strong);
+  transform: translateY(-1px);
+}
+
+.cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 16px 32px;
+  border: 1px solid var(--border-hover);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--duration-normal) var(--ease-standard);
+  letter-spacing: 0.5px;
+}
+
+.cta-secondary:hover {
+  background: var(--color-green-a05);
+  border-color: var(--accent);
+}
+
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fade-up var(--duration-slow) var(--ease-out) 0.24s both;
+}
+
+.hero-stat {
+  text-align: center;
+}
+
+.hero-stat-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.hero-stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+/* ══════ SWATCH GRID ══════ */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.swatch-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  overflow: hidden;
+  transition: border-color var(--duration-normal) var(--ease-standard);
+}
+
+.swatch-card:hover { border-color: var(--border-hover); }
+
+.swatch-color {
+  height: 64px;
+  width: 100%;
+}
+
+.swatch-info {
+  padding: 12px 16px;
+}
+
+.swatch-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.swatch-hex {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+
+.swatch-var {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+/* ══════ TYPE SPECIMEN ══════ */
+.type-specimen {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.type-row {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  padding: 28px;
+  transition: border-color var(--duration-normal) var(--ease-standard);
+}
+
+.type-row:hover { border-color: var(--border-hover); }
+
+.type-sample { margin-bottom: 16px; }
+
+.type-meta {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.type-meta-item {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.type-meta-item strong {
+  color: var(--text-secondary);
+}
+
+/* ══════ SPACING SCALE ══════ */
+.spacing-scale {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.spacing-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.spacing-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  width: 100px;
+  flex-shrink: 0;
+}
+
+.spacing-bar {
+  height: 12px;
+  background: var(--accent);
+  opacity: 0.6;
+}
+
+.spacing-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+/* ══════ COMPONENT DEMO ══════ */
+.component-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.component-demo {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  overflow: hidden;
+}
+
+.component-demo-header {
+  background: var(--bg-section-alt);
+  border-bottom: 1px solid var(--border-default);
+  padding: 12px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.component-demo-body {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.component-demo-body.centered {
+  align-items: center;
+}
+
+/* ══════ LIVE COMPONENTS ══════ */
+/* Tag */
+.demo-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  background: var(--color-neutral-750);
+  padding: 4px 10px;
+  border: 1px solid var(--border-default);
+}
+
+/* Feature Icon Tag */
+.demo-icon-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--accent);
+  background: var(--color-green-a08);
+  border: 1px solid var(--border-hover);
+  padding: 6px 12px;
+  display: inline-flex;
+}
+
+/* Hero Badge */
+.demo-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--accent);
+  border: 1px solid var(--border-hover);
+  padding: 6px 16px;
+  background: var(--color-green-a05);
+  letter-spacing: 1px;
+}
+
+.demo-hero-badge .dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse-dot 2s infinite;
+}
+
+/* Card */
+.demo-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--duration-normal) var(--ease-standard);
+  width: 100%;
+}
+
+.demo-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity var(--duration-normal) var(--ease-standard);
+}
+
+.demo-card:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+}
+
+.demo-card:hover::before { opacity: 1; }
+
+.demo-card h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.demo-card p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* Card Highlighted */
+.demo-card-highlight {
+  border-color: var(--accent);
+  background: var(--color-green-a03);
+}
+
+.demo-card-highlight::before { opacity: 1; height: 3px; }
+
+.demo-card-highlight h4 { color: var(--accent); }
+
+/* Tech Chip */
+.demo-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  padding: 12px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--text-secondary);
+  transition: border-color var(--duration-normal) var(--ease-standard);
+}
+
+.demo-chip:hover { border-color: var(--border-hover); }
+
+.demo-chip .chip-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+/* Trust Bar */
+.demo-trust-bar {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.demo-trust-item {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.demo-trust-item .check { color: var(--accent); margin-right: 6px; }
+
+/* Terminal Mockup */
+.demo-terminal {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  overflow: hidden;
+  width: 100%;
+}
+
+.terminal-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--color-neutral-650);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.terminal-dot { width: 10px; height: 10px; }
+.terminal-dot.red { background: #ff5f57; }
+.terminal-dot.yellow { background: #ffbd2e; }
+.terminal-dot.green { background: #28c840; }
+
+.terminal-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-left: 8px;
+}
+
+.terminal-body {
+  padding: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.terminal-body .green { color: var(--accent); }
+.terminal-body .dim { color: var(--text-dim); }
+
+.terminal-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 14px;
+  background: var(--accent);
+  margin-left: 4px;
+  animation: cursor-blink 1s infinite;
+}
+
+/* FAQ Accordion */
+.demo-faq-item {
+  border-bottom: 1px solid var(--border-default);
+  padding: 24px 0;
+}
+
+.demo-faq-item:first-child { border-top: 1px solid var(--border-default); }
+
+.demo-faq-q {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.demo-faq-q::after {
+  content: '+';
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--accent);
+  font-size: 20px;
+  flex-shrink: 0;
+  transition: transform var(--duration-normal) var(--ease-standard);
+}
+
+.demo-faq-item.open .demo-faq-q::after { transform: rotate(45deg); }
+
+.demo-faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--duration-moderate) var(--ease-standard);
+}
+
+.demo-faq-item.open .demo-faq-a { max-height: 200px; }
+
+.demo-faq-a-inner {
+  padding-top: 16px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* Who-For Grid */
+.demo-who-for {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+}
+
+.demo-col-neg {
+  background: var(--color-red-a03);
+  border: 1px solid var(--color-red-a15);
+  padding: 24px;
+}
+
+.demo-col-neg h4 { color: var(--color-red-500); font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; margin-bottom: 12px; }
+
+.demo-col-pos {
+  background: var(--color-green-a03);
+  border: 1px solid var(--border-hover);
+  padding: 24px;
+}
+
+.demo-col-pos h4 { color: var(--accent); font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; margin-bottom: 12px; }
+
+.demo-who-list {
+  list-style: none;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.demo-who-list li {
+  padding: 4px 0 4px 20px;
+  position: relative;
+}
+
+.demo-who-list li::before {
+  position: absolute;
+  left: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+
+.demo-col-neg .demo-who-list li::before { content: 'x'; color: var(--color-red-500); }
+.demo-col-pos .demo-who-list li::before { content: '>'; color: var(--accent); }
+
+/* ══════ ANIMATION DEMOS ══════ */
+.animation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.anim-demo {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  overflow: hidden;
+}
+
+.anim-demo-header {
+  background: var(--bg-section-alt);
+  border-bottom: 1px solid var(--border-default);
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.anim-demo-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.btn-replay {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--accent);
+  background: none;
+  border: 1px solid var(--border-hover);
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.btn-replay:hover { background: var(--color-green-a05); }
+
+.anim-demo-body {
+  padding: 40px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+}
+
+.anim-box {
+  width: 60px;
+  height: 60px;
+  background: var(--accent);
+  opacity: 0.8;
+}
+
+/* Warning Panel */
+.warning-panel {
+  background: var(--color-red-a03);
+  border: 1px solid var(--color-red-a15);
+  padding: 32px;
+  margin-top: 40px;
+}
+
+.warning-panel h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-red-500);
+  margin-bottom: 16px;
+}
+
+.warning-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.warning-table th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-align: left;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--color-red-a15);
+}
+
+.warning-table td {
+  padding: 10px 16px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--color-red-a15);
+  vertical-align: top;
+}
+
+.warning-table td:first-child {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-red-500);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* ══════ LAYOUT PATTERNS ══════ */
+.layout-demos {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.layout-demo {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  padding: 24px;
+}
+
+.layout-demo h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.layout-demo .layout-spec {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+}
+
+.layout-wireframe {
+  display: flex;
+  gap: 8px;
+}
+
+.layout-box {
+  background: var(--color-green-a08);
+  border: 1px solid var(--border-hover);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-dim);
+  flex: 1;
+}
+
+/* ══════ SLIDING PANEL ══════ */
+.md-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--duration-moderate) var(--ease-standard),
+              visibility var(--duration-moderate) var(--ease-standard);
+}
+
+.md-overlay.active { opacity: 1; visibility: visible; }
+
+.md-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(50vw, 600px);
+  min-width: 400px;
+  background: var(--bg-surface-deep);
+  border-left: 1px solid var(--border-default);
+  z-index: 2001;
+  transform: translateX(100%);
+  transition: transform var(--duration-moderate) var(--ease-out);
+  display: flex;
+  flex-direction: column;
+}
+
+.md-overlay.active .md-panel { transform: translateX(0); }
+
+.md-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.md-panel-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.md-panel-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-copy-section {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--border-hover);
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.btn-copy-section:hover { background: var(--color-green-a05); }
+
+.btn-close-panel {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  color: var(--text-dim);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  transition: color var(--duration-fast);
+}
+
+.btn-close-panel:hover { color: var(--accent); }
+
+.md-panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.md-panel-body pre {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ══════ FOOTER ══════ */
+.ds-footer {
+  padding: 40px 24px;
+  border-top: 1px solid var(--border-default);
+}
+
+.ds-footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.ds-footer a {
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color var(--duration-fast);
+}
+
+.ds-footer a:hover { color: var(--accent); }
+
+/* ══════ SCROLL ANIMATION ══════ */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--duration-slow) var(--ease-out),
+              transform var(--duration-slow) var(--ease-out);
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ══════ KEYFRAMES ══════ */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes cursor-blink {
+  0%, 90%, 100% { opacity: 1; }
+  45% { opacity: 0; }
+}
+
+/* ══════ REDUCED MOTION ══════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ══════ RESPONSIVE ══════ */
+@media (max-width: 900px) {
+  .ds-nav-links { display: none; }
+  .hero-title { font-size: clamp(32px, 6vw, 56px); }
+  .demo-who-for { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 700px) {
+  .section { padding: 64px 0; }
+  .hero { padding-top: 100px; padding-bottom: 60px; }
+  .hero-stats { gap: 24px; }
+  .ds-footer-inner { flex-direction: column; gap: 12px; }
+  .md-panel { min-width: 100%; width: 100%; }
+  .component-grid { grid-template-columns: 1fr; }
+  .animation-grid { grid-template-columns: 1fr; }
+  .swatch-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+}
+
+@media (max-width: 500px) {
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-actions .cta-primary,
+  .hero-actions .cta-secondary { justify-content: center; }
+  .container { padding: 0 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════ NAV ══════ -->
+<nav class="ds-nav">
+  <div class="ds-nav-inner">
+    <a href="../../index.html" class="ds-nav-brand">AIOpsForge <span>Design System</span></a>
+    <div class="ds-nav-links">
+      <a href="#colors">Colors</a>
+      <a href="#typography">Typography</a>
+      <a href="#motion">Motion</a>
+      <a href="#components">Components</a>
+      <a href="#layouts">Layouts</a>
+    </div>
+    <button class="btn-copy-system" id="copySystem">Copy Full System</button>
+  </div>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge"><span class="pulse-dot"></span> AIOpsForge Design System Library</div>
+    <h1 class="hero-title">The Design System.<br><span class="accent">Copy. Paste. Build.</span></h1>
+    <p class="hero-subtitle">Every token, component, animation, and layout pattern — rendered live. Copy the full system as production-ready markdown for your own projects.</p>
+    <div class="hero-actions">
+      <a href="#colors" class="cta-primary">Browse System</a>
+      <button class="cta-secondary" id="copySystemHero">Copy Full Markdown</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">40+</div><div class="hero-stat-label">COLOR TOKENS</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">19</div><div class="hero-stat-label">COMPONENTS</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">8</div><div class="hero-stat-label">LAYOUT PATTERNS</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">10</div><div class="hero-stat-label">ANIMATIONS</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ COLORS ══════ -->
+<section class="section section-alt" id="colors">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-text">
+        <div class="section-label">01 — Colors</div>
+        <h2 class="section-title">Color <span class="accent">tokens</span></h2>
+        <p class="section-desc">Primitive tokens map to semantic aliases. Use semantic tokens in code — never hard-code hex values.</p>
+      </div>
+      <button class="btn-view-md" data-section="colors">&lt;/&gt; View Markdown</button>
+    </div>
+
+    <h3 style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-dim); margin-bottom: 16px; letter-spacing: 1px;">ACCENT + SEMANTIC</h3>
+    <div class="swatch-grid" style="margin-bottom: 40px;">
+      <div class="swatch-card"><div class="swatch-color" style="background: #00FF41;"></div><div class="swatch-info"><div class="swatch-name">Green 500</div><div class="swatch-hex">#00FF41</div><div class="swatch-var">--accent</div></div></div>
+      <div class="swatch-card"><div class="swatch-color" style="background: #00cc34;"></div><div class="swatch-info"><div class="swatch-name">Green 400</div><div class="swatch-hex">#00cc34</div><div class="swatch-var">--accent-dim</div></div></div>
+      <div class="swatch-card"><div class="swatch-color" style="background: #ff4444;"></div><div class="swatch-info"><div class="swatch-name">Red 500</div><div class="swatch-hex">#ff4444</div><div class="swatch-var">--color-negative</div></div></div>
+      <div class="swatch-card"><div class="swatch-color" style="background: #FFB800;"></div><div class="swatch-info"><div class="swatch-name">Amber 500</div><div class="swatch-hex">#FFB800</div><div class="swatch-var">--color-amber-500</div></div></div>
+      <div class="swatch-card"><div class="swatch-color" style="background: #22d3ee;"></div><div class="swatch-info"><div class="swatch-name">Cyan 500</div><div class="swatch-hex">#22d3ee</div><div class="swatch-var">--color-cyan-500</div></div></div>
+      <div class="swatch-card"><div class="swatch-color" style="background: #4488ff;"></div><div class="swatch-info"><div class="swatch-name">Blue 500</div><div class="swatch-hex">#4488ff</div><div class="swatch-var">--color-blue-500</div></div></div>
+    </div>
+
+    <h3 style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-dim); margin-bottom: 16px; letter-spacing: 1px;">BACKGROUNDS</h3>
+    <div class="swatch-grid" style="margin-bottom: 40px;">
+      <div class="swatch-card"><div class="swatch-color" style="background: #060606; border-bottom: 1px solid var(--border-default);"></div><div class="swatch-info"><div class="swatch-name">Surface Deep</div><div class="swatch-hex">#060606</div><div class="swatch-var">--bg-surface-deep</div></div></div>
+      <div class="swatch-card"><div class="swatch-color" style="background: #0a0a0a; border-bottom: 1px solid var(--border-default);"></div><div class="swatch-info"><div class="swatch-name">Page</div><div class="swatch-hex">#0a0a0a</div><div class="swatch-var">--bg-page</div></div></div>
+      <div class="swatch-card"><div class="swatch-color" style="background: #111111; border-bottom: 1px solid var(--border-default);"></div><div class="swatch-info"><div class="swatch-name">Section Alt</div><div class="swatch-hex">#111111</div><div class="swatch-var">--bg-section-alt</div></div></div>
+      <div class="swatch-card"><div class="swatch-color" style="background: #161616; border-bottom: 1px solid var(--border-default);"></div><div class="swatch-info"><div class="swatch-name">Card</div><div class="swatch-hex">#161616</div><div class="swatch-var">--bg-card</div></div></div>
+      <div class="swatch-card"><div class="swatch-color" style="background: #1c1c1c; border-bottom: 1px solid var(--border-default);"></div><div class="swatch-info"><div class="swatch-name">Card Hover</div><div class="swatch-hex">#1c1c1c</div><div class="swatch-var">--bg-card-hover</div></div></div>
+      <div class="swatch-card"><div class="swatch-color" style="background: #222222; border-bottom: 1px solid var(--border-default);"></div><div class="swatch-info"><div class="swatch-name">Elevated</div><div class="swatch-hex">#222222</div><div class="swatch-var">--bg-elevated</div></div></div>
+    </div>
+
+    <h3 style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-dim); margin-bottom: 16px; letter-spacing: 1px;">TEXT</h3>
+    <div class="swatch-grid">
+      <div class="swatch-card"><div class="swatch-color" style="background: #eeeeee;"></div><div class="swatch-info"><div class="swatch-name">Primary</div><div class="swatch-hex">#eeeeee</div><div class="swatch-var">--text-primary</div></div></div>
+      <div class="swatch-card"><div class="swatch-color" style="background: #999999;"></div><div class="swatch-info"><div class="swatch-name">Secondary</div><div class="swatch-hex">#999999</div><div class="swatch-var">--text-secondary</div></div></div>
+      <div class="swatch-card"><div class="swatch-color" style="background: #555555;"></div><div class="swatch-info"><div class="swatch-name">Dim</div><div class="swatch-hex">#555555</div><div class="swatch-var">--text-dim</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ TYPOGRAPHY ══════ -->
+<section class="section" id="typography">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-text">
+        <div class="section-label">02 — Typography</div>
+        <h2 class="section-title">Type <span class="accent">scale</span></h2>
+        <p class="section-desc">Four fonts. Strict hierarchy. Monospace signals data and precision. Sans-serif handles prose.</p>
+      </div>
+      <button class="btn-view-md" data-section="typography">&lt;/&gt; View Markdown</button>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-row">
+        <div class="type-sample" style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(36px, 7vw, 72px); font-weight: 800; line-height: 1.05;">Hero <span style="color: var(--accent);">Headline</span></div>
+        <div class="type-meta"><span class="type-meta-item"><strong>Font:</strong> Space Grotesk</span><span class="type-meta-item"><strong>Size:</strong> clamp(36px, 7vw, 72px)</span><span class="type-meta-item"><strong>Weight:</strong> 800</span><span class="type-meta-item"><strong>Line Height:</strong> 1.05</span></div>
+      </div>
+      <div class="type-row">
+        <div class="type-sample" style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 5vw, 44px); font-weight: 700; line-height: 1.15;">Section <span style="color: var(--accent);">Title</span></div>
+        <div class="type-meta"><span class="type-meta-item"><strong>Font:</strong> Space Grotesk</span><span class="type-meta-item"><strong>Size:</strong> clamp(28px, 5vw, 44px)</span><span class="type-meta-item"><strong>Weight:</strong> 700</span><span class="type-meta-item"><strong>Line Height:</strong> 1.15</span></div>
+      </div>
+      <div class="type-row">
+        <div class="type-sample" style="font-family: 'Outfit', sans-serif; font-size: clamp(28px, 5vw, 44px); font-weight: 700; line-height: 1.15;">Product <span style="color: var(--accent);">Headline</span></div>
+        <div class="type-meta"><span class="type-meta-item"><strong>Font:</strong> Outfit (product pages)</span><span class="type-meta-item"><strong>Size:</strong> clamp(28px, 5vw, 44px)</span><span class="type-meta-item"><strong>Weight:</strong> 700</span></div>
+      </div>
+      <div class="type-row">
+        <div class="type-sample" style="font-family: 'IBM Plex Sans', sans-serif; font-size: 16px; color: var(--text-secondary); line-height: 1.8;">Body text is always #999 — never white. White is reserved for headlines and <strong style="color: var(--text-primary);">bold emphasis</strong> within body text. This keeps information density readable.</div>
+        <div class="type-meta"><span class="type-meta-item"><strong>Font:</strong> IBM Plex Sans</span><span class="type-meta-item"><strong>Size:</strong> 16px</span><span class="type-meta-item"><strong>Weight:</strong> 400</span><span class="type-meta-item"><strong>Color:</strong> --text-secondary</span></div>
+      </div>
+      <div class="type-row">
+        <div class="type-sample"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); opacity: 0.7;">section label</span></div>
+        <div class="type-meta"><span class="type-meta-item"><strong>Font:</strong> JetBrains Mono</span><span class="type-meta-item"><strong>Size:</strong> 11px</span><span class="type-meta-item"><strong>Letter Spacing:</strong> 3px</span><span class="type-meta-item"><strong>Transform:</strong> uppercase</span></div>
+      </div>
+      <div class="type-row">
+        <div class="type-sample"><span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; letter-spacing: 0.5px; background: var(--accent); color: #000; padding: 12px 24px; display: inline-block;">CTA Button Text</span></div>
+        <div class="type-meta"><span class="type-meta-item"><strong>Font:</strong> JetBrains Mono</span><span class="type-meta-item"><strong>Size:</strong> 14px</span><span class="type-meta-item"><strong>Weight:</strong> 700</span><span class="type-meta-item"><strong>Letter Spacing:</strong> 0.5px</span></div>
+      </div>
+      <div class="type-row">
+        <div class="type-sample"><span style="font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 700; color: var(--accent);">2,847</span> <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 1px; color: var(--text-dim);">CREDITS REMAINING</span></div>
+        <div class="type-meta"><span class="type-meta-item"><strong>Stat Number:</strong> JetBrains Mono 20px 700 --accent</span><span class="type-meta-item"><strong>Stat Label:</strong> JetBrains Mono 11px --text-dim</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SPACING ══════ -->
+<section class="section section-alt" id="spacing">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-text">
+        <div class="section-label">03 — Spacing</div>
+        <h2 class="section-title">Spacing <span class="accent">scale</span></h2>
+      </div>
+      <button class="btn-view-md" data-section="spacing">&lt;/&gt; View Markdown</button>
+    </div>
+    <div class="spacing-scale">
+      <div class="spacing-row"><span class="spacing-label">--space-1</span><div class="spacing-bar" style="width: 4px;"></div><span class="spacing-value">4px</span></div>
+      <div class="spacing-row"><span class="spacing-label">--space-2</span><div class="spacing-bar" style="width: 8px;"></div><span class="spacing-value">8px</span></div>
+      <div class="spacing-row"><span class="spacing-label">--space-3</span><div class="spacing-bar" style="width: 12px;"></div><span class="spacing-value">12px</span></div>
+      <div class="spacing-row"><span class="spacing-label">--space-4</span><div class="spacing-bar" style="width: 16px;"></div><span class="spacing-value">16px</span></div>
+      <div class="spacing-row"><span class="spacing-label">--space-6</span><div class="spacing-bar" style="width: 24px;"></div><span class="spacing-value">24px</span></div>
+      <div class="spacing-row"><span class="spacing-label">--space-8</span><div class="spacing-bar" style="width: 32px;"></div><span class="spacing-value">32px</span></div>
+      <div class="spacing-row"><span class="spacing-label">--space-12</span><div class="spacing-bar" style="width: 48px;"></div><span class="spacing-value">48px</span></div>
+      <div class="spacing-row"><span class="spacing-label">--space-16</span><div class="spacing-bar" style="width: 64px;"></div><span class="spacing-value">64px</span></div>
+      <div class="spacing-row"><span class="spacing-label">--space-25</span><div class="spacing-bar" style="width: 100px;"></div><span class="spacing-value">100px</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ MOTION ══════ -->
+<section class="section" id="motion">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-text">
+        <div class="section-label">04 — Motion</div>
+        <h2 class="section-title">Animation <span class="accent">system</span></h2>
+        <p class="section-desc">Exact tokens so AI never guesses. Every duration, easing curve, and animation pattern is specified precisely.</p>
+      </div>
+      <button class="btn-view-md" data-section="motion">&lt;/&gt; View Markdown</button>
+    </div>
+
+    <h3 style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-dim); margin-bottom: 16px; letter-spacing: 1px;">ENTRANCE ANIMATIONS</h3>
+    <div class="animation-grid" style="margin-bottom: 40px;">
+      <div class="anim-demo">
+        <div class="anim-demo-header"><span class="anim-demo-title">Fade Up</span><button class="btn-replay" onclick="replayAnim(this, 'fade-up')">Replay</button></div>
+        <div class="anim-demo-body"><div class="anim-box" style="animation: fade-up 500ms var(--ease-out) both;"></div></div>
+      </div>
+      <div class="anim-demo">
+        <div class="anim-demo-header"><span class="anim-demo-title">Fade In</span><button class="btn-replay" onclick="replayAnim(this, 'fade-in')">Replay</button></div>
+        <div class="anim-demo-body"><div class="anim-box" style="animation: fade-in 250ms var(--ease-out) both;"></div></div>
+      </div>
+      <div class="anim-demo">
+        <div class="anim-demo-header"><span class="anim-demo-title">Slide In Left</span><button class="btn-replay" onclick="replayAnim(this, 'slide-in-left')">Replay</button></div>
+        <div class="anim-demo-body"><div class="anim-box" style="animation: slide-in-left 350ms var(--ease-out) both;"></div></div>
+      </div>
+    </div>
+
+    <h3 style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-dim); margin-bottom: 16px; letter-spacing: 1px;">CONTINUOUS</h3>
+    <div class="animation-grid" style="margin-bottom: 40px;">
+      <div class="anim-demo">
+        <div class="anim-demo-header"><span class="anim-demo-title">Pulse Dot</span></div>
+        <div class="anim-demo-body"><div style="width: 12px; height: 12px; background: var(--accent); border-radius: 50%; animation: pulse-dot 2s infinite;"></div></div>
+      </div>
+      <div class="anim-demo">
+        <div class="anim-demo-header"><span class="anim-demo-title">Cursor Blink</span></div>
+        <div class="anim-demo-body"><span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--accent);">$ _</span><span class="terminal-cursor"></span></div>
+      </div>
+    </div>
+
+    <div class="warning-panel">
+      <h3>Animations AI Cannot Reliably Produce</h3>
+      <table class="warning-table">
+        <thead><tr><th>Type</th><th>Why AI Fails</th><th>Alternative</th></tr></thead>
+        <tbody>
+          <tr><td>Spring physics</td><td>AI cannot feel tension/damping — guesses wrong cubic-bezier values</td><td>Use Motion MCP /css-spring skill</td></tr>
+          <tr><td>height: auto</td><td>CSS cannot transition to auto — AI tries max-height: auto which fails</td><td>Use generous fixed max-height or JS measurement</td></tr>
+          <tr><td>3D transforms</td><td>AI gets perspective, rotateX/Y values wrong — produces distortion</td><td>Avoid 3D transforms. Specify exact values if needed</td></tr>
+          <tr><td>Layout properties</td><td>Animating width/height/margin triggers layout recalculation and jank</td><td>ONLY animate transform and opacity</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ COMPONENTS ══════ -->
+<section class="section section-alt" id="components">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-text">
+        <div class="section-label">05 — Components</div>
+        <h2 class="section-title">Live <span class="accent">components</span></h2>
+        <p class="section-desc">Every component rendered live. Hover, click, and interact. Each is a direct implementation of the spec.</p>
+      </div>
+      <button class="btn-view-md" data-section="components">&lt;/&gt; View Markdown</button>
+    </div>
+
+    <div class="component-grid">
+      <!-- Buttons -->
+      <div class="component-demo">
+        <div class="component-demo-header">CTA Buttons</div>
+        <div class="component-demo-body centered" style="gap: 12px;">
+          <button class="cta-primary">Primary CTA</button>
+          <button class="cta-secondary">Secondary CTA</button>
+        </div>
+      </div>
+
+      <!-- Tags -->
+      <div class="component-demo">
+        <div class="component-demo-header">Tags + Badges</div>
+        <div class="component-demo-body" style="gap: 12px; flex-direction: row; flex-wrap: wrap;">
+          <span class="demo-tag">Infrastructure</span>
+          <span class="demo-icon-tag">> AI Agent</span>
+          <span class="demo-hero-badge"><span class="dot"></span> Live</span>
+        </div>
+      </div>
+
+      <!-- Card -->
+      <div class="component-demo">
+        <div class="component-demo-header">Card (Hover Me)</div>
+        <div class="component-demo-body">
+          <div class="demo-card">
+            <h4>Standard Card</h4>
+            <p>Hover to see the green top bar reveal and border shift. Every card in the system uses this pattern.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Highlighted -->
+      <div class="component-demo">
+        <div class="component-demo-header">Card (Highlighted)</div>
+        <div class="component-demo-body">
+          <div class="demo-card demo-card-highlight">
+            <h4>Highlighted Card</h4>
+            <p>Green border, tinted background, permanent top bar. Used for featured/recommended items.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tech Chips -->
+      <div class="component-demo">
+        <div class="component-demo-header">Tech Chips</div>
+        <div class="component-demo-body" style="flex-direction: row; flex-wrap: wrap; gap: 8px;">
+          <span class="demo-chip"><span class="chip-dot"></span> Claude API</span>
+          <span class="demo-chip"><span class="chip-dot"></span> n8n</span>
+          <span class="demo-chip"><span class="chip-dot"></span> Vercel</span>
+        </div>
+      </div>
+
+      <!-- Trust Bar -->
+      <div class="component-demo">
+        <div class="component-demo-header">Trust Bar</div>
+        <div class="component-demo-body">
+          <div class="demo-trust-bar">
+            <span class="demo-trust-item"><span class="check">+</span> No lock-in</span>
+            <span class="demo-trust-item"><span class="check">+</span> Cancel anytime</span>
+            <span class="demo-trust-item"><span class="check">+</span> Production-grade</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Terminal -->
+      <div class="component-demo" style="grid-column: 1 / -1;">
+        <div class="component-demo-header">Terminal Mockup</div>
+        <div class="component-demo-body">
+          <div class="demo-terminal">
+            <div class="terminal-bar">
+              <div class="terminal-dot red"></div>
+              <div class="terminal-dot yellow"></div>
+              <div class="terminal-dot green"></div>
+              <span class="terminal-title">design-system.sh</span>
+            </div>
+            <div class="terminal-body">
+              <span class="green">$</span> aof design-system --export markdown<br>
+              <span class="dim"># Exporting 40 color tokens...</span><br>
+              <span class="dim"># Exporting 19 components...</span><br>
+              <span class="dim"># Exporting 10 animation patterns...</span><br>
+              <span class="green">$</span> status: <span class="green">complete</span><br>
+              <span class="green">$</span> output: <span class="green">design-system.md</span> <span class="dim">(12.4kb)</span><span class="terminal-cursor"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="component-demo" style="grid-column: 1 / -1;">
+        <div class="component-demo-header">FAQ Accordion</div>
+        <div class="component-demo-body" style="display: block;">
+          <div class="demo-faq-item open">
+            <div class="demo-faq-q" onclick="this.parentElement.classList.toggle('open')">How do I use this design system?</div>
+            <div class="demo-faq-a"><div class="demo-faq-a-inner">Click "Copy Full System" in the nav to get the entire system as a markdown file. Paste it into your project as design-system.md or into your CLAUDE.md. Claude Code will use it as the source of truth for all design decisions.</div></div>
+          </div>
+          <div class="demo-faq-item">
+            <div class="demo-faq-q" onclick="this.parentElement.classList.toggle('open')">Can I use this with React or Tailwind?</div>
+            <div class="demo-faq-a"><div class="demo-faq-a-inner">Yes. The exported markdown includes framework-specific notes for HTML/CSS, React (with Motion library), and Tailwind. Map the CSS custom properties to your framework's token system.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Who-For Grid -->
+      <div class="component-demo" style="grid-column: 1 / -1;">
+        <div class="component-demo-header">Who-For Comparison Grid</div>
+        <div class="component-demo-body">
+          <div class="demo-who-for">
+            <div class="demo-col-neg">
+              <h4>x Not for you if</h4>
+              <ul class="demo-who-list">
+                <li>You want plug-and-play templates</li>
+                <li>You prefer Bootstrap or Material UI</li>
+              </ul>
+            </div>
+            <div class="demo-col-pos">
+              <h4>> Built for you if</h4>
+              <ul class="demo-who-list">
+                <li>You build with AI tools (Claude, GPT)</li>
+                <li>You want a system AI can execute precisely</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ LAYOUTS ══════ -->
+<section class="section" id="layouts">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-text">
+        <div class="section-label">06 — Layouts</div>
+        <h2 class="section-title">Layout <span class="accent">patterns</span></h2>
+        <p class="section-desc">Grid definitions with responsive breakpoints. Copy the pattern, fill in your content.</p>
+      </div>
+      <button class="btn-view-md" data-section="layouts">&lt;/&gt; View Markdown</button>
+    </div>
+
+    <div class="layout-demos">
+      <div class="layout-demo">
+        <h4>Feature Cards Grid</h4>
+        <div class="layout-spec">repeat(auto-fit, minmax(300px, 1fr)) | gap: 20px</div>
+        <div class="layout-wireframe"><div class="layout-box">1fr</div><div class="layout-box">1fr</div><div class="layout-box">1fr</div></div>
+      </div>
+      <div class="layout-demo">
+        <h4>Two-Column Comparison</h4>
+        <div class="layout-spec">1fr 1fr | gap: 32px | collapse at 700px</div>
+        <div class="layout-wireframe"><div class="layout-box">Negative</div><div class="layout-box">Positive</div></div>
+      </div>
+      <div class="layout-demo">
+        <h4>Hero Split</h4>
+        <div class="layout-spec">1fr 380px | gap: 64px | collapse at 900px</div>
+        <div class="layout-wireframe"><div class="layout-box" style="flex: 2;">Text Content</div><div class="layout-box" style="flex: 1;">Mockup</div></div>
+      </div>
+      <div class="layout-demo">
+        <h4>Container</h4>
+        <div class="layout-spec">max-width: 1100px | padding: 0 24px | margin: 0 auto</div>
+        <div style="background: var(--color-green-a05); border: 1px dashed var(--border-hover); padding: 16px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim);">1100px max content area</div>
+      </div>
+      <div class="layout-demo">
+        <h4>Section Alternation</h4>
+        <div class="layout-spec">bg-page (#0a0a0a) / bg-section-alt (#111111) + 1px border separators</div>
+        <div style="display: flex; gap: 0;">
+          <div style="flex: 1; background: #0a0a0a; padding: 16px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-dim); border: 1px solid var(--border-default);">Section 1</div>
+          <div style="flex: 1; background: #111111; padding: 16px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-dim); border: 1px solid var(--border-default);">Section 2</div>
+          <div style="flex: 1; background: #0a0a0a; padding: 16px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-dim); border: 1px solid var(--border-default);">Section 3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer class="ds-footer">
+  <div class="ds-footer-inner">
+    <span>AIOpsForge Design System</span>
+    <a href="../../index.html">Back to AIOpsForge</a>
+    <span>built by an engineer who ships</span>
+  </div>
+</footer>
+
+<!-- ══════ SLIDING PANEL ══════ -->
+<div class="md-overlay" id="mdOverlay">
+  <div class="md-panel">
+    <div class="md-panel-header">
+      <span class="md-panel-title" id="mdPanelTitle">Section</span>
+      <div class="md-panel-actions">
+        <button class="btn-copy-section" id="btnCopySection">Copy</button>
+        <button class="btn-close-panel" id="btnClosePanel">x</button>
+      </div>
+    </div>
+    <div class="md-panel-body">
+      <pre id="mdContent"></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ SCRIPTS ══════ -->
+<script>
+// Scroll animation
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.animate-on-scroll').forEach(function(el, i) {
+  el.style.setProperty('--i', i);
+  el.style.transitionDelay = (i * 60) + 'ms';
+  observer.observe(el);
+});
+
+// Replay animation
+function replayAnim(btn, animName) {
+  var box = btn.closest('.anim-demo').querySelector('.anim-box, [style*="animation"]');
+  if (!box) return;
+  var orig = box.style.animation;
+  box.style.animation = 'none';
+  box.offsetHeight;
+  box.style.animation = orig || animName + ' 500ms var(--ease-out) both';
+}
+
+// Markdown content for each section
+var mdSections = {
+  colors: '## Colors\n\n### Primitive Tokens\n```css\n:root {\n  --color-green-500: #00FF41;\n  --color-green-400: #00cc34;\n  --color-green-a15: rgba(0, 255, 65, 0.15);\n  --color-green-a30: rgba(0, 255, 65, 0.3);\n  --color-green-a20: rgba(0, 255, 65, 0.2);\n  --color-green-a08: rgba(0, 255, 65, 0.08);\n  --color-green-a05: rgba(0, 255, 65, 0.05);\n  --color-green-a03: rgba(0, 255, 65, 0.03);\n\n  --color-neutral-950: #060606;\n  --color-neutral-900: #0a0a0a;\n  --color-neutral-800: #111111;\n  --color-neutral-700: #161616;\n  --color-neutral-650: #1a1a1a;\n  --color-neutral-600: #1c1c1c;\n  --color-neutral-550: #222222;\n  --color-neutral-400: #2a2a2a;\n  --color-neutral-300: #555555;\n  --color-neutral-150: #999999;\n  --color-neutral-100: #eeeeee;\n\n  --color-red-500: #ff4444;\n  --color-amber-500: #FFB800;\n  --color-cyan-500: #22d3ee;\n  --color-blue-500: #4488ff;\n}\n```\n\n### Semantic Tokens\n```css\n:root {\n  --bg-page: var(--color-neutral-900);\n  --bg-section-alt: var(--color-neutral-800);\n  --bg-card: var(--color-neutral-700);\n  --bg-card-hover: var(--color-neutral-600);\n  --bg-surface-deep: var(--color-neutral-950);\n\n  --text-primary: var(--color-neutral-100);\n  --text-secondary: var(--color-neutral-150);\n  --text-dim: var(--color-neutral-300);\n\n  --border-default: var(--color-neutral-400);\n  --border-hover: var(--color-green-a20);\n\n  --accent: var(--color-green-500);\n  --accent-dim: var(--color-green-400);\n  --accent-glow: var(--color-green-a15);\n  --accent-glow-strong: var(--color-green-a30);\n}\n```',
+
+  typography: '## Typography\n\n### Font Stack\n| Role | Font | Weights | Usage |\n|------|------|---------|-------|\n| System/Code | JetBrains Mono | 400, 500, 700, 800 | Labels, tags, CTAs, terminal text, stats |\n| Headlines A | Space Grotesk | 300-700 | Brand/community pages |\n| Headlines B | Outfit | 400-800 | Product pages |\n| Body | IBM Plex Sans | 300-600 | All body text, descriptions |\n\n### Type Scale\n```css\n--font-hero: clamp(36px, 7vw, 72px); /* weight 700-800, line-height 1.05 */\n--font-section-title: clamp(28px, 5vw, 44px); /* weight 700, line-height 1.15 */\n--font-body: 16px; /* IBM Plex Sans 400, line-height 1.8, color: --text-secondary */\n--font-label: 11px; /* JetBrains Mono, uppercase, letter-spacing 3px, --accent */\n--font-cta: 14px; /* JetBrains Mono 700, letter-spacing 0.5px */\n--font-stat: 20px; /* JetBrains Mono 700, --accent */\n--font-terminal: 13px; /* JetBrains Mono 400, line-height 1.8 */\n```\n\n### Rules\n- Body text is ALWAYS --text-secondary (#999), never white\n- Headlines must have at least one green accent span\n- Never use Arial, Inter, Roboto, or system fonts',
+
+  spacing: '## Spacing\n\n```css\n:root {\n  --space-1: 4px;\n  --space-2: 8px;\n  --space-3: 12px;\n  --space-4: 16px;\n  --space-5: 20px;\n  --space-6: 24px;\n  --space-8: 32px;\n  --space-10: 40px;\n  --space-12: 48px;\n  --space-16: 64px;\n  --space-20: 80px;\n  --space-25: 100px;\n}\n```\n\n### Borders\n- All borders: `1px solid var(--border-default)` (#2a2a2a)\n- Zero border-radius on everything -- all sharp corners\n- Hover borders: `1px solid var(--border-hover)` (green-a20)',
+
+  motion: '## Motion System\n\n### Duration Tokens\n```css\n--duration-instant: 100ms;  /* Press states */\n--duration-fast: 150ms;     /* Micro-interactions */\n--duration-normal: 250ms;   /* Hover transitions */\n--duration-moderate: 350ms; /* Panel reveals */\n--duration-slow: 500ms;     /* Page entrances */\n--duration-slower: 600ms;   /* Hero reveals */\n```\n\n### Easing Curves\n```css\n--ease-out: cubic-bezier(0, 0, 0.58, 1);         /* ENTRANCES */\n--ease-in: cubic-bezier(0.42, 0, 1, 1);           /* EXITS */\n--ease-standard: cubic-bezier(0.42, 0, 0.58, 1);  /* STATE CHANGES */\n--ease-productive: cubic-bezier(0.2, 0, 0.38, 0.9); /* FUNCTIONAL */\n--ease-expressive: cubic-bezier(0.4, 0.14, 0.3, 1); /* DELIGHTFUL */\n```\n\n### Animations\n```css\n@keyframes fade-up {\n  from { opacity: 0; transform: translateY(20px); }\n  to { opacity: 1; transform: translateY(0); }\n}\n\n@keyframes pulse-dot {\n  0%, 100% { opacity: 1; }\n  50% { opacity: 0.3; }\n}\n\n@keyframes cursor-blink {\n  0%, 90%, 100% { opacity: 1; }\n  45% { opacity: 0; }\n}\n```\n\n### Performance Rules\nONLY animate: transform, opacity, filter, box-shadow, border-color, background-color\nNEVER animate: width, height, margin, padding, top, left, font-size\n\n### Reduced Motion\n```css\n@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after {\n    animation-duration: 0.01ms !important;\n    transition-duration: 0.01ms !important;\n  }\n}\n```',
+
+  components: '## Components\n\n### CTA Button Primary\n```css\nbackground: var(--accent);\ncolor: #000;\nfont: 700 14px/1 "JetBrains Mono", monospace;\npadding: 16px 32px;\nborder: none;\nletter-spacing: 0.5px;\ntransition: all 250ms cubic-bezier(0.42, 0, 0.58, 1);\n/* hover: background #33ff66, box-shadow 0 0 30px accent-glow-strong, translateY(-1px) */\n```\n\n### Card\n```css\nbackground: var(--bg-card);\nborder: 1px solid var(--border-default);\npadding: 28px;\nposition: relative;\n/* ::before - height 2px green bar, opacity 0 -> 1 on hover */\n/* hover: border-color var(--border-hover), bg var(--bg-card-hover) */\n```\n\n### Section Label\n```css\nfont: 400 11px/1 "JetBrains Mono", monospace;\nletter-spacing: 3px;\ntext-transform: uppercase;\ncolor: var(--accent);\nopacity: 0.7;\n```\n\n### Terminal Mockup\nTop bar: 3 colored dots (#ff5f57, #ffbd2e, #28c840) + title\nBody: monospace 13px, green $ prompts, #999 text, #555 comments',
+
+  layouts: '## Layout Patterns\n\n### Feature Cards\n```css\ngrid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\ngap: 20px;\n```\n\n### Two-Column Comparison\n```css\ngrid-template-columns: 1fr 1fr;\ngap: 32px;\n@media (max-width: 700px) { grid-template-columns: 1fr; }\n```\n\n### Hero Split\n```css\ngrid-template-columns: 1fr 380px;\ngap: 64px;\n@media (max-width: 900px) { grid-template-columns: 1fr; }\n```\n\n### Container\n```css\nmax-width: 1100px;\nmargin: 0 auto;\npadding: 0 24px;\n```\n\n### Section Padding\n```css\npadding: 100px 0; /* Desktop */\npadding: 64px 0;  /* Mobile (max-width: 700px) */\n```\n\n### Section Alternation\nSections alternate bg-page (#0a0a0a) and bg-section-alt (#111111)\nAlternating sections get border-top and border-bottom: 1px solid #2a2a2a'
+};
+
+// Full system markdown
+var fullSystem = '# AIOpsForge Design System\\n\\n> Paste this file into your project as design-system.md or into your CLAUDE.md.\\n> Every token, component, animation, and build rule needed to recreate this system.\\n\\n## Setup\\n\\n### Required Skills (Claude Code)\\n```bash\\nnpx skills add anthropics/skills/frontend-design\\nnpx skills add delphi-ai/animate-skill\\n```\\n\\n### Motion MCP Server\\nAdd to .mcp.json:\\n```json\\n{\\n  "mcpServers": {\\n    "motion": {\\n      "command": "npx",\\n      "args": ["-y", "https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest"]\\n    }\\n  }\\n}\\n```\\n\\n' + Object.values(mdSections).join('\\n\\n---\\n\\n') + '\\n\\n---\\n\\n## Build Rules\\n- Zero border-radius on everything\\n- No emojis in UI\\n- Sections alternate bg-page / bg-section-alt\\n- All interactive elements need visible hover states\\n- Include prefers-reduced-motion handling\\n- Single HTML file with inline CSS (no frameworks)\\n- Only external dependency: Google Fonts';
+
+// Panel logic
+var overlay = document.getElementById('mdOverlay');
+var panelTitle = document.getElementById('mdPanelTitle');
+var mdContent = document.getElementById('mdContent');
+var currentMd = '';
+
+function openPanel(section) {
+  panelTitle.textContent = section.charAt(0).toUpperCase() + section.slice(1);
+  currentMd = mdSections[section] || '';
+  mdContent.textContent = currentMd;
+  overlay.classList.add('active');
+}
+
+function closePanel() {
+  overlay.classList.remove('active');
+}
+
+document.querySelectorAll('.btn-view-md').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    openPanel(this.dataset.section);
+  });
+});
+
+document.getElementById('btnClosePanel').addEventListener('click', closePanel);
+
+overlay.addEventListener('click', function(e) {
+  if (e.target === overlay) closePanel();
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closePanel();
+});
+
+document.getElementById('btnCopySection').addEventListener('click', function() {
+  navigator.clipboard.writeText(currentMd).then(function() {
+    var btn = document.getElementById('btnCopySection');
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+  });
+});
+
+// Copy full system
+function copyFullSystem() {
+  var full = fullSystem.replace(/\\n/g, '\n');
+  navigator.clipboard.writeText(full).then(function() {
+    var btns = document.querySelectorAll('#copySystem, #copySystemHero');
+    btns.forEach(function(b) {
+      var orig = b.textContent;
+      b.textContent = 'Copied!';
+      setTimeout(function() { b.textContent = orig; }, 2000);
+    });
+  });
+}
+
+document.getElementById('copySystem').addEventListener('click', copyFullSystem);
+document.getElementById('copySystemHero').addEventListener('click', copyFullSystem);
+</script>
+
+</body>
+</html>
