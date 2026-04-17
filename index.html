@@ -215,6 +215,31 @@ body {
 :root[data-theme="light"] .theme-toggle { color: #1a1a1a; }
 @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .theme-toggle { color: #1a1a1a; } }
 
+/* Floating theme toggle (when nav is hidden) */
+.floating-theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  z-index: 999;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.2s;
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1;
+}
+.floating-theme-toggle:hover {
+  color: var(--green);
+  border-color: var(--border-green);
+}
+
 /* ============ HAMBURGER ============ */
 .nav-toggle {
   display: none;
@@ -1659,12 +1684,15 @@ body {
 </style>
 <script>
 (function() {
-  var t = localStorage.getItem('aof_theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  var t = localStorage.getItem('aof_theme') || 'dark';
   document.documentElement.setAttribute('data-theme', t);
 })();
 </script>
 </head>
 <body>
+
+<!-- Floating theme toggle -->
+<button class="floating-theme-toggle" id="floatingThemeToggle" aria-label="Toggle theme">&#9728;</button>
 
 <!-- ===================== NAV ===================== -->
 <nav class="site-nav">
@@ -2378,38 +2406,29 @@ body {
 (function() {
   var root = document.documentElement;
   var toggle = document.getElementById('themeToggle');
-  var stored = localStorage.getItem('aof_theme');
-
-  function getSystemTheme() {
-    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-  }
+  var floatingToggle = document.getElementById('floatingThemeToggle');
 
   function applyTheme(theme) {
     root.setAttribute('data-theme', theme);
-    toggle.textContent = theme === 'light' ? '\u263E' : '\u2600';
+    var icon = theme === 'light' ? '\u263E' : '\u2600';
+    if (toggle) toggle.textContent = icon;
+    if (floatingToggle) floatingToggle.textContent = icon;
   }
 
-  // Initialize
-  if (stored) {
-    applyTheme(stored);
-  } else {
-    applyTheme(getSystemTheme());
-  }
+  // Initialize — default to dark
+  var stored = localStorage.getItem('aof_theme');
+  applyTheme(stored || 'dark');
 
-  // Toggle
-  toggle.addEventListener('click', function() {
+  function handleToggle() {
     var current = root.getAttribute('data-theme');
     var next = current === 'light' ? 'dark' : 'light';
     localStorage.setItem('aof_theme', next);
     applyTheme(next);
-  });
+  }
 
-  // Listen for system changes
-  window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
-    if (!localStorage.getItem('aof_theme')) {
-      applyTheme(e.matches ? 'light' : 'dark');
-    }
-  });
+  // Wire both toggles
+  if (toggle) toggle.addEventListener('click', handleToggle);
+  if (floatingToggle) floatingToggle.addEventListener('click', handleToggle);
 })();
 </script>
 
