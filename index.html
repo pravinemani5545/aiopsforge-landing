@@ -115,6 +115,7 @@ body {
 
 /* ============ NAV ============ */
 .site-nav {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -236,6 +237,7 @@ body {
 .nav-open .nav-toggle span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
 @media (max-width: 900px) {
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
   .nav-toggle { display: block; }
   .nav-links {
     position: fixed;
@@ -334,7 +336,6 @@ body {
   justify-content: center;
   text-align: center;
   padding: 80px 24px;
-  padding-top: 120px;
   position: relative;
   overflow: hidden;
 }
@@ -475,133 +476,237 @@ body {
 }
 
 /* ============ FEATURES GRID ============ */
+.features-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.features-header .section-title { margin-bottom: 12px; }
+.features-subtitle {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 620px;
+  margin: 0 auto;
+}
+
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  margin-top: 48px;
 }
 
 .feature-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  padding: 28px;
   transition: all 0.3s;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .feature-card:hover {
   border-color: var(--border-green);
   background: var(--bg-card-hover);
+  transform: translateY(-2px);
 }
 
-.feature-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: var(--green);
-  opacity: 0;
-  transition: opacity 0.3s;
+.card-preview {
+  padding: 20px;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border);
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.feature-card:hover::before { opacity: 1; }
-
-.feature-icon {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  color: var(--green);
-  background: rgba(0, 255, 65, 0.08);
-  border: 1px solid var(--border-green);
-  display: inline-flex;
-  padding: 6px 12px;
-  margin-bottom: 16px;
+.card-content {
+  padding: 24px;
 }
 
 .feature-card h3 {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 10px;
+  font-weight: 700;
+  margin-bottom: 8px;
 }
 
 .feature-card p {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-secondary);
-  line-height: 1.7;
+  line-height: 1.6;
 }
 
-.feature-card .meta {
+/* Preview: notification bar */
+.preview-notif {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 12px 16px;
   display: flex;
+  align-items: center;
   gap: 12px;
-  margin-top: 16px;
-  flex-wrap: wrap;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.preview-notif .notif-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--green-glow);
+  border: 1px solid var(--border-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.preview-reply {
+  margin-left: auto;
+  text-align: right;
+  font-size: 12px;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.preview-reply .reply-avatar {
+  width: 20px;
+  height: 20px;
+  background: var(--border);
+  border-radius: 2px;
 }
 
-.feature-card .tag {
+/* Preview: cost table */
+.preview-cost-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+.preview-cost-row:last-child { border-bottom: none; }
+.preview-cost-label { color: var(--text-secondary); }
+.preview-cost-val { color: var(--green); font-weight: 700; }
+.preview-cost-val.negative { color: var(--red); }
+
+/* Preview: tags scroll */
+.tags-scroll {
+  display: flex;
+  gap: 10px;
+  overflow: hidden;
+  margin: 0 -20px;
+  padding: 0 20px;
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+.tags-scroll .scroll-inner {
+  display: flex;
+  gap: 10px;
+  animation: scroll-tags 20s linear infinite;
+}
+@keyframes scroll-tags {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.tags-scroll .stag {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
   color: var(--text-dim);
-  background: var(--bg-tertiary);
-  padding: 4px 10px;
+  background: var(--bg-card);
   border: 1px solid var(--border);
+  padding: 6px 14px;
+  white-space: nowrap;
 }
 
+/* Preview: skill list */
+.preview-list { display: flex; flex-direction: column; gap: 0; }
+.preview-list-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--text-primary);
+}
+.preview-list-item:last-child { border-bottom: none; }
+.preview-dot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+}
+.dot-red { background: var(--red); }
+.dot-green { background: var(--green); }
+.dot-blue { background: var(--blue); }
+.dot-amber { background: #FFB800; }
+.dot-cyan { background: #22d3ee; }
+.preview-badge {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+}
+.preview-sub {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 1px;
+}
+
+/* Preview: tool landscape */
+.preview-tool-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 13px;
+}
+.preview-tool-name { color: var(--text-primary); font-weight: 600; }
+.preview-tool-sub { color: var(--text-dim); font-size: 11px; }
+
+/* Preview: chat mock */
 .chat-mock {
-  margin-top: 16px;
-  background: var(--bg-tertiary);
+  background: var(--bg-card);
   border: 1px solid var(--border);
   padding: 14px;
   font-size: 13px;
 }
-
 .chat-mock .msg { margin-bottom: 10px; line-height: 1.6; }
 .chat-mock .msg:last-child { margin-bottom: 0; }
 .chat-mock .user { color: var(--text-secondary); }
-
 .chat-mock .bot {
   color: var(--green-dim);
   padding-left: 12px;
   border-left: 2px solid var(--border-green);
 }
-
 .chat-mock .label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   color: var(--text-dim);
   margin-bottom: 4px;
 }
-
-.tags-scroll {
+.chat-mock-chips {
   display: flex;
-  gap: 10px;
-  overflow: hidden;
-  margin: 16px -28px 0 -28px;
-  padding: 0 28px;
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
 }
-
-.tags-scroll .scroll-inner {
-  display: flex;
-  gap: 10px;
-  animation: scroll-tags 20s linear infinite;
-}
-
-@keyframes scroll-tags {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.tags-scroll .stag {
+.chat-chip {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
   color: var(--text-dim);
   background: var(--bg-tertiary);
   border: 1px solid var(--border);
   padding: 5px 12px;
-  white-space: nowrap;
 }
+.chat-chip:first-child { border-color: var(--border-green); color: var(--green); }
 
 /* ============ WHO FOR SECTION ============ */
 .who-section {
@@ -1291,8 +1396,9 @@ body {
 
 @media (max-width: 600px) {
   .features-grid { grid-template-columns: 1fr; }
+  .card-preview { min-height: 160px; }
   .terminal-mock { margin: 32px 0 0; max-width: 100%; }
-  .hero { padding: 60px 16px; padding-top: 100px; }
+  .hero { padding: 60px 16px; }
   .hero::before { width: 400px; height: 400px; top: -100px; }
   .hero .subtitle { font-size: 16px; }
   .section-pad { padding: 64px 0; }
@@ -1635,88 +1741,165 @@ body {
 <!-- ===================== FEATURES ===================== -->
 <section class="section-pad">
   <div class="container">
-    <p class="section-label">what you get</p>
-    <div class="section-title">The complete systems toolkit.</div>
+    <div class="features-header">
+      <p class="section-label">what you get</p>
+      <div class="section-title">What's inside the course.</div>
+      <p class="features-subtitle">Every week: battle-tested implementation guides. Plus the complete toolkit to become an AI operator, not an AI student.</p>
+    </div>
     <div class="features-grid">
+
+      <!-- Card 1: System Build Blueprints -->
       <div class="feature-card">
-        <div class="feature-icon">01 — WEEKLY</div>
-        <h3>System Build Blueprints</h3>
-        <p>Full architecture walkthroughs every week. Not "connect A to B" — the actual system design, error handling, edge cases, and token cost breakdown for every build.</p>
-        <div class="meta">
-          <span class="tag">n8n</span>
-          <span class="tag">claude</span>
-          <span class="tag">make.com</span>
-          <span class="tag">architecture</span>
-        </div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">02 — TRANSPARENCY</div>
-        <h3>Token Cost Breakdowns</h3>
-        <p>Every build includes real unit economics. Cost per run, cost per client, COGS analysis. Know exactly what your automations cost before you ship them.</p>
-        <div class="meta">
-          <span class="tag">$0.08/run</span>
-          <span class="tag">COGS</span>
-          <span class="tag">ROI math</span>
-        </div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">03 — FOUNDATIONS</div>
-        <h3>AI Systems Fundamentals</h3>
-        <p>Learn AI through building, not watching. Interactive modules on prompt engineering, context management, system prompts, and agent architecture.</p>
-        <div class="tags-scroll">
-          <div class="scroll-inner">
-            <span class="stag">prompt engineering</span>
-            <span class="stag">context windows</span>
-            <span class="stag">agent design</span>
-            <span class="stag">RAG systems</span>
-            <span class="stag">error handling</span>
-            <span class="stag">JSON prompting</span>
-            <span class="stag">system prompts</span>
-            <span class="stag">prompt engineering</span>
-            <span class="stag">context windows</span>
-            <span class="stag">agent design</span>
-            <span class="stag">RAG systems</span>
-            <span class="stag">error handling</span>
-            <span class="stag">JSON prompting</span>
-            <span class="stag">system prompts</span>
+        <div class="card-preview">
+          <div class="preview-notif">
+            <div class="notif-icon">&#9889;</div>
+            <div>New guide just dropped: How to automate competitive research with AI in 30min. Step-by-step with prompts included.</div>
+          </div>
+          <div class="preview-reply">
+            <div>Set it up this morning. Already saved 2 hours on research.</div>
+            <div class="reply-avatar"></div>
           </div>
         </div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">04 — LIBRARY</div>
-        <h3>Production Prompts & Workflows</h3>
-        <p>Battle-tested prompts, n8n workflow templates, and Claude skills. Every resource includes the failure modes I hit and how I fixed them.</p>
-        <div class="meta">
-          <span class="tag">prompts</span>
-          <span class="tag">workflows</span>
-          <span class="tag">templates</span>
-          <span class="tag">configs</span>
+        <div class="card-content">
+          <h3>Weekly Implementation Guides</h3>
+          <p>Not "Claude Code update dropped" — that's noise. "Here's exactly how to achieve [specific outcome] in your work in the next 30 minutes" — that's intelligence.</p>
         </div>
       </div>
+
+      <!-- Card 2: AI Fundamentals -->
       <div class="feature-card">
-        <div class="feature-icon">05 — MONTHLY</div>
-        <h3>Current AI Tool Landscape</h3>
-        <p>Which model to use for what. Which tools are worth paying for right now. Updated monthly as the space moves. No hype — just what actually works in production.</p>
-        <div class="meta">
-          <span class="tag">updated monthly</span>
-          <span class="tag">tool map</span>
+        <div class="card-preview" style="gap: 6px; align-items: flex-start;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); letter-spacing:1px; margin-bottom:4px;">OpenSource</div>
+          <span class="stag" style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); background:var(--bg-card); border:1px solid var(--border); padding:6px 14px; margin-bottom:2px;">What is AI?</span>
+          <span class="stag" style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); background:var(--bg-card); border:1px solid var(--border); padding:6px 14px; margin-bottom:2px;">Attention & Structure</span>
+          <span class="stag" style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); background:var(--bg-card); border:1px solid var(--border); padding:6px 14px; margin-bottom:2px;">Context Engineering</span>
+          <span class="stag" style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); background:var(--bg-card); border:1px solid var(--border); padding:6px 14px; margin-bottom:2px;">Systems Thinking</span>
+          <span class="stag" style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); background:var(--bg-card); border:1px solid var(--border); padding:6px 14px; margin-bottom:2px;">Building Skills</span>
+          <span class="stag" style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); background:var(--bg-card); border:1px solid var(--border); padding:6px 14px; margin-bottom:2px;">Vibe Coding</span>
+          <span class="stag" style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); background:var(--bg-card); border:1px solid var(--border); padding:6px 14px;">Writing with AI</span>
+        </div>
+        <div class="card-content">
+          <h3>AI Fundamentals Training</h3>
+          <p>Learn AI by using AI. Not 10 hours of videos collecting dust. Interactive exercises with the models themselves.</p>
         </div>
       </div>
+
+      <!-- Card 3: Prompts & Skills Library -->
       <div class="feature-card">
-        <div class="feature-icon">06 — ACCESS</div>
-        <h3>Your AI Systems Coach</h3>
-        <p>A custom AI assistant trained on all community builds, guides, and resources. Ask it anything about your specific implementation challenge.</p>
-        <div class="chat-mock">
-          <div class="msg">
-            <div class="label">YOU</div>
-            <div class="user">my n8n webhook keeps timing out on large payloads. what's the fix?</div>
+        <div class="card-preview" style="padding: 16px 20px;">
+          <div class="preview-list">
+            <div class="preview-list-item"><div class="preview-dot dot-red"></div>AI Influencer<span class="preview-badge">SKILL</span></div>
+            <div class="preview-list-item"><div class="preview-dot dot-red"></div>Landing Page<span class="preview-badge">WORKFLOW</span></div>
+            <div class="preview-list-item"><div class="preview-dot dot-red"></div>Newsletter<span class="preview-badge">PROMPT</span></div>
+            <div class="preview-list-item"><div class="preview-dot dot-red"></div>LinkedIn Post<span class="preview-badge">SKILL</span></div>
+            <div class="preview-list-item"><div class="preview-dot dot-red"></div>Offer Creation<span class="preview-badge">WORKFLOW</span></div>
           </div>
-          <div class="msg">
-            <div class="label">COACH</div>
-            <div class="bot">check week 7's guide on payload chunking. split incoming data >256KB using the split-in-batches node before processing. there's a template in the library.</div>
-          </div>
+        </div>
+        <div class="card-content">
+          <h3>Prompts & Skills Library</h3>
+          <p>Battle-tested prompts, skills and workflows that work across all models. Designed to give you the best output for every task.</p>
         </div>
       </div>
+
+      <!-- Card 4: Current AI Landscape Map -->
+      <div class="feature-card">
+        <div class="card-preview" style="padding: 16px 20px;">
+          <div class="preview-tool-row"><div class="preview-dot dot-blue"></div><div><div class="preview-tool-name">Image & Video Generation</div><div class="preview-tool-sub">Nano Banana Pro + VEO3.1</div></div></div>
+          <div class="preview-tool-row"><div class="preview-dot dot-red"></div><div><div class="preview-tool-name">Marketing & Copywriting</div><div class="preview-tool-sub">Claude + Skills and/or Kimi K2</div></div></div>
+          <div class="preview-tool-row"><div class="preview-dot dot-green"></div><div><div class="preview-tool-name">Study & Deep Research</div><div class="preview-tool-sub">Gemini 3 in NotebookLM</div></div></div>
+          <div class="preview-tool-row"><div class="preview-dot dot-red"></div><div><div class="preview-tool-name">Music & Audio</div><div class="preview-tool-sub">Suno + ElevenLabs</div></div></div>
+          <div class="preview-tool-row"><div class="preview-dot dot-blue"></div><div><div class="preview-tool-name">Vibe Coding</div><div class="preview-tool-sub">Opus 4.6 / GPT-5.4</div></div></div>
+        </div>
+        <div class="card-content">
+          <h3>Current AI Landscape Map</h3>
+          <p>Visual chart showing the best tool for each specific use case RIGHT NOW. Updated monthly as models change.</p>
+        </div>
+      </div>
+
+      <!-- Card 5: Private Custom AI Access -->
+      <div class="feature-card">
+        <div class="card-preview">
+          <div class="chat-mock" style="margin-bottom: 0; border: none; background: transparent; padding: 0;">
+            <div style="background: var(--bg-card); border: 1px solid var(--border); padding: 10px 14px; font-family:'JetBrains Mono',monospace; font-size: 12px; color: var(--text-dim); margin-bottom: 12px;">Ask me anything</div>
+            <div style="display: flex; justify-content: flex-end; margin-bottom: 12px;"><span style="font-size: 12px; color: var(--text-dim);">Generate with AI &rarr;</span></div>
+          </div>
+          <div class="chat-mock-chips">
+            <span class="chat-chip">&#128075; Write a blog post</span>
+            <span class="chat-chip">&#9711; AI influencer</span>
+            <span class="chat-chip">&#9998; Craft a newsletter</span>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3>Private Custom AI Access</h3>
+          <p>Specialized AI assistants trained on advanced skills. Expert-level help without training generic models yourself.</p>
+        </div>
+      </div>
+
+      <!-- Card 6: Your AI Coach -->
+      <div class="feature-card">
+        <div class="card-preview" style="padding: 16px 20px;">
+          <div style="background: var(--bg-card); border: 1px solid var(--border-green); padding: 12px 14px; margin-bottom: 12px; font-size: 13px; color: var(--green-dim);">I want to automate my client research. Where do I start?</div>
+          <div style="display: flex; gap: 8px; align-items: flex-start;">
+            <div class="notif-icon" style="width: 24px; height: 24px; font-size: 10px; flex-shrink: 0;">&#9889;</div>
+            <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.6;">Start with <span style="color:var(--green)">Week 3's guide</span> on competitive research automation. Then grab the <span style="color:var(--green)">Deep Research skill</span> from the library. You'll have it running in 30 min.</div>
+          </div>
+          <div style="background: var(--bg-card); border: 1px solid var(--border); padding: 8px 14px; margin-top: 12px; font-size: 12px; color: var(--text-dim); display: inline-block;">Which model should I use?</div>
+        </div>
+        <div class="card-content">
+          <h3>Your AI Coach</h3>
+          <p>A model trained on all community content and your own context. It remembers anything important and guides you in your journey.</p>
+        </div>
+      </div>
+
+      <!-- Card 7: Agents Hub -->
+      <div class="feature-card">
+        <div class="card-preview" style="padding: 16px 20px;">
+          <div class="preview-list">
+            <div class="preview-list-item"><div class="preview-dot dot-amber"></div>Skills<span class="preview-badge">25+</span></div>
+            <div class="preview-list-item"><div class="preview-dot dot-amber"></div>Workflows<span class="preview-badge">32+</span></div>
+            <div class="preview-list-item"><div class="preview-dot dot-amber"></div>Configs<span class="preview-badge">28+</span></div>
+            <div class="preview-list-item"><div class="preview-dot dot-amber"></div>Systems<span class="preview-badge">19+</span></div>
+            <div class="preview-list-item"><div class="preview-dot dot-amber"></div>Prompts<span class="preview-badge">28+</span></div>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3>Agents Hub</h3>
+          <p>+100 resources (skills, workflows, configs and systems) to equip Claude Code, OpenClaw, Manus or any AI Agent.</p>
+        </div>
+      </div>
+
+      <!-- Card 8: Token Cost Breakdowns -->
+      <div class="feature-card">
+        <div class="card-preview" style="padding: 16px 20px;">
+          <div class="preview-cost-row"><span class="preview-cost-label">cost per run</span><span class="preview-cost-val">$0.08</span></div>
+          <div class="preview-cost-row"><span class="preview-cost-label">runs today</span><span class="preview-cost-val">47</span></div>
+          <div class="preview-cost-row"><span class="preview-cost-label">daily spend</span><span class="preview-cost-val negative">$3.76</span></div>
+          <div class="preview-cost-row"><span class="preview-cost-label">monthly revenue</span><span class="preview-cost-val">$4,200</span></div>
+          <div class="preview-cost-row"><span class="preview-cost-label">margin</span><span class="preview-cost-val">97.3%</span></div>
+        </div>
+        <div class="card-content">
+          <h3>Token Cost Breakdowns</h3>
+          <p>Every build includes real unit economics. Cost per run, COGS analysis, and ROI math. Know exactly what your automations cost.</p>
+        </div>
+      </div>
+
+      <!-- Card 9: Context Profiles -->
+      <div class="feature-card">
+        <div class="card-preview" style="padding: 16px 20px;">
+          <div class="preview-list">
+            <div class="preview-list-item"><div class="preview-dot dot-cyan"></div>Copywriting Expert<span class="preview-badge">.json</span></div>
+            <div class="preview-list-item"><div class="preview-dot dot-cyan"></div>Senior Developer<span class="preview-badge">.json</span></div>
+            <div class="preview-list-item"><div class="preview-dot dot-cyan"></div>Research Analyst<span class="preview-badge">.json</span></div>
+            <div class="preview-list-item"><div class="preview-dot dot-cyan"></div>Marketing Strategist<span class="preview-badge">.json</span></div>
+          </div>
+          <div style="text-align: right; font-size: 11px; color: var(--text-dim); margin-top: 8px;">+39 more profiles</div>
+        </div>
+        <div class="card-content">
+          <h3>Context Profiles Collection</h3>
+          <p>A library of 43 JSON files trained on the absolute best experts for copywriting, coding, research. To instantly 100x quality of your outputs.</p>
+        </div>
+      </div>
+
     </div>
     <div style="text-align: center; margin-top: 48px;">
       <div class="cta-group">
