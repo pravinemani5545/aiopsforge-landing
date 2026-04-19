@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AIOpsForge | Engineering-Grade AI Systems Every Week</title>
+<title>AIOpsForge | Production-Grade AI Systems Every Week</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -111,6 +111,19 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
+}
+
+/* ============ SCROLL PROGRESS ============ */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green), 0 0 20px var(--green-glow-strong), 0 0 40px var(--green-glow);
+  z-index: 10000;
+  transition: width 0.1s linear;
 }
 
 /* ============ NAV ============ */
@@ -263,6 +276,9 @@ body {
 
 @media (max-width: 900px) {
   .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .feature-card:nth-child(1),
+  .feature-card:nth-child(4),
+  .feature-card:nth-child(8) { grid-column: span 2; }
   .nav-toggle { display: block; }
   .nav-links {
     position: fixed;
@@ -517,7 +533,35 @@ body {
 .features-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-auto-rows: auto;
+  gap: 16px;
+}
+
+/* Bento-style: make certain cards span 2 columns */
+.feature-card:nth-child(1) { grid-column: span 2; }
+.feature-card:nth-child(4) { grid-column: span 2; }
+.feature-card:nth-child(8) { grid-column: span 2; }
+
+/* Card with span-2 gets horizontal layout */
+.feature-card:nth-child(1),
+.feature-card:nth-child(4),
+.feature-card:nth-child(8) {
+  flex-direction: row;
+}
+.feature-card:nth-child(1) .card-preview,
+.feature-card:nth-child(4) .card-preview,
+.feature-card:nth-child(8) .card-preview {
+  border-bottom: none;
+  border-right: 1px solid var(--border);
+  min-width: 55%;
+  max-width: 55%;
+}
+.feature-card:nth-child(1) .card-content,
+.feature-card:nth-child(4) .card-content,
+.feature-card:nth-child(8) .card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .feature-card {
@@ -530,6 +574,27 @@ body {
   flex-direction: column;
 }
 
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.feature-card:hover::before { opacity: 1; }
+.feature-card:nth-child(1)::before { background: var(--green); }
+.feature-card:nth-child(2)::before { background: var(--blue); }
+.feature-card:nth-child(3)::before { background: var(--red); }
+.feature-card:nth-child(4)::before { background: #22d3ee; }
+.feature-card:nth-child(5)::before { background: #a855f7; }
+.feature-card:nth-child(6)::before { background: var(--green); }
+.feature-card:nth-child(7)::before { background: #FFB800; }
+.feature-card:nth-child(8)::before { background: linear-gradient(90deg, var(--green), #22d3ee); }
+.feature-card:nth-child(9)::before { background: #22d3ee; }
+
 .feature-card:hover {
   border-color: var(--border-green);
   background: var(--bg-card-hover);
@@ -537,17 +602,55 @@ body {
 }
 
 .card-preview {
-  padding: 20px;
+  padding: 16px 20px;
   background: var(--bg-tertiary);
   border-bottom: 1px solid var(--border);
-  min-height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  flex: 1;
+}
+
+/* Unique color accents per card preview */
+.feature-card:nth-child(1) .card-preview {
+  background: linear-gradient(135deg, rgba(0, 255, 65, 0.06) 0%, var(--bg-tertiary) 60%);
+  border-color: rgba(0, 255, 65, 0.12);
+}
+.feature-card:nth-child(2) .card-preview {
+  background: linear-gradient(135deg, rgba(68, 136, 255, 0.08) 0%, var(--bg-tertiary) 60%);
+  border-color: rgba(68, 136, 255, 0.12);
+}
+.feature-card:nth-child(3) .card-preview {
+  background: linear-gradient(135deg, rgba(255, 68, 68, 0.06) 0%, var(--bg-tertiary) 60%);
+  border-color: rgba(255, 68, 68, 0.12);
+}
+.feature-card:nth-child(4) .card-preview {
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.06) 0%, var(--bg-tertiary) 60%);
+  border-color: rgba(34, 211, 238, 0.12);
+}
+.feature-card:nth-child(5) .card-preview {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.08) 0%, var(--bg-tertiary) 60%);
+  border-color: rgba(168, 85, 247, 0.12);
+}
+.feature-card:nth-child(6) .card-preview {
+  background: linear-gradient(135deg, rgba(0, 255, 65, 0.06) 0%, var(--bg-tertiary) 60%);
+  border-color: rgba(0, 255, 65, 0.12);
+}
+.feature-card:nth-child(7) .card-preview {
+  background: linear-gradient(135deg, rgba(255, 184, 0, 0.07) 0%, var(--bg-tertiary) 60%);
+  border-color: rgba(255, 184, 0, 0.12);
+}
+.feature-card:nth-child(8) .card-preview {
+  background: linear-gradient(135deg, rgba(0, 255, 65, 0.05) 0%, rgba(34, 211, 238, 0.05) 50%, var(--bg-tertiary) 100%);
+  border-color: rgba(0, 255, 65, 0.12);
+}
+.feature-card:nth-child(9) .card-preview {
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.08) 0%, var(--bg-tertiary) 60%);
+  border-color: rgba(34, 211, 238, 0.12);
 }
 
 .card-content {
-  padding: 24px;
+  padding: 20px;
 }
 
 .feature-card h3 {
@@ -567,24 +670,24 @@ body {
 .preview-notif {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  padding: 12px 16px;
+  padding: 10px 14px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-  font-size: 12px;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 11px;
   color: var(--text-secondary);
   line-height: 1.5;
 }
 .preview-notif .notif-icon {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   background: var(--green-glow);
   border: 1px solid var(--border-green);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 12px;
   flex-shrink: 0;
 }
 .preview-reply {
@@ -652,9 +755,9 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 9px 12px;
+  padding: 7px 10px;
   border-bottom: 1px solid var(--border);
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-primary);
 }
 .preview-list-item:last-child { border-bottom: none; }
@@ -690,11 +793,11 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 0;
-  font-size: 13px;
+  padding: 5px 0;
+  font-size: 12px;
 }
 .preview-tool-name { color: var(--text-primary); font-weight: 600; }
-.preview-tool-sub { color: var(--text-dim); font-size: 11px; }
+.preview-tool-sub { color: var(--text-dim); font-size: 10px; }
 
 /* Preview: chat mock */
 .chat-mock {
@@ -731,7 +834,7 @@ body {
   border: 1px solid var(--border);
   padding: 5px 12px;
 }
-.chat-chip:first-child { border-color: var(--border-green); color: var(--green); }
+.chat-chip:first-child { border-color: rgba(168, 85, 247, 0.3); color: #a855f7; }
 
 /* ============ WHO FOR SECTION ============ */
 .who-section {
@@ -1421,7 +1524,21 @@ body {
 
 @media (max-width: 600px) {
   .features-grid { grid-template-columns: 1fr; }
-  .card-preview { min-height: 160px; }
+  .feature-card:nth-child(1),
+  .feature-card:nth-child(4),
+  .feature-card:nth-child(8) {
+    grid-column: span 1;
+    flex-direction: column;
+  }
+  .feature-card:nth-child(1) .card-preview,
+  .feature-card:nth-child(4) .card-preview,
+  .feature-card:nth-child(8) .card-preview {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    min-width: 100%;
+    max-width: 100%;
+  }
+  .card-preview { min-height: auto; }
   .terminal-mock { margin: 32px 0 0; max-width: 100%; }
   .hero { padding: 60px 16px; }
   .hero::before { width: 400px; height: 400px; top: -100px; }
@@ -1629,8 +1746,22 @@ body {
   height: 100%;
   background: var(--green);
   width: 0%;
-  transition: width 1.2s ease-out;
+  transition: width 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   box-shadow: 0 0 8px var(--green-glow-strong);
+  position: relative;
+}
+.spots-bar-fill.animate {
+  animation: bar-pulse 2s ease-in-out 1.4s infinite;
+}
+@keyframes bar-pulse {
+  0%, 100% { box-shadow: 0 0 8px var(--green-glow-strong); }
+  50% { box-shadow: 0 0 16px var(--green-glow-strong), 0 0 24px var(--green-glow); }
+}
+.spots-bar-label .spots-total {
+  transition: color 0.3s;
+}
+.spots-bar-label .spots-total.counting {
+  color: var(--green);
 }
 
 .spots-bar-note {
@@ -1691,6 +1822,9 @@ body {
 </head>
 <body>
 
+<!-- Scroll progress bar -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
 <!-- Floating theme toggle -->
 <button class="floating-theme-toggle" id="floatingThemeToggle" aria-label="Toggle theme">&#9728;</button>
 
@@ -1717,19 +1851,19 @@ body {
   <div class="container" style="position: relative; z-index: 1;">
     <div class="hero-badge">
       <span class="dot"></span>
-      <span>AIOpsForge · AI Systems Community</span>
+      <span>AIOpsForge · Learn AI by Building</span>
     </div>
 
     <h1>Production-Grade<br>AI Systems.<br><span class="accent">Every Week.</span></h1>
 
     <p class="subtitle">
-      The architecture. The edge cases. The token costs. The revenue.<br>
-      Built by an engineer. Shared as blueprints you can deploy.
+      Weekly hands-on guides that teach you to use AI in your actual work.<br>
+      No theory. No fluff. Just step-by-step builds you can finish in 30 minutes.
     </p>
 
     <div class="cta-group">
-      <a href="#" class="cta-btn waitlist-trigger">Join the waitlist →</a>
-      <span class="cta-sub">first 10 founding members get lifetime access free</span>
+      <a href="#" class="cta-btn waitlist-trigger">Get early access →</a>
+      <span class="cta-sub">first 10 on the waitlist get their first month free — $9.99/mo for the first 20</span>
     </div>
 
     <div class="terminal-mock">
@@ -1737,15 +1871,14 @@ body {
         <span class="dot"></span>
         <span class="dot"></span>
         <span class="dot"></span>
-        <span class="title">~/builds/client-onboarding-system</span>
+        <span class="title">~/builds/research-automation</span>
       </div>
       <div class="terminal-body">
-        <div><span class="prompt">$</span> system.status</div>
-        <div><span class="comment"># client onboarding automation — n8n + claude</span></div>
-        <div>nodes: <span class="val">14</span> &nbsp;|&nbsp; uptime: <span class="val">99.7%</span> &nbsp;|&nbsp; avg latency: <span class="val">2.3s</span></div>
-        <div>token cost/run: <span class="val">$0.08</span> &nbsp;|&nbsp; runs today: <span class="val">47</span></div>
-        <div>monthly revenue: <span class="val">$4,200</span></div>
-        <div><span class="comment"># zero manual intervention in 31 days</span></div>
+        <div><span class="prompt">$</span> project.status</div>
+        <div><span class="comment"># automated research workflow — built in 25 min</span></div>
+        <div>time saved: <span class="val">2 hrs/day</span> &nbsp;|&nbsp; cost: <span class="val">$0.08/run</span></div>
+        <div>runs this week: <span class="val">47</span></div>
+        <div><span class="comment"># set it up once, runs on autopilot</span></div>
         <div><span class="prompt">$</span> <span style="animation: pulse-dot 1s infinite;">_</span></div>
       </div>
     </div>
@@ -1757,11 +1890,11 @@ body {
   <div class="container">
     <div class="problem-content">
       <p class="section-label">the real issue</p>
-      <h2>You don't have an AI problem.<br>You have an engineering problem.</h2>
-      <p>Every creator shows you how to connect two nodes in n8n. Nobody shows you what happens when the API rate-limits at 3 AM, or when your client's webhook payload has a nested null, or when Claude hallucinates mid-workflow.</p>
-      <p>The tutorials stop at "it works on my screen." <strong>Production doesn't care about demos.</strong></p>
-      <p>You don't need another prompt pack. You need architecture. Error handling. Fallback logic. Cost analysis per run. The stuff that separates a weekend project from a system that makes money while you sleep.</p>
-      <div class="callout">that's what this is — engineering-grade AI systems, shared as weekly blueprints you can actually ship.</div>
+      <h2>AI is moving fast.<br>Most learning isn't keeping up.</h2>
+      <p>You've watched the tutorials. Tried the tools. Maybe even built something that worked... once. But the gap between "cool demo" and "this actually saves me hours every week" is massive — and nobody talks about it.</p>
+      <p>The information is everywhere. <strong>What's missing is someone showing you how to go from zero to "this runs on autopilot"</strong> — with the exact steps, the real costs, and what to do when it breaks.</p>
+      <p>You don't need another AI course that's outdated in a month. You need a system that evolves as fast as AI does.</p>
+      <div class="callout">that's what this is — weekly builds, real tools, and a community that ships. not another content library collecting dust.</div>
     </div>
   </div>
 </section>
@@ -1771,8 +1904,8 @@ body {
   <div class="container">
     <div class="features-header">
       <p class="section-label">what you get</p>
-      <div class="section-title">What's inside the course.</div>
-      <p class="features-subtitle">Every week: battle-tested implementation guides. Plus the complete toolkit to become an AI operator, not an AI student.</p>
+      <div class="section-title">Everything you need to master AI.</div>
+      <p class="features-subtitle">Not a content library. A system — guides, tools, resources, and support that gets better every week. Here's what's inside.</p>
     </div>
     <div class="features-grid">
 
@@ -1790,7 +1923,7 @@ body {
         </div>
         <div class="card-content">
           <h3>Weekly Implementation Guides</h3>
-          <p>Not "Claude Code update dropped" — that's noise. "Here's exactly how to achieve [specific outcome] in your work in the next 30 minutes" — that's intelligence.</p>
+          <p>Every week, a new build. Automate research, generate content, onboard clients — follow along and have something running in 30 minutes.</p>
         </div>
       </div>
 
@@ -1808,7 +1941,7 @@ body {
         </div>
         <div class="card-content">
           <h3>AI Fundamentals Training</h3>
-          <p>Learn AI by using AI. Not 10 hours of videos collecting dust. Interactive exercises with the models themselves.</p>
+          <p>Not 10 hours of videos. Short, hands-on exercises where you prompt the models, break things, fix them, and actually understand what's happening under the hood.</p>
         </div>
       </div>
 
@@ -1825,7 +1958,7 @@ body {
         </div>
         <div class="card-content">
           <h3>Prompts & Skills Library</h3>
-          <p>Battle-tested prompts, skills and workflows that work across all models. Designed to give you the best output for every task.</p>
+          <p>Ready-to-use prompts, skills, and workflows you can copy and start using immediately. Tested across all major AI models.</p>
         </div>
       </div>
 
@@ -1840,7 +1973,7 @@ body {
         </div>
         <div class="card-content">
           <h3>Current AI Landscape Map</h3>
-          <p>Visual chart showing the best tool for each specific use case RIGHT NOW. Updated monthly as models change.</p>
+          <p>Stop paying for 5 tools when you need 2. This map shows you exactly which AI to use for each task — and gets updated monthly as the landscape shifts.</p>
         </div>
       </div>
 
@@ -1859,7 +1992,7 @@ body {
         </div>
         <div class="card-content">
           <h3>Private Custom AI Access</h3>
-          <p>Specialized AI assistants trained on advanced skills. Expert-level help without training generic models yourself.</p>
+          <p>AI assistants that are already set up to help you write, create, research, and more. Just ask — no setup or training required.</p>
         </div>
       </div>
 
@@ -1875,7 +2008,7 @@ body {
         </div>
         <div class="card-content">
           <h3>Your AI Coach</h3>
-          <p>A model trained on all community content and your own context. It remembers anything important and guides you in your journey.</p>
+          <p>Your personal AI guide that knows the full course content and remembers your progress. Ask it anything — it points you to exactly what you need.</p>
         </div>
       </div>
 
@@ -1892,7 +2025,7 @@ body {
         </div>
         <div class="card-content">
           <h3>Agents Hub</h3>
-          <p>+100 resources (skills, workflows, configs and systems) to equip Claude Code, OpenClaw, Manus or any AI Agent.</p>
+          <p>Plug-and-play skills, workflows, and configs for Claude Code, Manus, and other AI agents. Install one and your agent gets 10x more useful overnight.</p>
         </div>
       </div>
 
@@ -1909,7 +2042,7 @@ body {
         </div>
         <div class="card-content">
           <h3>Production-Ready Business Tools</h3>
-          <p>Access to fully built, deployed tools you can use immediately. Not demos — real systems running in production, included with your membership.</p>
+          <p>Fully built tools you can use right away — task managers, content systems, and more. Not demos. Real tools, included with your membership.</p>
         </div>
       </div>
 
@@ -1926,7 +2059,7 @@ body {
         </div>
         <div class="card-content">
           <h3>Context Profiles Collection</h3>
-          <p>A library of 43 JSON files trained on the absolute best experts for copywriting, coding, research. To instantly 100x quality of your outputs.</p>
+          <p>Load a profile and your AI stops writing like a generic chatbot. It writes like a senior copywriter, codes like a staff engineer, researches like an analyst. 43 profiles included.</p>
         </div>
       </div>
 
@@ -1934,7 +2067,7 @@ body {
     <div style="text-align: center; margin-top: 48px;">
       <div class="cta-group">
         <a href="#" class="cta-btn waitlist-trigger">Join the waitlist →</a>
-        <span class="cta-sub">first 10 founding members get lifetime access free</span>
+        <span class="cta-sub">first 10 on the waitlist get their first month free — $9.99/mo for the first 20</span>
       </div>
     </div>
   </div>
@@ -1951,37 +2084,37 @@ body {
       <div class="who-col not-for">
         <h3>✕ &nbsp;Skip this if:</h3>
         <ul>
-          <li>You want AI news roundups and tool announcements</li>
-          <li>You're looking for a community chat or Discord hangout</li>
-          <li>You want plug-and-play templates with no understanding of why they work</li>
-          <li>You expect results without building anything yourself</li>
-          <li>You need complex ML theory — this is applied systems engineering</li>
+          <li>You just want AI news and tool announcements</li>
+          <li>You're looking for a social community or Discord hangout</li>
+          <li>You want copy-paste templates without understanding how they work</li>
+          <li>You expect results without putting in any effort</li>
+          <li>You need deep academic ML theory — this is hands-on and practical</li>
         </ul>
       </div>
       <div class="who-col is-for">
         <h3>→ &nbsp;You need this if:</h3>
         <ul>
-          <li>You build automations but they break in production and you don't know why</li>
-          <li>You want to understand the architecture behind AI systems, not just copy workflows</li>
-          <li>You care about error handling, edge cases, and reliability</li>
-          <li>You want real token costs and unit economics for every build</li>
-          <li>You're ready to engineer systems, not just experiment with tools</li>
+          <li>You've tried AI tools but your results are hit-or-miss</li>
+          <li>You want to understand the "why" — not just copy someone's workflow</li>
+          <li>You've had an automation break and had no idea how to fix it</li>
+          <li>You're tired of guessing what tools cost until the invoice hits</li>
+          <li>You're done experimenting — you want to build things that actually run</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===================== TESTIMONIALS ===================== -->
-<section class="testimonials-section section-pad">
+<!-- ===================== TESTIMONIALS (HIDDEN) ===================== -->
+<section class="testimonials-section section-pad" style="display: none;">
   <div class="container">
-    <p class="section-label">from the builders</p>
-    <div class="section-title">"Systems that actually work<br>in production."</div>
+    <p class="section-label">from early members</p>
+    <div class="section-title">"I finally feel like I<br>know what I'm doing with AI."</div>
     <p style="color: var(--text-dim); font-size: 14px;">placeholder reviews — replace with real testimonials</p>
     <div class="testimonials-grid">
       <div class="test-card">
         <div class="stars">★ ★ ★ ★ ★</div>
-        <p>"Finally someone who talks about error handling and fallback logic instead of just showing the happy path. This is what I needed."</p>
+        <p>"Every other AI course just shows you the happy path. This one actually teaches you what to do when things go wrong. Game changer."</p>
         <div class="author">
           <div class="avatar">MK</div>
           <div class="author-info">
@@ -1992,7 +2125,7 @@ body {
       </div>
       <div class="test-card">
         <div class="stars">★ ★ ★ ★ ★</div>
-        <p>"The token cost breakdowns alone are worth the price. I was burning $40/day on a workflow that should have cost $3. Fixed it in one session."</p>
+        <p>"I was wasting so much money on AI tools I didn't need. One session here and I cut my costs by 90% and got better results."</p>
         <div class="author">
           <div class="avatar">JR</div>
           <div class="author-info">
@@ -2003,7 +2136,7 @@ body {
       </div>
       <div class="test-card">
         <div class="stars">★ ★ ★ ★ ★</div>
-        <p>"Most AI tutorials are 'connect this to that.' This actually teaches you to think like a systems engineer. Different level."</p>
+        <p>"Most AI content is 'do this, then that.' This actually teaches you to think. I can now figure out new AI tools on my own."</p>
         <div class="author">
           <div class="avatar">AS</div>
           <div class="author-info">
@@ -2027,32 +2160,32 @@ body {
       <div class="compare-card">
         <h3>YouTube & Twitter</h3>
         <ul>
-          <li>Daily news and tool announcements</li>
-          <li>Happy-path tutorials only</li>
-          <li>Great for discovery</li>
-          <li>Zero production guidance</li>
-          <li>No error handling coverage</li>
+          <li>News, hype, and tool announcements</li>
+          <li>Tutorials that only show the easy parts</li>
+          <li>Great for discovering what's out there</li>
+          <li>No guidance on real-world usage</li>
+          <li>You're on your own when things break</li>
         </ul>
-        <div class="verdict">Good for awareness. Useless in production.</div>
+        <div class="verdict">Good for awareness. Not enough to get real results.</div>
       </div>
       <div class="compare-card">
         <h3>Traditional AI Courses</h3>
         <ul>
-          <li>Static content, filmed once</li>
-          <li>Theoretical frameworks</li>
-          <li>Outdated in 3 months</li>
-          <li>No ongoing updates</li>
+          <li>Pre-recorded content, filmed once</li>
+          <li>Heavy on theory, light on doing</li>
+          <li>Outdated within months</li>
+          <li>No ongoing updates or support</li>
           <li>$200-$500 one-time</li>
         </ul>
-        <div class="verdict">Decent for basics. Terrible for staying current.</div>
+        <div class="verdict">Good for foundations. Bad for staying current.</div>
       </div>
       <div class="compare-card highlight">
-        <h3>AIOpsForge Systems</h3>
+        <h3>AIOpsForge</h3>
         <ul>
-          <li>Weekly production-grade builds</li>
-          <li>Full architecture + error handling</li>
-          <li>Token cost transparency</li>
-          <li>Updated as models change</li>
+          <li>New hands-on guides every week</li>
+          <li>Learn by building real things that work</li>
+          <li>Know what tools cost before you commit</li>
+          <li>Updated as AI evolves</li>
           <li>$9.99/month</li>
         </ul>
         <div class="verdict">Engineering-grade systems you can ship this week.</div>
@@ -2061,29 +2194,29 @@ body {
   </div>
 </section>
 
-<!-- ===================== TOOLS PREVIEW ===================== -->
-<section class="section-pad" id="tools">
+<!-- ===================== TOOLS PREVIEW (HIDDEN) ===================== -->
+<section class="section-pad" id="tools" style="display: none;">
   <div class="container">
     <div style="text-align: center;">
       <p class="section-label">the toolkit</p>
-      <div class="section-title">11 Production-Grade AI Systems</div>
-      <p style="color: var(--text-secondary); line-height: 1.8; max-width: 600px; margin: 16px auto 0;">Each tool is a complete system — architecture, error handling, token costs, and deployment instructions included.</p>
+      <div class="section-title">5 Ready-to-Use AI Tools at Launch</div>
+      <p style="color: var(--text-secondary); line-height: 1.8; max-width: 600px; margin: 16px auto 0;">Each tool is fully built and ready to go — just connect it to your workflow and start using it immediately.</p>
     </div>
     <div class="tools-preview-grid">
       <div class="tool-preview-card" style="border-color: var(--border-green);">
         <div class="tool-name">SMS AI Task Manager</div>
-        <div class="tool-desc">Text tasks to your AI agent. It organizes by priority, tracks deadlines, sends daily summaries. Persistent memory across every conversation.</div>
+        <div class="tool-desc">Text your tasks to AI. It organizes them by priority, tracks deadlines, and sends you daily summaries. It remembers everything.</div>
         <div class="tool-meta">
           <span class="tool-badge live">live</span>
-          <span class="tool-credits">25 credits/run</span>
+          <a href="https://aifounder.ca" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);text-decoration:none;">pricing on aifounder.ca →</a>
         </div>
       </div>
       <div class="tool-preview-card">
         <div class="tool-name">Client Onboarding Agent</div>
-        <div class="tool-desc">14-node n8n + Claude automation. Runs 31 days without intervention. $0.08/run.</div>
+        <div class="tool-desc">Automatically welcomes new clients, sends follow-ups, and handles onboarding. Runs on autopilot for 31 days.</div>
         <div class="tool-meta">
           <span class="tool-badge soon">coming soon</span>
-          <span class="tool-credits">45 credits/run</span>
+          <a href="https://aifounder.ca" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);text-decoration:none;">pricing on aifounder.ca →</a>
         </div>
       </div>
       <div class="tool-preview-card">
@@ -2091,67 +2224,59 @@ body {
         <div class="tool-desc">One input, seven outputs. Blog to X thread, newsletter, TikTok captions, and more.</div>
         <div class="tool-meta">
           <span class="tool-badge soon">coming soon</span>
-          <span class="tool-credits">32 credits/run</span>
+          <a href="https://aifounder.ca" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);text-decoration:none;">pricing on aifounder.ca →</a>
         </div>
       </div>
       <div class="tool-preview-card">
         <div class="tool-name">Competitive Research Agent</div>
-        <div class="tool-desc">Monitors competitors daily. Scrapes, analyzes, and sends structured Telegram digests.</div>
+        <div class="tool-desc">Keeps an eye on your competitors daily. Analyzes what they're doing and sends you a clean summary.</div>
         <div class="tool-meta">
           <span class="tool-badge soon">coming soon</span>
-          <span class="tool-credits">38 credits/run</span>
+          <a href="https://aifounder.ca" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);text-decoration:none;">pricing on aifounder.ca →</a>
         </div>
       </div>
       <div class="tool-preview-card">
         <div class="tool-name">Workflow Monitoring System</div>
-        <div class="tool-desc">Meta-system that watches all your automations. Health checks, cost alerts, Telegram notifications.</div>
+        <div class="tool-desc">Watches all your AI tools and automations. Alerts you if something breaks or costs spike. Peace of mind.</div>
         <div class="tool-meta">
           <span class="tool-badge soon">coming soon</span>
-          <span class="tool-credits">15 credits/run</span>
+          <a href="https://aifounder.ca" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);text-decoration:none;">pricing on aifounder.ca →</a>
         </div>
       </div>
       <div class="tool-preview-card">
         <div class="tool-name">Lead Scoring Engine</div>
-        <div class="tool-desc">AI-powered lead qualification. Scores, segments, and routes leads automatically.</div>
+        <div class="tool-desc">AI sorts your leads by quality, tells you who's ready to buy, and routes them to the right place automatically.</div>
         <div class="tool-meta">
           <span class="tool-badge soon">coming soon</span>
-          <span class="tool-credits">22 credits/run</span>
+          <a href="https://aifounder.ca" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);text-decoration:none;">pricing on aifounder.ca →</a>
         </div>
       </div>
     </div>
     <div class="tools-preview-cta">
-      <a href="tools.html">View all 11 systems + detailed specs →</a>
+      <a href="https://aifounder.ca" target="_blank">View all tools + pricing on aifounder.ca →</a>
     </div>
   </div>
 </section>
 
-<!-- ===================== HOW ACCESS WORKS ===================== -->
-<section class="section-pad" style="background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+<!-- ===================== HOW ACCESS WORKS (HIDDEN) ===================== -->
+<section class="section-pad" style="display: none; background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
   <div class="container">
     <div style="text-align: center;">
       <p class="section-label">how access works</p>
-      <div class="section-title">Use tools with credits.<br>Get credits through a plan or the community.</div>
-      <p style="color: var(--text-secondary); line-height: 1.8; max-width: 550px; margin: 12px auto 0;">Every tool costs credits per run. You choose how to get them.</p>
+      <div class="section-title">Join the community.<br>Get access to everything.</div>
+      <p style="color: var(--text-secondary); line-height: 1.8; max-width: 550px; margin: 12px auto 0;">Weekly guides, live sessions, direct help, and full access to all AI tools on <a href="https://aifounder.ca" target="_blank" style="color: var(--green); text-decoration: none;">aifounder.ca</a>.</p>
     </div>
-    <div class="access-grid">
+    <div class="access-grid" style="grid-template-columns: 1fr 1fr; max-width: 700px;">
       <div style="background: var(--bg-card); border: 1px solid var(--border); padding: 28px;">
-        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 12px;">step 1</div>
-        <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 10px;">Pick a tool</h3>
-        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.7;">Browse the 11 systems. Each shows a per-run credit cost — from 15 to 45 credits depending on complexity.</p>
-      </div>
-      <div style="background: var(--bg-card); border: 1px solid var(--border); padding: 28px;">
-        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 12px;">step 2</div>
-        <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 10px;">Get credits</h3>
-        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.7;">Free plan gives 50/month. Builder plan gives 2,000. Community members get credits included. Top up anytime if you need more.</p>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 12px;">the community</div>
+        <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 10px;">$9.99/month</h3>
+        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.7;">Weekly guides, live sessions, direct help, and full access to AI tools. First 10 on the waitlist get their first month free — $9.99/mo for the first 20</p>
       </div>
       <div style="background: var(--bg-card); border: 1px solid var(--border-green); padding: 28px;">
-        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 12px;">or</div>
-        <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 10px;">Join the community</h3>
-        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.7;">$9.99/month gets you 2,000 credits, live build sessions, architecture reviews, and direct access. 10 founding spots at this price.</p>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 12px;">the tools</div>
+        <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 10px;">aifounder.ca</h3>
+        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.7;">Browse and use all AI tools individually. Per-use credit pricing, standalone plans, and top-ups available on aifounder.ca.</p>
       </div>
-    </div>
-    <div style="text-align: center; margin-top: 32px;">
-      <a href="pricing.html" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--green); text-decoration: none;">See full pricing and credit details →</a>
     </div>
   </div>
 </section>
@@ -2163,8 +2288,8 @@ body {
     <div class="section-title">You'll ship a production system<br>within 14 days.</div>
     <div class="promise-text">
       <p>Not "you'll learn something." Not "you'll feel inspired."</p>
-      <p><strong>You will deploy a working AI automation into your business or a client's business within 14 days.</strong></p>
-      <p>If you follow the first build guide and it doesn't work in production — cancel with one click. No questions. No friction. No annual commitment.</p>
+      <p><strong>You will have a working AI system running in your business within 14 days of joining.</strong></p>
+      <p>If you follow the first build guide and it doesn't work — cancel with one click. No questions. No friction. No annual commitment.</p>
       <p style="margin-top: 24px;"><strong>But it will work. That's the whole point.</strong></p>
     </div>
   </div>
@@ -2180,27 +2305,27 @@ body {
     <div class="faq-list">
       <div class="faq-item open">
         <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Can I find this free on YouTube?</div>
-        <div class="faq-a">You can find tutorials, yes. What you won't find: the error handling, the edge cases, the token cost analysis, the fallback logic, and the monitoring setup that separates a demo from a production system. That's the gap this fills.</div>
+        <div class="faq-a">You can find tutorials, yes. What you won't find is someone teaching you what to do when things go wrong, how much it actually costs, and how to build something that keeps working after day one. That's the gap this fills.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Won't this be outdated next month?</div>
-        <div class="faq-a">That's exactly why it's a weekly system, not a static course. New builds every week. Tool landscape updated monthly. When models change, the guides change. Principles stay constant — implementations evolve.</div>
+        <div class="faq-a">That's exactly why this is a weekly membership, not a static course. New guides every week. Tool recommendations updated monthly. When AI changes, we change with it. The thinking stays relevant — the tools evolve.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">I already pay for ChatGPT / Claude. Why this too?</div>
-        <div class="faq-a">Those give you access to the models. This shows you how to architect reliable systems with them. Tool subscriptions are the engine. This is the engineering manual.</div>
+        <div class="faq-a">Those give you access to the models. This shows you how to build reliable systems with them. Tool subscriptions are the engine. This is the engineering manual.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">I'm a beginner — is this too advanced?</div>
-        <div class="faq-a">Every build starts from zero and explains the design decisions as we go. You don't need to be a senior engineer — but you do need to be willing to build, not just watch. If you can follow a tutorial and you want to understand why things are built a certain way, you're ready.</div>
+        <div class="faq-a">Every guide starts from scratch and explains the thinking as we go. You don't need technical experience — but you do need to be willing to follow along and build, not just watch. If you can follow a recipe, you can do this.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What makes this different from other AI communities?</div>
-        <div class="faq-a">Three things: every build includes production error handling (not just the happy path), every build includes real token costs and unit economics, and the engineering-first approach means you understand the architecture — not just the steps. You learn to fish, not just follow recipes.</div>
+        <div class="faq-a">Three things: we teach you what to do when things don't work perfectly, we show you real costs so there are no surprises, and we focus on understanding — not just following steps. You learn to think with AI, not just use it.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Why $9.99 and not $79 like other communities?</div>
-        <div class="faq-a">Because I'm building this in public from day one. The price reflects the current stage — early, growing, and proving value before charging premium. Founding members lock in early access. The price will increase as the library grows and results compound.</div>
+        <div class="faq-a">Because I'm building this in public from day one. The price reflects the current stage — early, growing, and proving value before charging premium. First 10 on the waitlist get their first month free. $9.99/month is locked in for the first 20 members — after that it goes to $19.99.</div>
       </div>
     </div>
   </div>
@@ -2214,32 +2339,32 @@ body {
     <div class="choices-grid">
       <div class="choice-card bad">
         <div class="choice-label">option 1: keep going as-is</div>
-        <h3>Hope it works in production.</h3>
+        <h3>Keep guessing.</h3>
         <ul>
-          <li>Build from YouTube tutorials that skip edge cases</li>
-          <li>Debug at 3 AM when the webhook fails</li>
-          <li>Guess at token costs until the invoice hits</li>
-          <li>Ship workflows you can't confidently stand behind</li>
-          <li>Wonder why your automations break and others' don't</li>
+          <li>Stitch together random tutorials and hope they still work</li>
+          <li>Spend Sunday night debugging a workflow that ran fine last week</li>
+          <li>Open your AI invoice and wonder what happened</li>
+          <li>Ship things you secretly hope nobody stress-tests</li>
+          <li>Watch everyone else figure out AI while you're still "getting started"</li>
         </ul>
-        <div class="outcome">Expected outcome: more time debugging than building. Clients who don't trust the system. Revenue that stays flat.</div>
+        <div class="outcome">Expected outcome: more time debugging than building. Progress that feels slower every month.</div>
       </div>
       <div class="choice-card good">
         <div class="choice-label">option 2: build with engineering discipline</div>
-        <h3>Ship systems that work.</h3>
+        <h3>Build things that work.</h3>
         <ul>
-          <li>Full architecture blueprints every week</li>
-          <li>Error handling and fallback logic included</li>
-          <li>Token costs and unit economics for every build</li>
-          <li>Production monitoring and edge case coverage</li>
-          <li>Systems you can sell with confidence</li>
+          <li>Clear, step-by-step guides every week</li>
+          <li>Learn what to do when things don't go perfectly</li>
+          <li>Know what tools cost before you commit</li>
+          <li>Build with confidence, not guesswork</li>
+          <li>Stay current as AI evolves</li>
         </ul>
-        <div class="outcome">Expected outcome: production-grade systems in 14 days. Clients who trust the work. Revenue that scales with reliability.</div>
+        <div class="outcome">Expected outcome: a working system in 14 days. Confidence when you ship. Skills that compound weekly.</div>
       </div>
     </div>
     <div class="cta-group">
       <a href="#" class="cta-btn waitlist-trigger">Join the waitlist →</a>
-      <span class="cta-sub"><a href="pricing.html" style="color: var(--green); text-decoration: none;">View full pricing and credit details →</a></span>
+      <span class="cta-sub">first 10 on the waitlist get their first month free — $9.99/mo for the first 20</span>
       <div class="trust-bar">
         <span class="trust-item"><span class="check">✓</span> Cancel anytime</span>
         <span class="trust-item"><span class="check">✓</span> No long-term commitment</span>
@@ -2250,13 +2375,13 @@ body {
   </div>
 </section>
 
-<!-- ===================== REQUEST TOOLS ===================== -->
-<section class="request-section section-pad">
+<!-- ===================== REQUEST TOOLS (HIDDEN) ===================== -->
+<section class="request-section section-pad" style="display: none;">
   <div class="container">
     <div style="text-align: center;">
       <p class="section-label">shape the roadmap</p>
       <div class="section-title">Request a Tool or Feature</div>
-      <p style="color: var(--text-secondary); line-height: 1.8; max-width: 550px; margin: 12px auto 0;">Building something specific? Need a system we haven't listed? Tell us what you need and we'll prioritize it.</p>
+      <p style="color: var(--text-secondary); line-height: 1.8; max-width: 550px; margin: 12px auto 0;">Want something specific? Need a tool we haven't built yet? Tell us and we'll prioritize it.</p>
     </div>
     <div class="request-form" id="requestForm">
       <textarea placeholder="Describe the tool, feature, or integration you'd like to see built..." id="requestText"></textarea>
@@ -2289,17 +2414,17 @@ body {
     <div id="popupContent">
       <div class="popup-label">join the waitlist</div>
       <div class="founding-badge">founding member access</div>
-      <div class="popup-title">First 10 members get in free.</div>
-      <p class="popup-desc">Founding members get free beta access and lock in $9.99/month when we launch. After 10 spots fill, price increases to $19.99/month.</p>
+      <div class="popup-title">First 10 get their first month free.</div>
+      <p class="popup-desc">Join the waitlist now. First 10 members get month 1 free. $9.99/month locked in for the first 20 — then it goes to $19.99.</p>
       <div class="spots-bar-wrap">
         <div class="spots-bar-label">
-          <span class="spots-count">7 of 10 spots remaining</span>
-          <span class="spots-total">30%</span>
+          <span class="spots-count">10 of 10 free spots remaining</span>
+          <span class="spots-total">100% available</span>
         </div>
         <div class="spots-bar">
           <div class="spots-bar-fill" id="spotsBarFill"></div>
         </div>
-        <div class="spots-bar-note">Price increases to $19.99/month after all spots fill</div>
+        <div class="spots-bar-note">First 10 get month 1 free · $9.99/mo for first 20 · then $19.99/mo</div>
       </div>
       <form class="popup-form" id="popupForm">
         <input type="email" placeholder="your@email.com" required id="popupEmail">
@@ -2339,10 +2464,46 @@ body {
     if (e.key === 'Escape') closePopup();
   });
 
-  // Animate spots bar when popup opens
+  // Animate spots bar + counter when popup opens
+  var spotsTotal = document.querySelector('.spots-total');
+  var spotsCount = document.querySelector('.spots-count');
+  var totalSpots = 10;
+  var remaining = 10;
+  var takenPercent = Math.round(((totalSpots - remaining) / totalSpots) * 100);
+  var availablePercent = 100 - takenPercent;
+
   var observer = new MutationObserver(function() {
     if (popup.classList.contains('active') && spotsBar) {
-      setTimeout(function() { spotsBar.style.width = '30%'; }, 200);
+      // Reset
+      spotsBar.style.width = '0%';
+      spotsBar.classList.remove('animate');
+      if (spotsTotal) spotsTotal.textContent = '0% available';
+
+      setTimeout(function() {
+        // Animate bar to show available spots (full = all open)
+        spotsBar.style.width = availablePercent + '%';
+
+        // Count up animation
+        if (spotsTotal) {
+          spotsTotal.classList.add('counting');
+          var current = 0;
+          var step = Math.max(1, Math.floor(availablePercent / 20));
+          var counter = setInterval(function() {
+            current += step;
+            if (current >= availablePercent) {
+              current = availablePercent;
+              clearInterval(counter);
+              setTimeout(function() { spotsTotal.classList.remove('counting'); }, 400);
+            }
+            spotsTotal.textContent = current + '% available';
+          }, 50);
+        }
+
+        // Add pulse glow after fill animation
+        setTimeout(function() {
+          spotsBar.classList.add('animate');
+        }, 1400);
+      }, 300);
     }
   });
   observer.observe(popup, { attributes: true, attributeFilter: ['class'] });
@@ -2395,7 +2556,7 @@ body {
     <button id="chatbotClose">x</button>
   </div>
   <div class="chatbot-messages" id="chatbotMessages">
-    <div class="chat-msg bot">Hey — I'm the AIOpsForge assistant. Ask me about the tools, pricing, credit system, or anything about the community.</div>
+    <div class="chat-msg bot">Hey — I'm the AIOpsForge assistant. Ask me about the community, weekly guides, or anything about how it works.</div>
   </div>
   <div class="chatbot-input">
     <input type="text" id="chatbotInput" placeholder="Ask a question...">
@@ -2431,6 +2592,17 @@ body {
   // Wire both toggles
   if (toggle) toggle.addEventListener('click', handleToggle);
   if (floatingToggle) floatingToggle.addEventListener('click', handleToggle);
+
+  // Scroll progress bar
+  var scrollBar = document.getElementById('scrollProgress');
+  if (scrollBar) {
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      var percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      scrollBar.style.width = percent + '%';
+    }, { passive: true });
+  }
 })();
 </script>
 
@@ -2465,12 +2637,12 @@ function submitRequest() {
   // Knowledge base — add your own context here
   var knowledge = {
     tools: 'AIOpsForge has 11 production-grade AI systems. The SMS AI Task Manager is live now — the rest are coming soon: Client Onboarding Agent, Content Repurposing Pipeline, Competitive Research Agent, AI Content Writer, Workflow Monitoring System, Lead Scoring Engine, Invoice Processing Pipeline, Customer Support Bot, Data Enrichment Pipeline, and Meeting Summarizer.',
-    pricing: 'We have three plans: Explorer (free, 50 credits/month, 3 starter tools), Builder ($9.99/month, 2,000 credits/month, all 11 tools), and Whop Community ($9.99/month founding price, locks in before $19.99 — includes live build sessions and direct access). Only 10 founding spots. 1 credit = 1,000 tokens.',
-    credits: '1 credit equals approximately 1,000 tokens. Each tool has a per-run credit cost ranging from 15 to 45 credits. Your credits reset monthly. Builder plan gets 2,000 credits/month.',
+    pricing: 'Community membership is $9.99/month for the first 20 members ($19.99 after that). Includes weekly guides, live sessions, direct help, and access to AI tools. Explorer tier is free with access to the first 3 modules of fundamental training. First 10 on the waitlist get their first month free.',
+    credits: 'Community members get access to AI tools included with their membership.',
     community: 'AIOpsForge is an engineering-focused AI systems community. Members get weekly production-grade builds with architecture, error handling, token costs, and deployment instructions. Join via Whop at whop.com/ai-ops-forge/',
     builds: 'Every week you get a new production-grade AI system build. Each includes the full architecture, error handling patterns, fallback logic, token cost analysis, and deployment instructions. No fluff — just engineering.',
     cancel: 'You can cancel anytime with one click through Whop. No questions asked, no annual commitment.',
-    taskmanager: 'The AI Task Manager is one of our 11 tools. It provides intelligent task management with AI-powered prioritization. You can try it at tools/ai-task-manager/ on our site.'
+    taskmanager: 'The AI Task Manager is one of our launch tools. It provides intelligent task management with AI-powered prioritization.'
   };
 
   function findAnswer(q) {
