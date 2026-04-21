@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Tools Landscape — AIOpsForge</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #00FF41;
+  --green-dim: #00cc34;
+  --green-glow: rgba(0, 255, 65, 0.15);
+  --green-glow-strong: rgba(0, 255, 65, 0.3);
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #111111;
+  --bg-tertiary: #161616;
+  --bg-card: #1a1a1a;
+  --bg-card-hover: #222222;
+  --border: #2a2a2a;
+  --border-green: rgba(0, 255, 65, 0.2);
+  --text-primary: #f0f0f0;
+  --text-secondary: #999999;
+  --text-dim: #666666;
+  --red: #ff4444;
+  --red-dim: rgba(255, 68, 68, 0.15);
+  --blue: #4488ff;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --green: #00892e;
+    --green-dim: #006b24;
+    --green-glow: rgba(0, 137, 46, 0.12);
+    --green-glow-strong: rgba(0, 137, 46, 0.25);
+    --bg-primary: #f5f5f5;
+    --bg-secondary: #ebebeb;
+    --bg-tertiary: #e0e0e0;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f8f8f8;
+    --border: #d4d4d4;
+    --border-green: rgba(0, 137, 46, 0.2);
+    --text-primary: #1a1a1a;
+    --text-secondary: #555555;
+    --text-dim: #888888;
+    --red: #cc3333;
+    --red-dim: rgba(204, 51, 51, 0.1);
+    --blue: #2266cc;
+  }
+}
+
+:root[data-theme="light"] {
+  --green: #00892e;
+  --green-dim: #006b24;
+  --green-glow: rgba(0, 137, 46, 0.12);
+  --green-glow-strong: rgba(0, 137, 46, 0.25);
+  --bg-primary: #f5f5f5;
+  --bg-secondary: #ebebeb;
+  --bg-tertiary: #e0e0e0;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f8f8f8;
+  --border: #d4d4d4;
+  --border-green: rgba(0, 137, 46, 0.2);
+  --text-primary: #1a1a1a;
+  --text-secondary: #555555;
+  --text-dim: #888888;
+  --red: #cc3333;
+  --red-dim: rgba(204, 51, 51, 0.1);
+  --blue: #2266cc;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ============ SCROLL PROGRESS ============ */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green), 0 0 20px var(--green-glow-strong), 0 0 40px var(--green-glow);
+  z-index: 10000;
+  transition: width 0.1s linear;
+}
+
+/* ============ FLOATING THEME TOGGLE ============ */
+.floating-theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  z-index: 999;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.2s;
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1;
+}
+.floating-theme-toggle:hover {
+  color: var(--green);
+  border-color: var(--border-green);
+}
+
+/* ============ CONTAINER ============ */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ============ PAGE HEADER ============ */
+.page-header {
+  padding: 80px 0 40px;
+  text-align: center;
+  position: relative;
+}
+.page-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 300px;
+  background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.page-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 16px;
+  position: relative;
+}
+.page-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 700;
+  margin-bottom: 12px;
+  position: relative;
+}
+.page-subtitle {
+  color: var(--text-secondary);
+  font-size: 15px;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+  position: relative;
+}
+
+/* ============ STATS BAR ============ */
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 32px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.stats-bar .num {
+  color: var(--green);
+  font-weight: 700;
+}
+.stats-bar .sep {
+  color: var(--text-dim);
+  margin: 0 4px;
+}
+.stats-bar .nav-indicator {
+  margin-left: 16px;
+  font-size: 12px;
+}
+
+/* ============ GRID ============ */
+.landscape-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding-bottom: 40px;
+}
+.landscape-grid.hidden { display: none; }
+
+/* ============ CATEGORY CARD ============ */
+.cat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 28px 24px;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.cat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.cat-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.cat-card:hover {
+  background: var(--bg-card-hover);
+  transform: translateY(-3px);
+  border-color: var(--border-green);
+}
+.cat-card:hover::before { opacity: 1; }
+.cat-card:hover::after { opacity: 1; }
+
+/* Per-card accent colors via ::before top bar and ::after gradient */
+.cat-card:nth-child(1)::before { background: #ff4444; }
+.cat-card:nth-child(2)::before { background: #4488ff; }
+.cat-card:nth-child(3)::before { background: #a855f7; }
+.cat-card:nth-child(4)::before { background: #FFB800; }
+.cat-card:nth-child(5)::before { background: #22d3ee; }
+.cat-card:nth-child(6)::before { background: #eab308; }
+.cat-card:nth-child(7)::before { background: #00FF41; }
+.cat-card:nth-child(8)::before { background: #f472b6; }
+.cat-card:nth-child(9)::before { background: #38bdf8; }
+
+.cat-card:nth-child(1)::after { background: linear-gradient(135deg, rgba(255, 68, 68, 0.06) 0%, transparent 60%); }
+.cat-card:nth-child(2)::after { background: linear-gradient(135deg, rgba(68, 136, 255, 0.06) 0%, transparent 60%); }
+.cat-card:nth-child(3)::after { background: linear-gradient(135deg, rgba(168, 85, 247, 0.06) 0%, transparent 60%); }
+.cat-card:nth-child(4)::after { background: linear-gradient(135deg, rgba(255, 184, 0, 0.06) 0%, transparent 60%); }
+.cat-card:nth-child(5)::after { background: linear-gradient(135deg, rgba(34, 211, 238, 0.06) 0%, transparent 60%); }
+.cat-card:nth-child(6)::after { background: linear-gradient(135deg, rgba(234, 179, 8, 0.06) 0%, transparent 60%); }
+.cat-card:nth-child(7)::after { background: linear-gradient(135deg, rgba(0, 255, 65, 0.06) 0%, transparent 60%); }
+.cat-card:nth-child(8)::after { background: linear-gradient(135deg, rgba(244, 114, 182, 0.06) 0%, transparent 60%); }
+.cat-card:nth-child(9)::after { background: linear-gradient(135deg, rgba(56, 189, 248, 0.06) 0%, transparent 60%); }
+
+/* Hover box-shadow glow per card */
+.cat-card:nth-child(1):hover { box-shadow: 0 4px 20px rgba(255, 68, 68, 0.1); }
+.cat-card:nth-child(2):hover { box-shadow: 0 4px 20px rgba(68, 136, 255, 0.1); }
+.cat-card:nth-child(3):hover { box-shadow: 0 4px 20px rgba(168, 85, 247, 0.1); }
+.cat-card:nth-child(4):hover { box-shadow: 0 4px 20px rgba(255, 184, 0, 0.1); }
+.cat-card:nth-child(5):hover { box-shadow: 0 4px 20px rgba(34, 211, 238, 0.1); }
+.cat-card:nth-child(6):hover { box-shadow: 0 4px 20px rgba(234, 179, 8, 0.1); }
+.cat-card:nth-child(7):hover { box-shadow: 0 4px 20px rgba(0, 255, 65, 0.1); }
+.cat-card:nth-child(8):hover { box-shadow: 0 4px 20px rgba(244, 114, 182, 0.1); }
+.cat-card:nth-child(9):hover { box-shadow: 0 4px 20px rgba(56, 189, 248, 0.1); }
+
+.cat-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+.cat-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px currentColor;
+}
+.cat-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+.cat-meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  position: relative;
+  z-index: 1;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* ============ DETAIL PANEL ============ */
+.detail-panel {
+  display: none;
+  padding-bottom: 40px;
+}
+.detail-panel.active {
+  display: block;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+.detail-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.detail-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(22px, 4vw, 32px);
+  font-weight: 700;
+}
+.detail-close {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  transition: all 0.2s;
+  line-height: 1;
+}
+.detail-close:hover {
+  color: var(--green);
+  border-color: var(--border-green);
+}
+.detail-desc {
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  max-width: 700px;
+}
+
+/* ============ ACCORDION SUBTASKS ============ */
+.subtask {
+  border: 1px solid var(--border);
+  margin-bottom: 8px;
+  background: var(--bg-card);
+}
+.subtask-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  cursor: pointer;
+  transition: background 0.2s;
+  user-select: none;
+}
+.subtask-header:hover { background: var(--bg-card-hover); }
+.subtask-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.subtask-toggle {
+  font-size: 10px;
+  color: var(--text-dim);
+  transition: transform 0.2s;
+}
+.subtask.open .subtask-toggle { transform: rotate(90deg); }
+.subtask-body {
+  display: none;
+  padding: 0 20px 16px;
+}
+.subtask.open .subtask-body { display: block; }
+
+/* ============ MODEL ROWS ============ */
+.model-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-left: 3px solid transparent;
+  margin-bottom: 4px;
+  background: var(--bg-tertiary);
+}
+.model-row.top-pick {
+  border-left-color: var(--green);
+  background: rgba(0, 255, 65, 0.04);
+  border-color: rgba(0, 255, 65, 0.12);
+  border-left-color: var(--green);
+}
+:root[data-theme="light"] .model-row.top-pick {
+  background: rgba(0, 137, 46, 0.06);
+  border-color: rgba(0, 137, 46, 0.18);
+  border-left-color: var(--green);
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .model-row.top-pick {
+    background: rgba(0, 137, 46, 0.06);
+    border-color: rgba(0, 137, 46, 0.18);
+    border-left-color: var(--green);
+  }
+}
+.model-star {
+  color: #eab308;
+  font-size: 14px;
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.model-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+.model-row.top-pick .model-name { font-weight: 700; }
+.model-badges {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+.badge.os {
+  color: var(--green);
+  border: 1px solid rgba(0, 255, 65, 0.3);
+  background: rgba(0, 255, 65, 0.08);
+}
+.badge.cross {
+  color: #22d3ee;
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  background: rgba(34, 211, 238, 0.08);
+}
+.model-provider {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* ============ LEGEND ============ */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.legend-star {
+  color: #eab308;
+  font-size: 13px;
+}
+
+/* ============ AUTH MODAL ============ */
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.auth-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+:root[data-theme="light"] .auth-overlay {
+  background: rgba(255, 255, 255, 0.7);
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .auth-overlay {
+    background: rgba(255, 255, 255, 0.7);
+  }
+}
+.auth-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-green);
+  padding: 40px 32px;
+  max-width: 400px;
+  width: 90%;
+  position: relative;
+  text-align: center;
+}
+.auth-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--green);
+}
+.auth-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 12px;
+}
+.auth-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.auth-desc {
+  color: var(--text-secondary);
+  font-size: 13px;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+.auth-form {
+  display: flex;
+  gap: 8px;
+}
+.auth-input {
+  flex: 1;
+  padding: 12px 16px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.auth-input:focus {
+  border-color: var(--border-green);
+}
+.auth-input::placeholder {
+  color: var(--text-dim);
+}
+.auth-btn {
+  padding: 12px 20px;
+  background: var(--green);
+  color: #000;
+  border: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+.auth-btn:hover { opacity: 0.85; }
+.auth-error {
+  color: var(--red);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  margin-top: 12px;
+  display: none;
+}
+.auth-error.show { display: block; }
+
+/* ============ FOOTER ============ */
+.footer {
+  padding: 40px 24px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+.footer a {
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer a:hover { color: var(--green); }
+.footer-links { display: flex; gap: 24px; }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 900px) {
+  .landscape-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .landscape-grid { grid-template-columns: 1fr; }
+  .stats-bar { gap: 4px; font-size: 12px; flex-wrap: wrap; justify-content: center; }
+  .model-row { flex-wrap: wrap; gap: 8px; }
+  .model-provider { margin-left: 30px; width: 100%; }
+  .detail-title { font-size: 22px; }
+  .page-header { padding: 60px 0 32px; }
+  .footer-inner { flex-direction: column; gap: 16px; }
+  .legend { gap: 16px; }
+}
+</style>
+<script>
+(function() {
+  var t = localStorage.getItem('aof_theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+})();
+</script>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+<button class="floating-theme-toggle" id="floatingThemeToggle">&#9728;</button>
+
+<div class="container">
+  <div class="page-header">
+    <div class="page-label">landscape</div>
+    <h1 class="page-title">AI Tools Landscape</h1>
+    <p class="page-subtitle">The best models and tools across 9 categories — ranked by what actually works in production, not hype.</p>
+  </div>
+
+  <div class="stats-bar" id="statsBar"></div>
+
+  <div class="landscape-grid" id="gridView"></div>
+
+  <div class="detail-panel" id="detailPanel"></div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-star">&#9733;</span> Top Pick</div>
+    <div class="legend-item"><span class="legend-dot" style="background: var(--green)"></span> Open Source</div>
+    <div class="legend-item"><span class="legend-dot" style="background: var(--text-dim)"></span> Proprietary</div>
+    <div class="legend-item"><span class="badge cross">3X</span> Cross-domain</div>
+  </div>
+</div>
+
+<!-- Auth Modal -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-box">
+    <div class="auth-label">restricted</div>
+    <div class="auth-title">Enter access key</div>
+    <p class="auth-desc">This section is locked. Enter the key to view contents.</p>
+    <form class="auth-form" id="authForm">
+      <input type="password" class="auth-input" id="authInput" placeholder="access key" autocomplete="off">
+      <button type="submit" class="auth-btn">Unlock</button>
+    </form>
+    <div class="auth-error" id="authError">incorrect key — try again</div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span style="font-family: 'JetBrains Mono', monospace;">AIOpsForge &middot; AI Tools Landscape</span>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="blogs.html">Blog</a>
+    </div>
+    <span>built by an engineer who ships</span>
+  </div>
+</footer>
+
+<script>
+var LANDSCAPE_DATA = [
+  {
+    name: 'Text Generation & Writing',
+    color: '#ff4444',
+    description: 'AI models for writing long-form articles, short copy, creative fiction, and summarization.',
+    subtasks: [
+      {
+        name: 'Long-form Content',
+        models: [
+          { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: true },
+          { name: 'Kimi K2.5', provider: 'Moonshot AI', tags: ['OS', '3X'], topPick: false },
+          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: false },
+          { name: 'GPT-5.2', provider: 'OpenAI', tags: [], topPick: false }
+        ]
+      },
+      {
+        name: 'Short-form Copy',
+        models: [
+          { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: true },
+          { name: 'Kimi K2.5', provider: 'Moonshot AI', tags: ['OS', '3X'], topPick: false },
+          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: false },
+          { name: 'GPT-5.2', provider: 'OpenAI', tags: [], topPick: false }
+        ]
+      },
+      {
+        name: 'Creative Fiction & Storytelling',
+        models: [
+          { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: true },
+          { name: 'Kimi K2.5', provider: 'Moonshot AI', tags: ['OS', '3X'], topPick: false },
+          { name: 'GPT-5.2', provider: 'OpenAI', tags: [], topPick: false }
+        ]
+      },
+      {
+        name: 'Summarization & Rewriting',
+        models: [
+          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: true },
+          { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: false }
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Code Generation & Dev',
+    color: '#4488ff',
+    description: 'Tools for code completion, review, debugging, and full-stack app generation.',
+    subtasks: [
+      {
+        name: 'Code Completion & Generation',
+        models: [
+          { name: 'Claude Code (Opus 4.7)', provider: 'Anthropic', tags: ['3X'], topPick: true },
+          { name: 'Cursor', provider: 'Anysphere', tags: [], topPick: false },
+          { name: 'GitHub Copilot', provider: 'GitHub', tags: [], topPick: false },
+          { name: 'Qwen 3.5 Coder', provider: 'Alibaba', tags: ['OS'], topPick: false }
+        ]
+      },
+      {
+        name: 'Code Review & Debugging',
+        models: [
+          { name: 'CodeRabbit', provider: 'CodeRabbit', tags: [], topPick: true },
+          { name: 'Claude Code Review', provider: 'Anthropic', tags: [], topPick: false },
+          { name: 'Sourcegraph Cody', provider: 'Sourcegraph', tags: [], topPick: false }
+        ]
+      },
+      {
+        name: 'Full-stack App Generation',
+        models: [
+          { name: 'Lovable', provider: 'Lovable', tags: [], topPick: true },
+          { name: 'Bolt.new', provider: 'StackBlitz', tags: [], topPick: false },
+          { name: 'Replit Agent', provider: 'Replit', tags: [], topPick: false },
+          { name: 'v0', provider: 'Vercel', tags: [], topPick: false }
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Image Generation',
+    color: '#a855f7',
+    description: 'Models for photorealistic images, artistic styles, editing, logos, and architectural visualization.',
+    subtasks: [
+      {
+        name: 'Photorealistic Generation',
+        models: [
+          { name: 'FLUX 1.1 Pro Ultra', provider: 'Black Forest Labs', tags: [], topPick: true },
+          { name: 'Midjourney V7', provider: 'Midjourney', tags: [], topPick: false },
+          { name: 'GPT Image 1.5', provider: 'OpenAI', tags: ['3X'], topPick: false },
+          { name: 'Stable Diffusion 3.5', provider: 'Stability AI', tags: ['OS'], topPick: false }
+        ]
+      },
+      {
+        name: 'Artistic / Stylized Generation',
+        models: [
+          { name: 'Midjourney V7', provider: 'Midjourney', tags: [], topPick: true },
+          { name: 'FLUX 1.1 Pro', provider: 'Black Forest Labs', tags: [], topPick: false },
+          { name: 'Stable Diffusion 3.5', provider: 'Stability AI', tags: ['OS'], topPick: false },
+          { name: 'Ideogram 2.0', provider: 'Ideogram', tags: [], topPick: false }
+        ]
+      },
+      {
+        name: 'Image Editing & Inpainting',
+        models: [
+          { name: 'GPT Image 1.5', provider: 'OpenAI', tags: ['3X'], topPick: true },
+          { name: 'Adobe Firefly 3', provider: 'Adobe', tags: [], topPick: false },
+          { name: 'Stable Diffusion 3.5', provider: 'Stability AI', tags: ['OS'], topPick: false }
+        ]
+      },
+      {
+        name: 'Logo & Graphic Design',
+        models: [
+          { name: 'Logo Diffusion', provider: 'Logo Diffusion', tags: [], topPick: true },
+          { name: 'Looka', provider: 'Looka', tags: [], topPick: false },
+          { name: 'Ideogram 2.0', provider: 'Ideogram', tags: [], topPick: false }
+        ]
+      },
+      {
+        name: 'Architecture & Product Viz',
+        models: [
+          { name: 'Veras', provider: 'Chaos Group', tags: [], topPick: true },
+          { name: 'D5 Render', provider: 'D5', tags: [], topPick: false },
+          { name: 'Midjourney V7', provider: 'Midjourney', tags: [], topPick: false }
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Video Generation',
+    color: '#FFB800',
+    description: 'Tools for generating, editing, and enhancing video content — from short clips to long-form and avatars.',
+    subtasks: [
+      {
+        name: 'Short-form Video (clips, reels)',
+        models: [
+          { name: 'Veo 3.1', provider: 'Google', tags: [], topPick: true },
+          { name: 'Runway Gen-4.5', provider: 'Runway', tags: [], topPick: false },
+          { name: 'Kling 3.0', provider: 'Kuaishou', tags: [], topPick: false },
+          { name: 'Pika 2.0', provider: 'Pika', tags: [], topPick: false }
+        ]
+      },
+      {
+        name: 'Long-form Video',
+        models: [
+          { name: 'Mootion', provider: 'Mootion', tags: [], topPick: true },
+          { name: 'Kling 3.0', provider: 'Kuaishou', tags: [], topPick: false },
+          { name: 'Veo 3.1', provider: 'Google', tags: [], topPick: false }
+        ]
+      },
+      {
+        name: 'Video Editing & Effects',
+        models: [
+          { name: 'Adobe Premiere Pro AI', provider: 'Adobe', tags: [], topPick: true },
+          { name: 'Runway Gen-4.5', provider: 'Runway', tags: [], topPick: false },
+          { name: 'DaVinci Resolve AI', provider: 'Blackmagic', tags: [], topPick: false },
+          { name: 'CapCut AI', provider: 'ByteDance', tags: [], topPick: false }
+        ]
+      },
+      {
+        name: 'Avatar / Talking Head',
+        models: [
+          { name: 'HeyGen', provider: 'HeyGen', tags: [], topPick: true },
+          { name: 'Synthesia', provider: 'Synthesia', tags: [], topPick: false },
+          { name: 'Colossyan', provider: 'Colossyan', tags: [], topPick: false },
+          { name: 'D-ID', provider: 'D-ID', tags: [], topPick: false }
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Music & Audio',
+    color: '#22d3ee',
+    description: 'AI tools for music composition, sound effects, audio mastering, and voice cloning.',
+    subtasks: [
+      {
+        name: 'Music Composition',
+        models: [
+          { name: 'Suno v5.5', provider: 'Suno', tags: [], topPick: true },
+          { name: 'Udio', provider: 'Udio', tags: [], topPick: false },
+          { name: 'AIVA', provider: 'AIVA', tags: [], topPick: false },
+          { name: 'Eleven Music', provider: 'ElevenLabs', tags: [], topPick: false }
+        ]
+      },
+      {
+        name: 'Sound Effects & Foley',
+        models: [
+          { name: 'ElevenLabs SFX V2', provider: 'ElevenLabs', tags: [], topPick: true },
+          { name: 'Stable Audio 3.0', provider: 'Stability AI', tags: ['OS'], topPick: false },
+          { name: 'Meta AudioCraft 2', provider: 'Meta', tags: ['OS'], topPick: false }
+        ]
+      },
+      {
+        name: 'Audio Enhancement & Mastering',
+        models: [
+          { name: 'iZotope RX 11', provider: 'iZotope', tags: [], topPick: true },
+          { name: 'Descript Studio Sound', provider: 'Descript', tags: [], topPick: false },
+          { name: 'Auphonic', provider: 'Auphonic', tags: [], topPick: false }
+        ]
+      },
+      {
+        name: 'Voice Cloning & Synthesis',
+        models: [
+          { name: 'Fish Audio S2 Pro', provider: 'Fish Audio', tags: ['OS'], topPick: true },
+          { name: 'ElevenLabs v3', provider: 'ElevenLabs', tags: [], topPick: false },
+          { name: 'Voxtral TTS', provider: 'Mistral', tags: ['OS'], topPick: false },
+          { name: 'Chatterbox', provider: 'Resemble AI', tags: ['OS'], topPick: false }
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Research & Reasoning',
+    color: '#eab308',
+    description: 'Models for deep research, mathematical reasoning, scientific analysis, and data visualization.',
+    subtasks: [
+      {
+        name: 'Deep Research & Analysis',
+        models: [
+          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: true },
+          { name: 'ChatGPT Deep Research', provider: 'OpenAI', tags: [], topPick: false },
+          { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: false },
+          { name: 'Elicit', provider: 'Elicit', tags: [], topPick: false }
+        ]
+      },
+      {
+        name: 'Mathematical Reasoning',
+        models: [
+          { name: 'GPT-5.2 Thinking', provider: 'OpenAI', tags: [], topPick: true },
+          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: false },
+          { name: 'DeepSeek-R1-0528', provider: 'DeepSeek', tags: ['OS'], topPick: false },
+          { name: 'Qwen QwQ-32B', provider: 'Alibaba', tags: ['OS'], topPick: false }
+        ]
+      },
+      {
+        name: 'Scientific Research',
+        models: [
+          { name: 'AlphaFold 3', provider: 'Google DeepMind', tags: [], topPick: true },
+          { name: 'Elicit', provider: 'Elicit', tags: [], topPick: false },
+          { name: 'Semantic Scholar', provider: 'Allen AI', tags: ['OS'], topPick: false }
+        ]
+      },
+      {
+        name: 'Data Analysis & Visualization',
+        models: [
+          { name: 'ChatGPT Data Analysis', provider: 'OpenAI', tags: ['3X'], topPick: true },
+          { name: 'Julius AI', provider: 'Julius', tags: [], topPick: false },
+          { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: false }
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Text-to-Speech (TTS)',
+    color: '#00FF41',
+    description: 'Voice synthesis models for natural conversation, narration, multilingual speech, and real-time applications.',
+    subtasks: [
+      {
+        name: 'Natural Conversation',
+        models: [
+          { name: 'Inworld TTS-1.5 Max', provider: 'Inworld', tags: [], topPick: true },
+          { name: 'ElevenLabs v3', provider: 'ElevenLabs', tags: [], topPick: false },
+          { name: 'Fish Audio S2 Pro', provider: 'Fish Audio', tags: ['OS'], topPick: false },
+          { name: 'Voxtral TTS', provider: 'Mistral', tags: ['OS'], topPick: false }
+        ]
+      },
+      {
+        name: 'Narration & Audiobooks',
+        models: [
+          { name: 'ElevenLabs v3', provider: 'ElevenLabs', tags: [], topPick: true },
+          { name: 'Inworld TTS-1.5 Max', provider: 'Inworld', tags: [], topPick: false },
+          { name: 'Fish Audio S2 Pro', provider: 'Fish Audio', tags: ['OS'], topPick: false }
+        ]
+      },
+      {
+        name: 'Multilingual TTS',
+        models: [
+          { name: 'Fish Audio S2 Pro', provider: 'Fish Audio', tags: ['OS'], topPick: true },
+          { name: 'Voxtral TTS', provider: 'Mistral', tags: ['OS'], topPick: false },
+          { name: 'ElevenLabs Multilingual v3', provider: 'ElevenLabs', tags: [], topPick: false }
+        ]
+      },
+      {
+        name: 'Emotional / Expressive TTS',
+        models: [
+          { name: 'Inworld TTS-1.5 Max', provider: 'Inworld', tags: [], topPick: true },
+          { name: 'Fish Audio S2 Pro', provider: 'Fish Audio', tags: ['OS'], topPick: false },
+          { name: 'ElevenLabs v3', provider: 'ElevenLabs', tags: [], topPick: false }
+        ]
+      },
+      {
+        name: 'Real-time TTS',
+        models: [
+          { name: 'Inworld TTS-1.5 Max', provider: 'Inworld', tags: [], topPick: true },
+          { name: 'Chatterbox-Turbo', provider: 'Resemble AI', tags: ['OS'], topPick: false },
+          { name: 'CosyVoice2-0.5B', provider: 'Alibaba', tags: ['OS'], topPick: false }
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Speech-to-Text (STT)',
+    color: '#f472b6',
+    description: 'Transcription models for general, real-time, multilingual, diarization, and noisy environment use cases.',
+    subtasks: [
+      {
+        name: 'General Transcription',
+        models: [
+          { name: 'AssemblyAI Universal-2', provider: 'AssemblyAI', tags: [], topPick: true },
+          { name: 'Deepgram Nova-3', provider: 'Deepgram', tags: [], topPick: false },
+          { name: 'Whisper Large v3 Turbo', provider: 'OpenAI', tags: ['OS'], topPick: false },
+          { name: 'Google Cloud Chirp', provider: 'Google', tags: [], topPick: false }
+        ]
+      },
+      {
+        name: 'Real-time Transcription',
+        models: [
+          { name: 'Deepgram Nova-3', provider: 'Deepgram', tags: [], topPick: true },
+          { name: 'AssemblyAI Universal-2', provider: 'AssemblyAI', tags: [], topPick: false },
+          { name: 'Speechmatics', provider: 'Speechmatics', tags: [], topPick: false }
+        ]
+      },
+      {
+        name: 'Multilingual STT',
+        models: [
+          { name: 'Whisper Large v3 Turbo', provider: 'OpenAI', tags: ['OS'], topPick: true },
+          { name: 'Google Cloud Chirp', provider: 'Google', tags: [], topPick: false },
+          { name: 'AssemblyAI Universal-2', provider: 'AssemblyAI', tags: [], topPick: false }
+        ]
+      },
+      {
+        name: 'Speaker Diarization',
+        models: [
+          { name: 'AssemblyAI', provider: 'AssemblyAI', tags: [], topPick: true },
+          { name: 'Pyannote 3.1', provider: 'Open Source', tags: ['OS'], topPick: false },
+          { name: 'Google Gemini STT', provider: 'Google', tags: [], topPick: false }
+        ]
+      },
+      {
+        name: 'Noisy Environment STT',
+        models: [
+          { name: 'AssemblyAI Universal-2', provider: 'AssemblyAI', tags: [], topPick: true },
+          { name: 'Speechmatics Enhanced', provider: 'Speechmatics', tags: [], topPick: false },
+          { name: 'Deepgram Nova-3', provider: 'Deepgram', tags: [], topPick: false },
+          { name: 'Whisper Large v3 Turbo', provider: 'OpenAI', tags: ['OS'], topPick: false }
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Multimodal & Reasoning',
+    color: '#38bdf8',
+    description: 'Models that process and reason across text, images, audio, video, and documents in unified architectures.',
+    subtasks: [
+      {
+        name: 'Visual Understanding & Analysis',
+        models: [
+          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: true },
+          { name: 'GPT-5.2', provider: 'OpenAI', tags: ['3X'], topPick: false },
+          { name: 'GLM-4.5V', provider: 'Zhipu AI', tags: ['OS'], topPick: false }
+        ]
+      },
+      {
+        name: 'Document / Chart Understanding',
+        models: [
+          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: true },
+          { name: 'Qwen2.5-VL-32B', provider: 'Alibaba', tags: ['OS'], topPick: false },
+          { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: false },
+          { name: 'GPT-5.2', provider: 'OpenAI', tags: ['3X'], topPick: false }
+        ]
+      },
+      {
+        name: 'Cross-modal Reasoning',
+        models: [
+          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: true },
+          { name: 'GPT-5.2', provider: 'OpenAI', tags: ['3X'], topPick: false },
+          { name: 'GLM-4.6V', provider: 'Zhipu AI', tags: ['OS'], topPick: false },
+          { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: false }
+        ]
+      }
+    ]
+  }
+];
+
+// ============ RENDER FUNCTIONS ============
+
+function renderStats() {
+  var totalTools = 0, totalTasks = 0;
+  LANDSCAPE_DATA.forEach(function(cat) {
+    cat.subtasks.forEach(function(st) {
+      totalTasks++;
+      totalTools += st.models.length;
+    });
+  });
+  document.getElementById('statsBar').innerHTML =
+    '<span class="num">' + totalTools + '</span> tools' +
+    '<span class="sep">/</span>' +
+    '<span class="num">' + LANDSCAPE_DATA.length + '</span> categories' +
+    '<span class="sep">/</span>' +
+    '<span class="num">' + totalTasks + '</span> tasks';
+}
+
+function renderGrid() {
+  var html = '';
+  LANDSCAPE_DATA.forEach(function(cat, i) {
+    var toolCount = 0;
+    cat.subtasks.forEach(function(st) { toolCount += st.models.length; });
+    html += '<div class="cat-card" data-index="' + i + '" style="border-left-color:' + cat.color + '">' +
+      '<div class="cat-card-header">' +
+        '<span class="cat-dot" style="background:' + cat.color + '"></span>' +
+        '<span class="cat-title">' + cat.name + '</span>' +
+      '</div>' +
+      '<div class="cat-meta">' +
+        '<span>' + cat.subtasks.length + ' sub-tasks</span>' +
+        '<span>' + toolCount + ' tools</span>' +
+      '</div>' +
+    '</div>';
+  });
+  document.getElementById('gridView').innerHTML = html;
+}
+
+// ============ AUTH GATE ============
+var AUTH_HASH = '6993291f5388959e87a63f73e6e2e9e593a0b8b092597ce19d41a9da79aee009';
+var pendingIdx = null;
+
+function isAuthed() {
+  return sessionStorage.getItem('aof_landscape_auth') === '1';
+}
+
+function checkAuth(input) {
+  return crypto.subtle.digest('SHA-256', new TextEncoder().encode(input)).then(function(buf) {
+    var hash = Array.from(new Uint8Array(buf)).map(function(b) { return b.toString(16).padStart(2, '0'); }).join('');
+    return hash === AUTH_HASH;
+  });
+}
+
+function showAuthModal(idx) {
+  pendingIdx = idx;
+  var overlay = document.getElementById('authOverlay');
+  var input = document.getElementById('authInput');
+  var error = document.getElementById('authError');
+  error.classList.remove('show');
+  input.value = '';
+  overlay.classList.add('active');
+  setTimeout(function() { input.focus(); }, 100);
+}
+
+document.getElementById('authForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var input = document.getElementById('authInput').value;
+  checkAuth(input).then(function(valid) {
+    if (valid) {
+      sessionStorage.setItem('aof_landscape_auth', '1');
+      document.getElementById('authOverlay').classList.remove('active');
+      if (pendingIdx !== null) openDetail(pendingIdx);
+      pendingIdx = null;
+    } else {
+      document.getElementById('authError').classList.add('show');
+      document.getElementById('authInput').value = '';
+      document.getElementById('authInput').focus();
+    }
+  });
+});
+
+document.getElementById('authOverlay').addEventListener('click', function(e) {
+  if (e.target === this) {
+    this.classList.remove('active');
+    pendingIdx = null;
+  }
+});
+
+function openDetail(idx) {
+  if (!isAuthed()) { showAuthModal(idx); return; }
+
+  var cat = LANDSCAPE_DATA[idx];
+  var grid = document.getElementById('gridView');
+  var panel = document.getElementById('detailPanel');
+
+  grid.classList.add('hidden');
+
+  var toolCount = 0;
+  cat.subtasks.forEach(function(st) { toolCount += st.models.length; });
+
+  var html = '<div class="detail-header">' +
+    '<div class="detail-header-left">' +
+      '<span class="cat-dot" style="background:' + cat.color + ';width:12px;height:12px"></span>' +
+      '<h2 class="detail-title">' + cat.name + '</h2>' +
+    '</div>' +
+    '<button class="detail-close" onclick="closeDetail()">&times;</button>' +
+  '</div>' +
+  '<p class="detail-desc">' + cat.description + '</p>';
+
+  cat.subtasks.forEach(function(st, si) {
+    html += '<div class="subtask open" id="subtask-' + si + '">' +
+      '<div class="subtask-header" onclick="toggleSubtask(' + si + ')">' +
+        '<span class="subtask-title">' + st.name + '</span>' +
+        '<span class="subtask-toggle">&#9654;</span>' +
+      '</div>' +
+      '<div class="subtask-body">';
+
+    st.models.forEach(function(m) {
+      var rowClass = m.topPick ? 'model-row top-pick' : 'model-row';
+      var star = m.topPick ? '&#9733;' : '';
+      var badges = '';
+      m.tags.forEach(function(tag) {
+        if (tag === 'OS') badges += '<span class="badge os">OS</span>';
+        else if (tag === '3X') badges += '<span class="badge cross">3X</span>';
+      });
+
+      html += '<div class="' + rowClass + '">' +
+        '<span class="model-star">' + star + '</span>' +
+        '<span class="model-name">' + m.name + '</span>' +
+        '<div class="model-badges">' + badges + '</div>' +
+        '<span class="model-provider">' + m.provider + '</span>' +
+      '</div>';
+    });
+
+    html += '</div></div>';
+  });
+
+  panel.innerHTML = html;
+  panel.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  history.pushState({ view: 'detail', index: idx }, '');
+}
+
+function closeDetail() {
+  document.getElementById('gridView').classList.remove('hidden');
+  var panel = document.getElementById('detailPanel');
+  panel.classList.remove('active');
+  panel.innerHTML = '';
+}
+
+function toggleSubtask(idx) {
+  var el = document.getElementById('subtask-' + idx);
+  if (el) el.classList.toggle('open');
+}
+
+// ============ EVENT LISTENERS ============
+
+document.getElementById('gridView').addEventListener('click', function(e) {
+  var card = e.target.closest('.cat-card');
+  if (card) openDetail(parseInt(card.getAttribute('data-index')));
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    var panel = document.getElementById('detailPanel');
+    if (panel.classList.contains('active')) {
+      closeDetail();
+      if (history.state && history.state.view === 'detail') history.back();
+    }
+  }
+});
+
+window.addEventListener('popstate', function() {
+  var panel = document.getElementById('detailPanel');
+  if (panel.classList.contains('active')) {
+    document.getElementById('gridView').classList.remove('hidden');
+    panel.classList.remove('active');
+    panel.innerHTML = '';
+  }
+});
+
+// ============ THEME & SCROLL ============
+
+(function() {
+  var root = document.documentElement;
+  var floatingToggle = document.getElementById('floatingThemeToggle');
+
+  function applyTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    var icon = theme === 'light' ? '\u263E' : '\u2600';
+    if (floatingToggle) floatingToggle.textContent = icon;
+  }
+
+  var stored = localStorage.getItem('aof_theme');
+  applyTheme(stored || 'dark');
+
+  function handleToggle() {
+    var current = root.getAttribute('data-theme');
+    var next = current === 'light' ? 'dark' : 'light';
+    localStorage.setItem('aof_theme', next);
+    applyTheme(next);
+  }
+
+  if (floatingToggle) floatingToggle.addEventListener('click', handleToggle);
+
+  var scrollBar = document.getElementById('scrollProgress');
+  if (scrollBar) {
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      var percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      scrollBar.style.width = percent + '%';
+    }, { passive: true });
+  }
+})();
+
+// ============ INIT ============
+renderStats();
+renderGrid();
+</script>
+</body>
+</html>
