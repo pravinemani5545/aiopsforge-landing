@@ -17,6 +17,7 @@
   --border: #2a2a2a; --border-green: rgba(0, 255, 65, 0.2);
   --text-primary: #f0f0f0; --text-secondary: #999999; --text-dim: #666666;
   --red: #ff4444; --blue: #4488ff;
+  --accent: #10b981;
 }
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
@@ -27,6 +28,7 @@
     --border: #d4d4d4; --border-green: rgba(0, 137, 46, 0.2);
     --text-primary: #1a1a1a; --text-secondary: #555555; --text-dim: #888888;
     --red: #cc3333; --blue: #2266cc;
+    --accent: #059669;
   }
 }
 :root[data-theme="light"] {
@@ -37,6 +39,7 @@
   --border: #d4d4d4; --border-green: rgba(0, 137, 46, 0.2);
   --text-primary: #1a1a1a; --text-secondary: #555555; --text-dim: #888888;
   --red: #cc3333; --blue: #2266cc;
+  --accent: #059669;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -78,7 +81,7 @@ body {
 }
 .page-label {
   font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  letter-spacing: 3px; text-transform: uppercase; color: #10b981;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--accent);
   margin-bottom: 16px; position: relative;
 }
 .page-title {
@@ -89,25 +92,104 @@ body {
   color: var(--text-secondary); font-size: 15px; max-width: 600px;
   margin: 0 auto; line-height: 1.7; position: relative;
 }
-.coming-soon {
-  max-width: 500px; margin: 60px auto 120px; text-align: center;
+
+/* ============ STATS ROW ============ */
+.stats-row {
+  display: flex; justify-content: center; gap: 40px;
+  padding: 0 0 32px; position: relative;
+}
+.stat-item { text-align: center; }
+.stat-num {
+  font-family: 'Space Grotesk', sans-serif; font-size: 28px;
+  font-weight: 700; color: var(--accent); display: block;
+}
+.stat-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim);
+}
+
+/* ============ FILTER BAR ============ */
+.filter-bar {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  padding-bottom: 24px; position: relative;
+}
+.filter-btn {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  letter-spacing: 1px; padding: 8px 16px;
   background: var(--bg-card); border: 1px solid var(--border);
-  padding: 48px 32px; position: relative; overflow: hidden;
+  color: var(--text-secondary); cursor: pointer; transition: all 0.2s;
 }
-.coming-soon::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0;
-  height: 2px; background: #10b981;
+.filter-btn:hover { border-color: var(--border-green); color: var(--text-primary); }
+.filter-btn.active {
+  background: rgba(16, 185, 129, 0.08); border-color: var(--accent);
+  color: var(--accent);
 }
-.coming-soon-icon {
-  font-size: 32px; margin-bottom: 16px; color: var(--text-dim);
+
+/* ============ PROMPT CARDS ============ */
+.cards-container { padding-bottom: 60px; }
+.prompt-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  padding: 24px; margin-bottom: 16px; transition: border-color 0.2s;
 }
-.coming-soon-title {
-  font-family: 'Space Grotesk', sans-serif; font-size: 20px;
-  font-weight: 700; margin-bottom: 8px;
+.prompt-card:hover { border-color: var(--border-green); }
+.prompt-tags { margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+.tag-badge {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  letter-spacing: 0.5px; text-transform: uppercase;
+  padding: 2px 8px; border: 1px solid var(--border);
+  color: var(--text-dim); background: var(--bg-tertiary);
 }
-.coming-soon-desc {
-  color: var(--text-secondary); font-size: 13px; line-height: 1.6;
+.prompt-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: 18px;
+  font-weight: 700; margin-bottom: 6px;
 }
+.prompt-desc {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+  margin-bottom: 16px;
+}
+.prompt-block {
+  background: var(--bg-tertiary); border: 1px solid var(--border);
+  padding: 16px; font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; line-height: 1.7; color: var(--text-secondary);
+  white-space: pre-wrap; word-break: break-word;
+  max-height: 96px; overflow: hidden; position: relative;
+  cursor: pointer; transition: max-height 0.3s ease;
+}
+.prompt-block.expanded { max-height: 2000px; }
+.prompt-block:not(.expanded)::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 40px;
+  background: linear-gradient(transparent, var(--bg-tertiary));
+  pointer-events: none;
+}
+.prompt-expand {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  color: var(--accent); cursor: pointer; margin-top: 8px;
+  letter-spacing: 1px; display: inline-block;
+  transition: color 0.2s;
+}
+.prompt-expand:hover { color: var(--green); }
+.prompt-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border);
+}
+.model-badge {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  color: var(--text-dim); border: 1px solid var(--border);
+  padding: 3px 10px; background: var(--bg-tertiary);
+}
+.action-btn {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  letter-spacing: 1px; padding: 8px 16px;
+  background: transparent; border: 1px solid rgba(16, 185, 129, 0.4);
+  color: var(--accent); cursor: pointer; transition: all 0.2s;
+}
+.action-btn:hover { background: rgba(16, 185, 129, 0.08); }
+.action-btn.copied {
+  background: rgba(16, 185, 129, 0.12); border-color: var(--accent);
+}
+
+/* ============ FOOTER ============ */
 .footer {
   padding: 40px 24px; border-top: 1px solid var(--border); text-align: center;
 }
@@ -118,9 +200,14 @@ body {
 .footer a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
 .footer a:hover { color: var(--green); }
 .footer-links { display: flex; gap: 24px; }
+
+/* ============ RESPONSIVE ============ */
 @media (max-width: 600px) {
   .page-header { padding: 40px 0 32px; }
   .footer-inner { flex-direction: column; gap: 16px; }
+  .stats-row { gap: 24px; }
+  .prompt-footer { flex-direction: column; gap: 12px; align-items: flex-start; }
+  .filter-bar { gap: 6px; }
 }
 </style>
 <script>
@@ -143,11 +230,9 @@ if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/co
     <h1 class="page-title">Prompts</h1>
     <p class="page-subtitle">Production-tested prompt library. Copy, adapt, and deploy prompts that actually work at scale.</p>
   </div>
-  <div class="coming-soon">
-    <div class="coming-soon-icon">&#128736;</div>
-    <div class="coming-soon-title">Under Construction</div>
-    <p class="coming-soon-desc">This section is being built. Content will appear here as it's ready.</p>
-  </div>
+  <div class="stats-row" id="statsRow"></div>
+  <div class="filter-bar" id="filterBar"></div>
+  <div class="cards-container" id="cardsContainer"></div>
 </div>
 <footer class="footer">
   <div class="footer-inner">
@@ -160,6 +245,142 @@ if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/co
   </div>
 </footer>
 <script>
+// ============ DATA ============
+var PROMPTS_DATA = [
+  {
+    title: 'System Architecture Reviewer',
+    description: 'Evaluates a system design document and returns a structured critique with risks, improvements, and missing components.',
+    prompt: 'You are a senior systems architect with 15+ years of experience reviewing distributed system designs.\n\nI will provide you with a system design document. Analyze it thoroughly and return a structured review covering:\n\n1. ARCHITECTURE RISKS\n   - List each risk with severity (Critical / High / Medium / Low)\n   - Explain the failure scenario for each risk\n   - Suggest a mitigation strategy\n\n2. MISSING COMPONENTS\n   - Identify any standard components that are absent (monitoring, auth, rate limiting, etc.)\n   - Explain why each missing component matters\n\n3. SCALABILITY BOTTLENECKS\n   - Identify components that will fail first under 10x load\n   - Suggest horizontal vs vertical scaling strategies\n\n4. SECURITY CONCERNS\n   - Check for OWASP Top 10 exposure\n   - Evaluate data flow for encryption gaps\n   - Flag any overly permissive access patterns\n\n5. RECOMMENDED IMPROVEMENTS\n   - Prioritize by impact (High / Medium / Low)\n   - Include estimated implementation effort\n   - Reference industry best practices where applicable\n\nFormat your response as structured markdown with clear headers and bullet points.\n\n---\n\nSystem Design Document:\n{paste_your_design_here}',
+    model: 'Claude Opus 4.7',
+    tags: ['Engineering']
+  },
+  {
+    title: 'SEO Blog Post Generator',
+    description: 'Generates a complete, SEO-optimized blog post from a topic and target keywords, with meta description and internal linking suggestions.',
+    prompt: 'You are an expert content strategist and SEO specialist.\n\nWrite a complete blog post based on the following inputs:\n\nTOPIC: {your_topic}\nPRIMARY KEYWORD: {main_keyword}\nSECONDARY KEYWORDS: {keyword_1, keyword_2, keyword_3}\nTARGET WORD COUNT: {1500-2500}\nTONE: {professional / conversational / technical}\n\nRequirements:\n\n1. TITLE\n   - Include the primary keyword\n   - Under 60 characters\n   - Use a power word (proven, essential, complete, etc.)\n\n2. META DESCRIPTION\n   - 150-160 characters\n   - Include primary keyword naturally\n   - End with a value proposition or CTA\n\n3. STRUCTURE\n   - Opening hook (2-3 sentences, no fluff)\n   - H2 sections (4-6 main sections)\n   - H3 subsections where depth is needed\n   - Conclusion with clear takeaway\n\n4. SEO RULES\n   - Primary keyword in first 100 words\n   - Secondary keywords distributed naturally (1-2x each)\n   - Short paragraphs (2-4 sentences max)\n   - Use bullet points and numbered lists\n   - Include one data point or statistic per section\n\n5. INTERNAL LINKING\n   - Suggest 3-5 internal link opportunities with anchor text\n   - Format: [anchor text] -> /suggested-slug\n\nOutput the complete post in markdown format.',
+    model: 'Claude Sonnet 4.6',
+    tags: ['Content']
+  },
+  {
+    title: 'Data Pipeline Error Analyzer',
+    description: 'Diagnoses failures in data pipelines by analyzing error logs and suggesting root causes with remediation steps.',
+    prompt: 'You are a senior data engineer specializing in pipeline reliability and incident response.\n\nI will provide error logs from a data pipeline failure. Analyze them and produce a structured incident report:\n\n1. ERROR CLASSIFICATION\n   - Error type: (Schema / Connection / Timeout / Permission / Data Quality / OOM / Other)\n   - Severity: (P0-Critical / P1-High / P2-Medium / P3-Low)\n   - Blast radius: Which downstream systems are affected?\n\n2. ROOT CAUSE ANALYSIS\n   - Primary cause (most likely)\n   - Contributing factors\n   - Timeline reconstruction: What happened in what order?\n\n3. AFFECTED DATA\n   - Which tables/datasets are impacted?\n   - Data freshness: How stale is the data now?\n   - Are there data integrity concerns (duplicates, missing records)?\n\n4. REMEDIATION STEPS\n   - Immediate fix (stop the bleeding)\n   - Data backfill procedure if needed\n   - Verification queries to confirm fix worked\n\n5. PREVENTION\n   - What monitoring would have caught this earlier?\n   - Suggested alerting rules\n   - Pipeline hardening recommendations\n\nFormat as a structured incident report with clear sections.\n\n---\n\nError Logs:\n{paste_error_logs_here}',
+    model: 'Claude Opus 4.7',
+    tags: ['Data']
+  }
+];
+
+// ============ STATE ============
+var activeFilter = 'all';
+
+// ============ HELPERS ============
+function escapeHtml(str) {
+  var div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// ============ RENDER ============
+function renderStats() {
+  var count = activeFilter === 'all' ? PROMPTS_DATA.length : getFiltered().length;
+  var tags = {};
+  PROMPTS_DATA.forEach(function(p) {
+    p.tags.forEach(function(t) { tags[t] = true; });
+  });
+  document.getElementById('statsRow').innerHTML =
+    '<div class="stat-item"><span class="stat-num">' + PROMPTS_DATA.length + '</span><span class="stat-label">prompts</span></div>' +
+    '<div class="stat-item"><span class="stat-num">' + Object.keys(tags).length + '</span><span class="stat-label">topics</span></div>';
+}
+
+function renderFilters() {
+  var tags = {};
+  PROMPTS_DATA.forEach(function(p) {
+    p.tags.forEach(function(t) { tags[t] = (tags[t] || 0) + 1; });
+  });
+  var html = '<button class="filter-btn active" onclick="setFilter(\'all\', this)">All</button>';
+  Object.keys(tags).forEach(function(t) {
+    html += '<button class="filter-btn" onclick="setFilter(\'' + t + '\', this)">' + t + '</button>';
+  });
+  document.getElementById('filterBar').innerHTML = html;
+}
+
+function getFiltered() {
+  if (activeFilter === 'all') return PROMPTS_DATA;
+  return PROMPTS_DATA.filter(function(p) { return p.tags.indexOf(activeFilter) !== -1; });
+}
+
+function renderCards() {
+  var filtered = getFiltered();
+  var html = '';
+  filtered.forEach(function(p, i) {
+    var tagHtml = '';
+    p.tags.forEach(function(t) { tagHtml += '<span class="tag-badge">' + t + '</span>'; });
+
+    html += '<div class="prompt-card">' +
+      '<div class="prompt-tags">' + tagHtml + '</div>' +
+      '<h3 class="prompt-title">' + escapeHtml(p.title) + '</h3>' +
+      '<p class="prompt-desc">' + escapeHtml(p.description) + '</p>' +
+      '<div class="prompt-block" id="pb-' + i + '" onclick="togglePrompt(' + i + ')">' + escapeHtml(p.prompt) + '</div>' +
+      '<div class="prompt-expand" onclick="togglePrompt(' + i + ')">&#9654; show full prompt</div>' +
+      '<div class="prompt-footer">' +
+        '<span class="model-badge">best with: ' + escapeHtml(p.model) + '</span>' +
+        '<button class="action-btn" onclick="copyPrompt(' + i + ', this)">Copy Prompt</button>' +
+      '</div>' +
+    '</div>';
+  });
+  document.getElementById('cardsContainer').innerHTML = html;
+}
+
+// ============ INTERACTIONS ============
+function setFilter(tag, btn) {
+  activeFilter = tag;
+  document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  renderCards();
+}
+
+function togglePrompt(idx) {
+  var block = document.getElementById('pb-' + idx);
+  if (!block) return;
+  var toggle = block.nextElementSibling;
+  block.classList.toggle('expanded');
+  if (block.classList.contains('expanded')) {
+    toggle.innerHTML = '&#9660; collapse';
+  } else {
+    toggle.innerHTML = '&#9654; show full prompt';
+  }
+}
+
+function copyPrompt(idx, btn) {
+  var data = getFiltered();
+  var text = data[idx].prompt;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() { showCopied(btn); });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showCopied(btn);
+  }
+}
+
+function showCopied(btn) {
+  btn.textContent = 'Copied!';
+  btn.classList.add('copied');
+  setTimeout(function() {
+    btn.textContent = 'Copy Prompt';
+    btn.classList.remove('copied');
+  }, 1500);
+}
+
+// ============ INIT ============
+renderStats();
+renderFilters();
+renderCards();
+
+// ============ THEME & SCROLL ============
 (function() {
   var root = document.documentElement;
   var floatingToggle = document.getElementById('floatingThemeToggle');

@@ -17,6 +17,7 @@
   --border: #2a2a2a; --border-green: rgba(0, 255, 65, 0.2);
   --text-primary: #f0f0f0; --text-secondary: #999999; --text-dim: #666666;
   --red: #ff4444; --blue: #4488ff;
+  --accent: #eab308;
 }
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
@@ -27,6 +28,7 @@
     --border: #d4d4d4; --border-green: rgba(0, 137, 46, 0.2);
     --text-primary: #1a1a1a; --text-secondary: #555555; --text-dim: #888888;
     --red: #cc3333; --blue: #2266cc;
+    --accent: #b8960a;
   }
 }
 :root[data-theme="light"] {
@@ -37,6 +39,7 @@
   --border: #d4d4d4; --border-green: rgba(0, 137, 46, 0.2);
   --text-primary: #1a1a1a; --text-secondary: #555555; --text-dim: #888888;
   --red: #cc3333; --blue: #2266cc;
+  --accent: #b8960a;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -78,7 +81,7 @@ body {
 }
 .page-label {
   font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  letter-spacing: 3px; text-transform: uppercase; color: #eab308;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--accent);
   margin-bottom: 16px; position: relative;
 }
 .page-title {
@@ -89,25 +92,112 @@ body {
   color: var(--text-secondary); font-size: 15px; max-width: 600px;
   margin: 0 auto; line-height: 1.7; position: relative;
 }
-.coming-soon {
-  max-width: 500px; margin: 60px auto 120px; text-align: center;
+
+/* ============ STATS ROW ============ */
+.stats-row {
+  display: flex; justify-content: center; gap: 40px;
+  padding: 0 0 32px; position: relative;
+}
+.stat-item { text-align: center; }
+.stat-num {
+  font-family: 'Space Grotesk', sans-serif; font-size: 28px;
+  font-weight: 700; color: var(--accent); display: block;
+}
+.stat-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim);
+}
+
+/* ============ FILTER BAR ============ */
+.filter-bar {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  padding-bottom: 24px; position: relative;
+}
+.filter-btn {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  letter-spacing: 1px; padding: 8px 16px;
   background: var(--bg-card); border: 1px solid var(--border);
-  padding: 48px 32px; position: relative; overflow: hidden;
+  color: var(--text-secondary); cursor: pointer; transition: all 0.2s;
 }
-.coming-soon::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0;
-  height: 2px; background: #eab308;
+.filter-btn:hover { border-color: var(--border-green); color: var(--text-primary); }
+.filter-btn.active {
+  background: rgba(234, 179, 8, 0.08); border-color: var(--accent);
+  color: var(--accent);
 }
-.coming-soon-icon {
-  font-size: 32px; margin-bottom: 16px; color: var(--text-dim);
+
+/* ============ SKILLS GRID ============ */
+.cards-container { padding-bottom: 60px; }
+.skills-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
 }
-.coming-soon-title {
-  font-family: 'Space Grotesk', sans-serif; font-size: 20px;
-  font-weight: 700; margin-bottom: 8px;
+.skill-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  padding: 24px; transition: border-color 0.2s;
+  display: flex; flex-direction: column;
 }
-.coming-soon-desc {
-  color: var(--text-secondary); font-size: 13px; line-height: 1.6;
+.skill-card:hover { border-color: var(--border-green); }
+.skill-tags { margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+.tag-badge {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  letter-spacing: 0.5px; text-transform: uppercase;
+  padding: 2px 8px; border: 1px solid var(--border);
+  color: var(--text-dim); background: var(--bg-tertiary);
 }
+.skill-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: 18px;
+  font-weight: 700; margin-bottom: 6px;
+}
+.skill-desc {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+  margin-bottom: 16px;
+}
+.skill-learnings {
+  list-style: none; margin: 0 0 auto; padding: 0;
+}
+.skill-learnings li {
+  font-size: 13px; color: var(--text-secondary);
+  padding: 4px 0 4px 16px; position: relative; line-height: 1.5;
+}
+.skill-learnings li::before {
+  content: '>'; position: absolute; left: 0;
+  color: var(--accent); font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+}
+.skill-meta {
+  display: flex; align-items: center; gap: 12px;
+  margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.difficulty-badge {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px;
+}
+.difficulty-badge.beginner {
+  color: var(--green); border: 1px solid rgba(0, 255, 65, 0.3);
+  background: rgba(0, 255, 65, 0.06);
+}
+.difficulty-badge.intermediate {
+  color: #eab308; border: 1px solid rgba(234, 179, 8, 0.3);
+  background: rgba(234, 179, 8, 0.06);
+}
+.difficulty-badge.advanced {
+  color: #ff4444; border: 1px solid rgba(255, 68, 68, 0.3);
+  background: rgba(255, 68, 68, 0.06);
+}
+.skill-time {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--text-dim);
+}
+.action-btn {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  letter-spacing: 1px; padding: 8px 16px;
+  background: transparent; border: 1px solid rgba(234, 179, 8, 0.4);
+  color: var(--accent); cursor: pointer; transition: all 0.2s;
+  text-decoration: none; margin-left: auto;
+}
+.action-btn:hover { background: rgba(234, 179, 8, 0.08); }
+
+/* ============ FOOTER ============ */
 .footer {
   padding: 40px 24px; border-top: 1px solid var(--border); text-align: center;
 }
@@ -118,9 +208,17 @@ body {
 .footer a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
 .footer a:hover { color: var(--green); }
 .footer-links { display: flex; gap: 24px; }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 700px) {
+  .skills-grid { grid-template-columns: 1fr; }
+}
 @media (max-width: 600px) {
   .page-header { padding: 40px 0 32px; }
   .footer-inner { flex-direction: column; gap: 16px; }
+  .stats-row { gap: 24px; }
+  .skill-meta { flex-direction: column; align-items: flex-start; }
+  .action-btn { margin-left: 0; }
 }
 </style>
 <script>
@@ -143,11 +241,9 @@ if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/co
     <h1 class="page-title">Skills</h1>
     <p class="page-subtitle">Individual AI skill modules. Master one capability at a time — prompting, RAG, fine-tuning, evaluation.</p>
   </div>
-  <div class="coming-soon">
-    <div class="coming-soon-icon">&#128736;</div>
-    <div class="coming-soon-title">Under Construction</div>
-    <p class="coming-soon-desc">This section is being built. Content will appear here as it's ready.</p>
-  </div>
+  <div class="stats-row" id="statsRow"></div>
+  <div class="filter-bar" id="filterBar"></div>
+  <div class="cards-container" id="cardsContainer"></div>
 </div>
 <footer class="footer">
   <div class="footer-inner">
@@ -160,6 +256,125 @@ if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/co
   </div>
 </footer>
 <script>
+// ============ DATA ============
+var SKILLS_DATA = [
+  {
+    title: 'Prompt Engineering Fundamentals',
+    description: 'Master the core techniques for writing effective prompts — system prompts, few-shot examples, chain-of-thought, and output formatting.',
+    learnings: [
+      'Write system prompts that produce consistent, high-quality output',
+      'Use few-shot examples to steer model behavior without fine-tuning',
+      'Apply chain-of-thought reasoning for complex multi-step tasks',
+      'Structure output with JSON, markdown, and schema constraints'
+    ],
+    difficulty: 'Beginner',
+    time: '2 hours',
+    downloadUrl: '#',
+    tags: ['Prompting']
+  },
+  {
+    title: 'RAG Pipeline Design',
+    description: 'Build retrieval-augmented generation pipelines that ground LLM responses in your own data — from chunking to retrieval to synthesis.',
+    learnings: [
+      'Chunk documents effectively for different content types',
+      'Choose the right embedding model for your domain',
+      'Implement hybrid search combining vector and keyword retrieval',
+      'Evaluate retrieval quality with precision, recall, and MRR metrics'
+    ],
+    difficulty: 'Intermediate',
+    time: '4 hours',
+    downloadUrl: '#',
+    tags: ['RAG']
+  },
+  {
+    title: 'LLM Output Evaluation',
+    description: 'Build automated evaluation harnesses that catch hallucinations, measure quality, and compare prompt variants at scale.',
+    learnings: [
+      'Design scoring rubrics for subjective output quality',
+      'Build automated eval pipelines with LLM-as-judge patterns',
+      'Detect hallucinations programmatically using reference grounding',
+      'A/B test prompt variants with statistical significance'
+    ],
+    difficulty: 'Advanced',
+    time: '3 hours',
+    downloadUrl: '#',
+    tags: ['Evaluation']
+  }
+];
+
+// ============ STATE ============
+var activeFilter = 'all';
+
+// ============ RENDER ============
+function renderStats() {
+  var tags = {};
+  SKILLS_DATA.forEach(function(s) {
+    s.tags.forEach(function(t) { tags[t] = true; });
+  });
+  document.getElementById('statsRow').innerHTML =
+    '<div class="stat-item"><span class="stat-num">' + SKILLS_DATA.length + '</span><span class="stat-label">skills</span></div>' +
+    '<div class="stat-item"><span class="stat-num">' + Object.keys(tags).length + '</span><span class="stat-label">topics</span></div>';
+}
+
+function renderFilters() {
+  var tags = {};
+  SKILLS_DATA.forEach(function(s) {
+    s.tags.forEach(function(t) { tags[t] = (tags[t] || 0) + 1; });
+  });
+  var html = '<button class="filter-btn active" onclick="setFilter(\'all\', this)">All</button>';
+  Object.keys(tags).forEach(function(t) {
+    html += '<button class="filter-btn" onclick="setFilter(\'' + t + '\', this)">' + t + '</button>';
+  });
+  document.getElementById('filterBar').innerHTML = html;
+}
+
+function getFiltered() {
+  if (activeFilter === 'all') return SKILLS_DATA;
+  return SKILLS_DATA.filter(function(s) { return s.tags.indexOf(activeFilter) !== -1; });
+}
+
+function renderCards() {
+  var filtered = getFiltered();
+  var html = '';
+  filtered.forEach(function(s) {
+    var tagHtml = '';
+    s.tags.forEach(function(t) { tagHtml += '<span class="tag-badge">' + t + '</span>'; });
+
+    var learnHtml = '<ul class="skill-learnings">';
+    s.learnings.forEach(function(l) { learnHtml += '<li>' + l + '</li>'; });
+    learnHtml += '</ul>';
+
+    var diffClass = s.difficulty.toLowerCase();
+
+    html += '<div class="skill-card">' +
+      '<div class="skill-tags">' + tagHtml + '</div>' +
+      '<h3 class="skill-title">' + s.title + '</h3>' +
+      '<p class="skill-desc">' + s.description + '</p>' +
+      learnHtml +
+      '<div class="skill-meta">' +
+        '<span class="difficulty-badge ' + diffClass + '">' + s.difficulty + '</span>' +
+        '<span class="skill-time">' + s.time + '</span>' +
+        '<a href="' + s.downloadUrl + '" class="action-btn">Download Skill</a>' +
+      '</div>' +
+    '</div>';
+  });
+  document.getElementById('cardsContainer').innerHTML = '<div class="skills-grid">' + html + '</div>';
+}
+
+// ============ INTERACTIONS ============
+function setFilter(tag, btn) {
+  activeFilter = tag;
+  document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  renderCards();
+}
+
+// ============ INIT ============
+renderStats();
+renderFilters();
+renderCards();
+
+// ============ THEME & SCROLL ============
 (function() {
   var root = document.documentElement;
   var floatingToggle = document.getElementById('floatingThemeToggle');
