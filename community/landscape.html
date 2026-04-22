@@ -275,6 +275,19 @@ body {
 .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 .legend-star { color: #eab308; font-size: 13px; }
 
+/* ============ SANDBOX BANNER ============ */
+.sandbox-banner {
+  background: rgba(0,255,65,0.06); border-bottom: 1px solid rgba(0,255,65,0.15);
+  padding: 10px 24px; text-align: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--text-dim); display: none;
+}
+.sandbox-banner.visible { display: block; }
+.sandbox-banner a {
+  color: var(--green); text-decoration: none; font-weight: 700;
+}
+.sandbox-banner a:hover { text-decoration: underline; }
+
 /* ============ FOOTER ============ */
 .footer {
   padding: 40px 24px; border-top: 1px solid var(--border); text-align: center;
@@ -351,10 +364,11 @@ body {
 <body>
 
 <div class="scroll-progress" id="scrollProgress"></div>
+<div class="sandbox-banner" id="sandboxBanner">Viewing free preview &mdash; <a href="https://whop.com/ai-ops-forge/">Join the community</a> for the full library</div>
 <button class="floating-theme-toggle" id="floatingThemeToggle">&#9728;</button>
 
 <div class="container">
-  <a href="/community/" class="back-link">&larr; back to hub</a>
+  <a href="/community/" class="back-link" id="hubLink">&larr; back to hub</a>
   <div class="page-header">
     <div class="page-label">landscape</div>
     <h1 class="page-title">AI Tools Landscape</h1>
@@ -390,7 +404,8 @@ body {
 
 <script>
 // ============ AUTH REDIRECT ============
-if (sessionStorage.getItem('aof_cw_auth') !== '1') {
+var SANDBOX_MODE = sessionStorage.getItem('aof_sandbox') === '1';
+if (!SANDBOX_MODE && sessionStorage.getItem('aof_cw_auth') !== '1') {
   window.location.href = '/community/';
 }
 
@@ -921,6 +936,13 @@ document.getElementById('catSidebar').addEventListener('click', function(e) {
     bar.style.width = (pct > 0 ? (window.scrollY / pct) * 100 : 0) + '%';
   }, { passive: true });
 })();
+
+// ============ SANDBOX MODE ============
+if (SANDBOX_MODE) {
+  document.getElementById('sandboxBanner').classList.add('visible');
+  document.getElementById('hubLink').href = '/sandbox/';
+  document.getElementById('hubLink').innerHTML = '&larr; back to sandbox';
+}
 
 // ============ INIT ============
 renderStats();

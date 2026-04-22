@@ -125,89 +125,32 @@ body {
   color: var(--accent);
 }
 
-/* ============ WORKFLOW CARDS ============ */
-.cards-container { padding-bottom: 60px; }
-.workflow-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  padding: 24px; margin-bottom: 16px; transition: border-color 0.2s;
+/* ============ INDEX GRID ============ */
+.index-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px; padding-bottom: 60px;
 }
-.workflow-card:hover { border-color: var(--border-green); }
-.workflow-tags { margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
-.tag-badge {
+.index-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  padding: 24px; cursor: pointer; transition: all 0.2s;
+  text-decoration: none; color: inherit; display: flex;
+  flex-direction: column; gap: 12px;
+}
+.index-card:hover {
+  border-color: var(--border-green); background: var(--bg-card-hover);
+}
+.index-card-top {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.index-card-tag {
   font-family: 'JetBrains Mono', monospace; font-size: 9px;
-  letter-spacing: 0.5px; text-transform: uppercase;
-  padding: 2px 8px; border: 1px solid var(--border);
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 3px 8px; border: 1px solid var(--border);
   color: var(--text-dim); background: var(--bg-tertiary);
 }
-.workflow-title {
-  font-family: 'Space Grotesk', sans-serif; font-size: 18px;
-  font-weight: 700; margin-bottom: 6px;
-}
-.workflow-desc {
-  font-size: 13px; color: var(--text-secondary); line-height: 1.6;
-  margin-bottom: 16px;
-}
-
-/* ============ PIPELINE ============ */
-.workflow-pipeline {
-  display: flex; align-items: stretch; gap: 0;
-  overflow-x: auto; padding: 8px 0 16px;
-  -webkit-overflow-scrolling: touch;
-}
-.workflow-pipeline::-webkit-scrollbar { height: 4px; }
-.workflow-pipeline::-webkit-scrollbar-track { background: var(--bg-tertiary); }
-.workflow-pipeline::-webkit-scrollbar-thumb { background: var(--border); }
-.workflow-step {
-  display: flex; align-items: center; flex-shrink: 0;
-}
-.step-box {
-  background: var(--bg-tertiary); border: 1px solid var(--border);
-  padding: 12px 16px; min-width: 130px; text-align: center;
-  transition: border-color 0.2s;
-}
-.step-box:hover { border-color: var(--border-green); }
-.step-num {
-  font-family: 'JetBrains Mono', monospace; font-size: 9px;
-  color: var(--accent); letter-spacing: 1px; margin-bottom: 4px;
-  text-transform: uppercase;
-}
-.step-name {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  font-weight: 700; color: var(--text-primary); margin-bottom: 4px;
-}
-.step-tool {
-  font-family: 'JetBrains Mono', monospace; font-size: 9px;
-  color: var(--text-dim); letter-spacing: 0.5px;
-}
-.step-arrow {
-  color: var(--accent); font-family: 'JetBrains Mono', monospace;
-  font-size: 16px; padding: 0 10px; flex-shrink: 0;
-}
-
-/* ============ TOOLS ROW ============ */
-.workflow-tools-label {
-  font-family: 'JetBrains Mono', monospace; font-size: 9px;
-  letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim);
-  margin-bottom: 8px;
-}
-.workflow-tools {
-  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px;
-}
-.tool-badge {
-  font-family: 'JetBrains Mono', monospace; font-size: 9px;
-  letter-spacing: 0.5px; padding: 3px 8px;
-  color: var(--accent); border: 1px solid rgba(56, 189, 248, 0.3);
-  background: rgba(56, 189, 248, 0.06);
-}
-
-/* ============ CARD FOOTER ============ */
-.workflow-footer {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border);
-}
 .complexity-badge {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px;
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  letter-spacing: 1px; text-transform: uppercase; padding: 3px 8px;
 }
 .complexity-badge.beginner {
   color: var(--green); border: 1px solid rgba(0, 255, 65, 0.3);
@@ -221,14 +164,204 @@ body {
   color: #ff4444; border: 1px solid rgba(255, 68, 68, 0.3);
   background: rgba(255, 68, 68, 0.06);
 }
-.action-btn {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  letter-spacing: 1px; padding: 8px 16px;
-  background: transparent; border: 1px solid rgba(56, 189, 248, 0.4);
-  color: var(--accent); cursor: pointer; transition: all 0.2s;
-  text-decoration: none;
+.index-card-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: 17px;
+  font-weight: 700; line-height: 1.3;
 }
-.action-btn:hover { background: rgba(56, 189, 248, 0.08); }
+.index-card-desc {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+  flex: 1;
+}
+.index-card-meta {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  color: var(--text-dim); padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+/* ============ DETAIL VIEW ============ */
+.detail-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  color: var(--text-dim); text-decoration: none; cursor: pointer;
+  transition: color 0.2s; padding: 24px 0 0; border: none;
+  background: none;
+}
+.detail-back:hover { color: var(--green); }
+.detail-hero {
+  padding: 40px 0 32px; position: relative;
+}
+.detail-hero::before {
+  content: ''; position: absolute; top: -20px; left: 0;
+  width: 400px; height: 200px;
+  background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.detail-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 12px; position: relative;
+}
+.detail-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 4vw, 36px);
+  font-weight: 700; margin-bottom: 10px; position: relative;
+}
+.detail-desc {
+  color: var(--text-secondary); font-size: 15px;
+  max-width: 700px; line-height: 1.7; margin-bottom: 16px; position: relative;
+}
+.detail-meta-row {
+  display: flex; gap: 12px; align-items: center; position: relative;
+}
+
+/* ============ DETAIL SECTIONS GRID ============ */
+.detail-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 16px; padding-bottom: 60px;
+}
+.detail-section {
+  background: var(--bg-card); border: 1px solid var(--border);
+  padding: 24px; position: relative;
+}
+.detail-section::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--accent);
+}
+.section-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 16px;
+}
+.section-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--accent);
+}
+
+/* ============ SECTION: PIPELINE ============ */
+.pipeline-step {
+  padding: 16px 0; border-bottom: 1px solid var(--border);
+}
+.pipeline-step:last-child { border-bottom: none; }
+.pipeline-step-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 8px;
+}
+.pipeline-step-num {
+  font-family: 'Space Grotesk', sans-serif; font-size: 18px;
+  font-weight: 700; color: var(--accent); min-width: 28px;
+  text-align: center;
+}
+.pipeline-step-title {
+  font-size: 14px; font-weight: 600;
+}
+.pipeline-step-tool {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  padding: 2px 6px; color: var(--accent);
+  border: 1px solid rgba(56,189,248,0.2);
+  background: rgba(56,189,248,0.06);
+  margin-left: auto;
+}
+.pipeline-step-desc {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+  padding-left: 40px;
+}
+
+/* ============ SECTION: REQUIREMENTS ============ */
+.req-sub {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim);
+  margin-bottom: 8px; margin-top: 16px;
+}
+.req-sub:first-child { margin-top: 0; }
+.req-list { display: flex; flex-direction: column; gap: 8px; }
+.req-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; color: var(--text-secondary);
+}
+.req-badge {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  padding: 1px 6px; letter-spacing: 0.5px; text-transform: uppercase;
+}
+.req-badge.free {
+  color: var(--green); border: 1px solid rgba(0,255,65,0.3);
+  background: rgba(0,255,65,0.06);
+}
+.req-badge.paid {
+  color: #eab308; border: 1px solid rgba(234,179,8,0.3);
+  background: rgba(234,179,8,0.06);
+}
+.req-keys {
+  list-style: none; padding: 0;
+}
+.req-keys li {
+  font-size: 13px; color: var(--text-secondary);
+  padding: 3px 0 3px 16px; position: relative;
+}
+.req-keys li::before {
+  content: '>'; position: absolute; left: 0;
+  color: var(--accent); font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+}
+.req-setup {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  color: var(--accent); margin-top: 16px;
+  padding: 8px 12px; background: rgba(56,189,248,0.06);
+  border: 1px solid rgba(56,189,248,0.2);
+  display: inline-block;
+}
+
+/* ============ SECTION: CONFIGURATION ============ */
+.config-step {
+  padding: 14px 0; border-bottom: 1px solid var(--border);
+}
+.config-step:last-child { border-bottom: none; }
+.config-step-header {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 6px;
+}
+.config-step-num {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  color: var(--accent); font-weight: 700;
+}
+.config-step-title {
+  font-size: 14px; font-weight: 600;
+}
+.config-step-desc {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+  padding-left: 28px;
+}
+
+/* ============ SECTION: CUSTOMIZATION ============ */
+.custom-list { display: flex; flex-direction: column; gap: 16px; }
+.custom-item {
+  padding-bottom: 16px; border-bottom: 1px solid var(--border);
+}
+.custom-item:last-child { border-bottom: none; padding-bottom: 0; }
+.custom-num {
+  font-family: 'JetBrains Mono', monospace; font-size: 14px;
+  font-weight: 700; color: var(--accent); display: inline-block;
+  margin-right: 8px;
+}
+.custom-title {
+  font-size: 14px; font-weight: 600; display: inline;
+}
+.custom-desc {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+  margin-top: 6px;
+}
+.placeholder-text {
+  font-size: 13px; color: var(--text-dim); font-style: italic;
+  padding: 20px 0;
+}
+
+/* ============ SANDBOX BANNER ============ */
+.sandbox-banner {
+  background: rgba(0,255,65,0.06); border-bottom: 1px solid rgba(0,255,65,0.15);
+  padding: 10px 24px; text-align: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--text-dim); display: none;
+}
+.sandbox-banner.visible { display: block; }
+.sandbox-banner a {
+  color: var(--green); text-decoration: none; font-weight: 700;
+}
+.sandbox-banner a:hover { text-decoration: underline; }
 
 /* ============ FOOTER ============ */
 .footer {
@@ -243,13 +376,20 @@ body {
 .footer-links { display: flex; gap: 24px; }
 
 /* ============ RESPONSIVE ============ */
+@media (max-width: 900px) {
+  .index-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .detail-grid { grid-template-columns: 1fr; }
+}
 @media (max-width: 600px) {
   .page-header { padding: 40px 0 32px; }
+  .index-grid { grid-template-columns: 1fr; }
   .footer-inner { flex-direction: column; gap: 16px; }
   .stats-row { gap: 24px; }
-  .step-box { min-width: 110px; padding: 10px 12px; }
-  .step-name { font-size: 10px; }
-  .workflow-footer { flex-direction: column; gap: 12px; align-items: flex-start; }
+  .detail-hero { padding: 32px 0 24px; }
+  .detail-meta-row { flex-wrap: wrap; }
+  .pipeline-step-desc { padding-left: 0; }
 }
 </style>
 <script>
@@ -261,20 +401,32 @@ body {
 </head>
 <body>
 <script>
-if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/community/'; }
+var SANDBOX_MODE = sessionStorage.getItem('aof_sandbox') === '1';
+if (!SANDBOX_MODE && sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/community/'; }
 </script>
 <div class="scroll-progress" id="scrollProgress"></div>
+<div class="sandbox-banner" id="sandboxBanner">Viewing free preview &mdash; <a href="https://whop.com/ai-ops-forge/">Join the community</a> for the full library</div>
 <button class="floating-theme-toggle" id="floatingThemeToggle">&#9728;</button>
 <div class="container">
-  <a href="/community/" class="back-link">&larr; back to hub</a>
-  <div class="page-header">
-    <div class="page-label">workflows</div>
-    <h1 class="page-title">Workflows</h1>
-    <p class="page-subtitle">End-to-end automation workflows. Chain tools, models, and agents into repeatable production pipelines.</p>
+  <a href="/community/" class="back-link" id="hubLink">&larr; back to hub</a>
+
+  <!-- INDEX VIEW -->
+  <div id="indexView">
+    <div class="page-header">
+      <div class="page-label">workflows</div>
+      <h1 class="page-title">Workflows</h1>
+      <p class="page-subtitle">End-to-end automation workflows. Chain tools, models, and agents into repeatable production pipelines.</p>
+    </div>
+    <div class="stats-row" id="statsRow"></div>
+    <div class="filter-bar" id="filterBar"></div>
+    <div class="index-grid" id="indexGrid"></div>
   </div>
-  <div class="stats-row" id="statsRow"></div>
-  <div class="filter-bar" id="filterBar"></div>
-  <div class="cards-container" id="cardsContainer"></div>
+
+  <!-- DETAIL VIEW -->
+  <div id="detailView" style="display:none">
+    <div id="detailHeader"></div>
+    <div class="detail-grid" id="detailGrid"></div>
+  </div>
 </div>
 <footer class="footer">
   <div class="footer-inner">
@@ -290,139 +442,603 @@ if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/co
 // ============ DATA ============
 var WORKFLOWS_DATA = [
   {
+    id: 'research-to-blog-pipeline',
     title: 'Research-to-Blog Pipeline',
-    description: 'Automates the full cycle from topic research to published blog post — web research, outline, draft, SEO optimization, and formatting.',
-    steps: [
-      { name: 'Web Research', tool: 'Perplexity API' },
-      { name: 'Outline', tool: 'Claude Sonnet' },
-      { name: 'Draft', tool: 'Claude Opus' },
-      { name: 'SEO Check', tool: 'Custom Script' },
-      { name: 'Publish', tool: 'CMS API' }
-    ],
-    tools: ['Perplexity API', 'Claude Sonnet', 'Claude Opus', 'Custom Script', 'CMS API'],
+    oneLiner: 'Automate the full cycle from topic research to published, SEO-optimized blog post.',
+    category: 'Content',
     complexity: 'Intermediate',
-    downloadUrl: '#',
-    tags: ['Content']
+    steps: [
+      {
+        name: 'Web Research',
+        tool: 'Perplexity API',
+        description: 'Research the topic using AI-powered search. Collect 10-15 relevant sources, extract key facts, statistics, and expert opinions. Output a structured research brief with source URLs and key takeaways organized by theme.'
+      },
+      {
+        name: 'Outline Generation',
+        tool: 'Claude Sonnet',
+        description: 'Generate a structured blog outline from the research brief. Includes 3 title options, H2/H3 section structure, key points per section, target word count per section, and suggested internal link placements.'
+      },
+      {
+        name: 'Draft Writing',
+        tool: 'Claude Opus',
+        description: 'Write the full blog post from the outline and research brief. Incorporates statistics, quotes, and examples from the research. Follows your brand voice guidelines and targets the specified word count. Outputs complete markdown.'
+      },
+      {
+        name: 'SEO Optimization',
+        tool: 'Custom Script',
+        description: 'Run keyword density analysis, verify meta description length (150-160 chars), check heading hierarchy, validate internal link opportunities, score readability (Flesch-Kincaid), and flag missing alt text placeholders.'
+      },
+      {
+        name: 'Format & Publish',
+        tool: 'CMS API',
+        description: 'Convert markdown to your CMS format (WordPress, Ghost, Webflow). Add featured image placeholder, set categories and tags, configure SEO metadata, and schedule or publish immediately.'
+      }
+    ],
+    requirements: {
+      tools: [
+        { name: 'Perplexity API', tier: 'paid', note: '$20/mo Pro plan' },
+        { name: 'Anthropic API', tier: 'paid', note: 'Usage-based pricing' },
+        { name: 'Python 3.9+', tier: 'free', note: '' },
+        { name: 'CMS with API access', tier: 'paid', note: 'WordPress, Ghost, or Webflow' }
+      ],
+      apiKeys: [
+        'Perplexity API key (from perplexity.ai/settings)',
+        'Anthropic API key (from console.anthropic.com)',
+        'CMS API key or OAuth credentials'
+      ],
+      setupTime: '~30 minutes'
+    },
+    configuration: [
+      {
+        title: 'Perplexity Research Setup',
+        instructions: 'Install the Perplexity SDK. Configure search parameters: set focus to "internet" for broad research, limit to 10 sources max per query, enable citation extraction. Set a system prompt that instructs the researcher to prioritize recent data (last 12 months) and credible sources.'
+      },
+      {
+        title: 'Outline Prompt Configuration',
+        instructions: 'Set your target audience profile, brand voice guidelines, and content type (how-to, listicle, guide, opinion). Include your existing top-performing post structures as few-shot examples. Configure word count targets per section type.'
+      },
+      {
+        title: 'Draft Writing Settings',
+        instructions: 'Configure Claude Opus with your brand voice system prompt. Set tone (professional, conversational, technical), total word count target, and your internal link inventory (URLs + anchor text options). Enable chain-of-thought for section transitions.'
+      },
+      {
+        title: 'SEO Parameters',
+        instructions: 'Set target primary keyword, acceptable keyword density range (1-2%), minimum H2 count (4), maximum paragraph length (4 sentences), and Flesch-Kincaid target (60-70 for general audience, 40-50 for technical). Configure your sitemap URL for internal link validation.'
+      },
+      {
+        title: 'CMS Integration',
+        instructions: 'Configure your CMS API endpoint and authentication method. Set default post status (draft vs. published), default categories, and tag extraction rules. For WordPress: install the REST API plugin. For Ghost: generate an Admin API key from Settings > Integrations.'
+      }
+    ],
+    customizations: [
+      {
+        title: 'Add AI Image Generation',
+        description: 'Insert an image generation step between Draft and SEO. Use DALL-E 3 or Midjourney to generate hero images and section illustrations from the blog content.',
+        changes: 'Add a new pipeline step that extracts key visual concepts from each H2 section, generates image prompts, calls the image API, and inserts image placeholders in the markdown with alt text.'
+      },
+      {
+        title: 'Lower-Cost Research Alternative',
+        description: 'Replace Perplexity API with Google Custom Search API + Jina Reader for a fraction of the cost.',
+        changes: 'Swap the research step to use Google CSE for URL discovery ($5/1000 queries) and Jina Reader API (free tier available) for content extraction. Adjust the research prompt to handle raw extracted text instead of structured Perplexity output.'
+      },
+      {
+        title: 'Add Human Review Gate',
+        description: 'Insert a human review step between Draft and SEO for editorial sign-off before optimization.',
+        changes: 'After draft generation, send the post to a Slack channel or email with an approve/reject workflow. Only proceed to SEO optimization after human approval. Track review turnaround time in metrics.'
+      },
+      {
+        title: 'Content Calendar Mode',
+        description: 'Batch-generate multiple posts by feeding the pipeline a content calendar instead of a single topic.',
+        changes: 'Replace single-topic input with a CSV/JSON content calendar (topic, keyword, target date, category per row). Loop the full pipeline per entry with rate limiting. Output a scheduling manifest for your CMS.'
+      }
+    ]
   },
   {
+    id: 'code-review-automation',
     title: 'Code Review Automation',
-    description: 'Automated PR review pipeline — extracts diffs, analyzes code quality, posts review comments, and logs metrics for team tracking.',
-    steps: [
-      { name: 'PR Webhook', tool: 'GitHub Actions' },
-      { name: 'Diff Extract', tool: 'Git API' },
-      { name: 'Code Analysis', tool: 'Claude Code' },
-      { name: 'Post Review', tool: 'GitHub API' },
-      { name: 'Log Metrics', tool: 'Datastore' }
-    ],
-    tools: ['GitHub Actions', 'Git API', 'Claude Code', 'GitHub API', 'Datastore'],
+    oneLiner: 'Automated PR review pipeline that posts inline comments with severity levels and team metrics.',
+    category: 'Engineering',
     complexity: 'Advanced',
-    downloadUrl: '#',
-    tags: ['Engineering']
+    steps: [
+      {
+        name: 'PR Webhook',
+        tool: 'GitHub Actions',
+        description: 'Trigger on pull_request events (opened, synchronize). Filter by file patterns — ignore docs, config files, and lockfiles. Extract PR metadata: author, branch, description, labels, and linked issues.'
+      },
+      {
+        name: 'Diff Extraction',
+        tool: 'Git API',
+        description: 'Fetch the full diff via GitHub API. Parse into per-file change sets with added/removed/modified line context (3 lines surrounding each change). Filter out generated files, lockfiles, and binary assets.'
+      },
+      {
+        name: 'Code Analysis',
+        tool: 'Claude Code',
+        description: 'Send diff + surrounding file context to Claude. Analyze for: bugs, security vulnerabilities (OWASP Top 10), performance issues, style violations, missing tests, and incomplete error handling. Generate inline review comments with severity levels (critical, warning, suggestion).'
+      },
+      {
+        name: 'Post Review',
+        tool: 'GitHub API',
+        description: 'Post review comments as a GitHub PR review. Map each comment to the specific file path and line number. Add a summary comment with overall assessment score. Set review status: approve (0 critical), request changes (1+ critical), or comment.'
+      },
+      {
+        name: 'Log Metrics',
+        tool: 'Datastore',
+        description: 'Record per-review metrics: review duration, issues found by severity, files analyzed, lines of code reviewed, model API cost. Aggregate into weekly team dashboards showing trends and top issue categories.'
+      }
+    ],
+    requirements: {
+      tools: [
+        { name: 'GitHub Actions', tier: 'free', note: 'Free for public repos' },
+        { name: 'Anthropic API', tier: 'paid', note: 'Usage-based pricing' },
+        { name: 'GitHub API', tier: 'free', note: 'Via GitHub PAT' },
+        { name: 'PostgreSQL or BigQuery', tier: 'paid', note: 'For metrics storage' }
+      ],
+      apiKeys: [
+        'GitHub PAT with repo scope and pull_request write permission',
+        'Anthropic API key (from console.anthropic.com)',
+        'Database connection string for metrics storage'
+      ],
+      setupTime: '~45 minutes'
+    },
+    configuration: [
+      {
+        title: 'GitHub Action Workflow',
+        instructions: 'Create .github/workflows/ai-review.yml. Set trigger conditions: on pull_request types [opened, synchronize]. Define file pattern filters to exclude docs/**, *.md, *.lock, and generated files. Add environment secrets for API keys.'
+      },
+      {
+        title: 'Diff Extraction Settings',
+        instructions: 'Configure max diff size (recommend 5,000 lines — skip larger PRs with a comment explaining why). Set excluded file patterns: lockfiles, generated code, vendor directories, test fixtures. Include 3 lines of context around each change for the analyzer.'
+      },
+      {
+        title: 'Analysis Prompt Configuration',
+        instructions: 'Set the review system prompt with your team\'s coding standards, preferred patterns, and known antipatterns. Configure severity thresholds: what counts as critical vs. warning vs. suggestion. Set max comments per review (recommend 10-15 to avoid noise). Include your tech stack context (language, framework, conventions).'
+      },
+      {
+        title: 'Review Posting Rules',
+        instructions: 'Configure review format: inline comments for specific issues, summary comment for overall assessment. Set auto-approve threshold (e.g., 0 critical + 0 warning = auto-approve). Configure notification settings: tag PR author on critical findings, tag security team on security issues.'
+      },
+      {
+        title: 'Metrics & Dashboards',
+        instructions: 'Set up the metrics database table with columns: pr_id, review_time_ms, criticals, warnings, suggestions, files_count, lines_count, api_cost_usd, created_at. Configure a weekly digest cron job that sends a summary to your team Slack channel with trends and top issue categories.'
+      }
+    ],
+    customizations: [
+      {
+        title: 'Auto-Fix Suggestions',
+        description: 'Instead of just flagging issues, generate corrected code that the author can apply with one click.',
+        changes: 'Add a second Claude call per critical/warning finding that generates a GitHub Suggested Change block. Post these as suggestion comments so authors can accept them directly in the PR UI.'
+      },
+      {
+        title: 'Linter-Aware Analysis',
+        description: 'Integrate with your existing linter/formatter to only flag issues that automated tools miss.',
+        changes: 'Run ESLint/Prettier/Pylint first in the GitHub Action, capture their output, and include it in the Claude prompt with instructions: "These issues are already flagged by our linter. Focus only on issues beyond what these tools catch."'
+      },
+      {
+        title: 'Team-Specific Rules',
+        description: 'Load your team\'s coding standards document into the analysis prompt for domain-specific reviews.',
+        changes: 'Store your coding standards as a markdown file in the repo (e.g., docs/CODING_STANDARDS.md). Read this file in the GitHub Action and append it to the system prompt. This ensures reviews align with your specific conventions.'
+      },
+      {
+        title: 'Security Alert Routing',
+        description: 'Route critical security findings to a separate Slack channel for immediate attention.',
+        changes: 'After posting the review, filter for findings with type "security" and severity "critical". Send these to a dedicated #security-alerts Slack channel via webhook with PR link, finding details, and affected file paths.'
+      }
+    ]
   },
   {
+    id: 'data-quality-monitor',
     title: 'Data Quality Monitor',
-    description: 'Scheduled pipeline that snapshots data, checks for anomalies, routes alerts to Slack, and logs reports for audit trails.',
-    steps: [
-      { name: 'Schedule', tool: 'Cron' },
-      { name: 'Snapshot', tool: 'PostgreSQL' },
-      { name: 'Anomaly Check', tool: 'Python' },
-      { name: 'Alert', tool: 'Slack API' },
-      { name: 'Log Report', tool: 'Google Sheets' }
-    ],
-    tools: ['Cron', 'PostgreSQL', 'Python', 'Slack API', 'Google Sheets'],
+    oneLiner: 'Scheduled pipeline that checks for data anomalies and routes alerts to your team.',
+    category: 'Data',
     complexity: 'Beginner',
-    downloadUrl: '#',
-    tags: ['Data']
+    steps: [
+      {
+        name: 'Schedule',
+        tool: 'Cron',
+        description: 'Trigger the pipeline on a schedule — hourly for critical tables, daily for standard monitoring.'
+      },
+      {
+        name: 'Snapshot',
+        tool: 'PostgreSQL',
+        description: 'Capture key metrics from monitored tables: row counts, null rates, value distributions, freshness timestamps.'
+      },
+      {
+        name: 'Anomaly Check',
+        tool: 'Python',
+        description: 'Compare current snapshot against historical baselines. Flag deviations beyond configured thresholds.'
+      },
+      {
+        name: 'Alert',
+        tool: 'Slack API',
+        description: 'Route anomaly alerts to the appropriate Slack channel based on severity and data domain.'
+      },
+      {
+        name: 'Log Report',
+        tool: 'Google Sheets',
+        description: 'Append the monitoring results to a shared Google Sheet for audit trail and trend analysis.'
+      }
+    ],
+    requirements: {
+      tools: [
+        { name: 'Python 3.9+', tier: 'free', note: '' },
+        { name: 'PostgreSQL', tier: 'free', note: 'Or any SQL database' },
+        { name: 'Slack API', tier: 'free', note: 'Free tier sufficient' },
+        { name: 'Google Sheets API', tier: 'free', note: '' }
+      ],
+      apiKeys: [
+        'Database connection string',
+        'Slack webhook URL',
+        'Google Service Account JSON key'
+      ],
+      setupTime: '~20 minutes'
+    },
+    configuration: [
+      {
+        title: 'Cron Schedule',
+        instructions: 'Configure cron expression for your monitoring frequency. Recommend hourly for production tables, daily for analytics tables.'
+      },
+      {
+        title: 'Table Selection',
+        instructions: 'List the tables to monitor with their key metrics: row count, null rate for critical columns, expected freshness window.'
+      },
+      {
+        title: 'Anomaly Thresholds',
+        instructions: 'Set deviation thresholds per metric: e.g., row count drop >10% = warning, >30% = critical. Null rate increase >5% = warning.'
+      }
+    ],
+    customizations: [
+      {
+        title: 'Add LLM-Powered Root Cause Analysis',
+        description: 'When an anomaly is detected, use Claude to analyze recent changes and suggest root causes.',
+        changes: 'After anomaly detection, query recent schema changes and deployment logs, feed them to Claude with the anomaly data, and include the AI analysis in the Slack alert.'
+      },
+      {
+        title: 'PagerDuty Escalation',
+        description: 'Route critical alerts to PagerDuty instead of Slack for on-call notification.',
+        changes: 'Add a PagerDuty integration step after the anomaly check. Route critical severity alerts to PagerDuty Events API v2, keep warning/info in Slack.'
+      }
+    ]
+  },
+  {
+    id: 'campaign-performance-tracker',
+    title: 'Campaign Performance Tracker',
+    oneLiner: 'Aggregate marketing metrics from multiple platforms into a unified performance dashboard.',
+    category: 'Marketing',
+    complexity: 'Intermediate',
+    steps: [
+      {
+        name: 'Data Pull',
+        tool: 'Platform APIs',
+        description: 'Pull campaign metrics from Google Ads, Meta Ads, LinkedIn, and email platforms via their respective APIs.'
+      },
+      {
+        name: 'Normalize',
+        tool: 'Python',
+        description: 'Standardize metrics across platforms into a common schema: impressions, clicks, conversions, spend, ROAS.'
+      },
+      {
+        name: 'AI Analysis',
+        tool: 'Claude Sonnet',
+        description: 'Generate natural language performance summaries, identify trends, and flag underperforming campaigns.'
+      },
+      {
+        name: 'Dashboard Update',
+        tool: 'Google Sheets',
+        description: 'Push normalized data and AI insights to a shared Google Sheet dashboard with charts and pivot tables.'
+      }
+    ],
+    requirements: {
+      tools: [
+        { name: 'Google Ads API', tier: 'free', note: '' },
+        { name: 'Meta Marketing API', tier: 'free', note: '' },
+        { name: 'Anthropic API', tier: 'paid', note: '' },
+        { name: 'Google Sheets API', tier: 'free', note: '' }
+      ],
+      apiKeys: [
+        'Google Ads developer token',
+        'Meta Marketing API access token',
+        'Anthropic API key',
+        'Google Service Account JSON key'
+      ],
+      setupTime: '~40 minutes'
+    },
+    configuration: [
+      {
+        title: 'Platform Connections',
+        instructions: 'Configure API credentials for each ad platform. Set date range and campaign filters for data pulls.'
+      },
+      {
+        title: 'Metric Normalization',
+        instructions: 'Define mapping rules from each platform\'s metric names to your standard schema. Handle currency conversions if needed.'
+      }
+    ],
+    customizations: [
+      {
+        title: 'Add Budget Reallocation Suggestions',
+        description: 'Use Claude to analyze performance data and suggest budget shifts between campaigns.',
+        changes: 'Add an analysis step that feeds 30-day performance trends to Claude with instructions to recommend budget changes based on ROAS and conversion trends.'
+      }
+    ]
+  },
+  {
+    id: 'incident-response-automation',
+    title: 'Incident Response Automation',
+    oneLiner: 'Automated incident triage pipeline — detect, diagnose, notify, and document in minutes.',
+    category: 'Operations',
+    complexity: 'Advanced',
+    steps: [
+      {
+        name: 'Alert Intake',
+        tool: 'PagerDuty / Datadog',
+        description: 'Receive alerts from monitoring systems via webhook. Deduplicate and classify by service, severity, and impact zone.'
+      },
+      {
+        name: 'Log Collection',
+        tool: 'Datadog / CloudWatch',
+        description: 'Automatically pull relevant logs from the affected service for the time window around the alert trigger.'
+      },
+      {
+        name: 'AI Diagnosis',
+        tool: 'Claude Opus',
+        description: 'Analyze collected logs and metrics. Identify probable root cause, affected services, and blast radius. Generate remediation suggestions.'
+      },
+      {
+        name: 'Notify & Escalate',
+        tool: 'Slack / PagerDuty',
+        description: 'Post a structured incident summary to the incident channel. Page on-call if severity warrants. Create a Jira ticket.'
+      },
+      {
+        name: 'Post-Mortem Draft',
+        tool: 'Claude Sonnet',
+        description: 'Generate a post-mortem document template from the incident data: timeline, root cause, impact, action items.'
+      }
+    ],
+    requirements: {
+      tools: [
+        { name: 'PagerDuty or Datadog', tier: 'paid', note: '' },
+        { name: 'Anthropic API', tier: 'paid', note: '' },
+        { name: 'Slack API', tier: 'free', note: '' },
+        { name: 'Jira API', tier: 'paid', note: '' }
+      ],
+      apiKeys: [
+        'Monitoring platform API key',
+        'Anthropic API key',
+        'Slack webhook URL',
+        'Jira API token'
+      ],
+      setupTime: '~1 hour'
+    },
+    configuration: [
+      {
+        title: 'Alert Routing Rules',
+        instructions: 'Define severity mapping: which alerts trigger the full pipeline vs. notification-only. Set deduplication windows.'
+      },
+      {
+        title: 'Log Collection Scope',
+        instructions: 'Configure which log sources to pull per service. Set time window (recommend 15 minutes before alert to 5 minutes after).'
+      },
+      {
+        title: 'Escalation Policy',
+        instructions: 'Define escalation tiers: P0 pages on-call immediately, P1 sends Slack + creates ticket, P2 logs for daily review.'
+      }
+    ],
+    customizations: [
+      {
+        title: 'Add Automated Runbook Execution',
+        description: 'For known issue types, automatically execute predefined remediation runbooks before paging humans.',
+        changes: 'Maintain a mapping of error signatures to runbook scripts. After AI diagnosis, check if the identified root cause matches a known pattern. If yes, execute the runbook and report the result. Only escalate to humans if auto-remediation fails.'
+      }
+    ]
   }
 ];
 
 // ============ STATE ============
 var activeFilter = 'all';
 
-// ============ RENDER ============
-function renderStats() {
-  var tags = {};
-  WORKFLOWS_DATA.forEach(function(w) {
-    w.tags.forEach(function(t) { tags[t] = true; });
-  });
-  var totalSteps = 0;
-  WORKFLOWS_DATA.forEach(function(w) { totalSteps += w.steps.length; });
-  document.getElementById('statsRow').innerHTML =
-    '<div class="stat-item"><span class="stat-num">' + WORKFLOWS_DATA.length + '</span><span class="stat-label">workflows</span></div>' +
-    '<div class="stat-item"><span class="stat-num">' + totalSteps + '</span><span class="stat-label">steps</span></div>' +
-    '<div class="stat-item"><span class="stat-num">' + Object.keys(tags).length + '</span><span class="stat-label">topics</span></div>';
+// ============ HELPERS ============
+function escapeHtml(str) {
+  var div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
 }
 
-function renderFilters() {
-  var tags = {};
-  WORKFLOWS_DATA.forEach(function(w) {
-    w.tags.forEach(function(t) { tags[t] = (tags[t] || 0) + 1; });
-  });
-  var html = '<button class="filter-btn active" onclick="setFilter(\'all\', this)">All</button>';
-  Object.keys(tags).forEach(function(t) {
-    html += '<button class="filter-btn" onclick="setFilter(\'' + t + '\', this)">' + t + '</button>';
-  });
-  document.getElementById('filterBar').innerHTML = html;
+function findById(id) {
+  for (var i = 0; i < WORKFLOWS_DATA.length; i++) {
+    if (WORKFLOWS_DATA[i].id === id) return WORKFLOWS_DATA[i];
+  }
+  return null;
 }
 
 function getFiltered() {
   if (activeFilter === 'all') return WORKFLOWS_DATA;
-  return WORKFLOWS_DATA.filter(function(w) { return w.tags.indexOf(activeFilter) !== -1; });
+  return WORKFLOWS_DATA.filter(function(w) { return w.category === activeFilter; });
 }
 
-function renderCards() {
+// ============ ROUTING ============
+function route() {
+  var hash = window.location.hash.slice(1);
+  var item = hash ? findById(hash) : null;
+  if (item) {
+    showDetail(item);
+  } else {
+    showIndex();
+  }
+}
+
+function showIndex() {
+  document.getElementById('indexView').style.display = '';
+  document.getElementById('detailView').style.display = 'none';
+  document.title = 'Workflows \u2014 AIOpsForge';
+  renderStats();
+  renderFilters();
+  renderGrid();
+  window.scrollTo(0, 0);
+}
+
+function showDetail(item) {
+  document.getElementById('indexView').style.display = 'none';
+  document.getElementById('detailView').style.display = '';
+  document.title = item.title + ' \u2014 AIOpsForge Workflows';
+  renderDetailHeader(item);
+  renderDetailSections(item);
+  window.scrollTo(0, 0);
+}
+
+function goBack() {
+  history.pushState('', '', window.location.pathname);
+  showIndex();
+}
+
+// ============ INDEX RENDERING ============
+function renderStats() {
+  var cats = {};
+  WORKFLOWS_DATA.forEach(function(w) { cats[w.category] = true; });
+  document.getElementById('statsRow').innerHTML =
+    '<div class="stat-item"><span class="stat-num">' + WORKFLOWS_DATA.length + '</span><span class="stat-label">workflows</span></div>' +
+    '<div class="stat-item"><span class="stat-num">' + Object.keys(cats).length + '</span><span class="stat-label">categories</span></div>';
+}
+
+function renderFilters() {
+  var cats = {};
+  WORKFLOWS_DATA.forEach(function(w) { cats[w.category] = (cats[w.category] || 0) + 1; });
+  var html = '<button class="filter-btn' + (activeFilter === 'all' ? ' active' : '') + '" onclick="setFilter(\'all\', this)">All</button>';
+  Object.keys(cats).forEach(function(c) {
+    html += '<button class="filter-btn' + (activeFilter === c ? ' active' : '') + '" onclick="setFilter(\'' + c + '\', this)">' + c + '</button>';
+  });
+  document.getElementById('filterBar').innerHTML = html;
+}
+
+function renderGrid() {
   var filtered = getFiltered();
   var html = '';
   filtered.forEach(function(w) {
-    var tagHtml = '';
-    w.tags.forEach(function(t) { tagHtml += '<span class="tag-badge">' + t + '</span>'; });
-
-    // Pipeline
-    var pipeHtml = '<div class="workflow-pipeline">';
-    w.steps.forEach(function(step, si) {
-      if (si > 0) pipeHtml += '<span class="step-arrow">&#8594;</span>';
-      pipeHtml += '<div class="step-box">' +
-        '<div class="step-num">step ' + (si + 1) + '</div>' +
-        '<div class="step-name">' + step.name + '</div>' +
-        '<div class="step-tool">' + step.tool + '</div>' +
-      '</div>';
-    });
-    pipeHtml += '</div>';
-
-    // Tool badges
-    var toolsHtml = '<div class="workflow-tools-label">tools used</div><div class="workflow-tools">';
-    w.tools.forEach(function(t) { toolsHtml += '<span class="tool-badge">' + t + '</span>'; });
-    toolsHtml += '</div>';
-
     var compClass = w.complexity.toLowerCase();
-
-    html += '<div class="workflow-card">' +
-      '<div class="workflow-tags">' + tagHtml + '</div>' +
-      '<h3 class="workflow-title">' + w.title + '</h3>' +
-      '<p class="workflow-desc">' + w.description + '</p>' +
-      pipeHtml +
-      toolsHtml +
-      '<div class="workflow-footer">' +
-        '<span class="complexity-badge ' + compClass + '">' + w.complexity + '</span>' +
-        '<a href="' + w.downloadUrl + '" class="action-btn">Download Workflow</a>' +
+    html += '<a class="index-card" href="#' + w.id + '">' +
+      '<div class="index-card-top">' +
+        '<span class="index-card-tag">' + escapeHtml(w.category) + '</span>' +
+        '<span class="complexity-badge ' + compClass + '">' + escapeHtml(w.complexity) + '</span>' +
       '</div>' +
-    '</div>';
+      '<h3 class="index-card-title">' + escapeHtml(w.title) + '</h3>' +
+      '<p class="index-card-desc">' + escapeHtml(w.oneLiner) + '</p>' +
+      '<span class="index-card-meta">' + w.steps.length + ' steps</span>' +
+    '</a>';
   });
-  document.getElementById('cardsContainer').innerHTML = html;
+  if (filtered.length === 0) {
+    html = '<p style="color:var(--text-dim); grid-column:1/-1; text-align:center; padding:40px 0;">No workflows in this category yet.</p>';
+  }
+  document.getElementById('indexGrid').innerHTML = html;
 }
 
-// ============ INTERACTIONS ============
-function setFilter(tag, btn) {
-  activeFilter = tag;
+function setFilter(cat, btn) {
+  activeFilter = cat;
   document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
   btn.classList.add('active');
-  renderCards();
+  renderGrid();
 }
 
-// ============ INIT ============
-renderStats();
-renderFilters();
-renderCards();
+// ============ DETAIL RENDERING ============
+function renderDetailHeader(item) {
+  var compClass = item.complexity.toLowerCase();
+  document.getElementById('detailHeader').innerHTML =
+    '<button class="detail-back" onclick="goBack()">&larr; back to all workflows</button>' +
+    '<div class="detail-hero">' +
+      '<div class="detail-tag">' + escapeHtml(item.category) + '</div>' +
+      '<h1 class="detail-title">' + escapeHtml(item.title) + '</h1>' +
+      '<p class="detail-desc">' + escapeHtml(item.oneLiner) + '</p>' +
+      '<div class="detail-meta-row">' +
+        '<span class="complexity-badge ' + compClass + '">' + escapeHtml(item.complexity) + '</span>' +
+        '<span style="font-family:JetBrains Mono,monospace;font-size:11px;color:var(--text-dim)">' + item.steps.length + ' steps</span>' +
+      '</div>' +
+    '</div>';
+}
+
+function renderDetailSections(item) {
+  var html = '';
+
+  // Section 1: PIPELINE
+  html += '<div class="detail-section">' +
+    '<div class="section-header"><span class="section-label">pipeline</span></div>';
+  if (item.steps && item.steps.length > 0) {
+    item.steps.forEach(function(step, i) {
+      html += '<div class="pipeline-step">' +
+        '<div class="pipeline-step-header">' +
+          '<span class="pipeline-step-num">' + (i + 1) + '</span>' +
+          '<span class="pipeline-step-title">' + escapeHtml(step.name) + '</span>' +
+          '<span class="pipeline-step-tool">' + escapeHtml(step.tool) + '</span>' +
+        '</div>' +
+        '<div class="pipeline-step-desc">' + escapeHtml(step.description) + '</div>' +
+      '</div>';
+    });
+  }
+  html += '</div>';
+
+  // Section 2: REQUIREMENTS
+  html += '<div class="detail-section">' +
+    '<div class="section-header"><span class="section-label">requirements</span></div>';
+  if (item.requirements) {
+    html += '<div class="req-sub">tools</div><div class="req-list">';
+    item.requirements.tools.forEach(function(t) {
+      html += '<div class="req-item">' +
+        '<span class="req-badge ' + t.tier + '">' + t.tier + '</span>' +
+        '<span>' + escapeHtml(t.name) + (t.note ? ' — ' + escapeHtml(t.note) : '') + '</span>' +
+      '</div>';
+    });
+    html += '</div>';
+    if (item.requirements.apiKeys && item.requirements.apiKeys.length > 0) {
+      html += '<div class="req-sub">api keys needed</div><ul class="req-keys">';
+      item.requirements.apiKeys.forEach(function(k) {
+        html += '<li>' + escapeHtml(k) + '</li>';
+      });
+      html += '</ul>';
+    }
+    if (item.requirements.setupTime) {
+      html += '<div class="req-setup">setup time: ' + escapeHtml(item.requirements.setupTime) + '</div>';
+    }
+  } else {
+    html += '<p class="placeholder-text">Requirements will be documented as this workflow is developed.</p>';
+  }
+  html += '</div>';
+
+  // Section 3: CONFIGURATION
+  html += '<div class="detail-section">' +
+    '<div class="section-header"><span class="section-label">configuration</span></div>';
+  if (item.configuration && item.configuration.length > 0) {
+    item.configuration.forEach(function(c, i) {
+      html += '<div class="config-step">' +
+        '<div class="config-step-header">' +
+          '<span class="config-step-num">' + (i + 1) + '.</span>' +
+          '<span class="config-step-title">' + escapeHtml(c.title) + '</span>' +
+        '</div>' +
+        '<div class="config-step-desc">' + escapeHtml(c.instructions) + '</div>' +
+      '</div>';
+    });
+  } else {
+    html += '<p class="placeholder-text">Configuration guide coming soon.</p>';
+  }
+  html += '</div>';
+
+  // Section 4: CUSTOMIZATION
+  html += '<div class="detail-section">' +
+    '<div class="section-header"><span class="section-label">customization</span></div>';
+  if (item.customizations && item.customizations.length > 0) {
+    html += '<div class="custom-list">';
+    item.customizations.forEach(function(c, i) {
+      html += '<div class="custom-item">' +
+        '<span class="custom-num">' + (i + 1) + '</span>' +
+        '<span class="custom-title">' + escapeHtml(c.title) + '</span>' +
+        '<div class="custom-desc">' + escapeHtml(c.description) +
+          (c.changes ? '<br><br><strong style="color:var(--text-primary)">What to change:</strong> ' + escapeHtml(c.changes) : '') +
+        '</div>' +
+      '</div>';
+    });
+    html += '</div>';
+  } else {
+    html += '<p class="placeholder-text">Customization options coming soon.</p>';
+  }
+  html += '</div>';
+
+  document.getElementById('detailGrid').innerHTML = html;
+}
 
 // ============ THEME & SCROLL ============
 (function() {
@@ -452,6 +1068,18 @@ renderCards();
     }, { passive: true });
   }
 })();
+
+// ============ SANDBOX MODE ============
+if (SANDBOX_MODE) {
+  WORKFLOWS_DATA = WORKFLOWS_DATA.filter(function(w) { return w.id === 'research-to-blog-pipeline'; });
+  document.getElementById('sandboxBanner').classList.add('visible');
+  document.getElementById('hubLink').href = '/sandbox/';
+  document.getElementById('hubLink').innerHTML = '&larr; back to sandbox';
+}
+
+// ============ INIT ============
+window.addEventListener('hashchange', route);
+route();
 </script>
 </body>
 </html>

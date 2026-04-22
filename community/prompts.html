@@ -125,69 +125,189 @@ body {
   color: var(--accent);
 }
 
-/* ============ PROMPT CARDS ============ */
-.cards-container { padding-bottom: 60px; }
-.prompt-card {
+/* ============ INDEX GRID ============ */
+.index-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px; padding-bottom: 60px;
+}
+.index-card {
   background: var(--bg-card); border: 1px solid var(--border);
-  padding: 24px; margin-bottom: 16px; transition: border-color 0.2s;
+  padding: 24px; cursor: pointer; transition: all 0.2s;
+  text-decoration: none; color: inherit; display: flex;
+  flex-direction: column; gap: 12px;
 }
-.prompt-card:hover { border-color: var(--border-green); }
-.prompt-tags { margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
-.tag-badge {
+.index-card:hover {
+  border-color: var(--border-green); background: var(--bg-card-hover);
+}
+.index-card-tag {
   font-family: 'JetBrains Mono', monospace; font-size: 9px;
-  letter-spacing: 0.5px; text-transform: uppercase;
-  padding: 2px 8px; border: 1px solid var(--border);
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 3px 8px; border: 1px solid var(--border);
   color: var(--text-dim); background: var(--bg-tertiary);
+  display: inline-block; align-self: flex-start;
 }
-.prompt-title {
-  font-family: 'Space Grotesk', sans-serif; font-size: 18px;
-  font-weight: 700; margin-bottom: 6px;
+.index-card-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: 17px;
+  font-weight: 700; line-height: 1.3;
 }
-.prompt-desc {
+.index-card-desc {
   font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+  flex: 1;
+}
+.index-card-meta {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  color: var(--text-dim); padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+/* ============ DETAIL VIEW ============ */
+.detail-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  color: var(--text-dim); text-decoration: none; cursor: pointer;
+  transition: color 0.2s; padding: 24px 0 0; border: none;
+  background: none;
+}
+.detail-back:hover { color: var(--green); }
+.detail-hero {
+  padding: 40px 0 32px; position: relative;
+}
+.detail-hero::before {
+  content: ''; position: absolute; top: -20px; left: 0;
+  width: 400px; height: 200px;
+  background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.detail-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 12px; position: relative;
+}
+.detail-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 4vw, 36px);
+  font-weight: 700; margin-bottom: 10px; position: relative;
+}
+.detail-desc {
+  color: var(--text-secondary); font-size: 15px;
+  max-width: 700px; line-height: 1.7; margin-bottom: 16px; position: relative;
+}
+.detail-model {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--text-dim); border: 1px solid var(--border);
+  padding: 4px 12px; display: inline-block; background: var(--bg-tertiary);
+  position: relative;
+}
+
+/* ============ DETAIL SECTIONS GRID ============ */
+.detail-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 16px; padding-bottom: 60px;
+}
+.detail-section {
+  background: var(--bg-card); border: 1px solid var(--border);
+  padding: 24px; position: relative;
+}
+.detail-section::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--accent);
+}
+.section-header {
+  display: flex; justify-content: space-between; align-items: center;
   margin-bottom: 16px;
 }
-.prompt-block {
+.section-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--accent);
+}
+
+/* ============ SECTION: THE PROMPT ============ */
+.prompt-code-block {
   background: var(--bg-tertiary); border: 1px solid var(--border);
   padding: 16px; font-family: 'JetBrains Mono', monospace;
   font-size: 12px; line-height: 1.7; color: var(--text-secondary);
   white-space: pre-wrap; word-break: break-word;
-  max-height: 96px; overflow: hidden; position: relative;
-  cursor: pointer; transition: max-height 0.3s ease;
+  max-height: 340px; overflow-y: auto;
 }
-.prompt-block.expanded { max-height: 2000px; }
-.prompt-block:not(.expanded)::after {
-  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-  height: 40px;
-  background: linear-gradient(transparent, var(--bg-tertiary));
-  pointer-events: none;
-}
-.prompt-expand {
+.prompt-code-block::-webkit-scrollbar { width: 6px; }
+.prompt-code-block::-webkit-scrollbar-track { background: var(--bg-tertiary); }
+.prompt-code-block::-webkit-scrollbar-thumb { background: var(--border); }
+.copy-btn {
   font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  color: var(--accent); cursor: pointer; margin-top: 8px;
-  letter-spacing: 1px; display: inline-block;
-  transition: color 0.2s;
-}
-.prompt-expand:hover { color: var(--green); }
-.prompt-footer {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border);
-}
-.model-badge {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  color: var(--text-dim); border: 1px solid var(--border);
-  padding: 3px 10px; background: var(--bg-tertiary);
-}
-.action-btn {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  letter-spacing: 1px; padding: 8px 16px;
+  letter-spacing: 1px; padding: 5px 12px; cursor: pointer;
   background: transparent; border: 1px solid rgba(16, 185, 129, 0.4);
-  color: var(--accent); cursor: pointer; transition: all 0.2s;
+  color: var(--accent); transition: all 0.2s;
 }
-.action-btn:hover { background: rgba(16, 185, 129, 0.08); }
-.action-btn.copied {
-  background: rgba(16, 185, 129, 0.12); border-color: var(--accent);
+.copy-btn:hover { background: rgba(16, 185, 129, 0.08); }
+.copy-btn.copied { background: rgba(16, 185, 129, 0.12); border-color: var(--accent); }
+
+/* ============ SECTION: VARIABLES ============ */
+.var-list { display: flex; flex-direction: column; gap: 16px; }
+.var-item {
+  padding-bottom: 16px; border-bottom: 1px solid var(--border);
 }
+.var-item:last-child { border-bottom: none; padding-bottom: 0; }
+.var-name {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  color: var(--accent); margin-bottom: 4px; font-weight: 700;
+}
+.var-desc {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+}
+.var-example {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--text-dim); margin-top: 6px;
+  padding: 4px 8px; background: var(--bg-tertiary);
+  border: 1px solid var(--border); display: inline-block;
+}
+
+/* ============ SECTION: EXAMPLE OUTPUT ============ */
+.example-toggle {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 1px; padding: 5px 12px; cursor: pointer;
+  background: transparent; border: 1px solid var(--border);
+  color: var(--text-dim); transition: all 0.2s;
+}
+.example-toggle:hover { border-color: var(--border-green); color: var(--text-primary); }
+.example-content {
+  background: var(--bg-tertiary); border: 1px solid var(--border);
+  padding: 16px; font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; line-height: 1.7; color: var(--text-secondary);
+  white-space: pre-wrap; word-break: break-word;
+  max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+}
+.example-content.expanded { max-height: 600px; overflow-y: auto; }
+.example-content::-webkit-scrollbar { width: 6px; }
+.example-content::-webkit-scrollbar-track { background: var(--bg-tertiary); }
+.example-content::-webkit-scrollbar-thumb { background: var(--border); }
+.example-placeholder {
+  font-size: 13px; color: var(--text-dim); font-style: italic;
+  padding: 20px 0;
+}
+
+/* ============ SECTION: PRO TIPS ============ */
+.tips-list { display: flex; flex-direction: column; gap: 14px; }
+.tip-item { display: flex; gap: 12px; align-items: flex-start; }
+.tip-num {
+  font-family: 'JetBrains Mono', monospace; font-size: 14px;
+  font-weight: 700; color: var(--accent); min-width: 20px;
+  line-height: 1.6;
+}
+.tip-text {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+}
+
+/* ============ SANDBOX BANNER ============ */
+.sandbox-banner {
+  background: rgba(0,255,65,0.06); border-bottom: 1px solid rgba(0,255,65,0.15);
+  padding: 10px 24px; text-align: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--text-dim); display: none;
+}
+.sandbox-banner.visible { display: block; }
+.sandbox-banner a {
+  color: var(--green); text-decoration: none; font-weight: 700;
+}
+.sandbox-banner a:hover { text-decoration: underline; }
 
 /* ============ FOOTER ============ */
 .footer {
@@ -202,12 +322,19 @@ body {
 .footer-links { display: flex; gap: 24px; }
 
 /* ============ RESPONSIVE ============ */
+@media (max-width: 900px) {
+  .index-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .detail-grid { grid-template-columns: 1fr; }
+}
 @media (max-width: 600px) {
   .page-header { padding: 40px 0 32px; }
+  .index-grid { grid-template-columns: 1fr; }
   .footer-inner { flex-direction: column; gap: 16px; }
   .stats-row { gap: 24px; }
-  .prompt-footer { flex-direction: column; gap: 12px; align-items: flex-start; }
   .filter-bar { gap: 6px; }
+  .detail-hero { padding: 32px 0 24px; }
 }
 </style>
 <script>
@@ -219,20 +346,32 @@ body {
 </head>
 <body>
 <script>
-if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/community/'; }
+var SANDBOX_MODE = sessionStorage.getItem('aof_sandbox') === '1';
+if (!SANDBOX_MODE && sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/community/'; }
 </script>
 <div class="scroll-progress" id="scrollProgress"></div>
+<div class="sandbox-banner" id="sandboxBanner">Viewing free preview &mdash; <a href="https://whop.com/ai-ops-forge/">Join the community</a> for the full library</div>
 <button class="floating-theme-toggle" id="floatingThemeToggle">&#9728;</button>
 <div class="container">
-  <a href="/community/" class="back-link">&larr; back to hub</a>
-  <div class="page-header">
-    <div class="page-label">prompts</div>
-    <h1 class="page-title">Prompts</h1>
-    <p class="page-subtitle">Production-tested prompt library. Copy, adapt, and deploy prompts that actually work at scale.</p>
+  <a href="/community/" class="back-link" id="hubLink">&larr; back to hub</a>
+
+  <!-- INDEX VIEW -->
+  <div id="indexView">
+    <div class="page-header">
+      <div class="page-label">prompts</div>
+      <h1 class="page-title">Prompts</h1>
+      <p class="page-subtitle">Production-tested prompt library. Copy, adapt, and deploy prompts that actually work at scale.</p>
+    </div>
+    <div class="stats-row" id="statsRow"></div>
+    <div class="filter-bar" id="filterBar"></div>
+    <div class="index-grid" id="indexGrid"></div>
   </div>
-  <div class="stats-row" id="statsRow"></div>
-  <div class="filter-bar" id="filterBar"></div>
-  <div class="cards-container" id="cardsContainer"></div>
+
+  <!-- DETAIL VIEW -->
+  <div id="detailView" style="display:none">
+    <div id="detailHeader"></div>
+    <div class="detail-grid" id="detailGrid"></div>
+  </div>
 </div>
 <footer class="footer">
   <div class="footer-inner">
@@ -248,25 +387,173 @@ if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/co
 // ============ DATA ============
 var PROMPTS_DATA = [
   {
+    id: 'system-architecture-reviewer',
     title: 'System Architecture Reviewer',
-    description: 'Evaluates a system design document and returns a structured critique with risks, improvements, and missing components.',
+    oneLiner: 'Get a senior architect-level critique of any system design document.',
+    category: 'Engineering',
+    model: 'Claude Opus 4.7',
     prompt: 'You are a senior systems architect with 15+ years of experience reviewing distributed system designs.\n\nI will provide you with a system design document. Analyze it thoroughly and return a structured review covering:\n\n1. ARCHITECTURE RISKS\n   - List each risk with severity (Critical / High / Medium / Low)\n   - Explain the failure scenario for each risk\n   - Suggest a mitigation strategy\n\n2. MISSING COMPONENTS\n   - Identify any standard components that are absent (monitoring, auth, rate limiting, etc.)\n   - Explain why each missing component matters\n\n3. SCALABILITY BOTTLENECKS\n   - Identify components that will fail first under 10x load\n   - Suggest horizontal vs vertical scaling strategies\n\n4. SECURITY CONCERNS\n   - Check for OWASP Top 10 exposure\n   - Evaluate data flow for encryption gaps\n   - Flag any overly permissive access patterns\n\n5. RECOMMENDED IMPROVEMENTS\n   - Prioritize by impact (High / Medium / Low)\n   - Include estimated implementation effort\n   - Reference industry best practices where applicable\n\nFormat your response as structured markdown with clear headers and bullet points.\n\n---\n\nSystem Design Document:\n{paste_your_design_here}',
-    model: 'Claude Opus 4.7',
-    tags: ['Engineering']
+    variables: [
+      {
+        name: '{paste_your_design_here}',
+        description: 'Your complete system design document. Include architecture diagrams as text descriptions, component inventories, data flow descriptions, technology stack choices, and any constraints or requirements.',
+        example: 'e.g. "Microservices architecture with API Gateway, 3 services (auth, orders, inventory), PostgreSQL, Redis cache, deployed on AWS ECS..."'
+      }
+    ],
+    exampleOutput: '# Architecture Review: E-Commerce Microservices Platform\n\n## 1. ARCHITECTURE RISKS\n\n### Critical\n- **Single Point of Failure: API Gateway**\n  All traffic routes through one gateway instance with no failover.\n  If this component fails, the entire platform goes offline.\n  Mitigation: Deploy in active-active configuration across 2+ AZs\n  with health-check-based failover.\n\n### High\n- **Synchronous Inter-Service Communication**\n  Order service makes synchronous calls to inventory and payment.\n  A timeout in either cascades to order failures.\n  Mitigation: Circuit breaker pattern (Resilience4j) + event-driven\n  architecture for non-critical paths.\n\n## 2. MISSING COMPONENTS\n\n- **Distributed Tracing** — No request tracing across services.\n  Debugging production issues will be extremely difficult without\n  correlation IDs. Recommend: OpenTelemetry + Jaeger.\n\n- **Rate Limiting** — No rate limiting at gateway or service level.\n  Vulnerable to abuse and cascade failures from traffic spikes.\n  Recommend: Token bucket at gateway level.\n\n## 3. SCALABILITY BOTTLENECKS\n\n- **PostgreSQL (Orders DB)** — Single write replica.\n  At 10x current load (~5,000 orders/min), write throughput\n  will saturate. Consider: read replicas for queries, CQRS\n  pattern, or sharding by customer_id.\n\n## 4. SECURITY CONCERNS\n\n- **No mTLS between services** — Internal traffic is unencrypted.\n  Lateral movement risk if any service is compromised.\n\n## 5. RECOMMENDED IMPROVEMENTS\n\n| Priority | Improvement | Effort |\n|----------|-------------|--------|\n| High | Add circuit breakers | 2-3 days |\n| High | Implement distributed tracing | 1 week |\n| Medium | Add rate limiting at gateway | 1-2 days |\n| Medium | Enable mTLS for service mesh | 1 week |',
+    proTips: [
+      'Include your current scale numbers (requests/sec, data volume, user count) — the reviewer calibrates bottleneck analysis to your actual load, not theoretical limits.',
+      'Mention your team size and expertise level — recommendations will account for what you can realistically build and maintain.',
+      'Paste your architecture as structured text (component list + data flow), not just a diagram description — structured input produces structured output.',
+      'If you have a specific concern, state it explicitly at the top — "I\'m worried about database scaling under Black Friday traffic" focuses the review on what matters most.'
+    ]
   },
   {
+    id: 'seo-blog-post-generator',
     title: 'SEO Blog Post Generator',
-    description: 'Generates a complete, SEO-optimized blog post from a topic and target keywords, with meta description and internal linking suggestions.',
-    prompt: 'You are an expert content strategist and SEO specialist.\n\nWrite a complete blog post based on the following inputs:\n\nTOPIC: {your_topic}\nPRIMARY KEYWORD: {main_keyword}\nSECONDARY KEYWORDS: {keyword_1, keyword_2, keyword_3}\nTARGET WORD COUNT: {1500-2500}\nTONE: {professional / conversational / technical}\n\nRequirements:\n\n1. TITLE\n   - Include the primary keyword\n   - Under 60 characters\n   - Use a power word (proven, essential, complete, etc.)\n\n2. META DESCRIPTION\n   - 150-160 characters\n   - Include primary keyword naturally\n   - End with a value proposition or CTA\n\n3. STRUCTURE\n   - Opening hook (2-3 sentences, no fluff)\n   - H2 sections (4-6 main sections)\n   - H3 subsections where depth is needed\n   - Conclusion with clear takeaway\n\n4. SEO RULES\n   - Primary keyword in first 100 words\n   - Secondary keywords distributed naturally (1-2x each)\n   - Short paragraphs (2-4 sentences max)\n   - Use bullet points and numbered lists\n   - Include one data point or statistic per section\n\n5. INTERNAL LINKING\n   - Suggest 3-5 internal link opportunities with anchor text\n   - Format: [anchor text] -> /suggested-slug\n\nOutput the complete post in markdown format.',
+    oneLiner: 'Generate a complete, SEO-optimized blog post with meta tags and internal linking suggestions.',
+    category: 'Content',
     model: 'Claude Sonnet 4.6',
-    tags: ['Content']
+    prompt: 'You are an expert content strategist and SEO specialist.\n\nWrite a complete blog post based on the following inputs:\n\nTOPIC: {your_topic}\nPRIMARY KEYWORD: {main_keyword}\nSECONDARY KEYWORDS: {keyword_1, keyword_2, keyword_3}\nTARGET WORD COUNT: {word_count}\nTONE: {tone}\n\nRequirements:\n\n1. TITLE\n   - Include the primary keyword\n   - Under 60 characters\n   - Use a power word (proven, essential, complete, etc.)\n\n2. META DESCRIPTION\n   - 150-160 characters\n   - Include primary keyword naturally\n   - End with a value proposition or CTA\n\n3. STRUCTURE\n   - Opening hook (2-3 sentences, no fluff)\n   - H2 sections (4-6 main sections)\n   - H3 subsections where depth is needed\n   - Conclusion with clear takeaway\n\n4. SEO RULES\n   - Primary keyword in first 100 words\n   - Secondary keywords distributed naturally (1-2x each)\n   - Short paragraphs (2-4 sentences max)\n   - Use bullet points and numbered lists\n   - Include one data point or statistic per section\n\n5. INTERNAL LINKING\n   - Suggest 3-5 internal link opportunities with anchor text\n   - Format: [anchor text] -> /suggested-slug\n\nOutput the complete post in markdown format.',
+    variables: [
+      {
+        name: '{your_topic}',
+        description: 'The main subject of the blog post. Be specific — the narrower the topic, the better the output.',
+        example: 'e.g. "Next.js App Router migration guide"'
+      },
+      {
+        name: '{main_keyword}',
+        description: 'Primary SEO keyword to target. Use a keyword research tool to find one with decent search volume and manageable competition.',
+        example: 'e.g. "next.js app router migration"'
+      },
+      {
+        name: '{keyword_1, keyword_2, keyword_3}',
+        description: 'Related long-tail keywords. Aim for variants and related queries of your primary keyword.',
+        example: 'e.g. "pages router to app router, next.js 15 routing, react server components migration"'
+      },
+      {
+        name: '{word_count}',
+        description: 'Target word count. 1500 for focused listicles, 2000 for standard guides, 2500 for comprehensive pillar content.',
+        example: 'e.g. "2000"'
+      },
+      {
+        name: '{tone}',
+        description: 'Writing tone that matches your brand voice. Choose professional, conversational, or technical.',
+        example: 'e.g. "technical"'
+      }
+    ],
+    exampleOutput: '# The Complete Guide to Next.js App Router Migration (2026)\n\n**Meta Description:** Learn how to migrate from Next.js\nPages Router to App Router with our step-by-step guide.\nCovers routing, data fetching, and common pitfalls.\nStart migrating today.\n\n---\n\nMoving from Pages Router to App Router isn\'t just an\nupgrade — it\'s a fundamental shift in how you build\nReact applications. After migrating three production\napps, here\'s everything you need to know.\n\n## Why Migrate to App Router Now\n\nThe Pages Router isn\'t deprecated yet, but the writing\nis on the wall. All new Next.js features ship exclusively\nfor App Router. According to the Next.js 2025 survey,\n73% of new projects now start with App Router.\n\n## Step-by-Step Migration Strategy\n\n### 1. Audit Your Current Routes\nBefore touching any code, map every route in your\napplication. Create a spreadsheet with columns:\nroute path, data fetching method, layout dependencies.\n\n### 2. Set Up Parallel Route Structure\nNext.js supports running both routers simultaneously...\n\n## Internal Linking Suggestions\n- [server components guide] -> /blog/react-server-components\n- [data fetching patterns] -> /blog/nextjs-data-fetching\n- [deployment checklist] -> /blog/nextjs-deployment-guide',
+    proTips: [
+      'Feed the AI 2-3 of your top-performing existing posts as style examples before running this prompt — it will match your brand voice much more accurately.',
+      'Always fact-check statistics and data points in the output — AI can hallucinate specific numbers, percentages, and study citations.',
+      'Replace the AI-generated internal linking suggestions with your actual site URLs — use them as anchor text inspiration only.',
+      'Run the output through Clearscope, SurferSEO, or similar to verify keyword optimization scores before publishing.'
+    ]
   },
   {
+    id: 'data-pipeline-error-analyzer',
     title: 'Data Pipeline Error Analyzer',
-    description: 'Diagnoses failures in data pipelines by analyzing error logs and suggesting root causes with remediation steps.',
-    prompt: 'You are a senior data engineer specializing in pipeline reliability and incident response.\n\nI will provide error logs from a data pipeline failure. Analyze them and produce a structured incident report:\n\n1. ERROR CLASSIFICATION\n   - Error type: (Schema / Connection / Timeout / Permission / Data Quality / OOM / Other)\n   - Severity: (P0-Critical / P1-High / P2-Medium / P3-Low)\n   - Blast radius: Which downstream systems are affected?\n\n2. ROOT CAUSE ANALYSIS\n   - Primary cause (most likely)\n   - Contributing factors\n   - Timeline reconstruction: What happened in what order?\n\n3. AFFECTED DATA\n   - Which tables/datasets are impacted?\n   - Data freshness: How stale is the data now?\n   - Are there data integrity concerns (duplicates, missing records)?\n\n4. REMEDIATION STEPS\n   - Immediate fix (stop the bleeding)\n   - Data backfill procedure if needed\n   - Verification queries to confirm fix worked\n\n5. PREVENTION\n   - What monitoring would have caught this earlier?\n   - Suggested alerting rules\n   - Pipeline hardening recommendations\n\nFormat as a structured incident report with clear sections.\n\n---\n\nError Logs:\n{paste_error_logs_here}',
+    oneLiner: 'Diagnose pipeline failures from error logs with structured incident reports.',
+    category: 'Data',
     model: 'Claude Opus 4.7',
-    tags: ['Data']
+    prompt: 'You are a senior data engineer specializing in pipeline reliability and incident response.\n\nI will provide error logs from a data pipeline failure. Analyze them and produce a structured incident report:\n\n1. ERROR CLASSIFICATION\n   - Error type: (Schema / Connection / Timeout / Permission / Data Quality / OOM / Other)\n   - Severity: (P0-Critical / P1-High / P2-Medium / P3-Low)\n   - Blast radius: Which downstream systems are affected?\n\n2. ROOT CAUSE ANALYSIS\n   - Primary cause (most likely)\n   - Contributing factors\n   - Timeline reconstruction: What happened in what order?\n\n3. AFFECTED DATA\n   - Which tables/datasets are impacted?\n   - Data freshness: How stale is the data now?\n   - Are there data integrity concerns (duplicates, missing records)?\n\n4. REMEDIATION STEPS\n   - Immediate fix (stop the bleeding)\n   - Data backfill procedure if needed\n   - Verification queries to confirm fix worked\n\n5. PREVENTION\n   - What monitoring would have caught this earlier?\n   - Suggested alerting rules\n   - Pipeline hardening recommendations\n\nFormat as a structured incident report with clear sections.\n\n---\n\nError Logs:\n{paste_error_logs_here}',
+    variables: [
+      {
+        name: '{paste_error_logs_here}',
+        description: 'Raw error logs from your pipeline failure. Include timestamps, stack traces, and surrounding context logs for better analysis.',
+        example: 'e.g. "2026-04-22 03:14:22 ERROR [airflow.task] Connection refused: warehouse-prod:5439..."'
+      }
+    ],
+    exampleOutput: '# Incident Report: Pipeline Failure\n\n## Error Classification\n- Type: Connection Timeout\n- Severity: P1-High\n- Blast Radius: 3 downstream dashboards,\n  1 ML model training job\n\n## Root Cause\nPrimary: Connection pool exhaustion on\nwarehouse connection. Max pool size (10)\nexceeded during concurrent DAG execution.\n\n## Remediation\n1. Immediate: Restart connection pool,\n   kill stale connections\n2. Backfill: Re-run DAG for missed window\n3. Verify: SELECT count(*) FROM target\n   WHERE load_date = CURRENT_DATE',
+    proTips: [
+      'Include at least 50 lines of log context around the error — the analyzer catches upstream patterns humans miss in large log files.',
+      'Add your pipeline DAG structure or dependency graph if available — it dramatically improves blast radius analysis accuracy.'
+    ]
+  },
+  {
+    id: 'product-launch-email-sequence',
+    title: 'Product Launch Email Sequence',
+    oneLiner: 'Generate a complete 5-email drip sequence for any product launch.',
+    category: 'Marketing',
+    model: 'Claude Sonnet 4.6',
+    prompt: 'You are an expert email marketing strategist with deep experience in SaaS product launches.\n\nCreate a 5-email drip sequence for the following product launch:\n\nPRODUCT NAME: {product_name}\nPRODUCT DESCRIPTION: {product_description}\nTARGET AUDIENCE: {target_audience}\nLAUNCH DATE: {launch_date}\nKEY FEATURES: {key_features}\nPRICE POINT: {price_point}\nTONE: {tone}\n\nFor each email, provide:\n\n1. EMAIL 1: TEASER (7 days before launch)\n   - Subject line (under 50 characters)\n   - Preview text (under 90 characters)\n   - Body copy (150-200 words)\n   - CTA button text\n   - Send timing recommendation\n\n2. EMAIL 2: ANNOUNCEMENT (Launch day)\n   - Subject line with urgency\n   - Preview text\n   - Body copy highlighting top 3 features\n   - Social proof element (even placeholder)\n   - Primary CTA + secondary CTA\n\n3. EMAIL 3: DEEP DIVE (Day 2)\n   - Subject line focused on #1 feature\n   - Use case / scenario walkthrough\n   - Before/after comparison\n   - CTA to try/buy\n\n4. EMAIL 4: SOCIAL PROOF (Day 4)\n   - Subject line with testimonial hook\n   - 2-3 testimonial blocks (write realistic placeholders)\n   - Results/metrics highlight\n   - CTA with scarcity element\n\n5. EMAIL 5: LAST CHANCE (Day 7)\n   - Subject line with deadline urgency\n   - Recap of key value props\n   - FAQ section (3 common objections)\n   - Final CTA with countdown reference\n\nRules:\n- Keep subject lines under 50 characters\n- Each email should work standalone\n- Write in a {tone} tone\n- Optimize for mobile reading (short paragraphs)',
+    variables: [
+      {
+        name: '{product_name}',
+        description: 'Your product or feature name.',
+        example: ''
+      },
+      {
+        name: '{product_description}',
+        description: 'One paragraph describing what your product does and who it helps.',
+        example: ''
+      },
+      {
+        name: '{target_audience}',
+        description: 'Who this product is built for — be specific about role, company size, and pain points.',
+        example: ''
+      },
+      {
+        name: '{launch_date}',
+        description: 'The date you plan to launch. Emails will be timed relative to this.',
+        example: ''
+      },
+      {
+        name: '{key_features}',
+        description: '3-5 main features or benefits to highlight across the sequence.',
+        example: ''
+      },
+      {
+        name: '{price_point}',
+        description: 'Pricing information — helps the AI calibrate urgency and value messaging.',
+        example: ''
+      },
+      {
+        name: '{tone}',
+        description: 'Brand voice. Examples: professional, conversational, bold, minimal.',
+        example: ''
+      }
+    ],
+    exampleOutput: '',
+    proTips: [
+      'Include your brand voice guidelines for consistent tone across all 5 emails — inconsistency kills conversion rates.',
+      'Add your compliance requirements (CAN-SPAM, GDPR) upfront so the generated copy includes required elements.'
+    ]
+  },
+  {
+    id: 'literature-review-synthesizer',
+    title: 'Literature Review Synthesizer',
+    oneLiner: 'Synthesize multiple research papers into a structured, analytical literature review.',
+    category: 'Research',
+    model: 'Claude Opus 4.7',
+    prompt: 'You are an academic researcher and expert literature reviewer.\n\nI will provide you with multiple research papers (abstracts or full text). Synthesize them into a structured literature review.\n\nRESEARCH QUESTION: {research_question}\nFIELD: {field}\nCITATION FORMAT: {citation_format}\n\nPAPERS:\n{research_papers}\n\nProduce a structured literature review covering:\n\n1. INTRODUCTION\n   - State the research question\n   - Explain why this topic matters\n   - Outline the scope and boundaries of the review\n\n2. THEMATIC ANALYSIS\n   - Group papers by theme, methodology, or finding\n   - Don\'t just summarize each paper sequentially\n   - Identify common threads and divergent findings\n   - Note methodological approaches used across studies\n\n3. KEY FINDINGS SYNTHESIS\n   - What do the papers collectively tell us?\n   - Where do findings agree?\n   - Where do findings conflict? Why might this be?\n   - What is the strength of evidence for each major claim?\n\n4. GAPS & LIMITATIONS\n   - What questions remain unanswered?\n   - What methodological limitations are shared?\n   - What populations or contexts are underrepresented?\n   - What assumptions go unchallenged?\n\n5. FUTURE DIRECTIONS\n   - What research should be conducted next?\n   - What methodological improvements would strengthen the field?\n   - What emerging approaches might be applicable?\n\n6. REFERENCE TABLE\n   - Author(s), Year, Method, Sample Size, Key Finding, Limitation\n\nRules:\n- Use {citation_format} formatting for all references\n- Be analytical, not just descriptive — compare and contrast\n- Note the quality and reliability of evidence\n- Flag any potential biases in the source material\n- Maintain academic tone throughout',
+    variables: [
+      {
+        name: '{research_question}',
+        description: 'The central question your literature review addresses.',
+        example: ''
+      },
+      {
+        name: '{field}',
+        description: 'Academic field or domain — helps calibrate terminology and conventions.',
+        example: ''
+      },
+      {
+        name: '{citation_format}',
+        description: 'Citation style to use (APA, IEEE, Chicago, Harvard, MLA).',
+        example: ''
+      },
+      {
+        name: '{research_papers}',
+        description: 'Paste abstracts or full text of 3-10 papers. More papers = richer synthesis.',
+        example: ''
+      }
+    ],
+    exampleOutput: '',
+    proTips: [
+      'Include at least 5 papers for meaningful synthesis — fewer than 3 produces a summary, not a review.',
+      'Specify your citation format upfront to avoid reformatting every reference after generation.'
+    ]
   }
 ];
 
@@ -280,80 +567,183 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
-// ============ RENDER ============
-function renderStats() {
-  var count = activeFilter === 'all' ? PROMPTS_DATA.length : getFiltered().length;
-  var tags = {};
-  PROMPTS_DATA.forEach(function(p) {
-    p.tags.forEach(function(t) { tags[t] = true; });
-  });
-  document.getElementById('statsRow').innerHTML =
-    '<div class="stat-item"><span class="stat-num">' + PROMPTS_DATA.length + '</span><span class="stat-label">prompts</span></div>' +
-    '<div class="stat-item"><span class="stat-num">' + Object.keys(tags).length + '</span><span class="stat-label">topics</span></div>';
-}
-
-function renderFilters() {
-  var tags = {};
-  PROMPTS_DATA.forEach(function(p) {
-    p.tags.forEach(function(t) { tags[t] = (tags[t] || 0) + 1; });
-  });
-  var html = '<button class="filter-btn active" onclick="setFilter(\'all\', this)">All</button>';
-  Object.keys(tags).forEach(function(t) {
-    html += '<button class="filter-btn" onclick="setFilter(\'' + t + '\', this)">' + t + '</button>';
-  });
-  document.getElementById('filterBar').innerHTML = html;
+function findById(id) {
+  for (var i = 0; i < PROMPTS_DATA.length; i++) {
+    if (PROMPTS_DATA[i].id === id) return PROMPTS_DATA[i];
+  }
+  return null;
 }
 
 function getFiltered() {
   if (activeFilter === 'all') return PROMPTS_DATA;
-  return PROMPTS_DATA.filter(function(p) { return p.tags.indexOf(activeFilter) !== -1; });
+  return PROMPTS_DATA.filter(function(p) { return p.category === activeFilter; });
 }
 
-function renderCards() {
-  var filtered = getFiltered();
-  var html = '';
-  filtered.forEach(function(p, i) {
-    var tagHtml = '';
-    p.tags.forEach(function(t) { tagHtml += '<span class="tag-badge">' + t + '</span>'; });
-
-    html += '<div class="prompt-card">' +
-      '<div class="prompt-tags">' + tagHtml + '</div>' +
-      '<h3 class="prompt-title">' + escapeHtml(p.title) + '</h3>' +
-      '<p class="prompt-desc">' + escapeHtml(p.description) + '</p>' +
-      '<div class="prompt-block" id="pb-' + i + '" onclick="togglePrompt(' + i + ')">' + escapeHtml(p.prompt) + '</div>' +
-      '<div class="prompt-expand" onclick="togglePrompt(' + i + ')">&#9654; show full prompt</div>' +
-      '<div class="prompt-footer">' +
-        '<span class="model-badge">best with: ' + escapeHtml(p.model) + '</span>' +
-        '<button class="action-btn" onclick="copyPrompt(' + i + ', this)">Copy Prompt</button>' +
-      '</div>' +
-    '</div>';
-  });
-  document.getElementById('cardsContainer').innerHTML = html;
-}
-
-// ============ INTERACTIONS ============
-function setFilter(tag, btn) {
-  activeFilter = tag;
-  document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
-  btn.classList.add('active');
-  renderCards();
-}
-
-function togglePrompt(idx) {
-  var block = document.getElementById('pb-' + idx);
-  if (!block) return;
-  var toggle = block.nextElementSibling;
-  block.classList.toggle('expanded');
-  if (block.classList.contains('expanded')) {
-    toggle.innerHTML = '&#9660; collapse';
+// ============ ROUTING ============
+function route() {
+  var hash = window.location.hash.slice(1);
+  var item = hash ? findById(hash) : null;
+  if (item) {
+    showDetail(item);
   } else {
-    toggle.innerHTML = '&#9654; show full prompt';
+    showIndex();
   }
 }
 
-function copyPrompt(idx, btn) {
-  var data = getFiltered();
-  var text = data[idx].prompt;
+function showIndex() {
+  document.getElementById('indexView').style.display = '';
+  document.getElementById('detailView').style.display = 'none';
+  document.title = 'Prompts \u2014 AIOpsForge';
+  renderStats();
+  renderFilters();
+  renderGrid();
+  window.scrollTo(0, 0);
+}
+
+function showDetail(item) {
+  document.getElementById('indexView').style.display = 'none';
+  document.getElementById('detailView').style.display = '';
+  document.title = item.title + ' \u2014 AIOpsForge Prompts';
+  renderDetailHeader(item);
+  renderDetailSections(item);
+  window.scrollTo(0, 0);
+}
+
+function goBack() {
+  history.pushState('', '', window.location.pathname);
+  showIndex();
+}
+
+// ============ INDEX RENDERING ============
+function renderStats() {
+  var filtered = getFiltered();
+  var cats = {};
+  PROMPTS_DATA.forEach(function(p) { cats[p.category] = true; });
+  document.getElementById('statsRow').innerHTML =
+    '<div class="stat-item"><span class="stat-num">' + PROMPTS_DATA.length + '</span><span class="stat-label">prompts</span></div>' +
+    '<div class="stat-item"><span class="stat-num">' + Object.keys(cats).length + '</span><span class="stat-label">categories</span></div>';
+}
+
+function renderFilters() {
+  var cats = {};
+  PROMPTS_DATA.forEach(function(p) { cats[p.category] = (cats[p.category] || 0) + 1; });
+  var html = '<button class="filter-btn' + (activeFilter === 'all' ? ' active' : '') + '" onclick="setFilter(\'all\', this)">All</button>';
+  Object.keys(cats).forEach(function(c) {
+    html += '<button class="filter-btn' + (activeFilter === c ? ' active' : '') + '" onclick="setFilter(\'' + c + '\', this)">' + c + '</button>';
+  });
+  document.getElementById('filterBar').innerHTML = html;
+}
+
+function renderGrid() {
+  var filtered = getFiltered();
+  var html = '';
+  filtered.forEach(function(p) {
+    html += '<a class="index-card" href="#' + p.id + '">' +
+      '<span class="index-card-tag">' + escapeHtml(p.category) + '</span>' +
+      '<h3 class="index-card-title">' + escapeHtml(p.title) + '</h3>' +
+      '<p class="index-card-desc">' + escapeHtml(p.oneLiner) + '</p>' +
+      '<span class="index-card-meta">best with: ' + escapeHtml(p.model) + '</span>' +
+    '</a>';
+  });
+  if (filtered.length === 0) {
+    html = '<p style="color:var(--text-dim); grid-column:1/-1; text-align:center; padding:40px 0;">No prompts in this category yet.</p>';
+  }
+  document.getElementById('indexGrid').innerHTML = html;
+}
+
+function setFilter(cat, btn) {
+  activeFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  renderGrid();
+}
+
+// ============ DETAIL RENDERING ============
+function renderDetailHeader(item) {
+  document.getElementById('detailHeader').innerHTML =
+    '<button class="detail-back" onclick="goBack()">&larr; back to all prompts</button>' +
+    '<div class="detail-hero">' +
+      '<div class="detail-tag">' + escapeHtml(item.category) + '</div>' +
+      '<h1 class="detail-title">' + escapeHtml(item.title) + '</h1>' +
+      '<p class="detail-desc">' + escapeHtml(item.oneLiner) + '</p>' +
+      '<span class="detail-model">best with: ' + escapeHtml(item.model) + '</span>' +
+    '</div>';
+}
+
+function renderDetailSections(item) {
+  var html = '';
+
+  // Section 1: THE PROMPT
+  html += '<div class="detail-section">' +
+    '<div class="section-header">' +
+      '<span class="section-label">the prompt</span>' +
+      '<button class="copy-btn" onclick="copyPromptText(this)">Copy</button>' +
+    '</div>' +
+    '<div class="prompt-code-block" id="promptBlock">' + escapeHtml(item.prompt) + '</div>' +
+  '</div>';
+
+  // Section 2: VARIABLES & CUSTOMIZATION
+  html += '<div class="detail-section">' +
+    '<div class="section-header">' +
+      '<span class="section-label">variables & customization</span>' +
+    '</div>';
+  if (item.variables && item.variables.length > 0) {
+    html += '<div class="var-list">';
+    item.variables.forEach(function(v) {
+      html += '<div class="var-item">' +
+        '<div class="var-name">' + escapeHtml(v.name) + '</div>' +
+        '<div class="var-desc">' + escapeHtml(v.description) + '</div>';
+      if (v.example) {
+        html += '<div class="var-example">' + escapeHtml(v.example) + '</div>';
+      }
+      html += '</div>';
+    });
+    html += '</div>';
+  } else {
+    html += '<p class="example-placeholder">No variables documented yet.</p>';
+  }
+  html += '</div>';
+
+  // Section 3: EXAMPLE OUTPUT
+  html += '<div class="detail-section">' +
+    '<div class="section-header">' +
+      '<span class="section-label">example output</span>' +
+      (item.exampleOutput ? '<button class="example-toggle" onclick="toggleExample(this)">&#9654; expand</button>' : '') +
+    '</div>';
+  if (item.exampleOutput) {
+    html += '<div class="example-content" id="exampleContent">' + escapeHtml(item.exampleOutput) + '</div>';
+  } else {
+    html += '<p class="example-placeholder">Example output coming soon. This prompt is a template — content will be added as the library grows.</p>';
+  }
+  html += '</div>';
+
+  // Section 4: PRO TIPS
+  html += '<div class="detail-section">' +
+    '<div class="section-header">' +
+      '<span class="section-label">pro tips</span>' +
+    '</div>';
+  if (item.proTips && item.proTips.length > 0) {
+    html += '<div class="tips-list">';
+    item.proTips.forEach(function(tip, i) {
+      html += '<div class="tip-item">' +
+        '<span class="tip-num">' + (i + 1) + '</span>' +
+        '<span class="tip-text">' + escapeHtml(tip) + '</span>' +
+      '</div>';
+    });
+    html += '</div>';
+  } else {
+    html += '<p class="example-placeholder">Tips coming soon.</p>';
+  }
+  html += '</div>';
+
+  document.getElementById('detailGrid').innerHTML = html;
+}
+
+// ============ INTERACTIONS ============
+function copyPromptText(btn) {
+  var block = document.getElementById('promptBlock');
+  if (!block) return;
+  var text = block.textContent;
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(text).then(function() { showCopied(btn); });
   } else {
@@ -370,15 +760,21 @@ function showCopied(btn) {
   btn.textContent = 'Copied!';
   btn.classList.add('copied');
   setTimeout(function() {
-    btn.textContent = 'Copy Prompt';
+    btn.textContent = 'Copy';
     btn.classList.remove('copied');
   }, 1500);
 }
 
-// ============ INIT ============
-renderStats();
-renderFilters();
-renderCards();
+function toggleExample(btn) {
+  var content = document.getElementById('exampleContent');
+  if (!content) return;
+  content.classList.toggle('expanded');
+  if (content.classList.contains('expanded')) {
+    btn.innerHTML = '&#9660; collapse';
+  } else {
+    btn.innerHTML = '&#9654; expand';
+  }
+}
 
 // ============ THEME & SCROLL ============
 (function() {
@@ -408,6 +804,18 @@ renderCards();
     }, { passive: true });
   }
 })();
+
+// ============ SANDBOX MODE ============
+if (SANDBOX_MODE) {
+  PROMPTS_DATA = PROMPTS_DATA.filter(function(p) { return p.id === 'system-architecture-reviewer'; });
+  document.getElementById('sandboxBanner').classList.add('visible');
+  document.getElementById('hubLink').href = '/sandbox/';
+  document.getElementById('hubLink').innerHTML = '&larr; back to sandbox';
+}
+
+// ============ INIT ============
+window.addEventListener('hashchange', route);
+route();
 </script>
 </body>
 </html>

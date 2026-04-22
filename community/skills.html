@@ -125,52 +125,32 @@ body {
   color: var(--accent);
 }
 
-/* ============ SKILLS GRID ============ */
-.cards-container { padding-bottom: 60px; }
-.skills-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+/* ============ INDEX GRID ============ */
+.index-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px; padding-bottom: 60px;
 }
-.skill-card {
+.index-card {
   background: var(--bg-card); border: 1px solid var(--border);
-  padding: 24px; transition: border-color 0.2s;
-  display: flex; flex-direction: column;
+  padding: 24px; cursor: pointer; transition: all 0.2s;
+  text-decoration: none; color: inherit; display: flex;
+  flex-direction: column; gap: 12px;
 }
-.skill-card:hover { border-color: var(--border-green); }
-.skill-tags { margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
-.tag-badge {
+.index-card:hover {
+  border-color: var(--border-green); background: var(--bg-card-hover);
+}
+.index-card-top {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.index-card-tag {
   font-family: 'JetBrains Mono', monospace; font-size: 9px;
-  letter-spacing: 0.5px; text-transform: uppercase;
-  padding: 2px 8px; border: 1px solid var(--border);
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 3px 8px; border: 1px solid var(--border);
   color: var(--text-dim); background: var(--bg-tertiary);
 }
-.skill-title {
-  font-family: 'Space Grotesk', sans-serif; font-size: 18px;
-  font-weight: 700; margin-bottom: 6px;
-}
-.skill-desc {
-  font-size: 13px; color: var(--text-secondary); line-height: 1.6;
-  margin-bottom: 16px;
-}
-.skill-learnings {
-  list-style: none; margin: 0 0 auto; padding: 0;
-}
-.skill-learnings li {
-  font-size: 13px; color: var(--text-secondary);
-  padding: 4px 0 4px 16px; position: relative; line-height: 1.5;
-}
-.skill-learnings li::before {
-  content: '>'; position: absolute; left: 0;
-  color: var(--accent); font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-}
-.skill-meta {
-  display: flex; align-items: center; gap: 12px;
-  margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--border);
-  flex-wrap: wrap;
-}
 .difficulty-badge {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px;
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  letter-spacing: 1px; text-transform: uppercase; padding: 3px 8px;
 }
 .difficulty-badge.beginner {
   color: var(--green); border: 1px solid rgba(0, 255, 65, 0.3);
@@ -184,18 +164,204 @@ body {
   color: #ff4444; border: 1px solid rgba(255, 68, 68, 0.3);
   background: rgba(255, 68, 68, 0.06);
 }
-.skill-time {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+.index-card-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: 17px;
+  font-weight: 700; line-height: 1.3;
+}
+.index-card-desc {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+  flex: 1;
+}
+.index-card-meta {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  color: var(--text-dim); padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+/* ============ DETAIL VIEW ============ */
+.detail-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  color: var(--text-dim); text-decoration: none; cursor: pointer;
+  transition: color 0.2s; padding: 24px 0 0; border: none;
+  background: none;
+}
+.detail-back:hover { color: var(--green); }
+.detail-hero {
+  padding: 40px 0 32px; position: relative;
+}
+.detail-hero::before {
+  content: ''; position: absolute; top: -20px; left: 0;
+  width: 400px; height: 200px;
+  background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.detail-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 12px; position: relative;
+}
+.detail-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 4vw, 36px);
+  font-weight: 700; margin-bottom: 10px; position: relative;
+}
+.detail-desc {
+  color: var(--text-secondary); font-size: 15px;
+  max-width: 700px; line-height: 1.7; margin-bottom: 16px; position: relative;
+}
+.detail-meta-row {
+  display: flex; gap: 12px; align-items: center; position: relative;
+}
+
+/* ============ DETAIL SECTIONS GRID ============ */
+.detail-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 16px; padding-bottom: 60px;
+}
+.detail-section {
+  background: var(--bg-card); border: 1px solid var(--border);
+  padding: 24px; position: relative;
+}
+.detail-section::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--accent);
+}
+.section-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 16px;
+}
+.section-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--accent);
+}
+
+/* ============ SECTION: OVERVIEW ============ */
+.overview-desc {
+  font-size: 14px; color: var(--text-secondary); line-height: 1.7;
+  margin-bottom: 20px;
+}
+.overview-sub {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim);
+  margin-bottom: 8px; margin-top: 16px;
+}
+.overview-sub:first-of-type { margin-top: 0; }
+.prereq-list { list-style: none; padding: 0; }
+.prereq-list li {
+  font-size: 13px; color: var(--text-secondary);
+  padding: 3px 0 3px 16px; position: relative; line-height: 1.5;
+}
+.prereq-list li::before {
+  content: '>'; position: absolute; left: 0;
+  color: var(--accent); font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+}
+.build-callout {
+  background: var(--bg-tertiary); border: 1px solid var(--border);
+  padding: 12px 16px; font-size: 13px; color: var(--text-secondary);
+  line-height: 1.6; margin-top: 8px;
+}
+
+/* ============ SECTION: MODULES ============ */
+.module-list { display: flex; flex-direction: column; gap: 0; }
+.module-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+}
+.module-item:last-child { border-bottom: none; }
+.module-num {
+  font-family: 'Space Grotesk', sans-serif; font-size: 18px;
+  font-weight: 700; color: var(--accent); min-width: 28px;
+  text-align: center;
+}
+.module-info { flex: 1; }
+.module-title {
+  font-size: 14px; font-weight: 600; margin-bottom: 2px;
+}
+.module-meta {
+  display: flex; gap: 8px; align-items: center;
+}
+.module-time {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
   color: var(--text-dim);
 }
-.action-btn {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  letter-spacing: 1px; padding: 8px 16px;
-  background: transparent; border: 1px solid rgba(234, 179, 8, 0.4);
-  color: var(--accent); cursor: pointer; transition: all 0.2s;
-  text-decoration: none; margin-left: auto;
+.module-type {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  letter-spacing: 0.5px; text-transform: uppercase;
+  padding: 1px 6px; border: 1px solid var(--border);
+  color: var(--text-dim); background: var(--bg-tertiary);
 }
-.action-btn:hover { background: rgba(234, 179, 8, 0.08); }
+.module-type.practice { color: var(--green); border-color: rgba(0,255,65,0.2); }
+.module-type.project { color: var(--accent); border-color: rgba(234,179,8,0.2); }
+
+/* ============ SECTION: KEY CONCEPTS ============ */
+.concept-list { display: flex; flex-direction: column; gap: 16px; }
+.concept-item {
+  padding-bottom: 16px; border-bottom: 1px solid var(--border);
+}
+.concept-item:last-child { border-bottom: none; padding-bottom: 0; }
+.concept-header {
+  display: flex; gap: 8px; align-items: center; margin-bottom: 6px;
+}
+.concept-step {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  padding: 2px 6px; background: rgba(234,179,8,0.08);
+  border: 1px solid rgba(234,179,8,0.2); color: var(--accent);
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.concept-title {
+  font-size: 14px; font-weight: 600;
+}
+.concept-content {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.7;
+}
+
+/* ============ SECTION: EXERCISE ============ */
+.exercise-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: 16px;
+  font-weight: 700; margin-bottom: 12px;
+}
+.exercise-instructions {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.7;
+  margin-bottom: 16px; white-space: pre-wrap;
+}
+.exercise-sub {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim);
+  margin-bottom: 8px; margin-top: 16px;
+}
+.exercise-output {
+  background: var(--bg-tertiary); border: 1px solid var(--border);
+  padding: 12px 16px; font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; line-height: 1.6; color: var(--text-secondary);
+  white-space: pre-wrap; margin-bottom: 16px;
+}
+.criteria-list { list-style: none; padding: 0; }
+.criteria-list li {
+  font-size: 13px; color: var(--text-secondary);
+  padding: 4px 0 4px 20px; position: relative; line-height: 1.5;
+}
+.criteria-list li::before {
+  content: '\2713'; position: absolute; left: 0;
+  color: var(--green); font-size: 12px;
+}
+.placeholder-text {
+  font-size: 13px; color: var(--text-dim); font-style: italic;
+  padding: 20px 0;
+}
+
+/* ============ SANDBOX BANNER ============ */
+.sandbox-banner {
+  background: rgba(0,255,65,0.06); border-bottom: 1px solid rgba(0,255,65,0.15);
+  padding: 10px 24px; text-align: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--text-dim); display: none;
+}
+.sandbox-banner.visible { display: block; }
+.sandbox-banner a {
+  color: var(--green); text-decoration: none; font-weight: 700;
+}
+.sandbox-banner a:hover { text-decoration: underline; }
 
 /* ============ FOOTER ============ */
 .footer {
@@ -210,15 +376,19 @@ body {
 .footer-links { display: flex; gap: 24px; }
 
 /* ============ RESPONSIVE ============ */
-@media (max-width: 700px) {
-  .skills-grid { grid-template-columns: 1fr; }
+@media (max-width: 900px) {
+  .index-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .detail-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 600px) {
   .page-header { padding: 40px 0 32px; }
+  .index-grid { grid-template-columns: 1fr; }
   .footer-inner { flex-direction: column; gap: 16px; }
   .stats-row { gap: 24px; }
-  .skill-meta { flex-direction: column; align-items: flex-start; }
-  .action-btn { margin-left: 0; }
+  .detail-hero { padding: 32px 0 24px; }
+  .detail-meta-row { flex-wrap: wrap; }
 }
 </style>
 <script>
@@ -230,20 +400,32 @@ body {
 </head>
 <body>
 <script>
-if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/community/'; }
+var SANDBOX_MODE = sessionStorage.getItem('aof_sandbox') === '1';
+if (!SANDBOX_MODE && sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/community/'; }
 </script>
 <div class="scroll-progress" id="scrollProgress"></div>
+<div class="sandbox-banner" id="sandboxBanner">Viewing free preview &mdash; <a href="https://whop.com/ai-ops-forge/">Join the community</a> for the full library</div>
 <button class="floating-theme-toggle" id="floatingThemeToggle">&#9728;</button>
 <div class="container">
-  <a href="/community/" class="back-link">&larr; back to hub</a>
-  <div class="page-header">
-    <div class="page-label">skills</div>
-    <h1 class="page-title">Skills</h1>
-    <p class="page-subtitle">Individual AI skill modules. Master one capability at a time — prompting, RAG, fine-tuning, evaluation.</p>
+  <a href="/community/" class="back-link" id="hubLink">&larr; back to hub</a>
+
+  <!-- INDEX VIEW -->
+  <div id="indexView">
+    <div class="page-header">
+      <div class="page-label">skills</div>
+      <h1 class="page-title">Skills</h1>
+      <p class="page-subtitle">Individual AI skill modules. Master one capability at a time — prompting, RAG, fine-tuning, evaluation.</p>
+    </div>
+    <div class="stats-row" id="statsRow"></div>
+    <div class="filter-bar" id="filterBar"></div>
+    <div class="index-grid" id="indexGrid"></div>
   </div>
-  <div class="stats-row" id="statsRow"></div>
-  <div class="filter-bar" id="filterBar"></div>
-  <div class="cards-container" id="cardsContainer"></div>
+
+  <!-- DETAIL VIEW -->
+  <div id="detailView" style="display:none">
+    <div id="detailHeader"></div>
+    <div class="detail-grid" id="detailGrid"></div>
+  </div>
 </div>
 <footer class="footer">
   <div class="footer-inner">
@@ -259,120 +441,493 @@ if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/co
 // ============ DATA ============
 var SKILLS_DATA = [
   {
+    id: 'prompt-engineering-fundamentals',
     title: 'Prompt Engineering Fundamentals',
-    description: 'Master the core techniques for writing effective prompts — system prompts, few-shot examples, chain-of-thought, and output formatting.',
-    learnings: [
-      'Write system prompts that produce consistent, high-quality output',
-      'Use few-shot examples to steer model behavior without fine-tuning',
-      'Apply chain-of-thought reasoning for complex multi-step tasks',
-      'Structure output with JSON, markdown, and schema constraints'
-    ],
+    oneLiner: 'Master the core techniques for writing prompts that produce consistent, production-quality output.',
+    category: 'Prompting',
     difficulty: 'Beginner',
     time: '2 hours',
-    downloadUrl: '#',
-    tags: ['Prompting']
+    overview: {
+      description: 'This skill covers the foundational techniques every AI practitioner needs — from structuring system prompts to using few-shot examples, chain-of-thought reasoning, and output formatting. By the end, you\'ll write prompts that produce consistent, high-quality output every time.',
+      prerequisites: [
+        'Basic familiarity with using an AI chatbot (ChatGPT, Claude, etc.)',
+        'Understanding of what a "prompt" is and how to submit one',
+        'No programming experience required'
+      ],
+      whatYoullBuild: 'A reusable prompt template library for your 5 most common tasks, each using system prompts, few-shot examples, and structured output formatting.'
+    },
+    modules: [
+      { step: 1, title: 'Anatomy of a Prompt', time: '20 min', type: 'concept' },
+      { step: 2, title: 'System Prompts That Work', time: '25 min', type: 'concept' },
+      { step: 3, title: 'Few-Shot Examples', time: '20 min', type: 'practice' },
+      { step: 4, title: 'Chain-of-Thought Reasoning', time: '25 min', type: 'concept' },
+      { step: 5, title: 'Output Formatting & Constraints', time: '15 min', type: 'practice' },
+      { step: 6, title: 'Putting It All Together', time: '15 min', type: 'project' }
+    ],
+    keyConcepts: [
+      {
+        moduleStep: 1,
+        title: 'The Five Elements',
+        content: 'Every effective prompt contains five elements: Role (who the AI is), Task (what to do), Context (background information), Constraints (boundaries and rules), and Format (how to structure the output). Missing any one of these leads to inconsistent results. The most common mistake is jumping straight to the task without setting role or constraints.'
+      },
+      {
+        moduleStep: 2,
+        title: 'Persistent Behavior',
+        content: 'System prompts set the persistent behavior of the model across an entire conversation. Think of them as a personality config — they define expertise, tone, boundaries, and default behaviors. A good system prompt is specific ("You are a senior backend engineer specializing in PostgreSQL optimization") not generic ("You are a helpful assistant").'
+      },
+      {
+        moduleStep: 3,
+        title: 'Show, Don\'t Tell',
+        content: 'Few-shot examples are the most reliable way to show the model what you want. Instead of describing your desired output format in 200 words, show 2-3 examples. The model pattern-matches against your examples with remarkable accuracy. Start with 2 examples; add a 3rd only if consistency improves. More is not always better — 5+ examples can cause overfitting.'
+      },
+      {
+        moduleStep: 4,
+        title: 'Reasoning Steps',
+        content: 'Chain-of-thought prompting asks the model to show its work. Adding "think step by step" or "break this down into steps" improves accuracy on complex tasks by 20-40%. For math, logic, and multi-step analysis, this is not optional — it\'s essential. You can also provide a reasoning structure: "First analyze X, then evaluate Y, then conclude Z."'
+      },
+      {
+        moduleStep: 5,
+        title: 'Structured Output',
+        content: 'Output formatting eliminates post-processing. Instruct the model to return JSON, markdown tables, XML, or any structured format. Use schema constraints when possible — "Return a JSON object with keys: severity (string), description (string), priority (integer 1-5)". For JSON output, adding "Return ONLY valid JSON, no explanation" prevents wrapper text.'
+      },
+      {
+        moduleStep: 6,
+        title: 'Production Assembly',
+        content: 'A production prompt layers all techniques: system prompt (sets role and expertise) + context injection (provides relevant data) + few-shot examples (demonstrates desired output) + chain-of-thought (ensures reasoning quality) + format constraints (guarantees parseable output). Build and test each layer independently before combining.'
+      }
+    ],
+    exercise: {
+      title: 'Build a Code Review Prompt',
+      instructions: 'Create a prompt that reviews code and returns structured feedback in JSON format.\n\nYour prompt must include:\n1. A system prompt defining the reviewer\'s expertise and review philosophy\n2. Two few-shot examples (one good code, one problematic code with findings)\n3. Chain-of-thought instruction for explaining each issue\n4. JSON output schema: array of objects with severity, line, issue, and suggestion fields\n\nTest your prompt against a 20-line function of your choice.',
+      expectedOutput: 'A valid JSON array with 3-5 findings. Each finding has: severity (critical/warning/info), line (number), issue (string), suggestion (string with code fix).',
+      successCriteria: [
+        'All findings have valid severity levels (critical, warning, or info)',
+        'Line numbers reference actual lines in the submitted code',
+        'Suggestions are actionable and include corrected code',
+        'JSON is valid and parseable by JSON.parse()',
+        'No false positives — each finding identifies a real issue'
+      ]
+    }
   },
   {
+    id: 'rag-pipeline-design',
     title: 'RAG Pipeline Design',
-    description: 'Build retrieval-augmented generation pipelines that ground LLM responses in your own data — from chunking to retrieval to synthesis.',
-    learnings: [
-      'Chunk documents effectively for different content types',
-      'Choose the right embedding model for your domain',
-      'Implement hybrid search combining vector and keyword retrieval',
-      'Evaluate retrieval quality with precision, recall, and MRR metrics'
-    ],
+    oneLiner: 'Build retrieval-augmented generation pipelines that ground LLM responses in your own data.',
+    category: 'RAG',
     difficulty: 'Intermediate',
     time: '4 hours',
-    downloadUrl: '#',
-    tags: ['RAG']
+    overview: {
+      description: 'Learn to build retrieval-augmented generation pipelines that ground LLM responses in your own data. Covers the full stack from document ingestion and chunking strategies to embedding models, vector stores, retrieval methods, and answer synthesis with source citations.',
+      prerequisites: [
+        'Basic Python proficiency (functions, loops, dictionaries)',
+        'Familiarity with REST APIs and API keys',
+        'Conceptual understanding of what embeddings are'
+      ],
+      whatYoullBuild: 'A working RAG pipeline that answers natural language questions from a document corpus, with source citations and relevance scoring.'
+    },
+    modules: [
+      { step: 1, title: 'RAG Architecture Overview', time: '15 min', type: 'concept' },
+      { step: 2, title: 'Document Chunking Strategies', time: '25 min', type: 'concept' },
+      { step: 3, title: 'Embedding Models & Vector Stores', time: '30 min', type: 'concept' },
+      { step: 4, title: 'Retrieval Methods', time: '25 min', type: 'practice' },
+      { step: 5, title: 'Answer Synthesis & Grounding', time: '20 min', type: 'concept' },
+      { step: 6, title: 'Evaluation & Iteration', time: '25 min', type: 'project' }
+    ],
+    keyConcepts: [
+      {
+        moduleStep: 1,
+        title: 'The RAG Loop',
+        content: 'RAG = Retrieve relevant context from your data, Augment the prompt with that context, Generate an answer grounded in it. It solves the hallucination problem by giving the model actual source material instead of relying on training data. The quality of your RAG system is 80% retrieval quality, 20% generation quality — if you retrieve the wrong chunks, even the best model produces wrong answers.'
+      },
+      {
+        moduleStep: 2,
+        title: 'Chunking Is Everything',
+        content: 'Chunking is the most underrated step. Too large and you inject irrelevant noise. Too small and you lose context. The sweet spot depends on your content type: 512 tokens for technical documentation, 256 for FAQs and knowledge bases, 1024 for narrative content like reports. Always chunk by semantic boundaries (paragraphs, sections, headers) rather than fixed character counts. Overlap 10-15% between chunks to preserve context at boundaries.'
+      },
+      {
+        moduleStep: 3,
+        title: 'Choosing Embeddings',
+        content: 'Embedding models convert text to vectors for similarity search. Your choice matters more than your vector store choice. Use text-embedding-3-large for general English content, domain-specific models for specialized fields (medical, legal, scientific). Always benchmark on YOUR data — MTEB leaderboard rankings don\'t transfer to every domain. Store metadata (source file, page number, section header) alongside vectors for citation.'
+      },
+      {
+        moduleStep: 4,
+        title: 'Hybrid Retrieval',
+        content: 'Hybrid retrieval (vector similarity + keyword matching) outperforms pure vector search by 15-20% in most benchmarks. Use BM25 for exact term matches (product names, error codes, IDs) combined with vector similarity for semantic understanding. Re-rank the combined results using a cross-encoder model or reciprocal rank fusion. Start with top-5 retrieval; tune based on evaluation.'
+      },
+      {
+        moduleStep: 5,
+        title: 'Grounding & Citations',
+        content: 'Grounding means every claim in the answer maps to a source. Include chunk metadata (source document, page, section) in your context window, then instruct the model: "Cite your sources using [Source: filename, section] format. If the context doesn\'t contain the answer, say so explicitly." This eliminates hallucination and builds user trust.'
+      },
+      {
+        moduleStep: 6,
+        title: 'RAG Evaluation Triad',
+        content: 'Evaluate with three metrics: Answer Relevance (is the answer correct and complete?), Faithfulness (is every claim grounded in the retrieved context?), Context Relevance (did the retriever return the right chunks?). Low faithfulness = generation problem. Low context relevance = retrieval problem. Build a test set of 20+ question-answer pairs from your actual documents and evaluate systematically.'
+      }
+    ],
+    exercise: {
+      title: 'Build a Documentation Q&A System',
+      instructions: 'Given a set of markdown documentation files (use any open-source project\'s docs):\n\n1. Chunk the docs by section headers (H2/H3 boundaries)\n2. Generate embeddings using OpenAI or Cohere embedding API\n3. Store in a vector database (Chroma, Pinecone, or pgvector)\n4. Build a retrieval function returning top-3 most relevant chunks\n5. Write a synthesis prompt that answers questions with source citations\n\nTest with the question: "How do I configure authentication?"',
+      expectedOutput: 'A grounded answer citing the specific documentation file and section, with a confidence indicator and links to source material.',
+      successCriteria: [
+        'Answers reference actual documentation content, not hallucinated information',
+        'Source citations include file name and section header',
+        'Irrelevant chunks are filtered out (relevance threshold applied)',
+        'Response explicitly states when information is not found in the docs',
+        'Answer is concise and directly addresses the question asked'
+      ]
+    }
   },
   {
+    id: 'llm-output-evaluation',
     title: 'LLM Output Evaluation',
-    description: 'Build automated evaluation harnesses that catch hallucinations, measure quality, and compare prompt variants at scale.',
-    learnings: [
-      'Design scoring rubrics for subjective output quality',
-      'Build automated eval pipelines with LLM-as-judge patterns',
-      'Detect hallucinations programmatically using reference grounding',
-      'A/B test prompt variants with statistical significance'
-    ],
+    oneLiner: 'Build automated evaluation harnesses that catch hallucinations and measure quality at scale.',
+    category: 'Evaluation',
     difficulty: 'Advanced',
     time: '3 hours',
-    downloadUrl: '#',
-    tags: ['Evaluation']
+    overview: {
+      description: 'Build automated evaluation harnesses that catch hallucinations, measure output quality, and compare prompt variants at scale. Covers scoring rubrics, LLM-as-judge patterns, reference grounding, and A/B testing with statistical significance.',
+      prerequisites: [
+        'Completed Prompt Engineering Fundamentals or equivalent experience',
+        'Basic understanding of statistics (mean, variance, p-values)',
+        'Python proficiency for building eval pipelines'
+      ],
+      whatYoullBuild: 'An automated evaluation pipeline that scores LLM outputs across multiple dimensions and compares prompt variants.'
+    },
+    modules: [
+      { step: 1, title: 'Why Evals Matter', time: '15 min', type: 'concept' },
+      { step: 2, title: 'Scoring Rubrics', time: '25 min', type: 'concept' },
+      { step: 3, title: 'LLM-as-Judge Patterns', time: '30 min', type: 'practice' },
+      { step: 4, title: 'Hallucination Detection', time: '25 min', type: 'concept' },
+      { step: 5, title: 'A/B Testing Prompts', time: '25 min', type: 'practice' }
+    ],
+    keyConcepts: [
+      {
+        moduleStep: 1,
+        title: 'Vibes Are Not Metrics',
+        content: 'Without systematic evaluation, you\'re optimizing on vibes. Define what "good" means for your use case with measurable criteria: correctness, completeness, tone, format compliance, and latency. Every production prompt needs at least 20 test cases with expected outputs.'
+      },
+      {
+        moduleStep: 3,
+        title: 'Judge Prompt Design',
+        content: 'LLM-as-judge uses a separate model call to score outputs. The judge prompt must be specific: define a 1-5 scale with examples for each score level. Use a different model than the one being evaluated to avoid self-bias. Always include the rubric in the judge prompt — don\'t assume the judge knows your quality criteria.'
+      }
+    ],
+    exercise: {
+      title: 'Build an Eval Harness',
+      instructions: 'Create a Python script that:\n1. Runs a prompt against 10 test inputs\n2. Scores each output using an LLM judge on 3 dimensions\n3. Outputs a summary table with mean scores and pass rates',
+      expectedOutput: 'A summary table showing mean scores per dimension across all test inputs.',
+      successCriteria: [
+        'All 10 test cases produce valid outputs',
+        'Judge scores are on a consistent 1-5 scale',
+        'Summary statistics are correctly calculated'
+      ]
+    }
+  },
+  {
+    id: 'agent-architecture-patterns',
+    title: 'Agent Architecture Patterns',
+    oneLiner: 'Design AI agents with tool use, memory, planning loops, and multi-agent orchestration.',
+    category: 'Agents',
+    difficulty: 'Advanced',
+    time: '5 hours',
+    overview: {
+      description: 'Learn the architectural patterns behind effective AI agents — tool calling, memory management, planning loops, error recovery, and multi-agent orchestration. Move beyond simple chat into systems that take action.',
+      prerequisites: [
+        'Strong prompt engineering skills',
+        'Experience with function calling / tool use APIs',
+        'Familiarity with async programming concepts'
+      ],
+      whatYoullBuild: 'A multi-step agent that researches a topic, synthesizes findings, and produces a structured report with source citations.'
+    },
+    modules: [
+      { step: 1, title: 'Agent vs. Chatbot', time: '15 min', type: 'concept' },
+      { step: 2, title: 'Tool Calling Patterns', time: '30 min', type: 'concept' },
+      { step: 3, title: 'Memory & Context Management', time: '30 min', type: 'practice' },
+      { step: 4, title: 'Planning & Reflection Loops', time: '25 min', type: 'concept' },
+      { step: 5, title: 'Multi-Agent Orchestration', time: '35 min', type: 'concept' },
+      { step: 6, title: 'Build a Research Agent', time: '45 min', type: 'project' }
+    ],
+    keyConcepts: [
+      {
+        moduleStep: 1,
+        title: 'Agency = Action + Autonomy',
+        content: 'An agent is an LLM that can take actions (tool calls), observe results, and decide what to do next without human intervention at each step. The key difference from a chatbot: agents have a loop (observe, think, act, observe) rather than a single request-response.'
+      },
+      {
+        moduleStep: 4,
+        title: 'Plan-Act-Reflect',
+        content: 'The most robust agent pattern: Plan (break the task into steps), Act (execute one step via tool call), Reflect (evaluate the result and update the plan). This prevents agents from going off-track on long tasks. Implement a max-iterations safety valve to prevent infinite loops.'
+      }
+    ],
+    exercise: {
+      title: 'Build a Research Agent',
+      instructions: 'Design an agent that takes a research question and:\n1. Breaks it into sub-questions\n2. Searches for information using a web search tool\n3. Synthesizes findings into a structured report\n4. Includes source URLs for every claim',
+      expectedOutput: 'A structured research report with sections, findings, and cited sources.',
+      successCriteria: [
+        'Agent decomposes the question into relevant sub-questions',
+        'Each finding is backed by a source URL',
+        'The report is coherent and addresses the original question'
+      ]
+    }
+  },
+  {
+    id: 'fine-tuning-foundations',
+    title: 'Fine-tuning Foundations',
+    oneLiner: 'When and how to fine-tune LLMs — dataset preparation, training, and evaluation.',
+    category: 'Fine-tuning',
+    difficulty: 'Intermediate',
+    time: '3 hours',
+    overview: {
+      description: 'Understand when fine-tuning is the right solution (and when it\'s not), how to prepare training datasets, run fine-tuning jobs, and evaluate results. Covers both API-based fine-tuning and open-source model training with LoRA.',
+      prerequisites: [
+        'Solid prompt engineering fundamentals',
+        'Basic Python and JSON proficiency',
+        'Access to OpenAI API or Hugging Face account'
+      ],
+      whatYoullBuild: 'A fine-tuned model for a specific classification or extraction task, with before/after evaluation benchmarks.'
+    },
+    modules: [
+      { step: 1, title: 'When to Fine-tune', time: '20 min', type: 'concept' },
+      { step: 2, title: 'Dataset Preparation', time: '30 min', type: 'practice' },
+      { step: 3, title: 'Training Configuration', time: '25 min', type: 'concept' },
+      { step: 4, title: 'Evaluation & Iteration', time: '25 min', type: 'practice' },
+      { step: 5, title: 'Deployment Considerations', time: '20 min', type: 'concept' }
+    ],
+    keyConcepts: [
+      {
+        moduleStep: 1,
+        title: 'Fine-tuning Decision Framework',
+        content: 'Fine-tune when: you need consistent format/style that prompting can\'t achieve, you have 100+ high-quality examples, latency/cost matters and a smaller fine-tuned model can replace a large base model. Don\'t fine-tune when: few-shot prompting works, your data changes frequently, you have fewer than 50 examples.'
+      },
+      {
+        moduleStep: 2,
+        title: 'Data Quality > Data Quantity',
+        content: '50 perfect examples beat 500 noisy ones. Every training example should be an output you\'d be proud to ship to production. Clean your data ruthlessly: remove duplicates, fix formatting, ensure consistency. Split 80/10/10 into train/validation/test sets.'
+      }
+    ],
+    exercise: {
+      title: 'Fine-tune a Classifier',
+      instructions: 'Prepare a dataset of 100 examples for a text classification task:\n1. Define 3-5 categories relevant to your domain\n2. Write 20+ examples per category in JSONL format\n3. Run a fine-tuning job via the OpenAI API\n4. Compare accuracy against a few-shot prompt baseline',
+      expectedOutput: 'A fine-tuned model with accuracy metrics compared to the baseline prompt approach.',
+      successCriteria: [
+        'Dataset has at least 20 examples per category',
+        'Fine-tuned model accuracy exceeds the few-shot baseline',
+        'Evaluation uses a held-out test set, not training data'
+      ]
+    }
   }
 ];
 
 // ============ STATE ============
 var activeFilter = 'all';
 
-// ============ RENDER ============
-function renderStats() {
-  var tags = {};
-  SKILLS_DATA.forEach(function(s) {
-    s.tags.forEach(function(t) { tags[t] = true; });
-  });
-  document.getElementById('statsRow').innerHTML =
-    '<div class="stat-item"><span class="stat-num">' + SKILLS_DATA.length + '</span><span class="stat-label">skills</span></div>' +
-    '<div class="stat-item"><span class="stat-num">' + Object.keys(tags).length + '</span><span class="stat-label">topics</span></div>';
+// ============ HELPERS ============
+function escapeHtml(str) {
+  var div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
 }
 
-function renderFilters() {
-  var tags = {};
-  SKILLS_DATA.forEach(function(s) {
-    s.tags.forEach(function(t) { tags[t] = (tags[t] || 0) + 1; });
-  });
-  var html = '<button class="filter-btn active" onclick="setFilter(\'all\', this)">All</button>';
-  Object.keys(tags).forEach(function(t) {
-    html += '<button class="filter-btn" onclick="setFilter(\'' + t + '\', this)">' + t + '</button>';
-  });
-  document.getElementById('filterBar').innerHTML = html;
+function findById(id) {
+  for (var i = 0; i < SKILLS_DATA.length; i++) {
+    if (SKILLS_DATA[i].id === id) return SKILLS_DATA[i];
+  }
+  return null;
 }
 
 function getFiltered() {
   if (activeFilter === 'all') return SKILLS_DATA;
-  return SKILLS_DATA.filter(function(s) { return s.tags.indexOf(activeFilter) !== -1; });
+  return SKILLS_DATA.filter(function(s) { return s.category === activeFilter; });
 }
 
-function renderCards() {
+// ============ ROUTING ============
+function route() {
+  var hash = window.location.hash.slice(1);
+  var item = hash ? findById(hash) : null;
+  if (item) {
+    showDetail(item);
+  } else {
+    showIndex();
+  }
+}
+
+function showIndex() {
+  document.getElementById('indexView').style.display = '';
+  document.getElementById('detailView').style.display = 'none';
+  document.title = 'Skills \u2014 AIOpsForge';
+  renderStats();
+  renderFilters();
+  renderGrid();
+  window.scrollTo(0, 0);
+}
+
+function showDetail(item) {
+  document.getElementById('indexView').style.display = 'none';
+  document.getElementById('detailView').style.display = '';
+  document.title = item.title + ' \u2014 AIOpsForge Skills';
+  renderDetailHeader(item);
+  renderDetailSections(item);
+  window.scrollTo(0, 0);
+}
+
+function goBack() {
+  history.pushState('', '', window.location.pathname);
+  showIndex();
+}
+
+// ============ INDEX RENDERING ============
+function renderStats() {
+  var cats = {};
+  SKILLS_DATA.forEach(function(s) { cats[s.category] = true; });
+  document.getElementById('statsRow').innerHTML =
+    '<div class="stat-item"><span class="stat-num">' + SKILLS_DATA.length + '</span><span class="stat-label">skills</span></div>' +
+    '<div class="stat-item"><span class="stat-num">' + Object.keys(cats).length + '</span><span class="stat-label">categories</span></div>';
+}
+
+function renderFilters() {
+  var cats = {};
+  SKILLS_DATA.forEach(function(s) { cats[s.category] = (cats[s.category] || 0) + 1; });
+  var html = '<button class="filter-btn' + (activeFilter === 'all' ? ' active' : '') + '" onclick="setFilter(\'all\', this)">All</button>';
+  Object.keys(cats).forEach(function(c) {
+    html += '<button class="filter-btn' + (activeFilter === c ? ' active' : '') + '" onclick="setFilter(\'' + c + '\', this)">' + c + '</button>';
+  });
+  document.getElementById('filterBar').innerHTML = html;
+}
+
+function renderGrid() {
   var filtered = getFiltered();
   var html = '';
   filtered.forEach(function(s) {
-    var tagHtml = '';
-    s.tags.forEach(function(t) { tagHtml += '<span class="tag-badge">' + t + '</span>'; });
-
-    var learnHtml = '<ul class="skill-learnings">';
-    s.learnings.forEach(function(l) { learnHtml += '<li>' + l + '</li>'; });
-    learnHtml += '</ul>';
-
     var diffClass = s.difficulty.toLowerCase();
-
-    html += '<div class="skill-card">' +
-      '<div class="skill-tags">' + tagHtml + '</div>' +
-      '<h3 class="skill-title">' + s.title + '</h3>' +
-      '<p class="skill-desc">' + s.description + '</p>' +
-      learnHtml +
-      '<div class="skill-meta">' +
-        '<span class="difficulty-badge ' + diffClass + '">' + s.difficulty + '</span>' +
-        '<span class="skill-time">' + s.time + '</span>' +
-        '<a href="' + s.downloadUrl + '" class="action-btn">Download Skill</a>' +
+    html += '<a class="index-card" href="#' + s.id + '">' +
+      '<div class="index-card-top">' +
+        '<span class="index-card-tag">' + escapeHtml(s.category) + '</span>' +
+        '<span class="difficulty-badge ' + diffClass + '">' + escapeHtml(s.difficulty) + '</span>' +
       '</div>' +
-    '</div>';
+      '<h3 class="index-card-title">' + escapeHtml(s.title) + '</h3>' +
+      '<p class="index-card-desc">' + escapeHtml(s.oneLiner) + '</p>' +
+      '<span class="index-card-meta">' + escapeHtml(s.time) + ' &middot; ' + (s.modules ? s.modules.length : 0) + ' modules</span>' +
+    '</a>';
   });
-  document.getElementById('cardsContainer').innerHTML = '<div class="skills-grid">' + html + '</div>';
+  if (filtered.length === 0) {
+    html = '<p style="color:var(--text-dim); grid-column:1/-1; text-align:center; padding:40px 0;">No skills in this category yet.</p>';
+  }
+  document.getElementById('indexGrid').innerHTML = html;
 }
 
-// ============ INTERACTIONS ============
-function setFilter(tag, btn) {
-  activeFilter = tag;
+function setFilter(cat, btn) {
+  activeFilter = cat;
   document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
   btn.classList.add('active');
-  renderCards();
+  renderGrid();
 }
 
-// ============ INIT ============
-renderStats();
-renderFilters();
-renderCards();
+// ============ DETAIL RENDERING ============
+function renderDetailHeader(item) {
+  var diffClass = item.difficulty.toLowerCase();
+  document.getElementById('detailHeader').innerHTML =
+    '<button class="detail-back" onclick="goBack()">&larr; back to all skills</button>' +
+    '<div class="detail-hero">' +
+      '<div class="detail-tag">' + escapeHtml(item.category) + '</div>' +
+      '<h1 class="detail-title">' + escapeHtml(item.title) + '</h1>' +
+      '<p class="detail-desc">' + escapeHtml(item.oneLiner) + '</p>' +
+      '<div class="detail-meta-row">' +
+        '<span class="difficulty-badge ' + diffClass + '">' + escapeHtml(item.difficulty) + '</span>' +
+        '<span style="font-family:JetBrains Mono,monospace;font-size:11px;color:var(--text-dim)">' + escapeHtml(item.time) + '</span>' +
+      '</div>' +
+    '</div>';
+}
+
+function renderDetailSections(item) {
+  var html = '';
+
+  // Section 1: OVERVIEW
+  html += '<div class="detail-section">' +
+    '<div class="section-header"><span class="section-label">overview</span></div>';
+  if (item.overview) {
+    html += '<div class="overview-desc">' + escapeHtml(item.overview.description) + '</div>';
+    if (item.overview.prerequisites && item.overview.prerequisites.length > 0) {
+      html += '<div class="overview-sub">prerequisites</div><ul class="prereq-list">';
+      item.overview.prerequisites.forEach(function(p) {
+        html += '<li>' + escapeHtml(p) + '</li>';
+      });
+      html += '</ul>';
+    }
+    if (item.overview.whatYoullBuild) {
+      html += '<div class="overview-sub">what you\'ll build</div>' +
+        '<div class="build-callout">' + escapeHtml(item.overview.whatYoullBuild) + '</div>';
+    }
+  }
+  html += '</div>';
+
+  // Section 2: MODULE BREAKDOWN
+  html += '<div class="detail-section">' +
+    '<div class="section-header"><span class="section-label">module breakdown</span></div>';
+  if (item.modules && item.modules.length > 0) {
+    html += '<div class="module-list">';
+    item.modules.forEach(function(m) {
+      var typeClass = m.type === 'practice' ? ' practice' : (m.type === 'project' ? ' project' : '');
+      html += '<div class="module-item">' +
+        '<span class="module-num">' + m.step + '</span>' +
+        '<div class="module-info">' +
+          '<div class="module-title">' + escapeHtml(m.title) + '</div>' +
+          '<div class="module-meta">' +
+            '<span class="module-time">' + escapeHtml(m.time) + '</span>' +
+            '<span class="module-type' + typeClass + '">' + escapeHtml(m.type) + '</span>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    });
+    html += '</div>';
+  }
+  html += '</div>';
+
+  // Section 3: KEY CONCEPTS
+  html += '<div class="detail-section">' +
+    '<div class="section-header"><span class="section-label">key concepts</span></div>';
+  if (item.keyConcepts && item.keyConcepts.length > 0) {
+    html += '<div class="concept-list">';
+    item.keyConcepts.forEach(function(c) {
+      html += '<div class="concept-item">' +
+        '<div class="concept-header">' +
+          '<span class="concept-step">module ' + c.moduleStep + '</span>' +
+          '<span class="concept-title">' + escapeHtml(c.title) + '</span>' +
+        '</div>' +
+        '<div class="concept-content">' + escapeHtml(c.content) + '</div>' +
+      '</div>';
+    });
+    html += '</div>';
+  } else {
+    html += '<p class="placeholder-text">Key concepts will be added as this skill is developed.</p>';
+  }
+  html += '</div>';
+
+  // Section 4: PRACTICE EXERCISE
+  html += '<div class="detail-section">' +
+    '<div class="section-header"><span class="section-label">practice exercise</span></div>';
+  if (item.exercise) {
+    html += '<div class="exercise-title">' + escapeHtml(item.exercise.title) + '</div>' +
+      '<div class="exercise-instructions">' + escapeHtml(item.exercise.instructions) + '</div>';
+    if (item.exercise.expectedOutput) {
+      html += '<div class="exercise-sub">expected output</div>' +
+        '<div class="exercise-output">' + escapeHtml(item.exercise.expectedOutput) + '</div>';
+    }
+    if (item.exercise.successCriteria && item.exercise.successCriteria.length > 0) {
+      html += '<div class="exercise-sub">success criteria</div>' +
+        '<ul class="criteria-list">';
+      item.exercise.successCriteria.forEach(function(c) {
+        html += '<li>' + escapeHtml(c) + '</li>';
+      });
+      html += '</ul>';
+    }
+  } else {
+    html += '<p class="placeholder-text">Exercise coming soon.</p>';
+  }
+  html += '</div>';
+
+  document.getElementById('detailGrid').innerHTML = html;
+}
 
 // ============ THEME & SCROLL ============
 (function() {
@@ -402,6 +957,18 @@ renderCards();
     }, { passive: true });
   }
 })();
+
+// ============ SANDBOX MODE ============
+if (SANDBOX_MODE) {
+  SKILLS_DATA = SKILLS_DATA.filter(function(s) { return s.id === 'prompt-engineering-fundamentals'; });
+  document.getElementById('sandboxBanner').classList.add('visible');
+  document.getElementById('hubLink').href = '/sandbox/';
+  document.getElementById('hubLink').innerHTML = '&larr; back to sandbox';
+}
+
+// ============ INIT ============
+window.addEventListener('hashchange', route);
+route();
 </script>
 </body>
 </html>
