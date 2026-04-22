@@ -1,4 +1,19 @@
+# Vercel
 .vercel
+
+# Environment
 .env.local
-extTools.md
+.env*.local
+
+# Internal
 INTERNAL-NOTES.md
+extTools.md
+CC-Session-Logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Loose assets at root (favicons and subdirectory images are fine)
+/aiopsforge-logo.png
+/Screenshot*
