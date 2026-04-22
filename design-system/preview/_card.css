@@ -1,0 +1,71 @@
+/* Preview card base — keeps specimen cards on-brand.
+   References AIOpsForge tokens via adapted variable names. */
+@import url('../tokens.css');
+
+/* Alias the design system names to our token names so preview
+   files work without modification */
+:root {
+  --bg-0: var(--bg-primary);
+  --bg-1: var(--bg-secondary);
+  --bg-2: var(--bg-card);
+  --fg-1: var(--text-primary);
+  --fg-2: var(--text-secondary);
+  --fg-3: var(--text-dim);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  overflow: hidden;
+}
+
+.card {
+  padding: var(--space-5);
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+  gap: var(--space-4);
+  align-items: stretch;
+}
+
+.swatch {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  min-height: 100px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.4;
+  flex: 1;
+}
+
+.swatch .name {
+  color: var(--text-primary);
+  font-weight: var(--w-medium);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.swatch .hex {
+  color: var(--text-dim);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+
+.meta-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: var(--space-3);
+  display: block;
+}
