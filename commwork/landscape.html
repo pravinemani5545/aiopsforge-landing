@@ -10,70 +10,37 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --green: #00FF41;
-  --green-dim: #00cc34;
-  --green-glow: rgba(0, 255, 65, 0.15);
-  --green-glow-strong: rgba(0, 255, 65, 0.3);
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #111111;
-  --bg-tertiary: #161616;
-  --bg-card: #1a1a1a;
-  --bg-card-hover: #222222;
-  --border: #2a2a2a;
-  --border-green: rgba(0, 255, 65, 0.2);
-  --text-primary: #f0f0f0;
-  --text-secondary: #999999;
-  --text-dim: #666666;
-  --red: #ff4444;
-  --red-dim: rgba(255, 68, 68, 0.15);
-  --blue: #4488ff;
+  --green: #00FF41; --green-dim: #00cc34;
+  --green-glow: rgba(0, 255, 65, 0.15); --green-glow-strong: rgba(0, 255, 65, 0.3);
+  --bg-primary: #0a0a0a; --bg-secondary: #111111; --bg-tertiary: #161616;
+  --bg-card: #1a1a1a; --bg-card-hover: #222222;
+  --border: #2a2a2a; --border-green: rgba(0, 255, 65, 0.2);
+  --text-primary: #f0f0f0; --text-secondary: #999999; --text-dim: #666666;
+  --red: #ff4444; --blue: #4488ff;
 }
-
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
-    --green: #00892e;
-    --green-dim: #006b24;
-    --green-glow: rgba(0, 137, 46, 0.12);
-    --green-glow-strong: rgba(0, 137, 46, 0.25);
-    --bg-primary: #f5f5f5;
-    --bg-secondary: #ebebeb;
-    --bg-tertiary: #e0e0e0;
-    --bg-card: #ffffff;
-    --bg-card-hover: #f8f8f8;
-    --border: #d4d4d4;
-    --border-green: rgba(0, 137, 46, 0.2);
-    --text-primary: #1a1a1a;
-    --text-secondary: #555555;
-    --text-dim: #888888;
-    --red: #cc3333;
-    --red-dim: rgba(204, 51, 51, 0.1);
-    --blue: #2266cc;
+    --green: #00892e; --green-dim: #006b24;
+    --green-glow: rgba(0, 137, 46, 0.12); --green-glow-strong: rgba(0, 137, 46, 0.25);
+    --bg-primary: #f5f5f5; --bg-secondary: #ebebeb; --bg-tertiary: #e0e0e0;
+    --bg-card: #ffffff; --bg-card-hover: #f8f8f8;
+    --border: #d4d4d4; --border-green: rgba(0, 137, 46, 0.2);
+    --text-primary: #1a1a1a; --text-secondary: #555555; --text-dim: #888888;
+    --red: #cc3333; --blue: #2266cc;
   }
 }
-
 :root[data-theme="light"] {
-  --green: #00892e;
-  --green-dim: #006b24;
-  --green-glow: rgba(0, 137, 46, 0.12);
-  --green-glow-strong: rgba(0, 137, 46, 0.25);
-  --bg-primary: #f5f5f5;
-  --bg-secondary: #ebebeb;
-  --bg-tertiary: #e0e0e0;
-  --bg-card: #ffffff;
-  --bg-card-hover: #f8f8f8;
-  --border: #d4d4d4;
-  --border-green: rgba(0, 137, 46, 0.2);
-  --text-primary: #1a1a1a;
-  --text-secondary: #555555;
-  --text-dim: #888888;
-  --red: #cc3333;
-  --red-dim: rgba(204, 51, 51, 0.1);
-  --blue: #2266cc;
+  --green: #00892e; --green-dim: #006b24;
+  --green-glow: rgba(0, 137, 46, 0.12); --green-glow-strong: rgba(0, 137, 46, 0.25);
+  --bg-primary: #f5f5f5; --bg-secondary: #ebebeb; --bg-tertiary: #e0e0e0;
+  --bg-card: #ffffff; --bg-card-hover: #f8f8f8;
+  --border: #d4d4d4; --border-green: rgba(0, 137, 46, 0.2);
+  --text-primary: #1a1a1a; --text-secondary: #555555; --text-dim: #888888;
+  --red: #cc3333; --blue: #2266cc;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-
 body {
   font-family: 'IBM Plex Sans', sans-serif;
   background: var(--bg-primary);
@@ -84,473 +51,270 @@ body {
 
 /* ============ SCROLL PROGRESS ============ */
 .scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 0%;
-  height: 3px;
+  position: fixed; top: 0; left: 0; width: 0%; height: 3px;
   background: var(--green);
-  box-shadow: 0 0 10px var(--green), 0 0 20px var(--green-glow-strong), 0 0 40px var(--green-glow);
-  z-index: 10000;
-  transition: width 0.1s linear;
+  box-shadow: 0 0 10px var(--green), 0 0 20px var(--green-glow-strong);
+  z-index: 10000; transition: width 0.1s linear;
 }
 
-/* ============ FLOATING THEME TOGGLE ============ */
+/* ============ THEME TOGGLE ============ */
 .floating-theme-toggle {
-  position: fixed;
-  top: 20px;
-  right: 24px;
-  z-index: 999;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  color: var(--text-primary);
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  transition: all 0.2s;
-  font-family: 'JetBrains Mono', monospace;
-  line-height: 1;
+  position: fixed; top: 20px; right: 24px; z-index: 999;
+  background: var(--bg-card); border: 1px solid var(--border);
+  color: var(--text-primary); cursor: pointer;
+  width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+  font-size: 16px; transition: all 0.2s;
+  font-family: 'JetBrains Mono', monospace; line-height: 1;
+  border-radius: 8px;
 }
-.floating-theme-toggle:hover {
-  color: var(--green);
-  border-color: var(--border-green);
-}
+.floating-theme-toggle:hover { color: var(--green); border-color: var(--border-green); }
 
 /* ============ CONTAINER ============ */
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
 /* ============ PAGE HEADER ============ */
-.page-header {
-  padding: 80px 0 40px;
-  text-align: center;
-  position: relative;
-}
+.page-header { padding: 80px 0 32px; position: relative; }
 .page-header::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 600px;
-  height: 300px;
+  content: ''; position: absolute; top: 0; left: 0; width: 400px; height: 400px;
   background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%);
-  pointer-events: none;
+  pointer-events: none; opacity: 0.6;
 }
-.page-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--green);
-  margin-bottom: 16px;
-  position: relative;
-}
-.page-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(28px, 5vw, 42px);
-  font-weight: 700;
-  margin-bottom: 12px;
-  position: relative;
-}
-.page-subtitle {
-  color: var(--text-secondary);
-  font-size: 15px;
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.7;
-  position: relative;
-}
-
-/* ============ STATS BAR ============ */
-.stats-bar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 32px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  color: var(--text-secondary);
-}
-.stats-bar .num {
-  color: var(--green);
-  font-weight: 700;
-}
-.stats-bar .sep {
-  color: var(--text-dim);
-  margin: 0 4px;
-}
-.stats-bar .nav-indicator {
-  margin-left: 16px;
-  font-size: 12px;
-}
-
-/* ============ GRID ============ */
-.landscape-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  padding-bottom: 40px;
-}
-.landscape-grid.hidden { display: none; }
-
-/* ============ CATEGORY CARD ============ */
-.cat-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  padding: 28px 24px;
-  cursor: pointer;
-  transition: all 0.3s;
-  position: relative;
-  overflow: hidden;
-}
-.cat-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.cat-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  opacity: 0;
-  transition: opacity 0.3s;
-  pointer-events: none;
-}
-.cat-card:hover {
-  background: var(--bg-card-hover);
-  transform: translateY(-3px);
-  border-color: var(--border-green);
-}
-.cat-card:hover::before { opacity: 1; }
-.cat-card:hover::after { opacity: 1; }
-
-/* Per-card accent colors via ::before top bar and ::after gradient */
-.cat-card:nth-child(1)::before { background: #ff4444; }
-.cat-card:nth-child(2)::before { background: #4488ff; }
-.cat-card:nth-child(3)::before { background: #a855f7; }
-.cat-card:nth-child(4)::before { background: #FFB800; }
-.cat-card:nth-child(5)::before { background: #22d3ee; }
-.cat-card:nth-child(6)::before { background: #eab308; }
-.cat-card:nth-child(7)::before { background: #00FF41; }
-.cat-card:nth-child(8)::before { background: #f472b6; }
-.cat-card:nth-child(9)::before { background: #38bdf8; }
-
-.cat-card:nth-child(1)::after { background: linear-gradient(135deg, rgba(255, 68, 68, 0.06) 0%, transparent 60%); }
-.cat-card:nth-child(2)::after { background: linear-gradient(135deg, rgba(68, 136, 255, 0.06) 0%, transparent 60%); }
-.cat-card:nth-child(3)::after { background: linear-gradient(135deg, rgba(168, 85, 247, 0.06) 0%, transparent 60%); }
-.cat-card:nth-child(4)::after { background: linear-gradient(135deg, rgba(255, 184, 0, 0.06) 0%, transparent 60%); }
-.cat-card:nth-child(5)::after { background: linear-gradient(135deg, rgba(34, 211, 238, 0.06) 0%, transparent 60%); }
-.cat-card:nth-child(6)::after { background: linear-gradient(135deg, rgba(234, 179, 8, 0.06) 0%, transparent 60%); }
-.cat-card:nth-child(7)::after { background: linear-gradient(135deg, rgba(0, 255, 65, 0.06) 0%, transparent 60%); }
-.cat-card:nth-child(8)::after { background: linear-gradient(135deg, rgba(244, 114, 182, 0.06) 0%, transparent 60%); }
-.cat-card:nth-child(9)::after { background: linear-gradient(135deg, rgba(56, 189, 248, 0.06) 0%, transparent 60%); }
-
-/* Hover box-shadow glow per card */
-.cat-card:nth-child(1):hover { box-shadow: 0 4px 20px rgba(255, 68, 68, 0.1); }
-.cat-card:nth-child(2):hover { box-shadow: 0 4px 20px rgba(68, 136, 255, 0.1); }
-.cat-card:nth-child(3):hover { box-shadow: 0 4px 20px rgba(168, 85, 247, 0.1); }
-.cat-card:nth-child(4):hover { box-shadow: 0 4px 20px rgba(255, 184, 0, 0.1); }
-.cat-card:nth-child(5):hover { box-shadow: 0 4px 20px rgba(34, 211, 238, 0.1); }
-.cat-card:nth-child(6):hover { box-shadow: 0 4px 20px rgba(234, 179, 8, 0.1); }
-.cat-card:nth-child(7):hover { box-shadow: 0 4px 20px rgba(0, 255, 65, 0.1); }
-.cat-card:nth-child(8):hover { box-shadow: 0 4px 20px rgba(244, 114, 182, 0.1); }
-.cat-card:nth-child(9):hover { box-shadow: 0 4px 20px rgba(56, 189, 248, 0.1); }
-
-.cat-card-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-  position: relative;
-  z-index: 1;
-}
-.cat-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  box-shadow: 0 0 6px currentColor;
-}
-.cat-title {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--text-primary);
-  line-height: 1.3;
-}
-.cat-meta {
-  display: flex;
-  justify-content: space-between;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--text-dim);
-  position: relative;
-  z-index: 1;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
-}
-
-/* ============ DETAIL PANEL ============ */
-.detail-panel {
-  display: none;
-  padding-bottom: 40px;
-}
-.detail-panel.active {
-  display: block;
-  animation: fadeIn 0.25s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.detail-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 24px 0;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 16px;
-}
-.detail-header-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.detail-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(22px, 4vw, 32px);
-  font-weight: 700;
-}
-.detail-close {
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--text-secondary);
-  cursor: pointer;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 18px;
-  transition: all 0.2s;
-  line-height: 1;
-}
-.detail-close:hover {
-  color: var(--green);
-  border-color: var(--border-green);
-}
-.detail-desc {
-  color: var(--text-secondary);
-  font-size: 14px;
-  line-height: 1.7;
-  margin-bottom: 28px;
-  max-width: 700px;
-}
-
-/* ============ ACCORDION SUBTASKS ============ */
-.subtask {
-  border: 1px solid var(--border);
-  margin-bottom: 8px;
-  background: var(--bg-card);
-}
-.subtask-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 20px;
-  cursor: pointer;
-  transition: background 0.2s;
-  user-select: none;
-}
-.subtask-header:hover { background: var(--bg-card-hover); }
-.subtask-title {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-.subtask-toggle {
-  font-size: 10px;
-  color: var(--text-dim);
-  transition: transform 0.2s;
-}
-.subtask.open .subtask-toggle { transform: rotate(90deg); }
-.subtask-body {
-  display: none;
-  padding: 0 20px 16px;
-}
-.subtask.open .subtask-body { display: block; }
-
-/* ============ MODEL ROWS ============ */
-.model-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 12px;
-  border: 1px solid transparent;
-  border-left: 3px solid transparent;
-  margin-bottom: 4px;
-  background: var(--bg-tertiary);
-}
-.model-row.top-pick {
-  border-left-color: var(--green);
-  background: rgba(0, 255, 65, 0.04);
-  border-color: rgba(0, 255, 65, 0.12);
-  border-left-color: var(--green);
-}
-:root[data-theme="light"] .model-row.top-pick {
-  background: rgba(0, 137, 46, 0.06);
-  border-color: rgba(0, 137, 46, 0.18);
-  border-left-color: var(--green);
-}
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) .model-row.top-pick {
-    background: rgba(0, 137, 46, 0.06);
-    border-color: rgba(0, 137, 46, 0.18);
-    border-left-color: var(--green);
-  }
-}
-.model-star {
-  color: #eab308;
-  font-size: 14px;
-  width: 18px;
-  text-align: center;
-  flex-shrink: 0;
-}
-.model-name {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  color: var(--text-primary);
-  white-space: nowrap;
-}
-.model-row.top-pick .model-name { font-weight: 700; }
-.model-badges {
-  display: flex;
-  gap: 6px;
-  flex-shrink: 0;
-}
-.badge {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  padding: 2px 8px;
-  border-radius: 2px;
-}
-.badge.os {
-  color: var(--green);
-  border: 1px solid rgba(0, 255, 65, 0.3);
-  background: rgba(0, 255, 65, 0.08);
-}
-.badge.cross {
-  color: #22d3ee;
-  border: 1px solid rgba(34, 211, 238, 0.3);
-  background: rgba(34, 211, 238, 0.08);
-}
-.model-provider {
-  margin-left: auto;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--text-dim);
-  flex-shrink: 0;
-  white-space: nowrap;
-}
-
-/* ============ LEGEND ============ */
-.legend {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  flex-wrap: wrap;
-  padding: 24px 0;
-  border-top: 1px solid var(--border);
-}
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--text-secondary);
-}
-.legend-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.legend-star {
-  color: #eab308;
-  font-size: 13px;
-}
-
-/* ============ BACK LINK ============ */
 .back-link {
   display: inline-flex; align-items: center; gap: 6px;
   font-family: 'JetBrains Mono', monospace; font-size: 12px;
   color: var(--text-dim); text-decoration: none; transition: color 0.2s;
-  margin-bottom: 8px;
+  margin-bottom: 8px; position: relative;
 }
 .back-link:hover { color: var(--green); }
+.page-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--green);
+  margin-bottom: 12px; position: relative;
+}
+.page-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(32px, 5vw, 48px); font-weight: 700;
+  margin-bottom: 8px; position: relative; line-height: 1.1;
+}
+.page-subtitle {
+  color: var(--text-secondary); font-size: 15px; max-width: 600px;
+  line-height: 1.7; position: relative;
+}
+
+/* ============ STATS ROW ============ */
+.stats-row {
+  display: flex; gap: 32px; padding: 20px 0; margin-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace; font-size: 13px;
+}
+.stat-item { display: flex; align-items: baseline; gap: 6px; }
+.stat-num { color: var(--green); font-weight: 700; font-size: 22px; }
+.stat-label { color: var(--text-dim); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+
+/* ============ CATEGORY NAV (SIDEBAR + MAIN LAYOUT) ============ */
+.landscape-layout { display: flex; gap: 0; min-height: 60vh; }
+
+/* Sidebar */
+.cat-sidebar {
+  width: 260px; flex-shrink: 0; position: sticky; top: 20px; align-self: flex-start;
+  padding-right: 24px; border-right: 1px solid var(--border);
+}
+.cat-nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px; cursor: pointer; transition: all 0.2s;
+  border-left: 3px solid transparent; margin-bottom: 2px;
+  border-radius: 0 6px 6px 0;
+}
+.cat-nav-item:hover { background: var(--bg-card-hover); }
+.cat-nav-item.active { background: var(--bg-card); border-left-color: var(--green); }
+.cat-nav-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.cat-nav-name {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.cat-nav-item.active .cat-nav-name { color: var(--text-primary); font-weight: 700; }
+.cat-nav-count {
+  margin-left: auto; font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--text-dim);
+}
+
+/* Main content area */
+.cat-content { flex: 1; padding-left: 32px; min-width: 0; }
+
+/* ============ CATEGORY HEADER ============ */
+.cat-header { margin-bottom: 24px; }
+.cat-header-top { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.cat-header-dot { width: 12px; height: 12px; border-radius: 50%; }
+.cat-header-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(22px, 3vw, 30px); font-weight: 700;
+}
+.cat-header-desc {
+  color: var(--text-secondary); font-size: 14px; line-height: 1.7;
+  max-width: 600px;
+}
+
+/* ============ SUBTASK CARDS ============ */
+.subtask-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; margin-bottom: 12px; overflow: hidden;
+  transition: border-color 0.2s;
+}
+.subtask-card:hover { border-color: var(--border-green); }
+.subtask-trigger {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px; cursor: pointer; user-select: none;
+  transition: background 0.2s;
+}
+.subtask-trigger:hover { background: var(--bg-card-hover); }
+.subtask-trigger-left { display: flex; align-items: center; gap: 12px; }
+.subtask-name {
+  font-family: 'JetBrains Mono', monospace; font-size: 13px;
+  font-weight: 700; color: var(--text-primary);
+}
+.subtask-metric-badge {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  letter-spacing: 0.5px; padding: 3px 8px; border-radius: 4px;
+  color: var(--text-dim); border: 1px solid var(--border);
+  background: var(--bg-tertiary);
+}
+.subtask-chevron {
+  font-size: 12px; color: var(--text-dim); transition: transform 0.25s;
+  font-family: 'JetBrains Mono', monospace;
+}
+.subtask-card.open .subtask-chevron { transform: rotate(90deg); }
+
+/* Subtask body */
+.subtask-body { display: none; padding: 0 20px 16px; }
+.subtask-card.open .subtask-body { display: block; }
+
+/* ============ MODEL ROWS ============ */
+.model-row {
+  display: grid; grid-template-columns: 24px 1fr auto auto auto;
+  align-items: center; gap: 10px;
+  padding: 10px 12px; margin-bottom: 4px;
+  background: var(--bg-tertiary); border-radius: 6px;
+  border: 1px solid transparent; transition: all 0.2s;
+}
+.model-row.top-pick {
+  border-color: rgba(0, 255, 65, 0.15);
+  background: rgba(0, 255, 65, 0.04);
+}
+:root[data-theme="light"] .model-row.top-pick,
+:root:not([data-theme="dark"]) .model-row.top-pick {
+  background: rgba(0, 137, 46, 0.06);
+  border-color: rgba(0, 137, 46, 0.18);
+}
+.model-star { color: #eab308; font-size: 14px; text-align: center; }
+.model-name {
+  font-family: 'JetBrains Mono', monospace; font-size: 13px;
+  color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.model-row.top-pick .model-name { font-weight: 700; }
+.model-badges { display: flex; gap: 4px; }
+.badge {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  letter-spacing: 0.5px; text-transform: uppercase;
+  padding: 2px 6px; border-radius: 3px;
+}
+.badge.os { color: var(--green); border: 1px solid rgba(0, 255, 65, 0.3); background: rgba(0, 255, 65, 0.08); }
+.badge.cross { color: #22d3ee; border: 1px solid rgba(34, 211, 238, 0.3); background: rgba(34, 211, 238, 0.08); }
+
+/* Metric column */
+.model-metric {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  color: var(--green); font-weight: 700; text-align: right; white-space: nowrap;
+}
+.model-row:not(.top-pick) .model-metric { color: var(--text-secondary); font-weight: 400; }
+.model-provider {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--text-dim); white-space: nowrap; text-align: right;
+}
+
+/* ============ DETAIL EXPAND (per model) ============ */
+.model-detail-toggle {
+  cursor: pointer; transition: background 0.15s;
+}
+.model-detail-toggle:hover { background: var(--bg-card-hover); }
+.model-expand {
+  display: none; grid-column: 1 / -1;
+  padding: 8px 12px 4px 36px;
+  font-size: 12px; color: var(--text-secondary); line-height: 1.6;
+  border-top: 1px solid var(--border); margin-top: 6px;
+}
+.model-row.expanded .model-expand { display: block; }
+
+/* ============ METRIC BAR ============ */
+.metric-bar-wrap {
+  display: flex; align-items: center; gap: 8px;
+  margin: 6px 0 2px; font-family: 'JetBrains Mono', monospace; font-size: 11px;
+}
+.metric-bar-label { color: var(--text-dim); width: 140px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.metric-bar-track {
+  flex: 1; height: 6px; background: var(--bg-secondary); border-radius: 3px; overflow: hidden; position: relative;
+}
+.metric-bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+.metric-bar-value { color: var(--text-secondary); width: 65px; text-align: right; flex-shrink: 0; font-size: 10px; }
+
+/* ============ LEGEND ============ */
+.legend {
+  display: flex; justify-content: flex-start; gap: 24px; flex-wrap: wrap;
+  padding: 24px 0; border-top: 1px solid var(--border); margin-top: 32px;
+}
+.legend-item {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--text-secondary);
+}
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.legend-star { color: #eab308; font-size: 13px; }
 
 /* ============ FOOTER ============ */
 .footer {
-  padding: 40px 24px;
-  border-top: 1px solid var(--border);
-  text-align: center;
+  padding: 40px 24px; border-top: 1px solid var(--border); text-align: center;
 }
 .footer-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1100px;
-  margin: 0 auto;
-  font-size: 12px;
-  color: var(--text-dim);
+  display: flex; justify-content: space-between; align-items: center;
+  max-width: 1200px; margin: 0 auto; font-size: 12px; color: var(--text-dim);
 }
-.footer a {
-  color: var(--text-dim);
-  text-decoration: none;
-  transition: color 0.2s;
-}
+.footer a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
 .footer a:hover { color: var(--green); }
 .footer-links { display: flex; gap: 24px; }
 
+/* ============ UPDATED BADGE ============ */
+.updated-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  color: var(--green); padding: 4px 10px; border-radius: 4px;
+  border: 1px solid rgba(0, 255, 65, 0.2); background: rgba(0, 255, 65, 0.06);
+  margin-top: 12px;
+}
+.updated-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
 /* ============ RESPONSIVE ============ */
 @media (max-width: 900px) {
-  .landscape-grid { grid-template-columns: repeat(2, 1fr); }
+  .landscape-layout { flex-direction: column; }
+  .cat-sidebar {
+    width: 100%; position: static; border-right: none;
+    border-bottom: 1px solid var(--border); padding-right: 0; padding-bottom: 16px;
+    display: flex; flex-wrap: wrap; gap: 4px;
+  }
+  .cat-nav-item { padding: 8px 12px; border-left: none; border-bottom: 2px solid transparent; border-radius: 6px; }
+  .cat-nav-item.active { border-bottom-color: var(--green); border-left: none; }
+  .cat-nav-count { display: none; }
+  .cat-content { padding-left: 0; padding-top: 20px; }
 }
 @media (max-width: 600px) {
-  .landscape-grid { grid-template-columns: 1fr; }
-  .stats-bar { gap: 4px; font-size: 12px; flex-wrap: wrap; justify-content: center; }
-  .model-row { flex-wrap: wrap; gap: 8px; }
-  .model-provider { margin-left: 30px; width: 100%; }
-  .detail-title { font-size: 22px; }
-  .page-header { padding: 60px 0 32px; }
+  .stats-row { gap: 16px; flex-wrap: wrap; }
+  .model-row { grid-template-columns: 24px 1fr auto; gap: 6px; }
+  .model-metric { grid-column: 2 / 3; }
+  .model-provider { grid-column: 2 / -1; font-size: 10px; }
+  .model-badges { grid-column: 3; }
+  .page-header { padding: 60px 0 24px; }
   .footer-inner { flex-direction: column; gap: 16px; }
   .legend { gap: 16px; }
+  .cat-nav-name { font-size: 11px; }
 }
 </style>
 <script>
@@ -571,13 +335,15 @@ body {
     <div class="page-label">landscape</div>
     <h1 class="page-title">AI Tools Landscape</h1>
     <p class="page-subtitle">The best models and tools across 9 categories — ranked by what actually works in production, not hype.</p>
+    <div class="updated-badge">Updated April 22, 2026</div>
   </div>
 
-  <div class="stats-bar" id="statsBar"></div>
+  <div class="stats-row" id="statsRow"></div>
 
-  <div class="landscape-grid" id="gridView"></div>
-
-  <div class="detail-panel" id="detailPanel"></div>
+  <div class="landscape-layout">
+    <nav class="cat-sidebar" id="catSidebar"></nav>
+    <main class="cat-content" id="catContent"></main>
+  </div>
 
   <div class="legend">
     <div class="legend-item"><span class="legend-star">&#9733;</span> Top Pick</div>
@@ -599,556 +365,531 @@ body {
 </footer>
 
 <script>
+// ============ AUTH REDIRECT ============
+if (sessionStorage.getItem('aof_cw_auth') !== '1') {
+  window.location.href = '/commwork/';
+}
+
 var LANDSCAPE_DATA = [
   {
-    name: 'Text Generation & Writing',
-    color: '#ff4444',
+    name: 'Text Generation & Writing', color: '#ff4444',
     description: 'AI models for writing long-form articles, short copy, creative fiction, and summarization.',
     subtasks: [
       {
-        name: 'Long-form Content',
+        name: 'Long-form Content', metric: 'Arena IF Elo',
         models: [
-          { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: true },
-          { name: 'Kimi K2.5', provider: 'Moonshot AI', tags: ['OS', '3X'], topPick: false },
-          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: false },
-          { name: 'GPT-5.2', provider: 'OpenAI', tags: [], topPick: false }
+          { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: true, score: '~1520', pct: 96, detail: '1M context window (beta), 128K output. Leads SWE-bench (87.6%) and 7/10 benchmarks vs GPT-5.4. Best prose rhythm and tonal consistency.' },
+          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: false, score: '~1490', pct: 94, detail: '1M context, 65K output. GPQA Diamond 94.3%. Best cost-to-quality ratio at $1.25/$5 per MTok.' },
+          { name: 'GPT-5.4 Thinking', provider: 'OpenAI', tags: [], topPick: false, score: '~1480', pct: 93, detail: 'Excels at structured knowledge work and browser research (BrowseComp 89.3%). Strong broad knowledge base.' },
+          { name: 'Kimi K2.6', provider: 'Moonshot AI', tags: ['OS', '3X'], topPick: false, score: '~1460', pct: 92, detail: '1T parameters, 256K context. Shipped April 20, 2026. Open-weight under permissive license.' }
         ]
       },
       {
-        name: 'Short-form Copy',
+        name: 'Short-form Copy', metric: 'Arena IF Elo',
         models: [
-          { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: true },
-          { name: 'Kimi K2.5', provider: 'Moonshot AI', tags: ['OS', '3X'], topPick: false },
-          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: false },
-          { name: 'GPT-5.2', provider: 'OpenAI', tags: [], topPick: false }
+          { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: true, score: '~1520', pct: 96, detail: 'Best at brand voice instructions. Stanford GSB: 127% faster content creation at 89% quality standards.' },
+          { name: 'Claude Sonnet 4.6', provider: 'Anthropic', tags: [], topPick: false, score: '~1500', pct: 95, detail: 'Leads IFEval (95%). Fraction of Opus cost — strong for high-volume marketing teams.' },
+          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: false, score: '~1490', pct: 94, detail: 'Leads Arena Creative Writing Elo (1487). Excellent for A/B testing copy variants cheaply.' },
+          { name: 'GPT-5.4 Thinking', provider: 'OpenAI', tags: [], topPick: false, score: '~1480', pct: 93, detail: 'Stronger for structured/factual copy (specs, comparison tables) than emotional brand copy.' }
         ]
       },
       {
-        name: 'Creative Fiction & Storytelling',
+        name: 'Creative Fiction & Storytelling', metric: 'EQ-Bench CW Elo',
         models: [
-          { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: true },
-          { name: 'Kimi K2.5', provider: 'Moonshot AI', tags: ['OS', '3X'], topPick: false },
-          { name: 'GPT-5.2', provider: 'OpenAI', tags: [], topPick: false }
+          { name: 'Claude Sonnet 4.6', provider: 'Anthropic', tags: [], topPick: true, score: '1936', pct: 97, detail: 'Edges out Opus on creative writing. Best narrative quality and character voice at lower cost.' },
+          { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: false, score: '~1932', pct: 97, detail: 'Best for long-form fiction (novels, scripts) due to 1M context window.' },
+          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: false, score: '~1487', pct: 90, detail: 'Highest Arena creative writing score. Strong on imaginative prompts.' },
+          { name: 'Sudowrite Muse 1.5', provider: 'Sudowrite', tags: [], topPick: false, score: 'N/A', pct: 0, detail: 'Purpose-built fiction engine. Trained on contemporary literature. Called "BEST for natural prose."' }
         ]
       },
       {
-        name: 'Summarization & Rewriting',
+        name: 'Summarization & Rewriting', metric: 'Factual Accuracy %',
         models: [
-          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: true },
-          { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: false }
+          { name: 'Claude Sonnet 4.6', provider: 'Anthropic', tags: [], topPick: true, score: '94%', pct: 94, detail: 'Highest factual accuracy on summarization benchmarks. Summaries stay within length/format constraints.' },
+          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: false, score: '91%', pct: 91, detail: '1M context for summarizing entire books in a single pass.' },
+          { name: 'MiniMax M2.5', provider: 'MiniMax', tags: [], topPick: false, score: '90%', pct: 90, detail: 'Leads key fact retention (2.7/3.0) with perfect stability across runs.' }
         ]
       }
     ]
   },
   {
-    name: 'Code Generation & Dev',
-    color: '#4488ff',
+    name: 'Code Generation & Dev', color: '#4488ff',
     description: 'Tools for code completion, review, debugging, and full-stack app generation.',
     subtasks: [
       {
-        name: 'Code Completion & Generation',
+        name: 'Code Completion & Generation', metric: 'SWE-bench Verified %',
         models: [
-          { name: 'Claude Code (Opus 4.7)', provider: 'Anthropic', tags: ['3X'], topPick: true },
-          { name: 'Cursor', provider: 'Anysphere', tags: [], topPick: false },
-          { name: 'GitHub Copilot', provider: 'GitHub', tags: [], topPick: false },
-          { name: 'Qwen 3.5 Coder', provider: 'Alibaba', tags: ['OS'], topPick: false }
+          { name: 'Claude Code (Opus 4.7)', provider: 'Anthropic', tags: ['3X'], topPick: true, score: '87.6%', pct: 88, detail: 'Released April 16, 2026. +37 Elo over Opus 4.6. 1M context. xhigh effort + ultrareview. 64.3% SWE-bench Pro.' },
+          { name: 'GPT-5.3-Codex', provider: 'OpenAI', tags: [], topPick: false, score: '85.0%', pct: 85, detail: 'Dedicated coding model. Codex + GPT-5 training stacks. ~25% faster than GPT-5.2.' },
+          { name: 'Kimi K2.6', provider: 'Moonshot AI', tags: ['OS'], topPick: false, score: '80.2%', pct: 80, detail: 'Best open-weight coding. 12-hour autonomous sessions. 58.6% SWE-bench Pro. Apache 2.0.' },
+          { name: 'Qwen 3.6-35B', provider: 'Alibaba', tags: ['OS'], topPick: false, score: '73.4%', pct: 73, detail: 'Released April 16, 2026. Best self-hosted. Qwen3-Coder-480B rivals Claude Sonnet 4.' }
         ]
       },
       {
-        name: 'Code Review & Debugging',
+        name: 'Code Review & Debugging', metric: 'Bug Catch Rate %',
         models: [
-          { name: 'CodeRabbit', provider: 'CodeRabbit', tags: [], topPick: true },
-          { name: 'Claude Code Review', provider: 'Anthropic', tags: [], topPick: false },
-          { name: 'Sourcegraph Cody', provider: 'Sourcegraph', tags: [], topPick: false }
+          { name: 'Greptile', provider: 'Greptile', tags: [], topPick: true, score: '82%', pct: 82, detail: 'Catches 82% of bugs vs CodeRabbit 44%. Higher false positives (11 vs 2). Best raw detection.' },
+          { name: 'Qodo 2.0 (PR-Agent)', provider: 'Qodo', tags: ['OS'], topPick: false, score: '60.1% F1', pct: 60, detail: 'Highest F1 score. Automated test generation. Self-hostable via Docker.' },
+          { name: 'CodeRabbit', provider: 'CodeRabbit', tags: [], topPick: false, score: '44%', pct: 44, detail: '2M+ repos, 13M+ PRs. 40+ linters. Lowest false positives. $24/user/month.' },
+          { name: 'Claude Code (ultrareview)', provider: 'Anthropic', tags: [], topPick: false, score: 'Semantic', pct: 0, detail: 'Reasons about architectural implications, not line-level. Implements fixes, not just identifies them.' }
         ]
       },
       {
-        name: 'Full-stack App Generation',
+        name: 'Full-stack App Generation', metric: 'Functional Completion',
         models: [
-          { name: 'Lovable', provider: 'Lovable', tags: [], topPick: true },
-          { name: 'Bolt.new', provider: 'StackBlitz', tags: [], topPick: false },
-          { name: 'Replit Agent', provider: 'Replit', tags: [], topPick: false },
-          { name: 'v0', provider: 'Vercel', tags: [], topPick: false }
+          { name: 'Lovable', provider: 'Lovable', tags: [], topPick: true, score: 'Complete', pct: 95, detail: 'Cleanest React code. GitHub sync, Stripe payments. $20M ARR in 2 months.' },
+          { name: 'Replit Agent 3', provider: 'Replit', tags: [], topPick: false, score: 'Complete', pct: 90, detail: '200+ min autonomous. Most autonomous. True full-stack with built-in DB. Closing gap with Lovable.' },
+          { name: 'Bolt.new', provider: 'StackBlitz', tags: [], topPick: false, score: 'Partial', pct: 65, detail: 'Fastest prompt-to-preview. Zero-setup. Enterprise success ~31% for complex features.' },
+          { name: 'v0', provider: 'Vercel', tags: [], topPick: false, score: 'Frontend', pct: 50, detail: 'Excellent React + Tailwind. Locks into Next.js. No native DB/auth.' }
         ]
       }
     ]
   },
   {
-    name: 'Image Generation',
-    color: '#a855f7',
+    name: 'Image Generation', color: '#a855f7',
     description: 'Models for photorealistic images, artistic styles, editing, logos, and architectural visualization.',
     subtasks: [
       {
-        name: 'Photorealistic Generation',
+        name: 'Photorealistic Generation', metric: 'LM Arena T2I Elo',
         models: [
-          { name: 'FLUX 1.1 Pro Ultra', provider: 'Black Forest Labs', tags: [], topPick: true },
-          { name: 'Midjourney V7', provider: 'Midjourney', tags: [], topPick: false },
-          { name: 'GPT Image 1.5', provider: 'OpenAI', tags: ['3X'], topPick: false },
-          { name: 'Stable Diffusion 3.5', provider: 'Stability AI', tags: ['OS'], topPick: false }
+          { name: 'GPT-Image-2', provider: 'OpenAI', tags: ['3X'], topPick: true, score: '1512', pct: 99, detail: 'Launched April 21, 2026. +242 Elo over #2 — largest gap ever. Native 2K/4K, sub-3s, 99%+ text accuracy.' },
+          { name: 'FLUX.2 Max', provider: 'Black Forest Labs', tags: [], topPick: false, score: '~1201', pct: 79, detail: 'Best material rendering (metal, fabric, glass). 32B params, 4MP. Open-weight dev variant.' },
+          { name: 'Google Imagen 4 Ultra', provider: 'Google', tags: [], topPick: false, score: 'Top 5', pct: 75, detail: 'Best for environments — foliage, water, atmospheric haze. Native 2K.' },
+          { name: 'Midjourney V8 Alpha', provider: 'Midjourney', tags: [], topPick: false, score: '~1172 HF', pct: 72, detail: 'Launched March 2026. 5x faster than V7. Artist\'s choice for distinctive aesthetics.' }
         ]
       },
       {
-        name: 'Artistic / Stylized Generation',
+        name: 'Artistic / Stylized Generation', metric: 'Artist Preference',
         models: [
-          { name: 'Midjourney V7', provider: 'Midjourney', tags: [], topPick: true },
-          { name: 'FLUX 1.1 Pro', provider: 'Black Forest Labs', tags: [], topPick: false },
-          { name: 'Stable Diffusion 3.5', provider: 'Stability AI', tags: ['OS'], topPick: false },
-          { name: 'Ideogram 2.0', provider: 'Ideogram', tags: [], topPick: false }
+          { name: 'Midjourney V8 Alpha', provider: 'Midjourney', tags: [], topPick: true, score: '#1 Artist', pct: 95, detail: 'Most distinctively artistic outputs. Preferred by creative professionals for surreal, emotional work.' },
+          { name: 'GPT-Image-2', provider: 'OpenAI', tags: ['3X'], topPick: false, score: '1512 Elo', pct: 92, detail: 'Topped Arena Art subcategory. Superior prompt adherence but less "distinctive" than Midjourney.' },
+          { name: 'Recraft V4', provider: 'Recraft', tags: [], topPick: false, score: '1172 HF #1', pct: 85, detail: 'Topped HuggingFace T2I. Strong for illustration and design-oriented art. Native SVG.' },
+          { name: 'Stable Diffusion 3.5', provider: 'Stability AI', tags: ['OS'], topPick: false, score: 'N/A', pct: 0, detail: 'Open-source flexibility. Massive LoRA ecosystem for custom artistic fine-tuning.' }
         ]
       },
       {
-        name: 'Image Editing & Inpainting',
+        name: 'Image Editing & Inpainting', metric: 'LM Arena Edit Elo',
         models: [
-          { name: 'GPT Image 1.5', provider: 'OpenAI', tags: ['3X'], topPick: true },
-          { name: 'Adobe Firefly 3', provider: 'Adobe', tags: [], topPick: false },
-          { name: 'Stable Diffusion 3.5', provider: 'Stability AI', tags: ['OS'], topPick: false }
+          { name: 'GPT-Image-2', provider: 'OpenAI', tags: ['3X'], topPick: true, score: '1513', pct: 99, detail: 'Tops single-image and multi-image edit leaderboards. +125 over #2. Context-aware iterative edits.' },
+          { name: 'Nano Banana Pro', provider: 'Google', tags: [], topPick: false, score: '~1388', pct: 91, detail: 'Strong editing, fast turnaround. Solid inpainting but significantly behind GPT-Image-2.' },
+          { name: 'Adobe Firefly', provider: 'Adobe', tags: [], topPick: false, score: 'Integrated', pct: 0, detail: 'Precision Flow + AI Markup. Uniquely embedded in Photoshop, Illustrator, Premiere.' },
+          { name: 'Stable Diffusion 3.5', provider: 'Stability AI', tags: ['OS'], topPick: false, score: 'N/A', pct: 0, detail: 'Best open-source inpainting with ControlNet for precise mask-based editing.' }
         ]
       },
       {
-        name: 'Logo & Graphic Design',
+        name: 'Logo & Graphic Design', metric: 'Vector Output + Text Accuracy',
         models: [
-          { name: 'Logo Diffusion', provider: 'Logo Diffusion', tags: [], topPick: true },
-          { name: 'Looka', provider: 'Looka', tags: [], topPick: false },
-          { name: 'Ideogram 2.0', provider: 'Ideogram', tags: [], topPick: false }
+          { name: 'Recraft V4', provider: 'Recraft', tags: [], topPick: true, score: 'SVG native', pct: 95, detail: 'Only AI with native SVG export. Production vector files for Illustrator/Figma. HF Elo 1172.' },
+          { name: 'Ideogram 3.0', provider: 'Ideogram', tags: [], topPick: false, score: 'Best text', pct: 85, detail: 'Near-perfect typography accuracy. Go-to for text-heavy logos and branded content.' },
+          { name: 'Logo Diffusion', provider: 'Logo Diffusion', tags: [], topPick: false, score: 'Purpose-built', pct: 75, detail: 'Trained on curated logo datasets. Magic Editor, AI mockups, image-to-logo conversion.' },
+          { name: 'GPT-Image-2', provider: 'OpenAI', tags: ['3X'], topPick: false, score: '99%+ text', pct: 70, detail: 'Arena Product/Branding #1. 99%+ text accuracy. All raster — no vector output.' }
         ]
       },
       {
-        name: 'Architecture & Product Viz',
+        name: 'Architecture & Product Viz', metric: 'BIM/CAD Integrations',
         models: [
-          { name: 'Veras', provider: 'Chaos Group', tags: [], topPick: true },
-          { name: 'D5 Render', provider: 'D5', tags: [], topPick: false },
-          { name: 'Midjourney V7', provider: 'Midjourney', tags: [], topPick: false }
+          { name: 'Veras 4.0', provider: 'Chaos', tags: [], topPick: true, score: '7 platforms', pct: 95, detail: 'Runs on Gemini Nano Banana 2. Geometry Override slider. Revit, SketchUp, Rhino, etc.' },
+          { name: 'D5 Render 3.0', provider: 'D5', tags: [], topPick: false, score: 'AI-native RT', pct: 80, detail: 'Major v3 (Feb 2026). AI workflow: Lite, Works, Render. New Ocean System.' },
+          { name: 'MyArchitectAI', provider: 'MyArchitectAI', tags: [], topPick: false, score: '<10s render', pct: 70, detail: 'Browser-based sketch-to-render. Free tier (10 renders), Pro $29/mo.' }
         ]
       }
     ]
   },
   {
-    name: 'Video Generation',
-    color: '#FFB800',
-    description: 'Tools for generating, editing, and enhancing video content — from short clips to long-form and avatars.',
+    name: 'Video Generation', color: '#FFB800',
+    description: 'Tools for generating, editing, and enhancing video — from short clips to long-form and avatars.',
     subtasks: [
       {
-        name: 'Short-form Video (clips, reels)',
+        name: 'Short-form Video (clips, reels)', metric: 'AA T2V Arena Elo',
         models: [
-          { name: 'Veo 3.1', provider: 'Google', tags: [], topPick: true },
-          { name: 'Runway Gen-4.5', provider: 'Runway', tags: [], topPick: false },
-          { name: 'Kling 3.0', provider: 'Kuaishou', tags: [], topPick: false },
-          { name: 'Pika 2.0', provider: 'Pika', tags: [], topPick: false }
+          { name: 'Seedance 2.0', provider: 'ByteDance', tags: [], topPick: true, score: '1270', pct: 93, detail: 'Leads with-audio T2V arena. Strong motion accuracy and temporal consistency. 720p native.' },
+          { name: 'Kling 3.0 Pro', provider: 'Kuaishou', tags: [], topPick: false, score: '1246', pct: 91, detail: 'Native 4K/60fps. Multi-shot storyboard (6 shots, 15s). Best budget at ~$0.10/sec.' },
+          { name: 'Runway Gen-4.5', provider: 'Runway', tags: [], topPick: false, score: '~1247', pct: 91, detail: 'Best creative control — motion brushes, scene consistency, camera control. $12/mo.' },
+          { name: 'Veo 3.1', provider: 'Google', tags: [], topPick: false, score: '~1226', pct: 90, detail: 'Killer feature: native audio generation (lip sync, SFX, ambient). Best for YouTube with sound.' }
         ]
       },
       {
-        name: 'Long-form Video',
+        name: 'Long-form Video', metric: 'Max Coherent Duration',
         models: [
-          { name: 'Mootion', provider: 'Mootion', tags: [], topPick: true },
-          { name: 'Kling 3.0', provider: 'Kuaishou', tags: [], topPick: false },
-          { name: 'Veo 3.1', provider: 'Google', tags: [], topPick: false }
+          { name: 'Mootion', provider: 'Mootion', tags: [], topPick: true, score: '10+ min', pct: 95, detail: 'Persistent character models, style-locking, AI narrative coherence. 65% faster than average.' },
+          { name: 'Kling 3.0', provider: 'Kuaishou', tags: [], topPick: false, score: 'Up to 5 min', pct: 70, detail: 'Multi-shot with subject consistency. Avatar consistency unmatched in pure generation.' },
+          { name: 'Veo 3.1', provider: 'Google', tags: [], topPick: false, score: '60+ sec', pct: 50, detail: 'Up to 4K. Native audio differentiator but shorter max length.' }
         ]
       },
       {
-        name: 'Video Editing & Effects',
+        name: 'Video Editing & Effects', metric: 'AI Feature Depth',
         models: [
-          { name: 'Adobe Premiere Pro AI', provider: 'Adobe', tags: [], topPick: true },
-          { name: 'Runway Gen-4.5', provider: 'Runway', tags: [], topPick: false },
-          { name: 'DaVinci Resolve AI', provider: 'Blackmagic', tags: [], topPick: false },
-          { name: 'CapCut AI', provider: 'ByteDance', tags: [], topPick: false }
+          { name: 'Adobe Premiere 26.0', provider: 'Adobe', tags: [], topPick: true, score: 'Industry #1', pct: 95, detail: 'Generative Extend, AI Object Mask, Media Intelligence, agentic AI assistant. $22.99/mo.' },
+          { name: 'DaVinci Resolve 21', provider: 'Blackmagic', tags: [], topPick: false, score: 'NAB 2026', pct: 85, detail: 'AI IntelliSearch, CineFocus, AI Speech Gen, facial de-aging. Free/$295 one-time.' },
+          { name: 'CapCut Pro', provider: 'ByteDance', tags: [], topPick: false, score: '8hr→1.5hr', pct: 75, detail: '"Remix" generates multiple short formats. Dominant for TikTok/Reels. Free-$12.99/mo.' },
+          { name: 'Runway', provider: 'Runway', tags: [], topPick: false, score: 'Gen-4 leader', pct: 70, detail: 'Generative editing platform. Powers indie films to TikTok virals. $12/mo+.' }
         ]
       },
       {
-        name: 'Avatar / Talking Head',
+        name: 'Avatar / Talking Head', metric: 'Lip-Sync Accuracy',
         models: [
-          { name: 'HeyGen', provider: 'HeyGen', tags: [], topPick: true },
-          { name: 'Synthesia', provider: 'Synthesia', tags: [], topPick: false },
-          { name: 'Colossyan', provider: 'Colossyan', tags: [], topPick: false },
-          { name: 'D-ID', provider: 'D-ID', tags: [], topPick: false }
+          { name: 'HeyGen', provider: 'HeyGen', tags: [], topPick: true, score: '97%', pct: 97, detail: 'Avatar IV with motion capture. Most natural micro-expressions. 175+ languages. $24/mo.' },
+          { name: 'Synthesia', provider: 'Synthesia', tags: [], topPick: false, score: 'Best multilingual', pct: 90, detail: 'Edge in multilingual phoneme precision. SOC 2. 140+ languages. Best enterprise/L&D. $18/mo.' },
+          { name: 'Colossyan', provider: 'Colossyan', tags: [], topPick: false, score: 'Training-grade', pct: 80, detail: 'Accurate sync, appropriate expressions. Best for structured e-learning workflows.' },
+          { name: 'D-ID', provider: 'D-ID', tags: [], topPick: false, score: 'Adequate', pct: 65, detail: 'Lower price point. Good for quick avatar needs. Trails top 3 in realism.' }
         ]
       }
     ]
   },
   {
-    name: 'Music & Audio',
-    color: '#22d3ee',
+    name: 'Music & Audio', color: '#22d3ee',
     description: 'AI tools for music composition, sound effects, audio mastering, and voice cloning.',
     subtasks: [
       {
-        name: 'Music Composition',
+        name: 'Music Composition', metric: 'Music Quality Elo',
         models: [
-          { name: 'Suno v5.5', provider: 'Suno', tags: [], topPick: true },
-          { name: 'Udio', provider: 'Udio', tags: [], topPick: false },
-          { name: 'AIVA', provider: 'AIVA', tags: [], topPick: false },
-          { name: 'Eleven Music', provider: 'ElevenLabs', tags: [], topPick: false }
+          { name: 'Suno v5.5', provider: 'Suno', tags: [], topPick: true, score: '1293', pct: 95, detail: 'March 2026. Voices, Custom Models, My Taste. 2M paid subs. Best vocals — natural vibrato, breath. $10/mo.' },
+          { name: 'Udio', provider: 'Udio', tags: [], topPick: false, score: '48kHz', pct: 85, detail: 'Settled with UMG/WMG. Inpainting (2s surgical editing). Best for orchestral, ambient, jazz. $10/mo.' },
+          { name: 'ElevenLabs Music', provider: 'ElevenLabs', tags: [], topPick: false, score: 'Best licensing', pct: 75, detail: 'Built on licensed training data. Best for commercial/client-facing work.' },
+          { name: 'Stable Audio 3.0', provider: 'Stability AI', tags: ['OS'], topPick: false, score: '180s max', pct: 70, detail: 'Longest generation. Trails vocals but strong atmospheric. Open-source for fine-tuning.' }
         ]
       },
       {
-        name: 'Sound Effects & Foley',
+        name: 'Sound Effects & Foley', metric: 'Output Quality',
         models: [
-          { name: 'ElevenLabs SFX V2', provider: 'ElevenLabs', tags: [], topPick: true },
-          { name: 'Stable Audio 3.0', provider: 'Stability AI', tags: ['OS'], topPick: false },
-          { name: 'Meta AudioCraft 2', provider: 'Meta', tags: ['OS'], topPick: false }
+          { name: 'ElevenLabs SFX', provider: 'ElevenLabs', tags: [], topPick: true, score: '48kHz/24-bit', pct: 95, detail: 'Indistinguishable from recorded foley in blind tests. Best prompt adherence. 30s max.' },
+          { name: 'Stable Audio 3.0', provider: 'Stability AI', tags: ['OS'], topPick: false, score: '180s, lower fi', pct: 80, detail: '3 minutes max. Excels at atmospheric content. Open-source for custom libraries.' },
+          { name: 'Meta AudioCraft 2', provider: 'Meta', tags: ['OS'], topPick: false, score: 'Apache 2.0', pct: 70, detail: 'Fully open source. Free commercial use with no output restrictions.' }
         ]
       },
       {
-        name: 'Audio Enhancement & Mastering',
+        name: 'Audio Enhancement & Mastering', metric: 'Repair Capability',
         models: [
-          { name: 'iZotope RX 11', provider: 'iZotope', tags: [], topPick: true },
-          { name: 'Descript Studio Sound', provider: 'Descript', tags: [], topPick: false },
-          { name: 'Auphonic', provider: 'Auphonic', tags: [], topPick: false }
+          { name: 'iZotope RX 12', provider: 'iZotope', tags: [], topPick: true, score: 'Gen. Fill', pct: 95, detail: 'NAMM 2026. Paradigm shift: regenerates damaged audio naturally. Analyzes speaker, acoustics, rhythm.' },
+          { name: 'SpectraLayers Pro 12', provider: 'Steinberg', tags: [], topPick: false, score: 'Layer-based', pct: 85, detail: 'Better results with fewer artifacts via layer workflow. AI Unmix. Cubase/Nuendo. $300.' },
+          { name: 'Descript Studio Sound', provider: 'Descript', tags: [], topPick: false, score: 'Text-based', pct: 70, detail: 'Best for creators combining editing with cleanup. Streamlined workflow.' }
         ]
       },
       {
-        name: 'Voice Cloning & Synthesis',
+        name: 'Voice Cloning & Synthesis', metric: 'Bradley-Terry Score',
         models: [
-          { name: 'Fish Audio S2 Pro', provider: 'Fish Audio', tags: ['OS'], topPick: true },
-          { name: 'ElevenLabs v3', provider: 'ElevenLabs', tags: [], topPick: false },
-          { name: 'Voxtral TTS', provider: 'Mistral', tags: ['OS'], topPick: false },
-          { name: 'Chatterbox', provider: 'Resemble AI', tags: ['OS'], topPick: false }
+          { name: 'Fish Audio S2 Pro', provider: 'Fish Audio', tags: ['OS'], topPick: true, score: '3.07 (#1)', pct: 97, detail: 'Open-source. 10M+ hours, 80+ langs. Beats ElevenLabs 60-40 blind. 15K+ emotion tags. ~$15/1M chars.' },
+          { name: 'ElevenLabs v3', provider: 'ElevenLabs', tags: [], topPick: false, score: 'Strong', pct: 85, detail: 'Most feature-complete platform. SOC 2. 41% Fortune 500. 70+ languages.' },
+          { name: 'Voxtral TTS', provider: 'Mistral', tags: ['OS'], topPick: false, score: '68.4% pref', pct: 80, detail: 'March 2026. 9 languages, 70ms latency. Zero-shot clone from 3s. Open weights.' },
+          { name: 'Chatterbox', provider: 'Resemble AI', tags: ['OS'], topPick: false, score: 'MIT', pct: 70, detail: 'Completely free under MIT License. Good budget voice cloning option.' }
         ]
       }
     ]
   },
   {
-    name: 'Research & Reasoning',
-    color: '#eab308',
+    name: 'Research & Reasoning', color: '#eab308',
     description: 'Models for deep research, mathematical reasoning, scientific analysis, and data visualization.',
     subtasks: [
       {
-        name: 'Deep Research & Analysis',
+        name: 'Deep Research & Analysis', metric: 'DeepSearchQA %',
         models: [
-          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: true },
-          { name: 'ChatGPT Deep Research', provider: 'OpenAI', tags: [], topPick: false },
-          { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: false },
-          { name: 'Elicit', provider: 'Elicit', tags: [], topPick: false }
+          { name: 'Gemini Deep Research Max', provider: 'Google', tags: ['3X'], topPick: true, score: '93.3%', pct: 93, detail: 'Up from 66.1% in Dec 2025. MCP support, native visualizations. BrowseComp 85.9%.' },
+          { name: 'ChatGPT Deep Research', provider: 'OpenAI', tags: [], topPick: false, score: '88.5%', pct: 89, detail: 'Feb 2026 update. MCP connectors, editable research plans. Synthesizes hundreds of papers.' },
+          { name: 'Claude Advanced Research', provider: 'Anthropic', tags: ['3X'], topPick: false, score: '~78-80%', pct: 79, detail: 'Opus 4.7 base. Up to 45 min autonomous investigation. Strong nuanced synthesis.' },
+          { name: 'Elicit', provider: 'Elicit', tags: [], topPick: false, score: 'Specialist', pct: 0, detail: '138M+ papers + 545K clinical trials. Purpose-built for systematic literature review.' }
         ]
       },
       {
-        name: 'Mathematical Reasoning',
+        name: 'Mathematical Reasoning', metric: 'AIME / FrontierMath',
         models: [
-          { name: 'GPT-5.2 Thinking', provider: 'OpenAI', tags: [], topPick: true },
-          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: false },
-          { name: 'DeepSeek-R1-0528', provider: 'DeepSeek', tags: ['OS'], topPick: false },
-          { name: 'Qwen QwQ-32B', provider: 'Alibaba', tags: ['OS'], topPick: false }
+          { name: 'GPT-5.4 Thinking', provider: 'OpenAI', tags: [], topPick: true, score: '99% / 47.6%', pct: 97, detail: 'Near-perfect AIME. Leads FrontierMath at 47.6%. GPT-5.4 Pro reaches 50%.' },
+          { name: 'Gemini Deep Think', provider: 'Google', tags: ['3X'], topPick: false, score: '98-99% AIME', pct: 95, detail: 'IMO 2025 gold medal (35/42). 98-99% AIME. GPQA Diamond 97%.' },
+          { name: 'Grok 4 Heavy', provider: 'xAI', tags: [], topPick: false, score: '100% AIME', pct: 93, detail: 'Claims 100% AIME — no other model matches. 2M context. No FrontierMath published.' },
+          { name: 'DeepSeek-R1-0528', provider: 'DeepSeek', tags: ['OS'], topPick: false, score: '87.5% AIME', pct: 85, detail: 'Best open-source math reasoning. V4 and R2 still unreleased as of today.' }
         ]
       },
       {
-        name: 'Scientific Research',
+        name: 'Scientific Research', metric: 'Domain Impact',
         models: [
-          { name: 'AlphaFold 3', provider: 'Google DeepMind', tags: [], topPick: true },
-          { name: 'Elicit', provider: 'Elicit', tags: [], topPick: false },
-          { name: 'Semantic Scholar', provider: 'Allen AI', tags: ['OS'], topPick: false }
+          { name: 'AlphaFold 3 / IsoDDE', provider: 'DeepMind', tags: [], topPick: true, score: 'SOTA protein', pct: 98, detail: 'AlphaFold 3 + IsoDDE ("AlphaFold 4"). Outperforms physics-based docking. 3M+ researchers.' },
+          { name: 'Google AI Co-Scientist', provider: 'Google', tags: [], topPick: false, score: 'Multi-agent', pct: 85, detail: 'Reproduced a decade of bacterial gene research in 48 hours. New paradigm.' },
+          { name: 'Elicit / Consensus', provider: 'Various', tags: [], topPick: false, score: '138M+ papers', pct: 75, detail: 'Elicit best for data extraction. Consensus best for yes/no scientific questions.' },
+          { name: 'Semantic Scholar', provider: 'Allen AI', tags: ['OS'], topPick: false, score: 'AI-ranked', pct: 70, detail: 'Citation pattern analysis superior to keyword databases.' }
         ]
       },
       {
-        name: 'Data Analysis & Visualization',
+        name: 'Data Analysis & Visualization', metric: 'Capability Assessment',
         models: [
-          { name: 'ChatGPT Data Analysis', provider: 'OpenAI', tags: ['3X'], topPick: true },
-          { name: 'Julius AI', provider: 'Julius', tags: [], topPick: false },
-          { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: false }
+          { name: 'ChatGPT Data Analysis', provider: 'OpenAI', tags: ['3X'], topPick: true, score: 'Best overall', pct: 92, detail: 'Runs Python, regressions, interactive charts. GPT-5.4 reasoning for simulations.' },
+          { name: 'Claude Artifacts (Opus 4.7)', provider: 'Anthropic', tags: ['3X'], topPick: false, score: 'Best code', pct: 88, detail: 'Live auto-refreshing dashboards (Cowork). Claude Design for visual outputs. Cleanest code.' },
+          { name: 'Julius AI', provider: 'Julius', tags: [], topPick: false, score: 'Best speed', pct: 80, detail: 'Connected databases, scheduled reports, auto-updating analyses. Chat-based.' }
         ]
       }
     ]
   },
   {
-    name: 'Text-to-Speech (TTS)',
-    color: '#00FF41',
-    description: 'Voice synthesis models for natural conversation, narration, multilingual speech, and real-time applications.',
+    name: 'Text-to-Speech (TTS)', color: '#00FF41',
+    description: 'Voice synthesis for natural conversation, narration, multilingual speech, and real-time applications.',
     subtasks: [
       {
-        name: 'Natural Conversation',
+        name: 'Natural Conversation', metric: 'AA TTS Arena ELO',
         models: [
-          { name: 'Inworld TTS-1.5 Max', provider: 'Inworld', tags: [], topPick: true },
-          { name: 'ElevenLabs v3', provider: 'ElevenLabs', tags: [], topPick: false },
-          { name: 'Fish Audio S2 Pro', provider: 'Fish Audio', tags: ['OS'], topPick: false },
-          { name: 'Voxtral TTS', provider: 'Mistral', tags: ['OS'], topPick: false }
+          { name: 'Inworld TTS-1.5 Max', provider: 'Inworld', tags: [], topPick: true, score: '1236', pct: 97, detail: '#1 on Artificial Analysis Speech Arena. 40-point gap over ElevenLabs.' },
+          { name: 'Gemini 3.1 Flash TTS', provider: 'Google', tags: [], topPick: false, score: '1211', pct: 95, detail: 'April 15, 2026. Debuted at #2, leapfrogging ElevenLabs. 70+ languages. Audio tags.' },
+          { name: 'ElevenLabs v3', provider: 'ElevenLabs', tags: [], topPick: false, score: '1196', pct: 94, detail: 'Flash v2.5 at 75ms latency. Dropped to #3 behind Gemini Flash. Mature ecosystem.' },
+          { name: 'Fish Audio S2 Pro', provider: 'Fish Audio', tags: ['OS'], topPick: false, score: '~1165', pct: 91, detail: '81.88% EmergentTTS win rate. Preferred over ElevenLabs 60-40 in blind tests.' }
         ]
       },
       {
-        name: 'Narration & Audiobooks',
+        name: 'Narration & Audiobooks', metric: 'Long-form Preference',
         models: [
-          { name: 'ElevenLabs v3', provider: 'ElevenLabs', tags: [], topPick: true },
-          { name: 'Inworld TTS-1.5 Max', provider: 'Inworld', tags: [], topPick: false },
-          { name: 'Fish Audio S2 Pro', provider: 'Fish Audio', tags: ['OS'], topPick: false }
+          { name: 'ElevenLabs v3', provider: 'ElevenLabs', tags: [], topPick: true, score: '~1179 AA', pct: 95, detail: 'Sighs, whispers, laughs contextually. Projects audiobook suite. 192kbps Audible-grade. Reader app.' },
+          { name: 'Hume Octave', provider: 'Hume AI', tags: [], topPick: false, score: '~1561 HF', pct: 90, detail: '71.6% preferred for quality. Designed for emotional intelligence. HF Arena 64% win rate.' },
+          { name: 'Fish Audio S2 Pro', provider: 'Fish Audio', tags: ['OS'], topPick: false, score: '15K+ tags', pct: 85, detail: 'Most granular control: [whisper], [laugh], [super happy], [pause], [emphasis], [singing].' }
         ]
       },
       {
-        name: 'Multilingual TTS',
+        name: 'Multilingual TTS', metric: 'Language Coverage + Preference',
         models: [
-          { name: 'Fish Audio S2 Pro', provider: 'Fish Audio', tags: ['OS'], topPick: true },
-          { name: 'Voxtral TTS', provider: 'Mistral', tags: ['OS'], topPick: false },
-          { name: 'ElevenLabs Multilingual v3', provider: 'ElevenLabs', tags: [], topPick: false }
+          { name: 'Fish Audio S2 Pro', provider: 'Fish Audio', tags: ['OS'], topPick: true, score: '80+ langs', pct: 97, detail: '10M+ hours. Dominates CJK (Chinese: 8.11 vs ElevenLabs 2.36). 1.6x pref Latin-script.' },
+          { name: 'Gemini 3.1 Flash TTS', provider: 'Google', tags: [], topPick: false, score: '70+ langs', pct: 90, detail: 'Native multi-speaker dialogue. Serious contender at Google scale.' },
+          { name: 'Voxtral TTS', provider: 'Mistral', tags: ['OS'], topPick: false, score: '9 langs, 70ms', pct: 80, detail: 'Open-source. Zero-shot from 3s audio. 73% cheaper than ElevenLabs.' },
+          { name: 'ElevenLabs Multilingual v3', provider: 'ElevenLabs', tags: [], topPick: false, score: '70+ langs', pct: 78, detail: 'Strong accent handling. Most mature multilingual ecosystem.' }
         ]
       },
       {
-        name: 'Emotional / Expressive TTS',
+        name: 'Emotional / Expressive TTS', metric: 'Expressiveness Score',
         models: [
-          { name: 'Inworld TTS-1.5 Max', provider: 'Inworld', tags: [], topPick: true },
-          { name: 'Fish Audio S2 Pro', provider: 'Fish Audio', tags: ['OS'], topPick: false },
-          { name: 'ElevenLabs v3', provider: 'ElevenLabs', tags: [], topPick: false }
+          { name: 'Inworld TTS-1.5 Max', provider: 'Inworld', tags: [], topPick: true, score: '1236 ELO', pct: 97, detail: '30% more expressive than 1.0. Best at complex emotional states.' },
+          { name: 'Fish Audio S2 Pro', provider: 'Fish Audio', tags: ['OS'], topPick: false, score: '15K+ tags', pct: 90, detail: 'Most granular control of any model. Tags for every emotion and prosody control.' },
+          { name: 'Hume Octave', provider: 'Hume AI', tags: [], topPick: false, score: '71.6% pref', pct: 88, detail: 'Purpose-built for emotional intelligence. HF Arena ELO 1561.' },
+          { name: 'ElevenLabs v3', provider: 'ElevenLabs', tags: [], topPick: false, score: '68% fewer errors', pct: 85, detail: 'Strong emotional expressiveness with consistent long-form character voice.' }
         ]
       },
       {
-        name: 'Real-time TTS',
+        name: 'Real-time TTS', metric: 'TTFA P90 (quality-adjusted)',
         models: [
-          { name: 'Inworld TTS-1.5 Max', provider: 'Inworld', tags: [], topPick: true },
-          { name: 'Chatterbox-Turbo', provider: 'Resemble AI', tags: ['OS'], topPick: false },
-          { name: 'CosyVoice2-0.5B', provider: 'Alibaba', tags: ['OS'], topPick: false }
+          { name: 'Inworld TTS-1.5 Mini', provider: 'Inworld', tags: [], topPick: true, score: '<130ms', pct: 95, detail: 'Best quality-speed tradeoff. Top-5 family quality with sub-130ms.' },
+          { name: 'Fish Audio S2 Pro', provider: 'Fish Audio', tags: ['OS'], topPick: false, score: '~100ms', pct: 90, detail: 'Strong quality with competitive latency. Self-hostable.' },
+          { name: 'CosyVoice2-0.5B', provider: 'Alibaba', tags: ['OS'], topPick: false, score: '~150ms', pct: 82, detail: 'MOS 5.53. Pronunciation errors reduced 30-50% over v1.' },
+          { name: 'Chatterbox-Turbo', provider: 'Resemble AI', tags: ['OS'], topPick: false, score: '<150ms', pct: 80, detail: '350M params. Most hardware-efficient open-source. MIT license.' }
         ]
       }
     ]
   },
   {
-    name: 'Speech-to-Text (STT)',
-    color: '#f472b6',
+    name: 'Speech-to-Text (STT)', color: '#f472b6',
     description: 'Transcription models for general, real-time, multilingual, diarization, and noisy environment use cases.',
     subtasks: [
       {
-        name: 'General Transcription',
+        name: 'General Transcription', metric: 'WER (lower is better)',
         models: [
-          { name: 'AssemblyAI Universal-2', provider: 'AssemblyAI', tags: [], topPick: true },
-          { name: 'Deepgram Nova-3', provider: 'Deepgram', tags: [], topPick: false },
-          { name: 'Whisper Large v3 Turbo', provider: 'OpenAI', tags: ['OS'], topPick: false },
-          { name: 'Google Cloud Chirp', provider: 'Google', tags: [], topPick: false }
+          { name: 'AssemblyAI Universal-3 Pro', provider: 'AssemblyAI', tags: [], topPick: true, score: '5.6% WER', pct: 94, detail: 'Feb 2026. First "promptable" STT. 35-50% lower cost than competitors.' },
+          { name: 'IBM Granite 4.0 1B', provider: 'IBM', tags: ['OS'], topPick: false, score: '5.52% WER', pct: 95, detail: 'Tops OpenASR at only 1B params. Remarkable efficiency for edge deployment.' },
+          { name: 'Deepgram Nova-3', provider: 'Deepgram', tags: [], topPick: false, score: '~5.26%', pct: 95, detail: 'Strong internal benchmarks. Third-party varies (~18.3% AA). Developer-friendly.' },
+          { name: 'Whisper Large v3 Turbo', provider: 'OpenAI', tags: ['OS'], topPick: false, score: '~5.1%', pct: 95, detail: '100+ languages, 216x real-time. Still the go-to open-source STT.' }
         ]
       },
       {
-        name: 'Real-time Transcription',
+        name: 'Real-time Transcription', metric: 'Streaming Latency',
         models: [
-          { name: 'Deepgram Nova-3', provider: 'Deepgram', tags: [], topPick: true },
-          { name: 'AssemblyAI Universal-2', provider: 'AssemblyAI', tags: [], topPick: false },
-          { name: 'Speechmatics', provider: 'Speechmatics', tags: [], topPick: false }
+          { name: 'Deepgram Nova-3', provider: 'Deepgram', tags: [], topPick: true, score: '<300ms', pct: 95, detail: 'Best latency-accuracy tradeoff. 40x faster diarization. Optimized streaming.' },
+          { name: 'AssemblyAI U3 Pro Streaming', provider: 'AssemblyAI', tags: [], topPick: false, score: '<300ms', pct: 92, detail: 'March 2026. Promptable streaming. Real-time diarization. 99+ languages.' },
+          { name: 'Gladia Solaria-1', provider: 'Gladia', tags: [], topPick: false, score: '103ms partial', pct: 88, detail: 'Bundled diarization, native code-switching. $0.55/hour. New entrant.' }
         ]
       },
       {
-        name: 'Multilingual STT',
+        name: 'Multilingual STT', metric: 'Language Coverage + WER',
         models: [
-          { name: 'Whisper Large v3 Turbo', provider: 'OpenAI', tags: ['OS'], topPick: true },
-          { name: 'Google Cloud Chirp', provider: 'Google', tags: [], topPick: false },
-          { name: 'AssemblyAI Universal-2', provider: 'AssemblyAI', tags: [], topPick: false }
+          { name: 'Whisper Large v3 Turbo', provider: 'OpenAI', tags: ['OS'], topPick: true, score: '100+ langs', pct: 97, detail: '216x real-time. Handles accents, code-switching, low-resource languages. No v4 exists.' },
+          { name: 'AssemblyAI Universal-3 Pro', provider: 'AssemblyAI', tags: [], topPick: false, score: '99+ langs', pct: 92, detail: 'Promptable. 91.3% multilingual accuracy. Domain-term instructions across languages.' },
+          { name: 'IBM Granite 4.0 1B', provider: 'IBM', tags: ['OS'], topPick: false, score: '5.52% avg', pct: 85, detail: 'Great for edge deployment. Narrower coverage than Whisper\'s 100+.' }
         ]
       },
       {
-        name: 'Speaker Diarization',
+        name: 'Speaker Diarization', metric: 'DER (lower is better)',
         models: [
-          { name: 'AssemblyAI', provider: 'AssemblyAI', tags: [], topPick: true },
-          { name: 'Pyannote 3.1', provider: 'Open Source', tags: ['OS'], topPick: false },
-          { name: 'Google Gemini STT', provider: 'Google', tags: [], topPick: false }
+          { name: 'Pyannote 3.1 / Community-1', provider: 'pyannote.ai', tags: ['OS'], topPick: true, score: '~9.0% DER', pct: 91, detail: 'Lowest DER on VoxConverse. Community-1 further improves on 3.1. Open-source.' },
+          { name: 'AssemblyAI Universal-3 Pro', provider: 'AssemblyAI', tags: [], topPick: false, score: '~10.1% imp', pct: 88, detail: 'Integrated pipeline. 95-language support. 30% improvement in noise. Best production.' },
+          { name: 'Picovoice Falcon', provider: 'Picovoice', tags: ['OS'], topPick: false, score: '~10.3% DER', pct: 85, detail: '221x fewer compute resources, 15x less memory than pyannote. Efficiency champion.' }
         ]
       },
       {
-        name: 'Noisy Environment STT',
+        name: 'Noisy Environment STT', metric: 'WER Degradation Clean→Noisy',
         models: [
-          { name: 'AssemblyAI Universal-2', provider: 'AssemblyAI', tags: [], topPick: true },
-          { name: 'Speechmatics Enhanced', provider: 'Speechmatics', tags: [], topPick: false },
-          { name: 'Deepgram Nova-3', provider: 'Deepgram', tags: [], topPick: false },
-          { name: 'Whisper Large v3 Turbo', provider: 'OpenAI', tags: ['OS'], topPick: false }
+          { name: 'IBM Granite 4.0 1B', provider: 'IBM', tags: ['OS'], topPick: true, score: '7.54% deg', pct: 92, detail: 'Most consistent across acoustic environments. Only 7.54% WER increase in noise.' },
+          { name: 'AssemblyAI Universal-3 Pro', provider: 'AssemblyAI', tags: [], topPick: false, score: '30% diar imp', pct: 88, detail: 'Promptable noise instructions. 30% diarization improvement in noisy settings.' },
+          { name: 'Speechmatics', provider: 'Speechmatics', tags: [], topPick: false, score: '12-16% > Whisper', pct: 85, detail: 'Ships inside Adobe Premiere. Trained for accented, non-native, field audio.' },
+          { name: 'Deepgram Nova-3', provider: 'Deepgram', tags: [], topPick: false, score: '5.26% batch', pct: 82, detail: 'Strong noise robustness with sub-300ms latency maintained.' }
         ]
       }
     ]
   },
   {
-    name: 'Multimodal & Reasoning',
-    color: '#38bdf8',
-    description: 'Models that process and reason across text, images, audio, video, and documents in unified architectures.',
+    name: 'Multimodal & Reasoning', color: '#38bdf8',
+    description: 'Models that reason across text, images, audio, video, and documents in unified architectures.',
     subtasks: [
       {
-        name: 'Visual Understanding & Analysis',
+        name: 'Visual Understanding & Analysis', metric: 'MMMU-Pro %',
         models: [
-          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: true },
-          { name: 'GPT-5.2', provider: 'OpenAI', tags: ['3X'], topPick: false },
-          { name: 'GLM-4.5V', provider: 'Zhipu AI', tags: ['OS'], topPick: false }
+          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: true, score: '88.2%', pct: 88, detail: 'Approaching best human expert (88.6%). Natively processes charts, diagrams, video in unified representation.' },
+          { name: 'GPT-5.4', provider: 'OpenAI', tags: ['3X'], topPick: false, score: '86.5%', pct: 87, detail: 'Dominates Video-MMMU at 90.5%. Strong diverse visual reasoning with image generation.' },
+          { name: 'Kimi K2.5', provider: 'Moonshot AI', tags: ['OS', '3X'], topPick: false, score: '78.5%', pct: 79, detail: 'Pre-trained on 15T visual-text tokens. Best open-source for visual knowledge.' },
+          { name: 'GLM-5V-Turbo', provider: 'Zhipu AI', tags: ['OS'], topPick: false, score: '~77%', pct: 77, detail: 'April 2026. Vision-based coding and agent workflows. 128K context.' }
         ]
       },
       {
-        name: 'Document / Chart Understanding',
+        name: 'Document / Chart Understanding', metric: 'DocVQA %',
         models: [
-          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: true },
-          { name: 'Qwen2.5-VL-32B', provider: 'Alibaba', tags: ['OS'], topPick: false },
-          { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: false },
-          { name: 'GPT-5.2', provider: 'OpenAI', tags: ['3X'], topPick: false }
+          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: true, score: '~97%+', pct: 97, detail: 'Leads overall multimodal document understanding. Native multi-format processing.' },
+          { name: 'Qwen3-VL (235B MoE)', provider: 'Alibaba', tags: ['OS'], topPick: false, score: '96.5%', pct: 97, detail: 'Replaces Qwen2.5-VL as top open-source. 32-language OCR. 88+ ChartQA.' },
+          { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: false, score: 'GPQA 94.2%', pct: 94, detail: 'Excellent careful document analysis with nuanced understanding of visual layouts.' },
+          { name: 'GPT-5.4', provider: 'OpenAI', tags: ['3X'], topPick: false, score: '86.5% MMMU', pct: 87, detail: 'Strong chart interpretation and data relationship reasoning.' }
         ]
       },
       {
-        name: 'Cross-modal Reasoning',
+        name: 'Cross-modal Reasoning', metric: 'Video-MMMU / MMMU-Pro',
         models: [
-          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: true },
-          { name: 'GPT-5.2', provider: 'OpenAI', tags: ['3X'], topPick: false },
-          { name: 'GLM-4.6V', provider: 'Zhipu AI', tags: ['OS'], topPick: false },
-          { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: false }
+          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: true, score: '87.6/88.2%', pct: 88, detail: '1501 Elo multimodal leaderboard. Broadest modality support. 8.4hr audio / 1hr video per prompt.' },
+          { name: 'GPT-5.4', provider: 'OpenAI', tags: ['3X'], topPick: false, score: '90.5/86.5%', pct: 87, detail: 'Leads Video-MMMU. Stronger temporal video comprehension. Native image gen + voice.' },
+          { name: 'Kimi K2.5', provider: 'Moonshot AI', tags: ['OS', '3X'], topPick: false, score: '78.5% MMMU', pct: 79, detail: '15T visual-text token pretraining. Best open-source for cross-modal agentic tool use.' },
+          { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: false, score: 'GPQA 94.2%', pct: 78, detail: 'Strong text+image reasoning. 1M context for massive multimodal document analysis.' }
         ]
       }
     ]
   }
 ];
 
-// ============ RENDER FUNCTIONS ============
+// ============ RENDER ============
+
+var activeCategory = 0;
+
+function countStats() {
+  var tools = 0, tasks = 0;
+  LANDSCAPE_DATA.forEach(function(c) { c.subtasks.forEach(function(s) { tasks++; tools += s.models.length; }); });
+  return { tools: tools, categories: LANDSCAPE_DATA.length, tasks: tasks };
+}
 
 function renderStats() {
-  var totalTools = 0, totalTasks = 0;
-  LANDSCAPE_DATA.forEach(function(cat) {
-    cat.subtasks.forEach(function(st) {
-      totalTasks++;
-      totalTools += st.models.length;
-    });
-  });
-  document.getElementById('statsBar').innerHTML =
-    '<span class="num">' + totalTools + '</span> tools' +
-    '<span class="sep">/</span>' +
-    '<span class="num">' + LANDSCAPE_DATA.length + '</span> categories' +
-    '<span class="sep">/</span>' +
-    '<span class="num">' + totalTasks + '</span> tasks';
+  var s = countStats();
+  document.getElementById('statsRow').innerHTML =
+    '<div class="stat-item"><span class="stat-num">' + s.tools + '</span><span class="stat-label">tools</span></div>' +
+    '<div class="stat-item"><span class="stat-num">' + s.categories + '</span><span class="stat-label">categories</span></div>' +
+    '<div class="stat-item"><span class="stat-num">' + s.tasks + '</span><span class="stat-label">tasks</span></div>';
 }
 
-function renderGrid() {
+function renderSidebar() {
   var html = '';
-  LANDSCAPE_DATA.forEach(function(cat, i) {
-    var toolCount = 0;
-    cat.subtasks.forEach(function(st) { toolCount += st.models.length; });
-    html += '<div class="cat-card" data-index="' + i + '" style="border-left-color:' + cat.color + '">' +
-      '<div class="cat-card-header">' +
-        '<span class="cat-dot" style="background:' + cat.color + '"></span>' +
-        '<span class="cat-title">' + cat.name + '</span>' +
-      '</div>' +
-      '<div class="cat-meta">' +
-        '<span>' + cat.subtasks.length + ' sub-tasks</span>' +
-        '<span>' + toolCount + ' tools</span>' +
-      '</div>' +
+  LANDSCAPE_DATA.forEach(function(c, i) {
+    var tc = 0; c.subtasks.forEach(function(s) { tc += s.models.length; });
+    html += '<div class="cat-nav-item' + (i === activeCategory ? ' active' : '') + '" data-idx="' + i + '">' +
+      '<span class="cat-nav-dot" style="background:' + c.color + '"></span>' +
+      '<span class="cat-nav-name">' + c.name + '</span>' +
+      '<span class="cat-nav-count">' + tc + '</span>' +
     '</div>';
   });
-  document.getElementById('gridView').innerHTML = html;
+  document.getElementById('catSidebar').innerHTML = html;
 }
 
-// ============ AUTH REDIRECT ============
-if (sessionStorage.getItem('aof_cw_auth') !== '1') {
-  window.location.href = '/commwork/';
-}
-
-function openDetail(idx) {
+function renderContent(idx) {
   var cat = LANDSCAPE_DATA[idx];
-  var grid = document.getElementById('gridView');
-  var panel = document.getElementById('detailPanel');
-
-  grid.classList.add('hidden');
-
-  var toolCount = 0;
-  cat.subtasks.forEach(function(st) { toolCount += st.models.length; });
-
-  var html = '<div class="detail-header">' +
-    '<div class="detail-header-left">' +
-      '<span class="cat-dot" style="background:' + cat.color + ';width:12px;height:12px"></span>' +
-      '<h2 class="detail-title">' + cat.name + '</h2>' +
+  var html = '<div class="cat-header">' +
+    '<div class="cat-header-top">' +
+      '<span class="cat-header-dot" style="background:' + cat.color + ';box-shadow:0 0 8px ' + cat.color + '"></span>' +
+      '<h2 class="cat-header-title">' + cat.name + '</h2>' +
     '</div>' +
-    '<button class="detail-close" onclick="closeDetail()">&times;</button>' +
-  '</div>' +
-  '<p class="detail-desc">' + cat.description + '</p>';
+    '<p class="cat-header-desc">' + cat.description + '</p>' +
+  '</div>';
 
   cat.subtasks.forEach(function(st, si) {
-    html += '<div class="subtask open" id="subtask-' + si + '">' +
-      '<div class="subtask-header" onclick="toggleSubtask(' + si + ')">' +
-        '<span class="subtask-title">' + st.name + '</span>' +
-        '<span class="subtask-toggle">&#9654;</span>' +
+    html += '<div class="subtask-card' + (si === 0 ? ' open' : '') + '" id="st-' + idx + '-' + si + '">' +
+      '<div class="subtask-trigger" onclick="toggleST(' + idx + ',' + si + ')">' +
+        '<div class="subtask-trigger-left">' +
+          '<span class="subtask-name">' + st.name + '</span>' +
+          '<span class="subtask-metric-badge">' + st.metric + '</span>' +
+        '</div>' +
+        '<span class="subtask-chevron">&#9654;</span>' +
       '</div>' +
       '<div class="subtask-body">';
 
-    st.models.forEach(function(m) {
-      var rowClass = m.topPick ? 'model-row top-pick' : 'model-row';
+    st.models.forEach(function(m, mi) {
+      var cls = 'model-row model-detail-toggle' + (m.topPick ? ' top-pick' : '');
       var star = m.topPick ? '&#9733;' : '';
       var badges = '';
-      m.tags.forEach(function(tag) {
-        if (tag === 'OS') badges += '<span class="badge os">OS</span>';
-        else if (tag === '3X') badges += '<span class="badge cross">3X</span>';
+      m.tags.forEach(function(t) {
+        if (t === 'OS') badges += '<span class="badge os">OS</span>';
+        else if (t === '3X') badges += '<span class="badge cross">3X</span>';
       });
 
-      html += '<div class="' + rowClass + '">' +
+      html += '<div class="' + cls + '" onclick="toggleModelDetail(this)">' +
         '<span class="model-star">' + star + '</span>' +
         '<span class="model-name">' + m.name + '</span>' +
         '<div class="model-badges">' + badges + '</div>' +
+        '<span class="model-metric">' + m.score + '</span>' +
         '<span class="model-provider">' + m.provider + '</span>' +
+        '<div class="model-expand">' +
+          '<p style="margin-bottom:8px">' + m.detail + '</p>' +
+          (m.pct > 0 ? renderMetricBar(m.name, m.pct, cat.color, st.metric) : '') +
+        '</div>' +
       '</div>';
     });
 
     html += '</div></div>';
   });
 
-  panel.innerHTML = html;
-  panel.classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  history.pushState({ view: 'detail', index: idx }, '');
+  document.getElementById('catContent').innerHTML = html;
 }
 
-function closeDetail() {
-  document.getElementById('gridView').classList.remove('hidden');
-  var panel = document.getElementById('detailPanel');
-  panel.classList.remove('active');
-  panel.innerHTML = '';
+function renderMetricBar(name, pct, color, label) {
+  return '<div class="metric-bar-wrap">' +
+    '<span class="metric-bar-label">' + label + '</span>' +
+    '<div class="metric-bar-track"><div class="metric-bar-fill" style="width:' + pct + '%;background:' + color + '"></div></div>' +
+    '<span class="metric-bar-value">' + pct + '%</span>' +
+  '</div>';
 }
 
-function toggleSubtask(idx) {
-  var el = document.getElementById('subtask-' + idx);
+function toggleST(catIdx, stIdx) {
+  var el = document.getElementById('st-' + catIdx + '-' + stIdx);
   if (el) el.classList.toggle('open');
+}
+
+function toggleModelDetail(row) {
+  row.classList.toggle('expanded');
+}
+
+function switchCategory(idx) {
+  activeCategory = idx;
+  renderSidebar();
+  renderContent(idx);
+  if (window.innerWidth <= 900) {
+    var content = document.getElementById('catContent');
+    if (content) content.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 }
 
 // ============ EVENT LISTENERS ============
 
-document.getElementById('gridView').addEventListener('click', function(e) {
-  var card = e.target.closest('.cat-card');
-  if (card) openDetail(parseInt(card.getAttribute('data-index')));
-});
-
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    var panel = document.getElementById('detailPanel');
-    if (panel.classList.contains('active')) {
-      closeDetail();
-      if (history.state && history.state.view === 'detail') history.back();
-    }
-  }
-});
-
-window.addEventListener('popstate', function() {
-  var panel = document.getElementById('detailPanel');
-  if (panel.classList.contains('active')) {
-    document.getElementById('gridView').classList.remove('hidden');
-    panel.classList.remove('active');
-    panel.innerHTML = '';
-  }
+document.getElementById('catSidebar').addEventListener('click', function(e) {
+  var item = e.target.closest('.cat-nav-item');
+  if (item) switchCategory(parseInt(item.getAttribute('data-idx')));
 });
 
 // ============ THEME & SCROLL ============
 
 (function() {
   var root = document.documentElement;
-  var floatingToggle = document.getElementById('floatingThemeToggle');
-
-  function applyTheme(theme) {
+  var btn = document.getElementById('floatingThemeToggle');
+  function apply(theme) {
     root.setAttribute('data-theme', theme);
-    var icon = theme === 'light' ? '\u263E' : '\u2600';
-    if (floatingToggle) floatingToggle.textContent = icon;
+    if (btn) btn.textContent = theme === 'light' ? '\u263E' : '\u2600';
   }
-
-  var stored = localStorage.getItem('aof_theme');
-  applyTheme(stored || 'dark');
-
-  function handleToggle() {
-    var current = root.getAttribute('data-theme');
-    var next = current === 'light' ? 'dark' : 'light';
+  apply(localStorage.getItem('aof_theme') || 'dark');
+  if (btn) btn.addEventListener('click', function() {
+    var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
     localStorage.setItem('aof_theme', next);
-    applyTheme(next);
-  }
-
-  if (floatingToggle) floatingToggle.addEventListener('click', handleToggle);
-
-  var scrollBar = document.getElementById('scrollProgress');
-  if (scrollBar) {
-    window.addEventListener('scroll', function() {
-      var scrollTop = window.scrollY;
-      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      var percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      scrollBar.style.width = percent + '%';
-    }, { passive: true });
-  }
+    apply(next);
+  });
+  var bar = document.getElementById('scrollProgress');
+  if (bar) window.addEventListener('scroll', function() {
+    var pct = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (pct > 0 ? (window.scrollY / pct) * 100 : 0) + '%';
+  }, { passive: true });
 })();
 
 // ============ INIT ============
 renderStats();
-renderGrid();
+renderSidebar();
+renderContent(0);
 </script>
 </body>
 </html>
