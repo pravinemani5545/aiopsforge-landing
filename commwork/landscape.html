@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Tools Landscape — AIOpsForge</title>
-<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/png" href="../favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
@@ -506,113 +506,14 @@ body {
   font-size: 13px;
 }
 
-/* ============ AUTH MODAL ============ */
-.auth-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s, visibility 0.3s;
-}
-.auth-overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
-:root[data-theme="light"] .auth-overlay {
-  background: rgba(255, 255, 255, 0.7);
-}
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) .auth-overlay {
-    background: rgba(255, 255, 255, 0.7);
-  }
-}
-.auth-box {
-  background: var(--bg-card);
-  border: 1px solid var(--border-green);
-  padding: 40px 32px;
-  max-width: 400px;
-  width: 90%;
-  position: relative;
-  text-align: center;
-}
-.auth-box::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--green);
-}
-.auth-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--green);
-  margin-bottom: 12px;
-}
-.auth-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 22px;
-  font-weight: 700;
+/* ============ BACK LINK ============ */
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  color: var(--text-dim); text-decoration: none; transition: color 0.2s;
   margin-bottom: 8px;
 }
-.auth-desc {
-  color: var(--text-secondary);
-  font-size: 13px;
-  margin-bottom: 24px;
-  line-height: 1.6;
-}
-.auth-form {
-  display: flex;
-  gap: 8px;
-}
-.auth-input {
-  flex: 1;
-  padding: 12px 16px;
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border);
-  color: var(--text-primary);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  outline: none;
-  transition: border-color 0.2s;
-}
-.auth-input:focus {
-  border-color: var(--border-green);
-}
-.auth-input::placeholder {
-  color: var(--text-dim);
-}
-.auth-btn {
-  padding: 12px 20px;
-  background: var(--green);
-  color: #000;
-  border: none;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: opacity 0.2s;
-  white-space: nowrap;
-}
-.auth-btn:hover { opacity: 0.85; }
-.auth-error {
-  color: var(--red);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  margin-top: 12px;
-  display: none;
-}
-.auth-error.show { display: block; }
+.back-link:hover { color: var(--green); }
 
 /* ============ FOOTER ============ */
 .footer {
@@ -665,6 +566,7 @@ body {
 <button class="floating-theme-toggle" id="floatingThemeToggle">&#9728;</button>
 
 <div class="container">
+  <a href="/commwork/" class="back-link">&larr; back to hub</a>
   <div class="page-header">
     <div class="page-label">landscape</div>
     <h1 class="page-title">AI Tools Landscape</h1>
@@ -685,26 +587,12 @@ body {
   </div>
 </div>
 
-<!-- Auth Modal -->
-<div class="auth-overlay" id="authOverlay">
-  <div class="auth-box">
-    <div class="auth-label">restricted</div>
-    <div class="auth-title">Enter access key</div>
-    <p class="auth-desc">This section is locked. Enter the key to view contents.</p>
-    <form class="auth-form" id="authForm">
-      <input type="password" class="auth-input" id="authInput" placeholder="access key" autocomplete="off">
-      <button type="submit" class="auth-btn">Unlock</button>
-    </form>
-    <div class="auth-error" id="authError">incorrect key — try again</div>
-  </div>
-</div>
-
 <footer class="footer">
   <div class="footer-inner">
     <span style="font-family: 'JetBrains Mono', monospace;">AIOpsForge &middot; AI Tools Landscape</span>
     <div class="footer-links">
-      <a href="index.html">Home</a>
-      <a href="blogs.html">Blog</a>
+      <a href="/commwork/">Hub</a>
+      <a href="../index.html">Home</a>
     </div>
     <span>built by an engineer who ships</span>
   </div>
@@ -1127,59 +1015,12 @@ function renderGrid() {
   document.getElementById('gridView').innerHTML = html;
 }
 
-// ============ AUTH GATE ============
-var AUTH_HASH = '6993291f5388959e87a63f73e6e2e9e593a0b8b092597ce19d41a9da79aee009';
-var pendingIdx = null;
-
-function isAuthed() {
-  return sessionStorage.getItem('aof_landscape_auth') === '1';
+// ============ AUTH REDIRECT ============
+if (sessionStorage.getItem('aof_cw_auth') !== '1') {
+  window.location.href = '/commwork/';
 }
-
-function checkAuth(input) {
-  return crypto.subtle.digest('SHA-256', new TextEncoder().encode(input)).then(function(buf) {
-    var hash = Array.from(new Uint8Array(buf)).map(function(b) { return b.toString(16).padStart(2, '0'); }).join('');
-    return hash === AUTH_HASH;
-  });
-}
-
-function showAuthModal(idx) {
-  pendingIdx = idx;
-  var overlay = document.getElementById('authOverlay');
-  var input = document.getElementById('authInput');
-  var error = document.getElementById('authError');
-  error.classList.remove('show');
-  input.value = '';
-  overlay.classList.add('active');
-  setTimeout(function() { input.focus(); }, 100);
-}
-
-document.getElementById('authForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  var input = document.getElementById('authInput').value;
-  checkAuth(input).then(function(valid) {
-    if (valid) {
-      sessionStorage.setItem('aof_landscape_auth', '1');
-      document.getElementById('authOverlay').classList.remove('active');
-      if (pendingIdx !== null) openDetail(pendingIdx);
-      pendingIdx = null;
-    } else {
-      document.getElementById('authError').classList.add('show');
-      document.getElementById('authInput').value = '';
-      document.getElementById('authInput').focus();
-    }
-  });
-});
-
-document.getElementById('authOverlay').addEventListener('click', function(e) {
-  if (e.target === this) {
-    this.classList.remove('active');
-    pendingIdx = null;
-  }
-});
 
 function openDetail(idx) {
-  if (!isAuthed()) { showAuthModal(idx); return; }
-
   var cat = LANDSCAPE_DATA[idx];
   var grid = document.getElementById('gridView');
   var panel = document.getElementById('detailPanel');
