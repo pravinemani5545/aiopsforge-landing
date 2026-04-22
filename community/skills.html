@@ -8,45 +8,21 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/design-system/tokens.css">
+<link rel="stylesheet" href="/design-system/tokens.css">
 <style>
 :root {
-  --green: #00FF41; --green-dim: #00cc34;
-  --green-glow: rgba(0, 255, 65, 0.15); --green-glow-strong: rgba(0, 255, 65, 0.3);
-  --bg-primary: #0a0a0a; --bg-secondary: #111111; --bg-tertiary: #161616;
-  --bg-card: #1a1a1a; --bg-card-hover: #222222;
-  --border: #2a2a2a; --border-green: rgba(0, 255, 65, 0.2);
-  --text-primary: #f0f0f0; --text-secondary: #999999; --text-dim: #666666;
-  --red: #ff4444; --blue: #4488ff;
   --accent: #eab308;
-}
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --green: #00892e; --green-dim: #006b24;
-    --green-glow: rgba(0, 137, 46, 0.12); --green-glow-strong: rgba(0, 137, 46, 0.25);
-    --bg-primary: #f5f5f5; --bg-secondary: #ebebeb; --bg-tertiary: #e0e0e0;
-    --bg-card: #ffffff; --bg-card-hover: #f8f8f8;
-    --border: #d4d4d4; --border-green: rgba(0, 137, 46, 0.2);
-    --text-primary: #1a1a1a; --text-secondary: #555555; --text-dim: #888888;
-    --red: #cc3333; --blue: #2266cc;
-    --accent: #b8960a;
-  }
-}
-:root[data-theme="light"] {
-  --green: #00892e; --green-dim: #006b24;
-  --green-glow: rgba(0, 137, 46, 0.12); --green-glow-strong: rgba(0, 137, 46, 0.25);
-  --bg-primary: #f5f5f5; --bg-secondary: #ebebeb; --bg-tertiary: #e0e0e0;
-  --bg-card: #ffffff; --bg-card-hover: #f8f8f8;
-  --border: #d4d4d4; --border-green: rgba(0, 137, 46, 0.2);
-  --text-primary: #1a1a1a; --text-secondary: #555555; --text-dim: #888888;
-  --red: #cc3333; --blue: #2266cc;
-  --accent: #b8960a;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
   font-family: 'IBM Plex Sans', sans-serif; background: var(--bg-primary);
   color: var(--text-primary); line-height: 1.6; overflow-x: hidden;
+}
+body::after {
+  content: ''; position: fixed; inset: 0; z-index: 9998; pointer-events: none; opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat; background-size: 256px 256px;
 }
 .scroll-progress {
   position: fixed; top: 0; left: 0; width: 0%; height: 3px;
@@ -75,23 +51,38 @@ body {
   padding: 60px 0 40px; text-align: center; position: relative;
 }
 .page-header::before {
-  content: ''; position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
-  width: 600px; height: 300px;
-  background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%);
-  pointer-events: none;
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+}
+.page-header::after {
+  content: ''; position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+  width: 800px; height: 400px; pointer-events: none; z-index: 0;
+  background: radial-gradient(circle at 50% 40%, rgba(234,179,8,0.10) 0%, transparent 50%),
+              radial-gradient(circle at 50% 60%, var(--green-glow) 0%, transparent 60%);
 }
 .page-label {
   font-family: 'JetBrains Mono', monospace; font-size: 11px;
   letter-spacing: 3px; text-transform: uppercase; color: var(--accent);
-  margin-bottom: 16px; position: relative;
+  margin-bottom: 16px; position: relative; z-index: 1;
 }
 .page-title {
   font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 5vw, 42px);
-  font-weight: 700; margin-bottom: 12px; position: relative;
+  font-weight: 700; margin-bottom: 12px; position: relative; z-index: 1;
+  background: linear-gradient(180deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 .page-subtitle {
   color: var(--text-secondary); font-size: 15px; max-width: 600px;
-  margin: 0 auto; line-height: 1.7; position: relative;
+  margin: 0 auto; line-height: 1.7; position: relative; z-index: 1;
+}
+
+/* ============ FADING DIVIDER ============ */
+.section-divider {
+  border: none; height: 1px; margin: 0;
+  background: linear-gradient(90deg, transparent 0%, var(--border) 20%, var(--border) 80%, transparent 100%);
 }
 
 /* ============ STATS ROW ============ */
@@ -135,11 +126,19 @@ body {
   background: var(--bg-card); border: 1px solid var(--border);
   padding: 24px; cursor: pointer; transition: all 0.2s;
   text-decoration: none; color: inherit; display: flex;
-  flex-direction: column; gap: 12px;
+  flex-direction: column; gap: 12px; position: relative; overflow: hidden;
 }
+.index-card::before {
+  content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s;
+  pointer-events: none; z-index: 0;
+  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(234, 179, 8, 0.06), transparent 40%);
+}
+.index-card:hover::before { opacity: 1; }
 .index-card:hover {
   border-color: var(--border-green); background: var(--bg-card-hover);
 }
+.index-card > * { position: relative; z-index: 1; }
 .index-card-top {
   display: flex; justify-content: space-between; align-items: center;
 }
@@ -192,10 +191,10 @@ body {
   padding: 40px 0 32px; position: relative;
 }
 .detail-hero::before {
-  content: ''; position: absolute; top: -20px; left: 0;
-  width: 400px; height: 200px;
-  background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%);
-  pointer-events: none;
+  content: ''; position: absolute; top: -40px; left: -60px;
+  width: 500px; height: 300px; pointer-events: none;
+  background: radial-gradient(circle at 30% 40%, rgba(234,179,8,0.08) 0%, transparent 50%),
+              radial-gradient(circle at 40% 60%, var(--green-glow) 0%, transparent 60%);
 }
 .detail-tag {
   font-family: 'JetBrains Mono', monospace; font-size: 10px;
@@ -205,6 +204,8 @@ body {
 .detail-title {
   font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 4vw, 36px);
   font-weight: 700; margin-bottom: 10px; position: relative;
+  background: linear-gradient(180deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 .detail-desc {
   color: var(--text-secondary); font-size: 15px;
@@ -214,10 +215,9 @@ body {
   display: flex; gap: 12px; align-items: center; position: relative;
 }
 
-/* ============ DETAIL SECTIONS GRID ============ */
-.detail-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr);
-  gap: 16px; padding-bottom: 60px;
+/* ============ DETAIL SECTIONS (VERTICAL STACK) ============ */
+.detail-sections {
+  display: flex; flex-direction: column; gap: 24px; padding-bottom: 60px;
 }
 .detail-section {
   background: var(--bg-card); border: 1px solid var(--border);
@@ -226,6 +226,9 @@ body {
 .detail-section::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0;
   height: 2px; background: var(--accent);
+}
+.detail-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
 }
 .section-header {
   display: flex; justify-content: space-between; align-items: center;
@@ -241,13 +244,47 @@ body {
   font-size: 14px; color: var(--text-secondary); line-height: 1.7;
   margin-bottom: 20px;
 }
-.overview-sub {
+.learn-list { list-style: none; padding: 0; }
+.learn-list li {
+  padding: 8px 0; padding-left: 24px; position: relative;
+  font-size: 14px; color: var(--text-secondary);
+}
+.learn-list li::before {
+  content: '\2192'; position: absolute; left: 0;
+  color: var(--accent); font-family: 'JetBrains Mono', monospace;
+}
+.learn-sub {
   font-family: 'JetBrains Mono', monospace; font-size: 10px;
   letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim);
   margin-bottom: 8px; margin-top: 16px;
 }
-.overview-sub:first-of-type { margin-top: 0; }
-.prereq-list { list-style: none; padding: 0; }
+
+/* ============ SECTION: PREREQUISITES ============ */
+.prereq-box {
+  padding: 24px; background: var(--bg-card); border: 1px solid var(--border);
+  border-left: 3px solid var(--accent); position: relative;
+}
+.prereq-box::before {
+  content: ''; position: absolute; top: 0; left: -3px; right: 0;
+  height: 2px; background: var(--accent);
+}
+.prereq-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 16px;
+}
+.prereq-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+}
+.prereq-item-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim);
+  margin-bottom: 4px;
+}
+.prereq-item-value {
+  font-size: 14px; color: var(--text-secondary); line-height: 1.6;
+}
+.prereq-list { list-style: none; padding: 0; margin-top: 16px; }
 .prereq-list li {
   font-size: 13px; color: var(--text-secondary);
   padding: 3px 0 3px 16px; position: relative; line-height: 1.5;
@@ -257,64 +294,63 @@ body {
   color: var(--accent); font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
 }
-.build-callout {
-  background: var(--bg-tertiary); border: 1px solid var(--border);
-  padding: 12px 16px; font-size: 13px; color: var(--text-secondary);
-  line-height: 1.6; margin-top: 8px;
-}
 
-/* ============ SECTION: MODULES ============ */
-.module-list { display: flex; flex-direction: column; gap: 0; }
-.module-item {
-  display: flex; align-items: center; gap: 12px;
-  padding: 12px 0; border-bottom: 1px solid var(--border);
+/* ============ SECTION: MODULE BREAKDOWN (TIMELINE) ============ */
+.timeline { position: relative; padding-left: 48px; }
+.timeline::before {
+  content: ''; position: absolute; left: 15px; top: 24px; bottom: 24px; width: 1px;
+  background: linear-gradient(180deg, var(--accent) 0%, var(--border) 30%, var(--border) 70%, transparent 100%);
 }
-.module-item:last-child { border-bottom: none; }
-.module-num {
-  font-family: 'Space Grotesk', sans-serif; font-size: 18px;
-  font-weight: 700; color: var(--accent); min-width: 28px;
-  text-align: center;
+.timeline-item {
+  position: relative; padding: 16px 0; border-bottom: 1px solid var(--border);
 }
-.module-info { flex: 1; }
-.module-title {
-  font-size: 14px; font-weight: 600; margin-bottom: 2px;
+.timeline-item:last-child { border-bottom: none; }
+.timeline-num {
+  position: absolute; left: -48px; top: 16px; width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;
+  color: var(--accent); border: 1px solid var(--border-green); background: var(--bg-primary);
 }
-.module-meta {
+.timeline-title {
+  font-size: 14px; font-weight: 600; margin-bottom: 4px;
+}
+.timeline-meta {
   display: flex; gap: 8px; align-items: center;
 }
-.module-time {
+.timeline-time {
   font-family: 'JetBrains Mono', monospace; font-size: 10px;
   color: var(--text-dim);
 }
-.module-type {
+.timeline-type {
   font-family: 'JetBrains Mono', monospace; font-size: 9px;
   letter-spacing: 0.5px; text-transform: uppercase;
   padding: 1px 6px; border: 1px solid var(--border);
   color: var(--text-dim); background: var(--bg-tertiary);
 }
-.module-type.practice { color: var(--green); border-color: rgba(0,255,65,0.2); }
-.module-type.project { color: var(--accent); border-color: rgba(234,179,8,0.2); }
+.timeline-type.practice { color: var(--green); border-color: rgba(0,255,65,0.2); }
+.timeline-type.project { color: var(--accent); border-color: rgba(234,179,8,0.2); }
 
-/* ============ SECTION: KEY CONCEPTS ============ */
-.concept-list { display: flex; flex-direction: column; gap: 16px; }
+/* ============ SECTION: KEY CONCEPTS (DEEP DIVE) ============ */
+.concept-list { display: flex; flex-direction: column; gap: 0; }
 .concept-item {
-  padding-bottom: 16px; border-bottom: 1px solid var(--border);
+  padding: 20px 0; border-bottom: 1px solid var(--border);
 }
-.concept-item:last-child { border-bottom: none; padding-bottom: 0; }
+.concept-item:last-child { border-bottom: none; }
+.concept-item:first-child { padding-top: 0; }
 .concept-header {
-  display: flex; gap: 8px; align-items: center; margin-bottom: 6px;
+  display: flex; gap: 8px; align-items: center; margin-bottom: 8px;
 }
 .concept-step {
   font-family: 'JetBrains Mono', monospace; font-size: 9px;
   padding: 2px 6px; background: rgba(234,179,8,0.08);
   border: 1px solid rgba(234,179,8,0.2); color: var(--accent);
-  text-transform: uppercase; letter-spacing: 0.5px;
+  text-transform: uppercase; letter-spacing: 0.5px; flex-shrink: 0;
 }
 .concept-title {
-  font-size: 14px; font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700;
 }
 .concept-content {
-  font-size: 13px; color: var(--text-secondary); line-height: 1.7;
+  font-size: 14px; color: var(--text-secondary); line-height: 1.7;
 }
 
 /* ============ SECTION: EXERCISE ============ */
@@ -323,7 +359,7 @@ body {
   font-weight: 700; margin-bottom: 12px;
 }
 .exercise-instructions {
-  font-size: 13px; color: var(--text-secondary); line-height: 1.7;
+  font-size: 14px; color: var(--text-secondary); line-height: 1.7;
   margin-bottom: 16px; white-space: pre-wrap;
 }
 .exercise-sub {
@@ -346,9 +382,41 @@ body {
   content: '\2713'; position: absolute; left: 0;
   color: var(--green); font-size: 12px;
 }
-.placeholder-text {
-  font-size: 13px; color: var(--text-dim); font-style: italic;
-  padding: 20px 0;
+
+/* ============ SECTION: COMMON PITFALLS ============ */
+.pitfall-list { display: flex; flex-direction: column; gap: 0; }
+.pitfall-item {
+  padding: 16px 0; border-bottom: 1px solid var(--border);
+}
+.pitfall-item:last-child { border-bottom: none; }
+.pitfall-item:first-child { padding-top: 0; }
+.pitfall-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px;
+}
+.pitfall-label.bad { color: var(--red); }
+.pitfall-label.good { color: var(--green); }
+.pitfall-text {
+  font-size: 14px; color: var(--text-secondary); line-height: 1.6;
+}
+
+/* ============ SECTION: FURTHER LEARNING ============ */
+.resource-list { display: flex; flex-direction: column; gap: 12px; }
+.resource-item {
+  display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+  background: var(--bg-card); border: 1px solid var(--border); transition: all 0.2s;
+}
+.resource-item:hover { border-color: var(--border-green); }
+.resource-type {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px; text-transform: uppercase;
+  padding: 2px 8px; border: 1px solid var(--border); color: var(--text-dim); flex-shrink: 0;
+}
+.resource-info { flex: 1; }
+.resource-title {
+  font-size: 14px; font-weight: 600; margin-bottom: 2px;
+}
+.resource-desc {
+  font-size: 12px; color: var(--text-dim); line-height: 1.5;
 }
 
 /* ============ SANDBOX BANNER ============ */
@@ -376,12 +444,19 @@ body {
 .footer a:hover { color: var(--green); }
 .footer-links { display: flex; gap: 24px; }
 
+.placeholder-text {
+  font-size: 13px; color: var(--text-dim); font-style: italic;
+  padding: 20px 0;
+}
+
 /* ============ RESPONSIVE ============ */
 @media (max-width: 900px) {
   .index-grid { grid-template-columns: repeat(2, 1fr); }
+  .prereq-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 768px) {
-  .detail-grid { grid-template-columns: 1fr; }
+  .detail-row { grid-template-columns: 1fr; }
+  .prereq-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 600px) {
   .page-header { padding: 40px 0 32px; }
@@ -425,7 +500,7 @@ if (!SANDBOX_MODE && sessionStorage.getItem('aof_cw_auth') !== '1') { window.loc
   <!-- DETAIL VIEW -->
   <div id="detailView" style="display:none">
     <div id="detailHeader"></div>
-    <div class="detail-grid" id="detailGrid"></div>
+    <div class="detail-sections" id="detailSections"></div>
   </div>
 </div>
 <footer class="footer">
@@ -457,6 +532,13 @@ var SKILLS_DATA = [
       ],
       whatYoullBuild: 'A reusable prompt template library for your 5 most common tasks, each using system prompts, few-shot examples, and structured output formatting.'
     },
+    whatYoullLearn: [
+      'Write system prompts that set clear roles, constraints, and output expectations',
+      'Use few-shot examples to steer model output with precision',
+      'Apply chain-of-thought reasoning to improve accuracy on complex tasks',
+      'Format and constrain output for structured, parseable responses',
+      'Assemble production-grade prompts that combine all techniques into a single template'
+    ],
     modules: [
       { step: 1, title: 'Anatomy of a Prompt', time: '20 min', type: 'concept' },
       { step: 2, title: 'System Prompts That Work', time: '25 min', type: 'concept' },
@@ -469,32 +551,32 @@ var SKILLS_DATA = [
       {
         moduleStep: 1,
         title: 'The Five Elements',
-        content: 'Every effective prompt contains five elements: Role (who the AI is), Task (what to do), Context (background information), Constraints (boundaries and rules), and Format (how to structure the output). Missing any one of these leads to inconsistent results. The most common mistake is jumping straight to the task without setting role or constraints.'
+        content: 'Every effective prompt contains five elements: Role (who the AI is), Task (what to do), Context (background information), Constraints (boundaries and rules), and Format (how to structure the output). Missing any one of these leads to inconsistent results. The most common mistake is jumping straight to the task without setting role or constraints. Think of it like giving instructions to a new team member — you wouldn\'t just say "write the report" without explaining who they\'re writing as, what the report is about, what data to use, what to avoid, and how to format it. The same applies to prompts. When you include all five elements, the model has everything it needs to produce exactly what you want on the first try.'
       },
       {
         moduleStep: 2,
         title: 'Persistent Behavior',
-        content: 'System prompts set the persistent behavior of the model across an entire conversation. Think of them as a personality config — they define expertise, tone, boundaries, and default behaviors. A good system prompt is specific ("You are a senior backend engineer specializing in PostgreSQL optimization") not generic ("You are a helpful assistant").'
+        content: 'System prompts set the persistent behavior of the model across an entire conversation. Think of them as a personality config — they define expertise, tone, boundaries, and default behaviors. A good system prompt is specific ("You are a senior backend engineer specializing in PostgreSQL optimization") not generic ("You are a helpful assistant"). The system prompt is your most powerful tool for consistency. It runs before every user message and shapes how the model interprets everything that follows. Include explicit instructions about what the model should and should not do, what tone to use, and what format to default to. A well-crafted system prompt can eliminate 80% of the follow-up corrections you\'d otherwise need.'
       },
       {
         moduleStep: 3,
         title: 'Show, Don\'t Tell',
-        content: 'Few-shot examples are the most reliable way to show the model what you want. Instead of describing your desired output format in 200 words, show 2-3 examples. The model pattern-matches against your examples with remarkable accuracy. Start with 2 examples; add a 3rd only if consistency improves. More is not always better — 5+ examples can cause overfitting.'
+        content: 'Few-shot examples are the most reliable way to show the model what you want. Instead of describing your desired output format in 200 words, show 2-3 examples. The model pattern-matches against your examples with remarkable accuracy. Start with 2 examples; add a 3rd only if consistency improves. More is not always better — 5+ examples can cause overfitting to the specific patterns in your examples rather than the general principle. Choose examples that are diverse enough to cover different cases but consistent enough to demonstrate a clear pattern. When selecting examples, pick ones that represent the range of inputs you expect — include an easy case, a moderate case, and an edge case if possible.'
       },
       {
         moduleStep: 4,
         title: 'Reasoning Steps',
-        content: 'Chain-of-thought prompting asks the model to show its work. Adding "think step by step" or "break this down into steps" improves accuracy on complex tasks by 20-40%. For math, logic, and multi-step analysis, this is not optional — it\'s essential. You can also provide a reasoning structure: "First analyze X, then evaluate Y, then conclude Z."'
+        content: 'Chain-of-thought prompting asks the model to show its work. Adding "think step by step" or "break this down into steps" improves accuracy on complex tasks by 20-40%. For math, logic, and multi-step analysis, this is not optional — it\'s essential. You can also provide a reasoning structure: "First analyze X, then evaluate Y, then conclude Z." The reason this works is that language models generate tokens sequentially. When the model writes out intermediate reasoning steps, each step provides context for the next one, reducing the chance of errors. Without chain-of-thought, the model tries to jump directly from question to answer, which works for simple queries but fails on anything requiring multiple logical steps.'
       },
       {
         moduleStep: 5,
         title: 'Structured Output',
-        content: 'Output formatting eliminates post-processing. Instruct the model to return JSON, markdown tables, XML, or any structured format. Use schema constraints when possible — "Return a JSON object with keys: severity (string), description (string), priority (integer 1-5)". For JSON output, adding "Return ONLY valid JSON, no explanation" prevents wrapper text.'
+        content: 'Output formatting eliminates post-processing. Instruct the model to return JSON, markdown tables, XML, or any structured format. Use schema constraints when possible — "Return a JSON object with keys: severity (string), description (string), priority (integer 1-5)". For JSON output, adding "Return ONLY valid JSON, no explanation" prevents wrapper text. Structured output is what separates hobby prompts from production prompts. When your output is parseable by code, you can plug it directly into your application without manual cleanup. Always specify the exact schema you expect, including data types, allowed values, and required versus optional fields.'
       },
       {
         moduleStep: 6,
         title: 'Production Assembly',
-        content: 'A production prompt layers all techniques: system prompt (sets role and expertise) + context injection (provides relevant data) + few-shot examples (demonstrates desired output) + chain-of-thought (ensures reasoning quality) + format constraints (guarantees parseable output). Build and test each layer independently before combining.'
+        content: 'A production prompt layers all techniques: system prompt (sets role and expertise) + context injection (provides relevant data) + few-shot examples (demonstrates desired output) + chain-of-thought (ensures reasoning quality) + format constraints (guarantees parseable output). Build and test each layer independently before combining. Start with just the system prompt and verify the model understands its role. Then add context and check that it uses it correctly. Layer in few-shot examples and confirm the output format matches. Finally, add chain-of-thought for complex reasoning steps. This incremental approach makes debugging much easier — if something breaks, you know which layer caused it.'
       }
     ],
     exercise: {
@@ -508,7 +590,47 @@ var SKILLS_DATA = [
         'JSON is valid and parseable by JSON.parse()',
         'No false positives — each finding identifies a real issue'
       ]
-    }
+    },
+    commonPitfalls: [
+      {
+        pitfall: 'Writing vague system prompts like "You are a helpful assistant" that give the model no clear direction or expertise to draw from.',
+        solution: 'Be hyper-specific about the role, expertise, and constraints. "You are a senior Python engineer who specializes in API design. You prioritize readability over cleverness and always include error handling."'
+      },
+      {
+        pitfall: 'Overloading prompts with 5+ few-shot examples, causing the model to overfit to those specific patterns instead of generalizing.',
+        solution: 'Start with 2 diverse examples. Only add a 3rd if output quality improves measurably. Choose examples that cover different cases, not variations of the same one.'
+      },
+      {
+        pitfall: 'Skipping chain-of-thought for tasks that require math, logic, or multi-step reasoning — then wondering why the model gets the answer wrong.',
+        solution: 'Always add "think step by step" or provide explicit reasoning structure for any task involving calculation, comparison, or multi-step analysis.'
+      },
+      {
+        pitfall: 'Not specifying output format constraints, resulting in inconsistent responses that are impossible to parse programmatically.',
+        solution: 'Define the exact schema: data types, required fields, allowed values. Add "Return ONLY valid JSON" or equivalent to prevent wrapper text and explanations.'
+      }
+    ],
+    furtherLearning: [
+      {
+        title: 'Anthropic Prompt Engineering Guide',
+        type: 'docs',
+        description: 'Official best practices for prompting Claude models, including system prompts, examples, and advanced techniques.'
+      },
+      {
+        title: 'OpenAI Cookbook: Prompt Engineering',
+        type: 'docs',
+        description: 'Practical examples and patterns for effective prompting across different use cases and models.'
+      },
+      {
+        title: 'Prompt Engineering Patterns for Production',
+        type: 'article',
+        description: 'Deep dive into real-world prompt patterns used in production systems, including error handling and fallbacks.'
+      },
+      {
+        title: 'Claude Documentation: System Prompts',
+        type: 'docs',
+        description: 'Detailed reference for crafting system prompts that control model behavior consistently across conversations.'
+      }
+    ]
   },
   {
     id: 'rag-pipeline-design',
@@ -526,6 +648,13 @@ var SKILLS_DATA = [
       ],
       whatYoullBuild: 'A working RAG pipeline that answers natural language questions from a document corpus, with source citations and relevance scoring.'
     },
+    whatYoullLearn: [
+      'Chunk documents effectively using semantic boundaries and overlap strategies',
+      'Choose the right embedding model for your domain and content type',
+      'Build vector search with similarity scoring and metadata filtering',
+      'Implement the full retrieval-to-generation pipeline with source citations',
+      'Evaluate RAG quality using the faithfulness, relevance, and context triad'
+    ],
     modules: [
       { step: 1, title: 'RAG Architecture Overview', time: '15 min', type: 'concept' },
       { step: 2, title: 'Document Chunking Strategies', time: '25 min', type: 'concept' },
@@ -538,32 +667,32 @@ var SKILLS_DATA = [
       {
         moduleStep: 1,
         title: 'The RAG Loop',
-        content: 'RAG = Retrieve relevant context from your data, Augment the prompt with that context, Generate an answer grounded in it. It solves the hallucination problem by giving the model actual source material instead of relying on training data. The quality of your RAG system is 80% retrieval quality, 20% generation quality — if you retrieve the wrong chunks, even the best model produces wrong answers.'
+        content: 'RAG = Retrieve relevant context from your data, Augment the prompt with that context, Generate an answer grounded in it. It solves the hallucination problem by giving the model actual source material instead of relying on training data. The quality of your RAG system is 80% retrieval quality, 20% generation quality — if you retrieve the wrong chunks, even the best model produces wrong answers. Think of RAG as building a research assistant: the retrieval step is the assistant finding the right pages in the right books, and the generation step is them writing a summary of what they found. If they pull the wrong pages, the summary will be wrong no matter how good their writing skills are.'
       },
       {
         moduleStep: 2,
         title: 'Chunking Is Everything',
-        content: 'Chunking is the most underrated step. Too large and you inject irrelevant noise. Too small and you lose context. The sweet spot depends on your content type: 512 tokens for technical documentation, 256 for FAQs and knowledge bases, 1024 for narrative content like reports. Always chunk by semantic boundaries (paragraphs, sections, headers) rather than fixed character counts. Overlap 10-15% between chunks to preserve context at boundaries.'
+        content: 'Chunking is the most underrated step. Too large and you inject irrelevant noise. Too small and you lose context. The sweet spot depends on your content type: 512 tokens for technical documentation, 256 for FAQs and knowledge bases, 1024 for narrative content like reports. Always chunk by semantic boundaries (paragraphs, sections, headers) rather than fixed character counts. Overlap 10-15% between chunks to preserve context at boundaries. The reason chunking matters so much is that your embedding model compresses each chunk into a single vector — if a chunk contains multiple unrelated ideas, the vector becomes a blurry average that matches none of them well. Clean, focused chunks produce clean, focused vectors that retrieve accurately.'
       },
       {
         moduleStep: 3,
         title: 'Choosing Embeddings',
-        content: 'Embedding models convert text to vectors for similarity search. Your choice matters more than your vector store choice. Use text-embedding-3-large for general English content, domain-specific models for specialized fields (medical, legal, scientific). Always benchmark on YOUR data — MTEB leaderboard rankings don\'t transfer to every domain. Store metadata (source file, page number, section header) alongside vectors for citation.'
+        content: 'Embedding models convert text to vectors for similarity search. Your choice matters more than your vector store choice. Use text-embedding-3-large for general English content, domain-specific models for specialized fields (medical, legal, scientific). Always benchmark on YOUR data — MTEB leaderboard rankings don\'t transfer to every domain. Store metadata (source file, page number, section header) alongside vectors for citation. The metadata is just as important as the vector itself because it enables filtering (only search within a specific document), citation (tell the user where the answer came from), and debugging (understand why certain chunks were or were not retrieved).'
       },
       {
         moduleStep: 4,
         title: 'Hybrid Retrieval',
-        content: 'Hybrid retrieval (vector similarity + keyword matching) outperforms pure vector search by 15-20% in most benchmarks. Use BM25 for exact term matches (product names, error codes, IDs) combined with vector similarity for semantic understanding. Re-rank the combined results using a cross-encoder model or reciprocal rank fusion. Start with top-5 retrieval; tune based on evaluation.'
+        content: 'Hybrid retrieval (vector similarity + keyword matching) outperforms pure vector search by 15-20% in most benchmarks. Use BM25 for exact term matches (product names, error codes, IDs) combined with vector similarity for semantic understanding. Re-rank the combined results using a cross-encoder model or reciprocal rank fusion. Start with top-5 retrieval; tune based on evaluation. The intuition behind hybrid search is simple: vector search understands meaning but can miss exact terms, while keyword search finds exact matches but misses paraphrased concepts. Combining them gives you the best of both worlds.'
       },
       {
         moduleStep: 5,
         title: 'Grounding & Citations',
-        content: 'Grounding means every claim in the answer maps to a source. Include chunk metadata (source document, page, section) in your context window, then instruct the model: "Cite your sources using [Source: filename, section] format. If the context doesn\'t contain the answer, say so explicitly." This eliminates hallucination and builds user trust.'
+        content: 'Grounding means every claim in the answer maps to a source. Include chunk metadata (source document, page, section) in your context window, then instruct the model: "Cite your sources using [Source: filename, section] format. If the context doesn\'t contain the answer, say so explicitly." This eliminates hallucination and builds user trust. The "say so explicitly" instruction is critical — without it, the model will attempt to answer every question even when the retrieved context doesn\'t contain the information, leading to hallucinated answers that look authoritative but are completely fabricated.'
       },
       {
         moduleStep: 6,
         title: 'RAG Evaluation Triad',
-        content: 'Evaluate with three metrics: Answer Relevance (is the answer correct and complete?), Faithfulness (is every claim grounded in the retrieved context?), Context Relevance (did the retriever return the right chunks?). Low faithfulness = generation problem. Low context relevance = retrieval problem. Build a test set of 20+ question-answer pairs from your actual documents and evaluate systematically.'
+        content: 'Evaluate with three metrics: Answer Relevance (is the answer correct and complete?), Faithfulness (is every claim grounded in the retrieved context?), Context Relevance (did the retriever return the right chunks?). Low faithfulness = generation problem. Low context relevance = retrieval problem. Build a test set of 20+ question-answer pairs from your actual documents and evaluate systematically. The triad helps you pinpoint exactly where to improve: if faithfulness is low but context relevance is high, your generation prompt needs work; if context relevance is low, focus on improving chunking, embeddings, or retrieval strategy.'
       }
     ],
     exercise: {
@@ -577,7 +706,47 @@ var SKILLS_DATA = [
         'Response explicitly states when information is not found in the docs',
         'Answer is concise and directly addresses the question asked'
       ]
-    }
+    },
+    commonPitfalls: [
+      {
+        pitfall: 'Setting chunk sizes too large (1000+ tokens for technical docs), which injects irrelevant noise into the context window and confuses the model.',
+        solution: 'Start with 256-512 tokens for most content. Chunk by semantic boundaries (headers, paragraphs) rather than fixed character counts. Test retrieval quality at different sizes.'
+      },
+      {
+        pitfall: 'Using the wrong embedding model for your domain — general-purpose models perform poorly on specialized content like medical, legal, or scientific text.',
+        solution: 'Benchmark 2-3 embedding models on a sample of YOUR actual data. Create 20 test queries with known relevant documents and measure retrieval accuracy.'
+      },
+      {
+        pitfall: 'Skipping the re-ranking step and relying solely on vector similarity, which misses exact keyword matches and produces lower-quality retrieval.',
+        solution: 'Implement hybrid retrieval: combine BM25 keyword search with vector similarity. Use reciprocal rank fusion or a cross-encoder model to merge and re-rank results.'
+      },
+      {
+        pitfall: 'Ignoring context window limits by stuffing too many retrieved chunks into the prompt, which degrades answer quality and increases cost.',
+        solution: 'Retrieve top-5 chunks, then filter by relevance threshold. Only include the top 2-3 that pass the threshold. Monitor token usage to stay well within context limits.'
+      }
+    ],
+    furtherLearning: [
+      {
+        title: 'LangChain RAG Tutorial',
+        type: 'docs',
+        description: 'Step-by-step guide for building RAG pipelines with LangChain, including chunking, embedding, and retrieval.'
+      },
+      {
+        title: 'Pinecone Vector Database Documentation',
+        type: 'docs',
+        description: 'Comprehensive documentation for storing, indexing, and querying vector embeddings at scale.'
+      },
+      {
+        title: 'RAGAS Evaluation Framework',
+        type: 'tool',
+        description: 'Open-source framework for evaluating RAG pipelines on faithfulness, relevance, and context quality.'
+      },
+      {
+        title: 'Chunking Strategies for RAG Systems',
+        type: 'article',
+        description: 'In-depth comparison of fixed-size, semantic, and recursive chunking strategies with benchmark results.'
+      }
+    ]
   },
   {
     id: 'llm-output-evaluation',
@@ -595,6 +764,13 @@ var SKILLS_DATA = [
       ],
       whatYoullBuild: 'An automated evaluation pipeline that scores LLM outputs across multiple dimensions and compares prompt variants.'
     },
+    whatYoullLearn: [
+      'Design evaluation rubrics with clear scoring criteria and examples for each level',
+      'Build automated eval harnesses that test prompts against large datasets',
+      'Detect hallucinations by comparing model output against source material',
+      'Measure output consistency across repeated runs and varied inputs',
+      'Create regression test suites that catch quality degradation before it reaches production'
+    ],
     modules: [
       { step: 1, title: 'Why Evals Matter', time: '15 min', type: 'concept' },
       { step: 2, title: 'Scoring Rubrics', time: '25 min', type: 'concept' },
@@ -606,24 +782,81 @@ var SKILLS_DATA = [
       {
         moduleStep: 1,
         title: 'Vibes Are Not Metrics',
-        content: 'Without systematic evaluation, you\'re optimizing on vibes. Define what "good" means for your use case with measurable criteria: correctness, completeness, tone, format compliance, and latency. Every production prompt needs at least 20 test cases with expected outputs.'
+        content: 'Without systematic evaluation, you\'re optimizing on vibes. "It looks pretty good" is not an acceptable quality bar for production systems. Define what "good" means for your use case with measurable criteria: correctness, completeness, tone, format compliance, and latency. Every production prompt needs at least 20 test cases with expected outputs. The test set should cover normal cases, edge cases, and adversarial inputs. Without this baseline, you have no way to know if a prompt change improved or degraded quality — you\'re just guessing and hoping for the best.'
+      },
+      {
+        moduleStep: 2,
+        title: 'Rubric Design',
+        content: 'A scoring rubric translates subjective quality into objective numbers. For each evaluation dimension, define a 1-5 scale with concrete examples at each level. A score of 1 means completely wrong or unusable. A score of 3 means acceptable but with notable gaps. A score of 5 means perfect — no room for improvement. The key is that two different evaluators (human or AI) should arrive at the same score for the same output. If your rubric produces inconsistent scores, the criteria are too vague. Test your rubric on 10 outputs and check for inter-rater agreement before running it at scale.'
       },
       {
         moduleStep: 3,
         title: 'Judge Prompt Design',
-        content: 'LLM-as-judge uses a separate model call to score outputs. The judge prompt must be specific: define a 1-5 scale with examples for each score level. Use a different model than the one being evaluated to avoid self-bias. Always include the rubric in the judge prompt — don\'t assume the judge knows your quality criteria.'
+        content: 'LLM-as-judge uses a separate model call to score outputs. The judge prompt must be specific: define a 1-5 scale with examples for each score level. Use a different model than the one being evaluated to avoid self-bias. Always include the rubric in the judge prompt — don\'t assume the judge knows your quality criteria. Structure the judge prompt as: rubric definition, the original input, the output to evaluate, and a request for both a numeric score and a brief justification. The justification is critical for debugging — when a score seems wrong, you can read the reasoning and identify whether the judge or the rubric is at fault.'
+      },
+      {
+        moduleStep: 4,
+        title: 'Hallucination Detection',
+        content: 'Hallucinations are the biggest risk in production LLM systems. Detect them by comparing every claim in the model\'s output against the source material provided in the prompt. Build a claim extraction step that breaks the output into individual assertions, then verify each one against the context. Claims that cannot be grounded in the source material are flagged as potential hallucinations. For factual tasks, also cross-reference against known-good data. The goal is not zero hallucinations (that\'s nearly impossible) but a measurable hallucination rate that you can track and reduce over time.'
+      },
+      {
+        moduleStep: 5,
+        title: 'Statistical A/B Testing',
+        content: 'When comparing two prompt variants, you need statistical rigor — not just "version B scored higher on 5 examples." Run both variants against the same 50+ test inputs, collect scores on each dimension, and compute confidence intervals. Use a paired t-test or Wilcoxon signed-rank test to determine if the difference is statistically significant (p < 0.05). Without this, you\'ll frequently ship "improvements" that are actually just random variation. Track your eval results over time to catch gradual quality degradation that happens as models get updated.'
       }
     ],
     exercise: {
       title: 'Build an Eval Harness',
-      instructions: 'Create a Python script that:\n1. Runs a prompt against 10 test inputs\n2. Scores each output using an LLM judge on 3 dimensions\n3. Outputs a summary table with mean scores and pass rates',
-      expectedOutput: 'A summary table showing mean scores per dimension across all test inputs.',
+      instructions: 'Create a Python script that:\n1. Runs a prompt against 10 test inputs\n2. Scores each output using an LLM judge on 3 dimensions (correctness, completeness, format)\n3. Outputs a summary table with mean scores and pass rates\n4. Flags any outputs that score below 3 on any dimension\n5. Includes the judge\'s justification for each score',
+      expectedOutput: 'A summary table showing mean scores per dimension across all test inputs, with flagged outputs highlighted and justifications included.',
       successCriteria: [
         'All 10 test cases produce valid outputs',
-        'Judge scores are on a consistent 1-5 scale',
-        'Summary statistics are correctly calculated'
+        'Judge scores are on a consistent 1-5 scale with justifications',
+        'Summary statistics are correctly calculated',
+        'Low-scoring outputs are flagged with specific reasons',
+        'The harness can be re-run with different prompts for comparison'
       ]
-    }
+    },
+    commonPitfalls: [
+      {
+        pitfall: 'Evaluating with a single metric (e.g., only correctness), which misses important quality dimensions like formatting, tone, and completeness.',
+        solution: 'Always evaluate on at least 3 dimensions. Common choices: correctness, completeness, format compliance. Add domain-specific dimensions as needed (tone for content, security for code).'
+      },
+      {
+        pitfall: 'Not establishing a human baseline before building automated evals — you can\'t measure accuracy if you don\'t know what "correct" looks like.',
+        solution: 'Create a gold-standard test set: 20+ inputs with human-written ideal outputs. Score model outputs against these references. Your automated eval should agree with human judgment 80%+ of the time.'
+      },
+      {
+        pitfall: 'Running evals too early in development on tiny test sets (3-5 examples), drawing conclusions from noise rather than signal.',
+        solution: 'Wait until you have at least 20 test cases before drawing conclusions. For A/B testing, use 50+ paired comparisons. Small sample sizes produce unreliable results that lead to wrong decisions.'
+      },
+      {
+        pitfall: 'Only testing happy-path inputs and ignoring edge cases — adversarial, ambiguous, or out-of-scope queries that expose failure modes.',
+        solution: 'Dedicate 30% of your test set to edge cases: empty inputs, contradictory instructions, out-of-scope questions, and adversarial prompts. These reveal the real failure boundaries of your system.'
+      }
+    ],
+    furtherLearning: [
+      {
+        title: 'Anthropic Model Evaluation Guide',
+        type: 'docs',
+        description: 'Official guide for evaluating Claude outputs, including best practices for rubric design and LLM-as-judge patterns.'
+      },
+      {
+        title: 'Braintrust Eval Platform',
+        type: 'tool',
+        description: 'Production evaluation platform for tracking LLM quality over time with built-in scoring and comparison tools.'
+      },
+      {
+        title: 'DeepEval Framework',
+        type: 'tool',
+        description: 'Open-source evaluation framework with pre-built metrics for hallucination, relevance, and faithfulness.'
+      },
+      {
+        title: 'Best Practices for LLM Evaluation',
+        type: 'article',
+        description: 'Comprehensive overview of evaluation methodologies, including when to use human vs. automated evaluation.'
+      }
+    ]
   },
   {
     id: 'agent-architecture-patterns',
@@ -641,6 +874,13 @@ var SKILLS_DATA = [
       ],
       whatYoullBuild: 'A multi-step agent that researches a topic, synthesizes findings, and produces a structured report with source citations.'
     },
+    whatYoullLearn: [
+      'Design tool-use agents that select and call the right tools for each sub-task',
+      'Implement memory systems that maintain context across long conversations',
+      'Build planning loops that break complex tasks into executable steps',
+      'Orchestrate multi-agent systems where specialized agents collaborate',
+      'Handle failures gracefully with retry logic, fallbacks, and human-in-the-loop escalation'
+    ],
     modules: [
       { step: 1, title: 'Agent vs. Chatbot', time: '15 min', type: 'concept' },
       { step: 2, title: 'Tool Calling Patterns', time: '30 min', type: 'concept' },
@@ -653,24 +893,86 @@ var SKILLS_DATA = [
       {
         moduleStep: 1,
         title: 'Agency = Action + Autonomy',
-        content: 'An agent is an LLM that can take actions (tool calls), observe results, and decide what to do next without human intervention at each step. The key difference from a chatbot: agents have a loop (observe, think, act, observe) rather than a single request-response.'
+        content: 'An agent is an LLM that can take actions (tool calls), observe results, and decide what to do next without human intervention at each step. The key difference from a chatbot: agents have a loop (observe, think, act, observe) rather than a single request-response. A chatbot answers questions. An agent completes tasks. This distinction matters because it changes everything about how you design the system — agents need tool definitions, safety guardrails, iteration limits, and error recovery that chatbots never need. Understanding this boundary helps you choose the right architecture for each problem.'
+      },
+      {
+        moduleStep: 2,
+        title: 'Tool Design Principles',
+        content: 'The tools you give an agent define what it can do, but also what it can go wrong with. Each tool should have a clear, single purpose with well-defined inputs and outputs. Write tool descriptions that explain not just what the tool does, but when to use it and when NOT to use it. Keep the total number of tools under 10-15 — more than that and the agent spends too many tokens deciding which tool to use, and accuracy drops. Group related operations into a single tool with parameters rather than creating separate tools for each variation. Always include input validation and clear error messages so the agent can recover from bad calls.'
+      },
+      {
+        moduleStep: 3,
+        title: 'Memory Architecture',
+        content: 'Agents need memory to handle tasks that span multiple steps or conversations. Short-term memory is the current conversation context. Long-term memory is stored externally (database, vector store) and retrieved as needed. The simplest pattern: summarize completed steps and inject the summary as context for the next step. For multi-session agents, store key facts and decisions in a structured format that can be efficiently retrieved. The biggest mistake is trying to keep everything in the context window — this is expensive, slow, and eventually exceeds token limits. Design your memory system to store the minimum information needed to continue the task.'
       },
       {
         moduleStep: 4,
         title: 'Plan-Act-Reflect',
-        content: 'The most robust agent pattern: Plan (break the task into steps), Act (execute one step via tool call), Reflect (evaluate the result and update the plan). This prevents agents from going off-track on long tasks. Implement a max-iterations safety valve to prevent infinite loops.'
+        content: 'The most robust agent pattern: Plan (break the task into steps), Act (execute one step via tool call), Reflect (evaluate the result and update the plan). This prevents agents from going off-track on long tasks. Implement a max-iterations safety valve to prevent infinite loops. The reflection step is what separates good agents from bad ones — without it, the agent blindly executes the original plan even when early results reveal the plan was wrong. During reflection, the agent should ask: Did this step succeed? Does the plan still make sense? Do I need to adjust my approach? This self-correction loop is what makes agents genuinely useful for complex tasks.'
+      },
+      {
+        moduleStep: 5,
+        title: 'Multi-Agent Orchestration',
+        content: 'For complex tasks, multiple specialized agents outperform a single generalist agent. The orchestrator pattern: one coordinator agent breaks the task into sub-tasks and delegates each to a specialist agent (researcher, writer, reviewer, etc.). Each specialist has its own system prompt, tools, and constraints optimized for its specific role. Communication between agents happens through structured messages — the coordinator passes context and receives results. Key design decisions: sequential vs. parallel execution, how to handle disagreements between agents, and when to escalate to a human. Start simple with 2-3 agents and add complexity only when single-agent performance plateaus.'
+      },
+      {
+        moduleStep: 6,
+        title: 'Failure Handling',
+        content: 'Production agents fail — tools return errors, models hallucinate, plans hit dead ends. Build three layers of failure handling: (1) Retry with exponential backoff for transient errors like API timeouts. (2) Fallback strategies for persistent failures — if web search fails, try a different search engine or use cached results. (3) Human-in-the-loop escalation for situations the agent cannot resolve — unclear requirements, conflicting information, or actions that require human approval. Log every failure with full context so you can identify patterns and improve the agent over time. Never let an agent silently fail — either recover or escalate.'
       }
     ],
     exercise: {
       title: 'Build a Research Agent',
-      instructions: 'Design an agent that takes a research question and:\n1. Breaks it into sub-questions\n2. Searches for information using a web search tool\n3. Synthesizes findings into a structured report\n4. Includes source URLs for every claim',
-      expectedOutput: 'A structured research report with sections, findings, and cited sources.',
+      instructions: 'Design an agent that takes a research question and:\n1. Breaks it into 3-5 sub-questions using a planning step\n2. Searches for information using a web search tool\n3. Evaluates source quality and filters unreliable sources\n4. Synthesizes findings into a structured report\n5. Includes source URLs for every claim\n\nImplement the Plan-Act-Reflect loop with a maximum of 10 iterations.',
+      expectedOutput: 'A structured research report with sections, findings, and cited sources. Each section addresses one sub-question with 2-3 key findings.',
       successCriteria: [
         'Agent decomposes the question into relevant sub-questions',
         'Each finding is backed by a source URL',
-        'The report is coherent and addresses the original question'
+        'The report is coherent and addresses the original question',
+        'Agent completes within the 10-iteration limit',
+        'Failed searches are handled gracefully with fallback strategies'
       ]
-    }
+    },
+    commonPitfalls: [
+      {
+        pitfall: 'Giving the agent too many tools (15+), which causes decision paralysis and frequent incorrect tool selection.',
+        solution: 'Limit to 8-12 well-designed tools. Group related operations into single tools with parameters. Write clear descriptions explaining when to use each tool.'
+      },
+      {
+        pitfall: 'Skipping the planning step and letting the agent dive straight into tool calls without a strategy.',
+        solution: 'Always start with an explicit planning prompt: "Before taking any action, list the steps you will take and explain your reasoning." Review the plan before execution begins.'
+      },
+      {
+        pitfall: 'No iteration limit, allowing agents to enter infinite loops when they fail to make progress.',
+        solution: 'Set a hard max-iterations limit (10-20 for most tasks). Add progress detection — if the agent takes 3 consecutive actions without meaningful progress, force a re-plan or escalate.'
+      },
+      {
+        pitfall: 'Full automation with no human-in-the-loop for high-stakes decisions like sending emails, making purchases, or modifying data.',
+        solution: 'Classify actions by risk level. Low-risk actions (read, search) can be fully automated. High-risk actions (write, delete, send) require human approval before execution.'
+      }
+    ],
+    furtherLearning: [
+      {
+        title: 'Anthropic Tool Use Guide',
+        type: 'docs',
+        description: 'Official documentation for implementing tool use with Claude, including best practices for tool definitions and error handling.'
+      },
+      {
+        title: 'LangGraph Agents Documentation',
+        type: 'docs',
+        description: 'Framework for building stateful, multi-step agents with support for branching, cycles, and human-in-the-loop.'
+      },
+      {
+        title: 'Agent Architecture Patterns Survey',
+        type: 'article',
+        description: 'Academic survey of agent architectures including ReAct, Reflexion, Plan-and-Solve, and multi-agent frameworks.'
+      },
+      {
+        title: 'Claude Agent SDK',
+        type: 'tool',
+        description: 'Anthropic\'s SDK for building production agents with built-in tool use, memory management, and orchestration primitives.'
+      }
+    ]
   },
   {
     id: 'fine-tuning-foundations',
@@ -688,6 +990,13 @@ var SKILLS_DATA = [
       ],
       whatYoullBuild: 'A fine-tuned model for a specific classification or extraction task, with before/after evaluation benchmarks.'
     },
+    whatYoullLearn: [
+      'Decide when to fine-tune versus when prompting alone is sufficient',
+      'Prepare high-quality training datasets in the right format with proper splits',
+      'Choose fine-tuning parameters including learning rate, epochs, and batch size',
+      'Evaluate fine-tuned models against base model baselines on held-out test data',
+      'Deploy fine-tuned models and monitor for performance drift over time'
+    ],
     modules: [
       { step: 1, title: 'When to Fine-tune', time: '20 min', type: 'concept' },
       { step: 2, title: 'Dataset Preparation', time: '30 min', type: 'practice' },
@@ -699,24 +1008,81 @@ var SKILLS_DATA = [
       {
         moduleStep: 1,
         title: 'Fine-tuning Decision Framework',
-        content: 'Fine-tune when: you need consistent format/style that prompting can\'t achieve, you have 100+ high-quality examples, latency/cost matters and a smaller fine-tuned model can replace a large base model. Don\'t fine-tune when: few-shot prompting works, your data changes frequently, you have fewer than 50 examples.'
+        content: 'Fine-tune when: you need consistent format/style that prompting can\'t achieve, you have 100+ high-quality examples, latency/cost matters and a smaller fine-tuned model can replace a large base model. Don\'t fine-tune when: few-shot prompting works, your data changes frequently, you have fewer than 50 examples. The decision framework is simple: try prompting first. If prompting works, stop there — it\'s cheaper, faster to iterate, and doesn\'t require training infrastructure. Fine-tuning is for the specific cases where prompting hits a ceiling: consistent output formatting, domain-specific terminology, or cost optimization where a small fine-tuned model can replace expensive API calls to a large model.'
       },
       {
         moduleStep: 2,
         title: 'Data Quality > Data Quantity',
-        content: '50 perfect examples beat 500 noisy ones. Every training example should be an output you\'d be proud to ship to production. Clean your data ruthlessly: remove duplicates, fix formatting, ensure consistency. Split 80/10/10 into train/validation/test sets.'
+        content: '50 perfect examples beat 500 noisy ones. Every training example should be an output you\'d be proud to ship to production. Clean your data ruthlessly: remove duplicates, fix formatting, ensure consistency. Split 80/10/10 into train/validation/test sets. The validation set is used during training to detect overfitting — if validation loss starts increasing while training loss decreases, you\'re overfitting. The test set is held out completely until final evaluation, giving you an unbiased measure of real-world performance. Never evaluate on training data — it tells you nothing about how the model will perform on new inputs.'
+      },
+      {
+        moduleStep: 3,
+        title: 'Training Parameters',
+        content: 'The key parameters for fine-tuning: learning rate (how fast the model adapts — too high causes instability, too low wastes time), epochs (how many times the model sees the full dataset — usually 2-4 for LLMs), and batch size (how many examples are processed at once — larger is more stable but requires more memory). For API-based fine-tuning (OpenAI), most of this is handled automatically. For open-source models with LoRA, start with learning rate 2e-4, 3 epochs, and batch size 4. LoRA is a parameter-efficient method that trains a small adapter on top of the frozen base model, requiring much less compute and memory than full fine-tuning while achieving comparable results.'
+      },
+      {
+        moduleStep: 4,
+        title: 'Evaluation Strategy',
+        content: 'Always compare your fine-tuned model against two baselines: the base model with zero-shot prompting and the base model with few-shot prompting. If few-shot prompting achieves 90% of the fine-tuned model\'s quality, the fine-tuning wasn\'t worth it. Evaluate on your held-out test set using the same metrics you\'d use in production. For classification tasks: accuracy, precision, recall, F1 score. For generation tasks: use the LLM-as-judge approach from the evaluation skill. Track latency and cost alongside quality — fine-tuning a smaller model that\'s 5% less accurate but 80% cheaper might be the better production choice.'
+      },
+      {
+        moduleStep: 5,
+        title: 'Deployment and Drift',
+        content: 'Deploying a fine-tuned model is not the end — it\'s the beginning of monitoring. Models drift as the real-world data distribution changes. Set up automated quality checks: sample 1-5% of production outputs and run them through your eval pipeline. If quality drops below your threshold, it\'s time to retrain with fresh data. Keep versioning your training datasets and model checkpoints so you can always roll back. For API-based fine-tuned models, be aware that the base model can be deprecated — always have a migration plan.'
       }
     ],
     exercise: {
       title: 'Fine-tune a Classifier',
-      instructions: 'Prepare a dataset of 100 examples for a text classification task:\n1. Define 3-5 categories relevant to your domain\n2. Write 20+ examples per category in JSONL format\n3. Run a fine-tuning job via the OpenAI API\n4. Compare accuracy against a few-shot prompt baseline',
-      expectedOutput: 'A fine-tuned model with accuracy metrics compared to the baseline prompt approach.',
+      instructions: 'Prepare a dataset of 100 examples for a text classification task:\n1. Define 3-5 categories relevant to your domain\n2. Write 20+ examples per category in JSONL format\n3. Split into 80 training / 10 validation / 10 test examples\n4. Run a fine-tuning job via the OpenAI API\n5. Compare accuracy against a few-shot prompt baseline\n6. Document the cost and latency difference',
+      expectedOutput: 'A fine-tuned model with accuracy metrics compared to the baseline prompt approach, including a cost/quality tradeoff analysis.',
       successCriteria: [
         'Dataset has at least 20 examples per category',
         'Fine-tuned model accuracy exceeds the few-shot baseline',
-        'Evaluation uses a held-out test set, not training data'
+        'Evaluation uses a held-out test set, not training data',
+        'Cost and latency comparisons are documented',
+        'Training and evaluation process is reproducible'
       ]
-    }
+    },
+    commonPitfalls: [
+      {
+        pitfall: 'Jumping to fine-tuning before trying prompt engineering — spending days preparing data and training when a well-crafted few-shot prompt would have solved the problem.',
+        solution: 'Always establish a prompting baseline first. Try zero-shot, few-shot, and chain-of-thought prompting. Only fine-tune if prompting consistently fails to meet your quality bar.'
+      },
+      {
+        pitfall: 'Training with too little data (under 50 examples) or data that is inconsistent in quality, format, or labeling.',
+        solution: 'Minimum 100 examples for classification, 200 for generation. Every example should be production-quality. Have a second person review your training data for consistency before training.'
+      },
+      {
+        pitfall: 'Overfitting the model by training too many epochs or using a learning rate that is too high, causing the model to memorize training data instead of generalizing.',
+        solution: 'Monitor validation loss during training. Stop when validation loss starts increasing. Use 2-4 epochs for most tasks. If using LoRA, start with learning rate 2e-4 and reduce if validation loss is unstable.'
+      },
+      {
+        pitfall: 'Not evaluating the fine-tuned model against the base model — assuming fine-tuning improved quality without measuring it.',
+        solution: 'Always compare against two baselines: zero-shot and few-shot prompting on the base model. Use the same held-out test set and metrics for all comparisons. Document the exact quality delta.'
+      }
+    ],
+    furtherLearning: [
+      {
+        title: 'OpenAI Fine-tuning Guide',
+        type: 'docs',
+        description: 'Official guide for fine-tuning GPT models via the API, including dataset formatting, training parameters, and evaluation.'
+      },
+      {
+        title: 'Hugging Face PEFT Documentation',
+        type: 'docs',
+        description: 'Documentation for parameter-efficient fine-tuning methods including LoRA, QLoRA, and prefix tuning for open-source models.'
+      },
+      {
+        title: 'LoRA: Low-Rank Adaptation Paper',
+        type: 'article',
+        description: 'The foundational paper explaining how LoRA achieves comparable fine-tuning quality with dramatically less compute and memory.'
+      },
+      {
+        title: 'Dataset Preparation for Fine-tuning',
+        type: 'article',
+        description: 'Practical guide to collecting, cleaning, formatting, and validating training data for LLM fine-tuning jobs.'
+      }
+    ]
   }
 ];
 
@@ -843,40 +1209,57 @@ function renderDetailHeader(item) {
 function renderDetailSections(item) {
   var html = '';
 
-  // Section 1: OVERVIEW
+  // ---- Section 1: OVERVIEW ----
   html += '<div class="detail-section">' +
     '<div class="section-header"><span class="section-label">overview</span></div>';
   if (item.overview) {
     html += '<div class="overview-desc">' + escapeHtml(item.overview.description) + '</div>';
-    if (item.overview.prerequisites && item.overview.prerequisites.length > 0) {
-      html += '<div class="overview-sub">prerequisites</div><ul class="prereq-list">';
-      item.overview.prerequisites.forEach(function(p) {
-        html += '<li>' + escapeHtml(p) + '</li>';
-      });
-      html += '</ul>';
-    }
-    if (item.overview.whatYoullBuild) {
-      html += '<div class="overview-sub">what you\'ll build</div>' +
-        '<div class="build-callout">' + escapeHtml(item.overview.whatYoullBuild) + '</div>';
-    }
+  }
+  if (item.whatYoullLearn && item.whatYoullLearn.length > 0) {
+    html += '<div class="learn-sub">what you\'ll learn</div><ul class="learn-list">';
+    item.whatYoullLearn.forEach(function(l) {
+      html += '<li>' + escapeHtml(l) + '</li>';
+    });
+    html += '</ul>';
   }
   html += '</div>';
 
-  // Section 2: MODULE BREAKDOWN
+  // ---- Section 2: PREREQUISITES & REQUIREMENTS ----
+  html += '<div class="prereq-box">' +
+    '<div class="prereq-label">prerequisites &amp; requirements</div>' +
+    '<div class="prereq-grid">' +
+      '<div><div class="prereq-item-label">time estimate</div><div class="prereq-item-value">' + escapeHtml(item.time) + '</div></div>' +
+      '<div><div class="prereq-item-label">difficulty</div><div class="prereq-item-value">' + escapeHtml(item.difficulty) + '</div></div>' +
+      '<div><div class="prereq-item-label">modules</div><div class="prereq-item-value">' + (item.modules ? item.modules.length : 0) + ' modules</div></div>' +
+    '</div>';
+  if (item.overview && item.overview.prerequisites && item.overview.prerequisites.length > 0) {
+    html += '<ul class="prereq-list">';
+    item.overview.prerequisites.forEach(function(p) {
+      html += '<li>' + escapeHtml(p) + '</li>';
+    });
+    html += '</ul>';
+  }
+  if (item.overview && item.overview.whatYoullBuild) {
+    html += '<div style="margin-top:16px;padding:12px 16px;background:var(--bg-tertiary);border:1px solid var(--border);font-size:13px;color:var(--text-secondary);line-height:1.6;">' +
+      '<span style="font-family:JetBrains Mono,monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:6px;">what you\'ll build</span>' +
+      escapeHtml(item.overview.whatYoullBuild) +
+    '</div>';
+  }
+  html += '</div>';
+
+  // ---- Section 3: MODULE BREAKDOWN (TIMELINE) ----
   html += '<div class="detail-section">' +
     '<div class="section-header"><span class="section-label">module breakdown</span></div>';
   if (item.modules && item.modules.length > 0) {
-    html += '<div class="module-list">';
+    html += '<div class="timeline">';
     item.modules.forEach(function(m) {
       var typeClass = m.type === 'practice' ? ' practice' : (m.type === 'project' ? ' project' : '');
-      html += '<div class="module-item">' +
-        '<span class="module-num">' + m.step + '</span>' +
-        '<div class="module-info">' +
-          '<div class="module-title">' + escapeHtml(m.title) + '</div>' +
-          '<div class="module-meta">' +
-            '<span class="module-time">' + escapeHtml(m.time) + '</span>' +
-            '<span class="module-type' + typeClass + '">' + escapeHtml(m.type) + '</span>' +
-          '</div>' +
+      html += '<div class="timeline-item">' +
+        '<span class="timeline-num">' + m.step + '</span>' +
+        '<div class="timeline-title">' + escapeHtml(m.title) + '</div>' +
+        '<div class="timeline-meta">' +
+          '<span class="timeline-time">' + escapeHtml(m.time) + '</span>' +
+          '<span class="timeline-type' + typeClass + '">' + escapeHtml(m.type) + '</span>' +
         '</div>' +
       '</div>';
     });
@@ -884,9 +1267,9 @@ function renderDetailSections(item) {
   }
   html += '</div>';
 
-  // Section 3: KEY CONCEPTS
+  // ---- Section 4: DEEP DIVE: KEY CONCEPTS ----
   html += '<div class="detail-section">' +
-    '<div class="section-header"><span class="section-label">key concepts</span></div>';
+    '<div class="section-header"><span class="section-label">deep dive: key concepts</span></div>';
   if (item.keyConcepts && item.keyConcepts.length > 0) {
     html += '<div class="concept-list">';
     item.keyConcepts.forEach(function(c) {
@@ -904,7 +1287,7 @@ function renderDetailSections(item) {
   }
   html += '</div>';
 
-  // Section 4: PRACTICE EXERCISE
+  // ---- Section 5: PRACTICE EXERCISE ----
   html += '<div class="detail-section">' +
     '<div class="section-header"><span class="section-label">practice exercise</span></div>';
   if (item.exercise) {
@@ -927,8 +1310,61 @@ function renderDetailSections(item) {
   }
   html += '</div>';
 
-  document.getElementById('detailGrid').innerHTML = html;
+  // ---- Section 6: COMMON PITFALLS ----
+  html += '<div class="detail-section">' +
+    '<div class="section-header"><span class="section-label">common pitfalls</span></div>';
+  if (item.commonPitfalls && item.commonPitfalls.length > 0) {
+    html += '<div class="pitfall-list">';
+    item.commonPitfalls.forEach(function(p) {
+      html += '<div class="pitfall-item">' +
+        '<div class="pitfall-label bad">pitfall</div>' +
+        '<div class="pitfall-text">' + escapeHtml(p.pitfall) + '</div>' +
+        '<div class="pitfall-label good" style="margin-top:12px">solution</div>' +
+        '<div class="pitfall-text">' + escapeHtml(p.solution) + '</div>' +
+      '</div>';
+    });
+    html += '</div>';
+  } else {
+    html += '<p class="placeholder-text">Common pitfalls will be added as this skill is developed.</p>';
+  }
+  html += '</div>';
+
+  // ---- Section 7: FURTHER LEARNING ----
+  html += '<div class="detail-section">' +
+    '<div class="section-header"><span class="section-label">further learning</span></div>';
+  if (item.furtherLearning && item.furtherLearning.length > 0) {
+    html += '<div class="resource-list">';
+    item.furtherLearning.forEach(function(r) {
+      html += '<div class="resource-item">' +
+        '<span class="resource-type">' + escapeHtml(r.type) + '</span>' +
+        '<div class="resource-info">' +
+          '<div class="resource-title">' + escapeHtml(r.title) + '</div>' +
+          '<div class="resource-desc">' + escapeHtml(r.description) + '</div>' +
+        '</div>' +
+      '</div>';
+    });
+    html += '</div>';
+  } else {
+    html += '<p class="placeholder-text">Resources will be added as this skill is developed.</p>';
+  }
+  html += '</div>';
+
+  document.getElementById('detailSections').innerHTML = html;
 }
+
+// ============ CURSOR-TRACKING GLOW ON INDEX CARDS ============
+(function() {
+  document.addEventListener('mousemove', function(e) {
+    var cards = document.querySelectorAll('.index-card');
+    cards.forEach(function(card) {
+      var rect = card.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      var y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', x + 'px');
+      card.style.setProperty('--mouse-y', y + 'px');
+    });
+  });
+})();
 
 // ============ THEME & SCROLL ============
 (function() {

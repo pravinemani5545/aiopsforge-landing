@@ -83,7 +83,9 @@
     background: rgba(255, 255, 255, 0.7);
   }
   :root:not([data-theme="dark"]) .hero::before {
-    background: radial-gradient(circle, rgba(0, 137, 46, 0.08) 0%, transparent 70%);
+    background:
+      radial-gradient(ellipse at 40% 40%, rgba(0,137,46,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 65% 50%, rgba(34,102,204,0.04) 0%, transparent 50%);
   }
   :root:not([data-theme="dark"]) .chatbot-toggle {
     box-shadow: 0 4px 20px rgba(0, 137, 46, 0.2);
@@ -97,7 +99,9 @@
   background: rgba(255, 255, 255, 0.7);
 }
 :root[data-theme="light"] .hero::before {
-  background: radial-gradient(circle, rgba(0, 137, 46, 0.08) 0%, transparent 70%);
+  background:
+    radial-gradient(ellipse at 40% 40%, rgba(0,137,46,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 65% 50%, rgba(34,102,204,0.04) 0%, transparent 50%);
 }
 :root[data-theme="light"] .chatbot-toggle {
   box-shadow: 0 4px 20px rgba(0, 137, 46, 0.2);
@@ -385,12 +389,14 @@ body {
 .hero::before {
   content: '';
   position: absolute;
-  top: -200px;
+  top: -300px;
   left: 50%;
   transform: translateX(-50%);
-  width: 800px;
-  height: 800px;
-  background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%);
+  width: 1200px;
+  height: 1000px;
+  background:
+    radial-gradient(ellipse at 40% 40%, rgba(0,255,65,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 65% 50%, rgba(68,136,255,0.05) 0%, transparent 50%);
   pointer-events: none;
 }
 
@@ -1813,6 +1819,76 @@ body {
   .popup-form input[type="email"] { border-right: 1px solid var(--border); border-bottom: none; }
   .popup-box { padding: 32px 20px; }
 }
+
+/* ============ NOISE TEXTURE OVERLAY ============ */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ============ GRADIENT HEADING ============ */
+.hero h1 {
+  background: linear-gradient(180deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero h1 .accent {
+  -webkit-text-fill-color: var(--green);
+}
+
+/* ============ DOT GRID ON HERO ============ */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+}
+
+/* ============ FADING SECTION DIVIDERS ============ */
+.section-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--border) 20%, var(--border) 80%, transparent 100%);
+  margin: 0;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ============ CURSOR GLOW ON FEATURES GRID ============ */
+.features-grid {
+  position: relative;
+}
+.feature-card {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+}
+.feature-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(0,255,65,0.06), transparent 60%);
+  pointer-events: none;
+  z-index: 1;
+}
+.feature-card:hover::after {
+  opacity: 1;
+}
 </style>
 <script>
 (function() {
@@ -1886,6 +1962,7 @@ body {
   </div>
 </section>
 
+<hr class="section-divider">
 <!-- ===================== PROBLEM ===================== -->
 <section class="problem-section section-pad">
   <div class="container">
@@ -1900,6 +1977,7 @@ body {
   </div>
 </section>
 
+<hr class="section-divider">
 <!-- ===================== FEATURES ===================== -->
 <section class="section-pad">
   <div class="container">
@@ -2074,6 +2152,7 @@ body {
   </div>
 </section>
 
+<hr class="section-divider">
 <!-- ===================== WHO FOR ===================== -->
 <section class="who-section section-pad">
   <div class="container">
@@ -2150,6 +2229,7 @@ body {
   </div>
 </section>
 
+<hr class="section-divider">
 <!-- ===================== COMPARISON ===================== -->
 <section class="compare-section section-pad">
   <div class="container">
@@ -2282,6 +2362,7 @@ body {
   </div>
 </section>
 
+<hr class="section-divider">
 <!-- ===================== PROMISE ===================== -->
 <section class="promise-section section-pad">
   <div class="container">
@@ -2296,6 +2377,7 @@ body {
   </div>
 </section>
 
+<hr class="section-divider">
 <!-- ===================== FAQ ===================== -->
 <section class="section-pad">
   <div class="container">
@@ -2332,6 +2414,7 @@ body {
   </div>
 </section>
 
+<hr class="section-divider">
 <!-- ===================== TWO CHOICES ===================== -->
 <section class="choices-section section-pad" style="background: var(--bg-secondary); border-top: 1px solid var(--border);">
   <div class="container">
@@ -2419,7 +2502,7 @@ body {
       <p class="popup-desc">Join the waitlist now. First 10 members get month 1 free. $9.99/month locked in for the first 20 — then it goes to $19.99.</p>
       <div class="spots-bar-wrap">
         <div class="spots-bar-label">
-          <span class="spots-count">10 of 10 free spots remaining</span>
+          <span class="spots-count">9 of 10 free spots remaining</span>
           <span class="spots-total">100% available</span>
         </div>
         <div class="spots-bar">
@@ -2469,7 +2552,7 @@ body {
   var spotsTotal = document.querySelector('.spots-total');
   var spotsCount = document.querySelector('.spots-count');
   var totalSpots = 10;
-  var remaining = 10;
+  var remaining = 9;
   var takenPercent = Math.round(((totalSpots - remaining) / totalSpots) * 100);
   var availablePercent = 100 - takenPercent;
 
@@ -2693,6 +2776,24 @@ document.querySelectorAll('.waitlist-trigger').forEach(function(el) {
     document.querySelector('.site-nav').classList.remove('nav-open');
   });
 });
+</script>
+
+<script>
+// Cursor glow tracking on features grid
+(function() {
+  var grid = document.querySelector('.features-grid');
+  if (!grid) return;
+  grid.addEventListener('mousemove', function(e) {
+    var cards = grid.querySelectorAll('.feature-card');
+    cards.forEach(function(card) {
+      var rect = card.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      var y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', x + 'px');
+      card.style.setProperty('--mouse-y', y + 'px');
+    });
+  });
+})();
 </script>
 
 </body>

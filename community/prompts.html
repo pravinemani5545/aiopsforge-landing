@@ -8,45 +8,30 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/design-system/tokens.css">
+<link rel="stylesheet" href="/design-system/tokens.css">
 <style>
 :root {
-  --green: #00FF41; --green-dim: #00cc34;
-  --green-glow: rgba(0, 255, 65, 0.15); --green-glow-strong: rgba(0, 255, 65, 0.3);
-  --bg-primary: #0a0a0a; --bg-secondary: #111111; --bg-tertiary: #161616;
-  --bg-card: #1a1a1a; --bg-card-hover: #222222;
-  --border: #2a2a2a; --border-green: rgba(0, 255, 65, 0.2);
-  --text-primary: #f0f0f0; --text-secondary: #999999; --text-dim: #666666;
-  --red: #ff4444; --blue: #4488ff;
   --accent: #10b981;
+}
+:root[data-theme="light"] {
+  --accent: #059669;
 }
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
-    --green: #00892e; --green-dim: #006b24;
-    --green-glow: rgba(0, 137, 46, 0.12); --green-glow-strong: rgba(0, 137, 46, 0.25);
-    --bg-primary: #f5f5f5; --bg-secondary: #ebebeb; --bg-tertiary: #e0e0e0;
-    --bg-card: #ffffff; --bg-card-hover: #f8f8f8;
-    --border: #d4d4d4; --border-green: rgba(0, 137, 46, 0.2);
-    --text-primary: #1a1a1a; --text-secondary: #555555; --text-dim: #888888;
-    --red: #cc3333; --blue: #2266cc;
     --accent: #059669;
   }
-}
-:root[data-theme="light"] {
-  --green: #00892e; --green-dim: #006b24;
-  --green-glow: rgba(0, 137, 46, 0.12); --green-glow-strong: rgba(0, 137, 46, 0.25);
-  --bg-primary: #f5f5f5; --bg-secondary: #ebebeb; --bg-tertiary: #e0e0e0;
-  --bg-card: #ffffff; --bg-card-hover: #f8f8f8;
-  --border: #d4d4d4; --border-green: rgba(0, 137, 46, 0.2);
-  --text-primary: #1a1a1a; --text-secondary: #555555; --text-dim: #888888;
-  --red: #cc3333; --blue: #2266cc;
-  --accent: #059669;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
   font-family: 'IBM Plex Sans', sans-serif; background: var(--bg-primary);
   color: var(--text-primary); line-height: 1.6; overflow-x: hidden;
+}
+body::after {
+  content: ''; position: fixed; inset: 0; z-index: 9998; pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat; background-size: 256px 256px;
 }
 .scroll-progress {
   position: fixed; top: 0; left: 0; width: 0%; height: 3px;
@@ -71,14 +56,28 @@ body {
   padding-top: 24px;
 }
 .back-link:hover { color: var(--green); }
+
+/* ============ PAGE HEADER ============ */
 .page-header {
-  padding: 60px 0 40px; text-align: center; position: relative;
+  padding: 60px 0 40px; text-align: center; position: relative; overflow: hidden;
 }
 .page-header::before {
   content: ''; position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
-  width: 600px; height: 300px;
-  background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%);
+  width: 900px; height: 400px;
+  background: radial-gradient(ellipse at center, rgba(16,185,129,0.08) 0%, rgba(16,185,129,0.02) 40%, transparent 70%);
   pointer-events: none;
+}
+.page-header::after {
+  content: ''; position: absolute; top: -60px; right: -200px; width: 500px; height: 400px;
+  background: radial-gradient(ellipse at center, rgba(0,255,65,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+.page-header .dot-bg {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
 }
 .page-label {
   font-family: 'JetBrains Mono', monospace; font-size: 11px;
@@ -88,6 +87,8 @@ body {
 .page-title {
   font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 5vw, 42px);
   font-weight: 700; margin-bottom: 12px; position: relative;
+  background: linear-gradient(180deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 .page-subtitle {
   color: var(--text-secondary); font-size: 15px; max-width: 600px;
@@ -132,11 +133,18 @@ body {
   gap: 16px; padding-bottom: 60px;
 }
 .index-card {
+  position: relative; overflow: hidden;
   background: var(--bg-card); border: 1px solid var(--border);
   padding: 24px; cursor: pointer; transition: all 0.2s;
   text-decoration: none; color: inherit; display: flex;
   flex-direction: column; gap: 12px;
 }
+.index-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(16,185,129,0.06) 0%, transparent 60%);
+  pointer-events: none; opacity: 0; transition: opacity 0.3s;
+}
+.index-card:hover::before { opacity: 1; }
 .index-card:hover {
   border-color: var(--border-green); background: var(--bg-card-hover);
 }
@@ -171,7 +179,14 @@ body {
 }
 .detail-back:hover { color: var(--green); }
 .detail-hero {
-  padding: 40px 0 32px; position: relative;
+  padding: 40px 0 32px; position: relative; overflow: hidden;
+}
+.detail-hero .dot-bg {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
 }
 .detail-hero::before {
   content: ''; position: absolute; top: -20px; left: 0;
@@ -187,6 +202,8 @@ body {
 .detail-title {
   font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 4vw, 36px);
   font-weight: 700; margin-bottom: 10px; position: relative;
+  background: linear-gradient(180deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 .detail-desc {
   color: var(--text-secondary); font-size: 15px;
@@ -199,10 +216,12 @@ body {
   position: relative;
 }
 
-/* ============ DETAIL SECTIONS GRID ============ */
-.detail-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr);
-  gap: 16px; padding-bottom: 60px;
+/* ============ DETAIL SECTIONS — STACKED LAYOUT ============ */
+.detail-sections {
+  display: flex; flex-direction: column; gap: 24px; padding-bottom: 60px;
+}
+.detail-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
 }
 .detail-section {
   background: var(--bg-card); border: 1px solid var(--border);
@@ -221,17 +240,29 @@ body {
   letter-spacing: 2px; text-transform: uppercase; color: var(--accent);
 }
 
-/* ============ SECTION: THE PROMPT ============ */
-.prompt-code-block {
-  background: var(--bg-tertiary); border: 1px solid var(--border);
-  padding: 16px; font-family: 'JetBrains Mono', monospace;
-  font-size: 12px; line-height: 1.7; color: var(--text-secondary);
-  white-space: pre-wrap; word-break: break-word;
-  max-height: 340px; overflow-y: auto;
+/* ============ SECTION DIVIDER ============ */
+.section-divider {
+  border: none; height: 1px; margin: 0;
+  background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
 }
-.prompt-code-block::-webkit-scrollbar { width: 6px; }
-.prompt-code-block::-webkit-scrollbar-track { background: var(--bg-tertiary); }
-.prompt-code-block::-webkit-scrollbar-thumb { background: var(--border); }
+
+/* ============ TERMINAL BLOCK ============ */
+.terminal-block { position: relative; background: var(--bg-secondary); border: 1px solid var(--border); overflow: hidden; }
+.terminal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 16px; background: var(--bg-tertiary); border-bottom: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim);
+}
+.terminal-body {
+  padding: 20px 24px; font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; line-height: 1.7; color: var(--text-secondary);
+  white-space: pre-wrap; word-break: break-word; max-height: 500px; overflow-y: auto;
+}
+.terminal-body::-webkit-scrollbar { width: 6px; }
+.terminal-body::-webkit-scrollbar-track { background: var(--bg-secondary); }
+.terminal-body::-webkit-scrollbar-thumb { background: var(--border); }
+
+/* ============ COPY BUTTON ============ */
 .copy-btn {
   font-family: 'JetBrains Mono', monospace; font-size: 10px;
   letter-spacing: 1px; padding: 5px 12px; cursor: pointer;
@@ -241,7 +272,12 @@ body {
 .copy-btn:hover { background: rgba(16, 185, 129, 0.08); }
 .copy-btn.copied { background: rgba(16, 185, 129, 0.12); border-color: var(--accent); }
 
-/* ============ SECTION: VARIABLES ============ */
+/* ============ PROSE / HOW IT WORKS ============ */
+.prose-section { padding: 24px; background: var(--bg-card); border: 1px solid var(--border); }
+.prose-section p { font-size: 15px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 16px; }
+.prose-section p:last-child { margin-bottom: 0; }
+
+/* ============ VARIABLES ============ */
 .var-list { display: flex; flex-direction: column; gap: 16px; }
 .var-item {
   padding-bottom: 16px; border-bottom: 1px solid var(--border);
@@ -261,7 +297,14 @@ body {
   border: 1px solid var(--border); display: inline-block;
 }
 
-/* ============ SECTION: EXAMPLE OUTPUT ============ */
+/* ============ REQUIREMENTS PANEL ============ */
+.req-grid { display: flex; flex-direction: column; gap: 12px; }
+.req-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.req-row:last-child { border-bottom: none; }
+.req-key { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; }
+.req-val { font-size: 13px; color: var(--text-secondary); text-align: right; max-width: 60%; }
+
+/* ============ EXAMPLE OUTPUT ============ */
 .example-toggle {
   font-family: 'JetBrains Mono', monospace; font-size: 10px;
   letter-spacing: 1px; padding: 5px 12px; cursor: pointer;
@@ -276,7 +319,7 @@ body {
   white-space: pre-wrap; word-break: break-word;
   max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
 }
-.example-content.expanded { max-height: 600px; overflow-y: auto; }
+.example-content.expanded { max-height: 800px; overflow-y: auto; }
 .example-content::-webkit-scrollbar { width: 6px; }
 .example-content::-webkit-scrollbar-track { background: var(--bg-tertiary); }
 .example-content::-webkit-scrollbar-thumb { background: var(--border); }
@@ -285,7 +328,7 @@ body {
   padding: 20px 0;
 }
 
-/* ============ SECTION: PRO TIPS ============ */
+/* ============ PRO TIPS ============ */
 .tips-list { display: flex; flex-direction: column; gap: 14px; }
 .tip-item { display: flex; gap: 12px; align-items: flex-start; }
 .tip-num {
@@ -295,6 +338,38 @@ body {
 }
 .tip-text {
   font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+}
+
+/* ============ COMMON MISTAKES ============ */
+.mistakes-list { display: flex; flex-direction: column; }
+.mistake-item { padding: 16px 0; border-bottom: 1px solid var(--border); }
+.mistake-item:last-child { border-bottom: none; }
+.mistake-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+.mistake-label.bad { color: var(--red); }
+.mistake-label.good { color: var(--green); }
+.mistake-text { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+/* ============ RELATED PROMPTS ============ */
+.related-strip { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 8px; }
+.related-strip::-webkit-scrollbar { height: 4px; }
+.related-strip::-webkit-scrollbar-track { background: var(--bg-card); }
+.related-strip::-webkit-scrollbar-thumb { background: var(--border); }
+.related-card {
+  flex: 0 0 280px; background: var(--bg-card); border: 1px solid var(--border);
+  padding: 16px; text-decoration: none; color: inherit; transition: all 0.2s;
+}
+.related-card:hover { border-color: var(--border-green); background: var(--bg-card-hover); }
+.related-card-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim);
+  margin-bottom: 8px; display: block;
+}
+.related-card-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: 14px;
+  font-weight: 700; margin-bottom: 6px;
+}
+.related-card-desc {
+  font-size: 12px; color: var(--text-secondary); line-height: 1.5;
 }
 
 /* ============ SANDBOX BANNER ============ */
@@ -327,7 +402,7 @@ body {
   .index-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
-  .detail-grid { grid-template-columns: 1fr; }
+  .detail-row { grid-template-columns: 1fr; }
 }
 @media (max-width: 600px) {
   .page-header { padding: 40px 0 32px; }
@@ -359,6 +434,7 @@ if (!SANDBOX_MODE && sessionStorage.getItem('aof_cw_auth') !== '1') { window.loc
   <!-- INDEX VIEW -->
   <div id="indexView">
     <div class="page-header">
+      <div class="dot-bg"></div>
       <div class="page-label">prompts</div>
       <h1 class="page-title">Prompts</h1>
       <p class="page-subtitle">Production-tested prompt library. Copy, adapt, and deploy prompts that actually work at scale.</p>
@@ -371,7 +447,7 @@ if (!SANDBOX_MODE && sessionStorage.getItem('aof_cw_auth') !== '1') { window.loc
   <!-- DETAIL VIEW -->
   <div id="detailView" style="display:none">
     <div id="detailHeader"></div>
-    <div class="detail-grid" id="detailGrid"></div>
+    <div class="detail-sections" id="detailSections"></div>
   </div>
 </div>
 <footer class="footer">
@@ -401,13 +477,28 @@ var PROMPTS_DATA = [
         example: 'e.g. "Microservices architecture with API Gateway, 3 services (auth, orders, inventory), PostgreSQL, Redis cache, deployed on AWS ECS..."'
       }
     ],
+    howItWorks: 'This prompt uses three core techniques that make it effective.\n\nFirst, it assigns a specific expert role: "senior systems architect with 15+ years of experience." This is called role-based prompting. When you tell the AI to act as a specific expert, it draws on patterns from that domain and produces output that matches the depth and vocabulary an actual architect would use. Without the role, you get generic advice. With it, you get calibrated, domain-specific analysis.\n\nSecond, the prompt forces structured output by defining exactly five sections with specific sub-points. This is called output scaffolding. Instead of asking "what do you think of my architecture?" (which produces rambling paragraphs), it says "give me risks with severity labels, missing components with explanations, bottlenecks with scaling strategies." The AI fills in the structure, which means you never get a wall of text you have to reorganize yourself.\n\nThird, it uses severity calibration. By explicitly asking for Critical/High/Medium/Low ratings, the prompt forces the AI to prioritize rather than treating everything as equally important. This mirrors how real architecture reviews work: you need to know what will cause a 3am outage versus what is a nice-to-have improvement.',
+    requirements: {
+      model: 'Claude Opus 4.7',
+      contextWindow: '200k tokens',
+      estimatedTokens: '2,000 - 4,000 output tokens',
+      bestFor: 'Distributed systems, microservices, cloud architecture'
+    },
+    exampleInput: 'SYSTEM: Real-Time Analytics Dashboard\n\nCOMPONENTS:\n- React frontend hosted on Vercel\n- Node.js API server (single instance, 4GB RAM)\n- PostgreSQL 14 (single primary, no replicas)\n- Redis for session caching\n- Apache Kafka for event streaming (3-node cluster)\n- ClickHouse for analytics queries\n\nDATA FLOW:\n1. User events fire from the React app to the API server via REST\n2. API server publishes events to Kafka\n3. A Python consumer reads from Kafka and writes to ClickHouse\n4. Dashboard queries ClickHouse directly for real-time charts\n5. User authentication handled by API server with JWT tokens stored in Redis\n\nCONSTRAINTS:\n- Expected load: 50,000 concurrent users, ~2,000 events/second\n- Team: 3 backend engineers, 1 DevOps\n- Budget: $5,000/month cloud spend\n- Must support sub-second query latency on dashboards',
     exampleOutput: '# Architecture Review: E-Commerce Microservices Platform\n\n## 1. ARCHITECTURE RISKS\n\n### Critical\n- **Single Point of Failure: API Gateway**\n  All traffic routes through one gateway instance with no failover.\n  If this component fails, the entire platform goes offline.\n  Mitigation: Deploy in active-active configuration across 2+ AZs\n  with health-check-based failover.\n\n### High\n- **Synchronous Inter-Service Communication**\n  Order service makes synchronous calls to inventory and payment.\n  A timeout in either cascades to order failures.\n  Mitigation: Circuit breaker pattern (Resilience4j) + event-driven\n  architecture for non-critical paths.\n\n## 2. MISSING COMPONENTS\n\n- **Distributed Tracing** — No request tracing across services.\n  Debugging production issues will be extremely difficult without\n  correlation IDs. Recommend: OpenTelemetry + Jaeger.\n\n- **Rate Limiting** — No rate limiting at gateway or service level.\n  Vulnerable to abuse and cascade failures from traffic spikes.\n  Recommend: Token bucket at gateway level.\n\n## 3. SCALABILITY BOTTLENECKS\n\n- **PostgreSQL (Orders DB)** — Single write replica.\n  At 10x current load (~5,000 orders/min), write throughput\n  will saturate. Consider: read replicas for queries, CQRS\n  pattern, or sharding by customer_id.\n\n## 4. SECURITY CONCERNS\n\n- **No mTLS between services** — Internal traffic is unencrypted.\n  Lateral movement risk if any service is compromised.\n\n## 5. RECOMMENDED IMPROVEMENTS\n\n| Priority | Improvement | Effort |\n|----------|-------------|--------|\n| High | Add circuit breakers | 2-3 days |\n| High | Implement distributed tracing | 1 week |\n| Medium | Add rate limiting at gateway | 1-2 days |\n| Medium | Enable mTLS for service mesh | 1 week |',
     proTips: [
-      'Include your current scale numbers (requests/sec, data volume, user count) — the reviewer calibrates bottleneck analysis to your actual load, not theoretical limits.',
-      'Mention your team size and expertise level — recommendations will account for what you can realistically build and maintain.',
-      'Paste your architecture as structured text (component list + data flow), not just a diagram description — structured input produces structured output.',
-      'If you have a specific concern, state it explicitly at the top — "I\'m worried about database scaling under Black Friday traffic" focuses the review on what matters most.'
-    ]
+      'Include your current scale numbers (requests/sec, data volume, user count) -- the reviewer calibrates bottleneck analysis to your actual load, not theoretical limits.',
+      'Mention your team size and expertise level -- recommendations will account for what you can realistically build and maintain.',
+      'Paste your architecture as structured text (component list + data flow), not just a diagram description -- structured input produces structured output.',
+      'If you have a specific concern, state it explicitly at the top -- "I\'m worried about database scaling under Black Friday traffic" focuses the review on what matters most.'
+    ],
+    commonMistakes: [
+      { mistake: 'Pasting only architecture diagrams or screenshots without text descriptions of data flow and component responsibilities.', fix: 'Always include a written component inventory and data flow description. The AI cannot read images, so text is essential for accurate analysis.' },
+      { mistake: 'Not stating constraints like budget, team size, timeline, or compliance requirements.', fix: 'Add a CONSTRAINTS section to your input. Without constraints, recommendations may be impractical for your situation.' },
+      { mistake: 'Ignoring severity ratings and treating all findings as equally urgent.', fix: 'Focus on Critical and High items first. Medium and Low findings are improvements, not emergencies. Prioritize by blast radius.' },
+      { mistake: 'Using this prompt to review systems that are already fully built and in production, expecting code-level fixes.', fix: 'This prompt is designed for architecture-level review of designs, not code audits. For production systems, pair it with actual observability data and logs.' }
+    ],
+    relatedPrompts: ['data-pipeline-error-analyzer']
   },
   {
     id: 'seo-blog-post-generator',
@@ -419,18 +510,18 @@ var PROMPTS_DATA = [
     variables: [
       {
         name: '{your_topic}',
-        description: 'The main subject of the blog post. Be specific — the narrower the topic, the better the output.',
-        example: 'e.g. "Next.js App Router migration guide"'
+        description: 'The main subject of the blog post. Be specific -- the narrower the topic, the better the output.',
+        example: 'e.g. "Migrating a React app from Create React App to Vite"'
       },
       {
         name: '{main_keyword}',
         description: 'Primary SEO keyword to target. Use a keyword research tool to find one with decent search volume and manageable competition.',
-        example: 'e.g. "next.js app router migration"'
+        example: 'e.g. "migrate create react app to vite"'
       },
       {
         name: '{keyword_1, keyword_2, keyword_3}',
         description: 'Related long-tail keywords. Aim for variants and related queries of your primary keyword.',
-        example: 'e.g. "pages router to app router, next.js 15 routing, react server components migration"'
+        example: 'e.g. "CRA to Vite migration, Vite React setup, replace create react app"'
       },
       {
         name: '{word_count}',
@@ -443,13 +534,28 @@ var PROMPTS_DATA = [
         example: 'e.g. "technical"'
       }
     ],
-    exampleOutput: '# The Complete Guide to Next.js App Router Migration (2026)\n\n**Meta Description:** Learn how to migrate from Next.js\nPages Router to App Router with our step-by-step guide.\nCovers routing, data fetching, and common pitfalls.\nStart migrating today.\n\n---\n\nMoving from Pages Router to App Router isn\'t just an\nupgrade — it\'s a fundamental shift in how you build\nReact applications. After migrating three production\napps, here\'s everything you need to know.\n\n## Why Migrate to App Router Now\n\nThe Pages Router isn\'t deprecated yet, but the writing\nis on the wall. All new Next.js features ship exclusively\nfor App Router. According to the Next.js 2025 survey,\n73% of new projects now start with App Router.\n\n## Step-by-Step Migration Strategy\n\n### 1. Audit Your Current Routes\nBefore touching any code, map every route in your\napplication. Create a spreadsheet with columns:\nroute path, data fetching method, layout dependencies.\n\n### 2. Set Up Parallel Route Structure\nNext.js supports running both routers simultaneously...\n\n## Internal Linking Suggestions\n- [server components guide] -> /blog/react-server-components\n- [data fetching patterns] -> /blog/nextjs-data-fetching\n- [deployment checklist] -> /blog/nextjs-deployment-guide',
+    howItWorks: 'This prompt combines three techniques to produce content that ranks and reads well.\n\nFirst, it uses role-based expertise assignment. By telling the AI it is "an expert content strategist and SEO specialist," the output naturally incorporates SEO best practices like keyword placement, heading hierarchy, and meta tag optimization. Without this framing, the AI writes good prose but misses the technical SEO requirements that determine whether your content actually gets found.\n\nSecond, the prompt uses constrained output sections. Each numbered requirement (Title, Meta Description, Structure, SEO Rules, Internal Linking) acts as a guardrail that prevents the AI from skipping important elements. Think of these as a checklist baked into the prompt. The AI cannot finish the task without addressing each one, which means you get a complete, publish-ready draft instead of just body text.\n\nThird, it embeds SEO rules as explicit constraints rather than hoping the AI "knows" them. Rules like "primary keyword in first 100 words" and "short paragraphs (2-4 sentences max)" are specific and measurable. This is more effective than vague instructions like "make it SEO-friendly" because the AI can verify compliance against concrete rules as it generates.',
+    requirements: {
+      model: 'Claude Sonnet 4.6',
+      contextWindow: '128k tokens',
+      estimatedTokens: '1,500 - 3,000 output tokens',
+      bestFor: 'Content marketing teams, technical blogs, startup content'
+    },
+    exampleInput: 'TOPIC: Migrating a React app from Create React App to Vite\nPRIMARY KEYWORD: migrate create react app to vite\nSECONDARY KEYWORDS: CRA to Vite migration, Vite React setup, replace create react app\nTARGET WORD COUNT: 2000\nTONE: technical',
+    exampleOutput: '# The Complete Guide to Next.js App Router Migration (2026)\n\n**Meta Description:** Learn how to migrate from Next.js\nPages Router to App Router with our step-by-step guide.\nCovers routing, data fetching, and common pitfalls.\nStart migrating today.\n\n---\n\nMoving from Pages Router to App Router isn\'t just an\nupgrade -- it\'s a fundamental shift in how you build\nReact applications. After migrating three production\napps, here\'s everything you need to know.\n\n## Why Migrate to App Router Now\n\nThe Pages Router isn\'t deprecated yet, but the writing\nis on the wall. All new Next.js features ship exclusively\nfor App Router. According to the Next.js 2025 survey,\n73% of new projects now start with App Router.\n\n## Step-by-Step Migration Strategy\n\n### 1. Audit Your Current Routes\nBefore touching any code, map every route in your\napplication. Create a spreadsheet with columns:\nroute path, data fetching method, layout dependencies.\n\n### 2. Set Up Parallel Route Structure\nNext.js supports running both routers simultaneously...\n\n## Internal Linking Suggestions\n- [server components guide] -> /blog/react-server-components\n- [data fetching patterns] -> /blog/nextjs-data-fetching\n- [deployment checklist] -> /blog/nextjs-deployment-guide',
     proTips: [
-      'Feed the AI 2-3 of your top-performing existing posts as style examples before running this prompt — it will match your brand voice much more accurately.',
-      'Always fact-check statistics and data points in the output — AI can hallucinate specific numbers, percentages, and study citations.',
-      'Replace the AI-generated internal linking suggestions with your actual site URLs — use them as anchor text inspiration only.',
+      'Feed the AI 2-3 of your top-performing existing posts as style examples before running this prompt -- it will match your brand voice much more accurately.',
+      'Always fact-check statistics and data points in the output -- AI can hallucinate specific numbers, percentages, and study citations.',
+      'Replace the AI-generated internal linking suggestions with your actual site URLs -- use them as anchor text inspiration only.',
       'Run the output through Clearscope, SurferSEO, or similar to verify keyword optimization scores before publishing.'
-    ]
+    ],
+    commonMistakes: [
+      { mistake: 'Stuffing too many keywords into the variables, hoping more keywords means better SEO.', fix: 'Stick to 1 primary keyword and 3 secondary keywords max. Overloading produces unnatural copy that reads like spam and gets flagged by search engines.' },
+      { mistake: 'Trusting AI-generated statistics and data points without verification.', fix: 'Treat every number, percentage, and study citation as a placeholder. Verify each one against real sources before publishing, or replace them with your own data.' },
+      { mistake: 'Not customizing the tone variable to match your existing content style.', fix: 'Before running the prompt, read your last 3 published posts and describe their tone in 2-3 words. Use that as your tone variable for consistent brand voice.' },
+      { mistake: 'Publishing the AI output directly without human editing or adding personal experience.', fix: 'Use the output as a first draft. Add your own anecdotes, real examples, and unique insights. Content that ranks long-term has a human perspective search engines cannot replicate.' }
+    ],
+    relatedPrompts: ['product-launch-email-sequence']
   },
   {
     id: 'data-pipeline-error-analyzer',
@@ -465,11 +571,28 @@ var PROMPTS_DATA = [
         example: 'e.g. "2026-04-22 03:14:22 ERROR [airflow.task] Connection refused: warehouse-prod:5439..."'
       }
     ],
-    exampleOutput: '# Incident Report: Pipeline Failure\n\n## Error Classification\n- Type: Connection Timeout\n- Severity: P1-High\n- Blast Radius: 3 downstream dashboards,\n  1 ML model training job\n\n## Root Cause\nPrimary: Connection pool exhaustion on\nwarehouse connection. Max pool size (10)\nexceeded during concurrent DAG execution.\n\n## Remediation\n1. Immediate: Restart connection pool,\n   kill stale connections\n2. Backfill: Re-run DAG for missed window\n3. Verify: SELECT count(*) FROM target\n   WHERE load_date = CURRENT_DATE',
+    howItWorks: 'This prompt is modeled after real incident response workflows used by on-call data engineers at companies like Airbnb, Netflix, and Stripe.\n\nThe first technique is classification forcing. By requiring the AI to categorize the error into a specific type (Schema, Connection, Timeout, etc.) and severity level (P0 through P3), it prevents vague answers like "something went wrong with the connection." Classification forces precision and helps you communicate the issue to stakeholders in a language they understand. When you say "P1 Connection Timeout affecting 3 downstream dashboards," everyone knows the urgency.\n\nThe second technique is timeline reconstruction. The prompt asks for "what happened in what order," which forces the AI to read the timestamps in your logs and build a narrative sequence. This is critical because pipeline failures are rarely caused by a single event. Usually, one thing fails, which causes a cascade. By reconstructing the timeline, you can identify the first domino that fell, not just the loudest error in the logs.\n\nThird, it uses remediation prioritization. The prompt separates "immediate fix" from "prevention," which mirrors how real incident response works. You stop the bleeding first, then do the post-mortem. This structure prevents the common mistake of jumping to long-term solutions while data is still stale and dashboards are still broken.',
+    requirements: {
+      model: 'Claude Opus 4.7',
+      contextWindow: '200k tokens',
+      estimatedTokens: '1,500 - 3,000 output tokens',
+      bestFor: 'Data engineering teams, pipeline on-call, incident response'
+    },
+    exampleInput: '[2026-04-22 03:14:22] INFO  [scheduler] Starting DAG: daily_revenue_etl\n[2026-04-22 03:14:23] INFO  [task:extract_orders] Connecting to source: orders-db-prod.us-east-1.rds.amazonaws.com:5432\n[2026-04-22 03:14:23] INFO  [task:extract_orders] Query: SELECT * FROM orders WHERE updated_at >= \'2026-04-21\'\n[2026-04-22 03:14:24] INFO  [task:extract_orders] Rows fetched: 847,293\n[2026-04-22 03:14:30] INFO  [task:transform_revenue] Starting transformation pipeline\n[2026-04-22 03:14:31] WARN  [task:transform_revenue] Null values detected in orders.currency_code: 12,847 rows (1.5%)\n[2026-04-22 03:14:35] INFO  [task:load_warehouse] Connecting to warehouse: analytics-prod.us-east-1.redshift.amazonaws.com:5439\n[2026-04-22 03:14:35] ERROR [task:load_warehouse] psycopg2.OperationalError: connection timed out\n[2026-04-22 03:14:35] ERROR [task:load_warehouse]   Is the server running on host "analytics-prod.us-east-1.redshift.amazonaws.com" and accepting TCP/IP connections on port 5439?\n[2026-04-22 03:14:36] INFO  [task:load_warehouse] Retry 1/3 in 30 seconds...\n[2026-04-22 03:15:06] ERROR [task:load_warehouse] psycopg2.OperationalError: connection timed out\n[2026-04-22 03:15:07] INFO  [task:load_warehouse] Retry 2/3 in 60 seconds...\n[2026-04-22 03:16:07] ERROR [task:load_warehouse] psycopg2.OperationalError: connection timed out\n[2026-04-22 03:16:08] INFO  [task:load_warehouse] Retry 3/3 in 120 seconds...\n[2026-04-22 03:18:08] ERROR [task:load_warehouse] psycopg2.OperationalError: connection timed out\n[2026-04-22 03:18:08] CRITICAL [task:load_warehouse] All retries exhausted. Task failed.\n[2026-04-22 03:18:09] ERROR [scheduler] DAG daily_revenue_etl FAILED at task load_warehouse\n[2026-04-22 03:18:09] INFO  [scheduler] Downstream skipped: refresh_dashboards, train_forecast_model, send_daily_report',
+    exampleOutput: '# Incident Report: daily_revenue_etl Pipeline Failure\n\n## 1. Error Classification\n- Type: Connection Timeout\n- Severity: P1-High\n- Blast Radius: 3 downstream tasks skipped\n  (dashboard refresh, ML model training, daily report).\n  Revenue dashboards showing stale data from April 21.\n  Forecast model training delayed.\n\n## 2. Root Cause Analysis\nPrimary: Redshift warehouse (analytics-prod) is\nunreachable on port 5439. Connection timed out across\nall 3 retry attempts over a 4-minute window.\n\nContributing factors:\n- WARN at 03:14:31 shows 12,847 null currency_code\n  values (1.5%) -- not the cause but indicates\n  upstream data quality drift worth investigating.\n\nTimeline:\n- 03:14:22 -- DAG starts normally\n- 03:14:24 -- Extract succeeds (847K rows)\n- 03:14:31 -- Transform warns on null values\n- 03:14:35 -- First warehouse connection attempt fails\n- 03:18:08 -- All 3 retries exhausted, task fails\n- 03:18:09 -- 3 downstream tasks skipped\n\n## 3. Affected Data\n- Tables: revenue_daily, revenue_summary\n- Freshness: 24+ hours stale (last load: April 21)\n- Integrity: No duplicates risk (task failed before\n  any writes). Backfill will be clean.\n\n## 4. Remediation Steps\n1. Immediate: Check Redshift cluster status in AWS\n   console. Verify security groups allow port 5439\n   from Airflow worker IPs. Check for maintenance\n   windows or cluster pausing.\n2. Backfill: Once connection restored, run:\n   airflow dags trigger daily_revenue_etl\n   --conf \'{"backfill_date": "2026-04-22"}\'\n3. Verify: SELECT MAX(load_date) FROM revenue_daily;\n   Expected: 2026-04-22\n\n## 5. Prevention\n- Add Redshift connection health check as first task\n  in DAG (fail fast instead of after extract/transform)\n- Alert rule: Redshift connection failures > 2 in\n  5 minutes -> PagerDuty P1\n- Consider connection pooling (pgbouncer) to handle\n  transient network issues gracefully',
     proTips: [
-      'Include at least 50 lines of log context around the error — the analyzer catches upstream patterns humans miss in large log files.',
-      'Add your pipeline DAG structure or dependency graph if available — it dramatically improves blast radius analysis accuracy.'
-    ]
+      'Include at least 50 lines of log context around the error -- the analyzer catches upstream patterns humans miss in large log files.',
+      'Add your pipeline DAG structure or dependency graph if available -- it dramatically improves blast radius analysis accuracy.',
+      'Paste the full stack trace, not just the error message. The trace reveals which library, connection pool, or retry mechanism is involved, enabling more specific remediation steps.',
+      'If this is a recurring failure, mention the frequency and any patterns you have noticed (e.g., "happens every Monday at 3am"). Recurring patterns point to scheduled maintenance, resource contention, or cron conflicts.'
+    ],
+    commonMistakes: [
+      { mistake: 'Pasting only 5-10 lines of logs around the error message, stripping all context.', fix: 'Include at least 50 lines before and after the error. Upstream warnings and timing patterns are often the real clue to what went wrong.' },
+      { mistake: 'Not including the DAG structure or dependency graph, so the AI cannot assess downstream impact.', fix: 'Add a simple list of tasks and their dependencies. Even "extract -> transform -> load -> dashboards" gives enough context for blast radius analysis.' },
+      { mistake: 'Expecting the AI to write production-ready fix code (SQL migrations, Airflow DAG patches).', fix: 'Use the output as a diagnosis and remediation plan, not as copy-paste code. The AI identifies what to fix; your team implements the actual changes.' },
+      { mistake: 'Using this prompt for schema change reviews or data modeling decisions instead of error diagnosis.', fix: 'This prompt is optimized for incident response -- diagnosing what went wrong and how to fix it. For schema design, use a different prompt focused on data modeling best practices.' }
+    ],
+    relatedPrompts: ['system-architecture-reviewer']
   },
   {
     id: 'product-launch-email-sequence',
@@ -482,44 +605,61 @@ var PROMPTS_DATA = [
       {
         name: '{product_name}',
         description: 'Your product or feature name.',
-        example: ''
+        example: 'e.g. "TaskFlow Pro"'
       },
       {
         name: '{product_description}',
         description: 'One paragraph describing what your product does and who it helps.',
-        example: ''
+        example: 'e.g. "An AI-powered project management tool that automatically prioritizes tasks, detects blockers, and generates status reports for engineering teams."'
       },
       {
         name: '{target_audience}',
-        description: 'Who this product is built for — be specific about role, company size, and pain points.',
-        example: ''
+        description: 'Who this product is built for -- be specific about role, company size, and pain points.',
+        example: 'e.g. "Engineering managers at startups (20-200 employees) who spend too much time on status updates and sprint planning"'
       },
       {
         name: '{launch_date}',
         description: 'The date you plan to launch. Emails will be timed relative to this.',
-        example: ''
+        example: 'e.g. "May 15, 2026"'
       },
       {
         name: '{key_features}',
         description: '3-5 main features or benefits to highlight across the sequence.',
-        example: ''
+        example: 'e.g. "1) AI task prioritization 2) Automatic blocker detection 3) One-click status reports 4) Slack/Jira integration 5) Team velocity dashboard"'
       },
       {
         name: '{price_point}',
-        description: 'Pricing information — helps the AI calibrate urgency and value messaging.',
-        example: ''
+        description: 'Pricing information -- helps the AI calibrate urgency and value messaging.',
+        example: 'e.g. "$29/month per team, 14-day free trial, launch discount 40% off annual plan"'
       },
       {
         name: '{tone}',
         description: 'Brand voice. Examples: professional, conversational, bold, minimal.',
-        example: ''
+        example: 'e.g. "conversational"'
       }
     ],
-    exampleOutput: '',
+    howItWorks: 'This prompt leverages psychological principles of drip marketing that have been refined over decades of email marketing.\n\nThe first technique is drip sequence psychology. The 5 emails are not random -- they follow a proven emotional arc: curiosity (teaser) to excitement (announcement) to understanding (deep dive) to trust (social proof) to urgency (last chance). Each email targets a different decision-making stage. The teaser creates awareness, the announcement converts early adopters, the deep dive satisfies analytical buyers, social proof reassures the cautious, and the last chance activates procrastinators. Skipping any stage leaves a segment of your audience unconverted.\n\nThe second technique is urgency escalation. Notice how each email ramps up the pressure: the teaser is relaxed, the announcement has excitement, and the final email uses deadline urgency. This mirrors the natural buying process -- people need multiple touchpoints before committing, and each touchpoint should feel slightly more urgent than the last without being pushy.\n\nThird, the prompt enforces mobile-optimized copy patterns. Rules like "150-200 words per email body" and "short paragraphs" are not arbitrary. Over 60% of emails are read on phones, where long paragraphs cause readers to scroll away. By constraining the word count, the prompt forces concise, scannable copy that performs on small screens.',
+    requirements: {
+      model: 'Claude Sonnet 4.6',
+      contextWindow: '128k tokens',
+      estimatedTokens: '3,000 - 5,000 output tokens',
+      bestFor: 'SaaS launches, product releases, feature announcements'
+    },
+    exampleInput: 'PRODUCT NAME: TaskFlow Pro\nPRODUCT DESCRIPTION: An AI-powered project management tool that automatically prioritizes tasks, detects blockers, and generates status reports for engineering teams of 5-50 people.\nTARGET AUDIENCE: Engineering managers at startups (20-200 employees) who spend too much time on status updates and sprint planning.\nLAUNCH DATE: May 15, 2026\nKEY FEATURES: 1) AI task prioritization 2) Automatic blocker detection 3) One-click status reports 4) Slack/Jira integration 5) Team velocity dashboard\nPRICE POINT: $29/month per team, 14-day free trial, launch discount 40% off annual plan\nTONE: conversational',
+    exampleOutput: '# TaskFlow Pro Launch Email Sequence\n\n---\n\n## EMAIL 1: TEASER\nSend: May 8, 2026 (Tuesday, 10:00 AM recipient timezone)\n\n**Subject:** Your sprint meetings are about to change\n**Preview:** We built something for engineering managers who hate status updates.\n\nHey {first_name},\n\nQuick question: how many hours a week do you spend\nasking your team "what are you working on?"\n\nIf the answer makes you wince, you are not alone.\nWe surveyed 500 engineering managers and the average\nwas 6.5 hours per week on status collection alone.\n\nNext Thursday, we are launching something that\neliminates that entirely. No more Monday morning\nStandup Theater. No more chasing people in Slack\nfor updates.\n\nIt is called TaskFlow Pro, and it uses AI to do what\nno project management tool has done before: actually\nmanage the project.\n\nMark your calendar: May 15.\n\n[Get early access ->]\n\n---\n\n## EMAIL 2: ANNOUNCEMENT\nSend: May 15, 2026 (Thursday, 9:00 AM recipient timezone)\n\n**Subject:** TaskFlow Pro is live. Your team needs this.\n**Preview:** AI-powered project management. 14 days free. Launch pricing ends May 22.\n\nHey {first_name},\n\nIt is here. TaskFlow Pro is officially live.\n\nHere is what your team gets starting today:\n\n1. AI TASK PRIORITIZATION\n   Drop in your backlog. TaskFlow ranks every task\n   by impact, urgency, and dependency risk. No more\n   guessing what to work on next.\n\n2. AUTOMATIC BLOCKER DETECTION\n   TaskFlow watches your Jira and Slack for patterns\n   that signal a task is stuck -- before your engineer\n   tells you (or worse, before they don\'t).\n\n3. ONE-CLICK STATUS REPORTS\n   Monday morning standup? Click one button. A complete\n   team status report lands in your inbox. Done.\n\n"We cut our sprint planning time by 70% in the first\nweek." -- Early access user, Series B startup\n\n[Start 14-day free trial ->]\n[See TaskFlow Pro in action (2-min demo) ->]\n\nLaunch pricing: 40% off annual plans through May 22.',
     proTips: [
-      'Include your brand voice guidelines for consistent tone across all 5 emails — inconsistency kills conversion rates.',
-      'Add your compliance requirements (CAN-SPAM, GDPR) upfront so the generated copy includes required elements.'
-    ]
+      'Include your brand voice guidelines for consistent tone across all 5 emails -- inconsistency kills conversion rates.',
+      'Add your compliance requirements (CAN-SPAM, GDPR) upfront so the generated copy includes required elements like unsubscribe links and company address.',
+      'Replace placeholder testimonials with real customer quotes before sending. If you do not have testimonials yet, reach out to beta users for quick feedback you can quote.',
+      'Test subject lines by running 3 variations of Email 1 as an A/B test before deploying the rest of the sequence. The teaser email sets engagement expectations for the whole sequence.'
+    ],
+    commonMistakes: [
+      { mistake: 'Not providing a brand voice guide, so each email sounds slightly different in tone.', fix: 'Add 2-3 sample paragraphs of your existing marketing copy alongside the tone variable. This gives the AI a concrete reference, not just a label like "conversational."' },
+      { mistake: 'Using the same call-to-action button text in every email.', fix: 'Each email serves a different purpose, so each CTA should match: "Get early access" (teaser), "Start free trial" (announcement), "See how it works" (deep dive), "Join 500+ teams" (social proof), "Claim your discount" (last chance).' },
+      { mistake: 'Ignoring how the email renders on mobile -- long paragraphs, wide images, tiny CTAs.', fix: 'After generating the sequence, preview each email on a phone screen. Paragraphs should be 2-3 sentences max. CTA buttons should be full-width on mobile.' },
+      { mistake: 'Not mentioning audience segmentation -- sending the same sequence to all subscribers.', fix: 'Add a note about your list segments (new subscribers vs. existing users, free vs. paid) so the AI can tailor the messaging. At minimum, exclude current customers from the launch sequence.' }
+    ],
+    relatedPrompts: ['seo-blog-post-generator']
   },
   {
     id: 'literature-review-synthesizer',
@@ -527,34 +667,51 @@ var PROMPTS_DATA = [
     oneLiner: 'Synthesize multiple research papers into a structured, analytical literature review.',
     category: 'Research',
     model: 'Claude Opus 4.7',
-    prompt: 'You are an academic researcher and expert literature reviewer.\n\nI will provide you with multiple research papers (abstracts or full text). Synthesize them into a structured literature review.\n\nRESEARCH QUESTION: {research_question}\nFIELD: {field}\nCITATION FORMAT: {citation_format}\n\nPAPERS:\n{research_papers}\n\nProduce a structured literature review covering:\n\n1. INTRODUCTION\n   - State the research question\n   - Explain why this topic matters\n   - Outline the scope and boundaries of the review\n\n2. THEMATIC ANALYSIS\n   - Group papers by theme, methodology, or finding\n   - Don\'t just summarize each paper sequentially\n   - Identify common threads and divergent findings\n   - Note methodological approaches used across studies\n\n3. KEY FINDINGS SYNTHESIS\n   - What do the papers collectively tell us?\n   - Where do findings agree?\n   - Where do findings conflict? Why might this be?\n   - What is the strength of evidence for each major claim?\n\n4. GAPS & LIMITATIONS\n   - What questions remain unanswered?\n   - What methodological limitations are shared?\n   - What populations or contexts are underrepresented?\n   - What assumptions go unchallenged?\n\n5. FUTURE DIRECTIONS\n   - What research should be conducted next?\n   - What methodological improvements would strengthen the field?\n   - What emerging approaches might be applicable?\n\n6. REFERENCE TABLE\n   - Author(s), Year, Method, Sample Size, Key Finding, Limitation\n\nRules:\n- Use {citation_format} formatting for all references\n- Be analytical, not just descriptive — compare and contrast\n- Note the quality and reliability of evidence\n- Flag any potential biases in the source material\n- Maintain academic tone throughout',
+    prompt: 'You are an academic researcher and expert literature reviewer.\n\nI will provide you with multiple research papers (abstracts or full text). Synthesize them into a structured literature review.\n\nRESEARCH QUESTION: {research_question}\nFIELD: {field}\nCITATION FORMAT: {citation_format}\n\nPAPERS:\n{research_papers}\n\nProduce a structured literature review covering:\n\n1. INTRODUCTION\n   - State the research question\n   - Explain why this topic matters\n   - Outline the scope and boundaries of the review\n\n2. THEMATIC ANALYSIS\n   - Group papers by theme, methodology, or finding\n   - Don\'t just summarize each paper sequentially\n   - Identify common threads and divergent findings\n   - Note methodological approaches used across studies\n\n3. KEY FINDINGS SYNTHESIS\n   - What do the papers collectively tell us?\n   - Where do findings agree?\n   - Where do findings conflict? Why might this be?\n   - What is the strength of evidence for each major claim?\n\n4. GAPS & LIMITATIONS\n   - What questions remain unanswered?\n   - What methodological limitations are shared?\n   - What populations or contexts are underrepresented?\n   - What assumptions go unchallenged?\n\n5. FUTURE DIRECTIONS\n   - What research should be conducted next?\n   - What methodological improvements would strengthen the field?\n   - What emerging approaches might be applicable?\n\n6. REFERENCE TABLE\n   - Author(s), Year, Method, Sample Size, Key Finding, Limitation\n\nRules:\n- Use {citation_format} formatting for all references\n- Be analytical, not just descriptive -- compare and contrast\n- Note the quality and reliability of evidence\n- Flag any potential biases in the source material\n- Maintain academic tone throughout',
     variables: [
       {
         name: '{research_question}',
         description: 'The central question your literature review addresses.',
-        example: ''
+        example: 'e.g. "How does AI-assisted diagnosis affect clinical decision-making accuracy in emergency departments?"'
       },
       {
         name: '{field}',
-        description: 'Academic field or domain — helps calibrate terminology and conventions.',
-        example: ''
+        description: 'Academic field or domain -- helps calibrate terminology and conventions.',
+        example: 'e.g. "Health Informatics / Emergency Medicine"'
       },
       {
         name: '{citation_format}',
         description: 'Citation style to use (APA, IEEE, Chicago, Harvard, MLA).',
-        example: ''
+        example: 'e.g. "APA 7th Edition"'
       },
       {
         name: '{research_papers}',
         description: 'Paste abstracts or full text of 3-10 papers. More papers = richer synthesis.',
-        example: ''
+        example: 'e.g. Paste full abstracts including title, authors, year, methodology, and key findings for each paper.'
       }
     ],
-    exampleOutput: '',
+    howItWorks: 'This prompt produces analytical synthesis rather than paper-by-paper summaries, and the techniques behind it matter for anyone doing academic work.\n\nThe first technique is thematic versus chronological organization. Most students write literature reviews by summarizing Paper 1, then Paper 2, then Paper 3. This prompt explicitly rejects that approach ("Don\'t just summarize each paper sequentially") and instead requires grouping by theme, methodology, or finding. This forces the AI to identify patterns across papers, which is the entire point of a literature review. A good review reveals what the field collectively knows, not what each individual study found.\n\nThe second technique is evidence strength assessment. The prompt asks "What is the strength of evidence for each major claim?" This forces the AI to evaluate -- not just report -- the research. A finding supported by 5 randomized controlled trials is stronger than one supported by 2 case studies. By making this evaluation explicit, the review becomes a useful decision-making tool rather than just a bibliography with extra words.\n\nThird, the prompt uses gap identification methodology. Section 4 (Gaps and Limitations) is where the real value of a literature review lives. By asking "What questions remain unanswered?" and "What populations are underrepresented?", the prompt produces the foundation for your own research contribution. If you are writing a thesis or grant proposal, the gaps section tells you exactly where the field needs new work -- which is exactly what reviewers and funders want to see.',
+    requirements: {
+      model: 'Claude Opus 4.7',
+      contextWindow: '200k tokens (essential for multiple papers)',
+      estimatedTokens: '3,000 - 5,000 output tokens',
+      bestFor: 'Academic research, thesis writing, grant proposals, systematic reviews'
+    },
+    exampleInput: 'RESEARCH QUESTION: How does AI-assisted diagnosis affect clinical decision-making accuracy in emergency departments?\nFIELD: Health Informatics / Emergency Medicine\nCITATION FORMAT: APA 7th Edition\n\nPAPER 1:\nTitle: "Deep Learning Triage: A Prospective Study of AI-Assisted Emergency Department Diagnosis"\nAuthors: Chen, R., Patel, S., & Okonkwo, D. (2025)\nMethod: Prospective cohort study, 12-month observation period\nSample: 14,200 ED visits at 3 urban hospitals\nFindings: AI-assisted triage reduced diagnostic errors by 23% compared to standard triage. Largest improvement seen in chest pain presentations (31% error reduction). Physician override rate was 18%. No significant difference in patient outcomes at 30-day follow-up.\n\nPAPER 2:\nTitle: "Clinician Trust and AI Decision Support: A Mixed-Methods Analysis"\nAuthors: Williams, K. & Fernandez, M. (2024)\nMethod: Mixed methods -- survey (n=342 ED physicians) + semi-structured interviews (n=28)\nFindings: 67% of physicians reported moderate trust in AI recommendations. Trust was higher for pattern-recognition tasks (imaging, ECG) and lower for complex differential diagnosis. Key barrier: lack of explainability. Physicians with <5 years experience showed 40% higher trust scores.\n\nPAPER 3:\nTitle: "Algorithmic Bias in Emergency Diagnosis: A Retrospective Audit"\nAuthors: Jackson, T., Ahmadi, F., & Liu, W. (2025)\nMethod: Retrospective audit of AI diagnostic outputs across 8 hospitals\nSample: 52,000 AI-generated diagnoses over 18 months\nFindings: AI system showed 15% lower accuracy for patients over 65 with atypical presentations. Underperformance correlated with training data demographics -- system was trained primarily on 25-55 age group. Accuracy gap widened for non-English-speaking patients.',
+    exampleOutput: '# Literature Review: AI-Assisted Diagnosis\n  in Emergency Departments\n\n## 1. Introduction\n\nThe integration of artificial intelligence into\nemergency department workflows represents one of\nthe most significant shifts in clinical practice\nthis decade. This review examines how AI-assisted\ndiagnosis affects the accuracy of clinical\ndecision-making in emergency settings, drawing on\nrecent empirical studies spanning prospective trials,\nclinician surveys, and algorithmic audits.\n\nThe question matters because emergency departments\noperate under extreme time pressure where diagnostic\nerrors have immediate, sometimes fatal consequences.\nIf AI can meaningfully reduce error rates, the\nimplications for patient safety are substantial.\nHowever, questions of trust, bias, and implementation\ncomplexity demand careful examination.\n\n## 2. Thematic Analysis\n\n### Theme 1: Diagnostic Accuracy Improvements\nChen et al. (2025) provide the strongest quantitative\nevidence, showing a 23% reduction in diagnostic errors\nacross 14,200 ED visits. Notably, the improvement was\nnot uniform -- chest pain presentations saw 31% error\nreduction, suggesting AI performs best where pattern\nrecognition is central to diagnosis.\n\n### Theme 2: Trust as a Limiting Factor\nWilliams and Fernandez (2024) reveal a critical\nimplementation barrier: only 67% of physicians report\nmoderate trust in AI recommendations. This matters\nbecause the 18% override rate reported by Chen et al.\n(2025) may indicate undertrust that limits the\ntechnology\'s impact.\n\n### Theme 3: Equity and Bias Concerns\nJackson et al. (2025) raise serious concerns about\nalgorithmic bias, documenting 15% lower accuracy for\npatients over 65 with atypical presentations...\n\n## Reference Table\n\n| Authors | Year | Method | Sample | Key Finding | Limitation |\n|---------|------|--------|--------|-------------|------------|\n| Chen et al. | 2025 | Prospective cohort | 14,200 visits | 23% error reduction | 3 urban hospitals only |\n| Williams & Fernandez | 2024 | Mixed methods | 342 survey + 28 interviews | 67% moderate trust | Self-reported trust |\n| Jackson et al. | 2025 | Retrospective audit | 52,000 diagnoses | 15% lower accuracy for 65+ | Single AI system |',
     proTips: [
-      'Include at least 5 papers for meaningful synthesis — fewer than 3 produces a summary, not a review.',
-      'Specify your citation format upfront to avoid reformatting every reference after generation.'
-    ]
+      'Include at least 5 papers for meaningful synthesis -- fewer than 3 produces a summary, not a review.',
+      'Specify your citation format upfront to avoid reformatting every reference after generation.',
+      'Paste full abstracts, not just titles and authors. The AI needs methodology, sample size, and key findings to produce analytical synthesis rather than surface-level summaries.',
+      'If you are writing for a specific journal or thesis committee, mention their expectations in the prompt. For example: "This review is for a doctoral thesis committee that expects critical evaluation of methodology quality."'
+    ],
+    commonMistakes: [
+      { mistake: 'Including fewer than 3 papers, which produces a summary rather than a synthesis.', fix: 'Aim for 5-10 papers minimum. A literature review requires enough sources to identify themes and patterns. With fewer than 3, there is nothing to synthesize.' },
+      { mistake: 'Pasting only paper titles and author names without abstracts or findings.', fix: 'Include the full abstract for each paper at minimum. The AI needs methodology, sample size, and key findings to produce meaningful analysis. Titles alone produce guesswork.' },
+      { mistake: 'Not specifying the citation format, then having to manually reformat all references.', fix: 'Always fill in the citation_format variable. APA, IEEE, Chicago, Harvard, and MLA each have specific rules for in-text citations and reference lists. Getting this right from the start saves hours of reformatting.' },
+      { mistake: 'Expecting the AI to generate original research insights or novel hypotheses from the papers.', fix: 'A literature review synthesizes what is known, identifies gaps, and suggests directions. It does not produce new data or original findings. Use the gaps section as the jumping-off point for your own research.' }
+    ],
+    relatedPrompts: ['data-pipeline-error-analyzer']
   }
 ];
 
@@ -617,7 +774,6 @@ function goBack() {
 
 // ============ INDEX RENDERING ============
 function renderStats() {
-  var filtered = getFiltered();
   var cats = {};
   PROMPTS_DATA.forEach(function(p) { cats[p.category] = true; });
   document.getElementById('statsRow').innerHTML =
@@ -664,6 +820,7 @@ function renderDetailHeader(item) {
   document.getElementById('detailHeader').innerHTML =
     '<button class="detail-back" onclick="goBack()">&larr; back to all prompts</button>' +
     '<div class="detail-hero">' +
+      '<div class="dot-bg"></div>' +
       '<div class="detail-tag">' + escapeHtml(item.category) + '</div>' +
       '<h1 class="detail-title">' + escapeHtml(item.title) + '</h1>' +
       '<p class="detail-desc">' + escapeHtml(item.oneLiner) + '</p>' +
@@ -674,16 +831,44 @@ function renderDetailHeader(item) {
 function renderDetailSections(item) {
   var html = '';
 
-  // Section 1: THE PROMPT
+  // Section 1: THE PROMPT (full-width)
   html += '<div class="detail-section">' +
     '<div class="section-header">' +
       '<span class="section-label">the prompt</span>' +
       '<button class="copy-btn" onclick="copyPromptText(this)">Copy</button>' +
     '</div>' +
-    '<div class="prompt-code-block" id="promptBlock">' + escapeHtml(item.prompt) + '</div>' +
+    '<div class="terminal-block">' +
+      '<div class="terminal-header"><span>' + escapeHtml(item.id) + '.txt</span></div>' +
+      '<div class="terminal-body" id="promptBlock">' + escapeHtml(item.prompt) + '</div>' +
+    '</div>' +
   '</div>';
 
-  // Section 2: VARIABLES & CUSTOMIZATION
+  // Divider
+  html += '<hr class="section-divider">';
+
+  // Section 2: HOW IT WORKS (full-width)
+  if (item.howItWorks) {
+    html += '<div class="detail-section">' +
+      '<div class="section-header">' +
+        '<span class="section-label">how it works</span>' +
+      '</div>' +
+      '<div class="prose-section">';
+    var paragraphs = item.howItWorks.split('\n\n');
+    paragraphs.forEach(function(p) {
+      if (p.trim()) {
+        html += '<p>' + escapeHtml(p.trim()) + '</p>';
+      }
+    });
+    html += '</div></div>';
+  }
+
+  // Divider
+  html += '<hr class="section-divider">';
+
+  // Section 3: VARIABLES & CUSTOMIZATION | REQUIREMENTS (side-by-side)
+  html += '<div class="detail-row">';
+
+  // Variables (left)
   html += '<div class="detail-section">' +
     '<div class="section-header">' +
       '<span class="section-label">variables & customization</span>' +
@@ -705,20 +890,63 @@ function renderDetailSections(item) {
   }
   html += '</div>';
 
-  // Section 3: EXAMPLE OUTPUT
+  // Requirements (right)
   html += '<div class="detail-section">' +
     '<div class="section-header">' +
-      '<span class="section-label">example output</span>' +
-      (item.exampleOutput ? '<button class="example-toggle" onclick="toggleExample(this)">&#9654; expand</button>' : '') +
+      '<span class="section-label">requirements</span>' +
     '</div>';
-  if (item.exampleOutput) {
-    html += '<div class="example-content" id="exampleContent">' + escapeHtml(item.exampleOutput) + '</div>';
+  if (item.requirements) {
+    html += '<div class="req-grid">' +
+      '<div class="req-row"><span class="req-key">Model</span><span class="req-val">' + escapeHtml(item.requirements.model) + '</span></div>' +
+      '<div class="req-row"><span class="req-key">Context Window</span><span class="req-val">' + escapeHtml(item.requirements.contextWindow) + '</span></div>' +
+      '<div class="req-row"><span class="req-key">Est. Output</span><span class="req-val">' + escapeHtml(item.requirements.estimatedTokens) + '</span></div>' +
+      '<div class="req-row"><span class="req-key">Best For</span><span class="req-val">' + escapeHtml(item.requirements.bestFor) + '</span></div>' +
+    '</div>';
   } else {
-    html += '<p class="example-placeholder">Example output coming soon. This prompt is a template — content will be added as the library grows.</p>';
+    html += '<p class="example-placeholder">Requirements not specified.</p>';
   }
   html += '</div>';
 
-  // Section 4: PRO TIPS
+  html += '</div>'; // close detail-row
+
+  // Divider
+  html += '<hr class="section-divider">';
+
+  // Section 4: EXAMPLE (full-width)
+  html += '<div class="detail-section">' +
+    '<div class="section-header">' +
+      '<span class="section-label">example</span>' +
+    '</div>';
+
+  // Example Input
+  if (item.exampleInput) {
+    html += '<div style="margin-bottom:20px;">' +
+      '<div style="font-family:\'JetBrains Mono\',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px;">Input</div>' +
+      '<div class="terminal-block">' +
+        '<div class="terminal-header"><span>example-input.txt</span></div>' +
+        '<div class="terminal-body">' + escapeHtml(item.exampleInput) + '</div>' +
+      '</div>' +
+    '</div>';
+  }
+
+  // Example Output
+  if (item.exampleOutput) {
+    html += '<div>' +
+      '<div style="font-family:\'JetBrains Mono\',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px;">Output</div>' +
+      '<div class="terminal-block">' +
+        '<div class="terminal-header"><span>example-output.txt</span><button class="example-toggle" onclick="toggleExample(this)">&#9654; expand</button></div>' +
+        '<div class="terminal-body example-content" id="exampleContent">' + escapeHtml(item.exampleOutput) + '</div>' +
+      '</div>' +
+    '</div>';
+  } else if (!item.exampleInput) {
+    html += '<p class="example-placeholder">Example coming soon. This prompt is a template -- content will be added as the library grows.</p>';
+  }
+  html += '</div>';
+
+  // Divider
+  html += '<hr class="section-divider">';
+
+  // Section 5: PRO TIPS (full-width)
   html += '<div class="detail-section">' +
     '<div class="section-header">' +
       '<span class="section-label">pro tips</span>' +
@@ -737,7 +965,51 @@ function renderDetailSections(item) {
   }
   html += '</div>';
 
-  document.getElementById('detailGrid').innerHTML = html;
+  // Divider
+  html += '<hr class="section-divider">';
+
+  // Section 6: COMMON MISTAKES (full-width)
+  if (item.commonMistakes && item.commonMistakes.length > 0) {
+    html += '<div class="detail-section">' +
+      '<div class="section-header">' +
+        '<span class="section-label">common mistakes</span>' +
+      '</div>' +
+      '<div class="mistakes-list">';
+    item.commonMistakes.forEach(function(m) {
+      html += '<div class="mistake-item">' +
+        '<div class="mistake-label bad">Mistake</div>' +
+        '<div class="mistake-text">' + escapeHtml(m.mistake) + '</div>' +
+        '<div class="mistake-label good" style="margin-top:12px;">Fix</div>' +
+        '<div class="mistake-text">' + escapeHtml(m.fix) + '</div>' +
+      '</div>';
+    });
+    html += '</div></div>';
+
+    // Divider
+    html += '<hr class="section-divider">';
+  }
+
+  // Section 7: RELATED PROMPTS (full-width)
+  if (item.relatedPrompts && item.relatedPrompts.length > 0) {
+    html += '<div class="detail-section">' +
+      '<div class="section-header">' +
+        '<span class="section-label">related prompts</span>' +
+      '</div>' +
+      '<div class="related-strip">';
+    item.relatedPrompts.forEach(function(relId) {
+      var related = findById(relId);
+      if (related) {
+        html += '<a class="related-card" href="#' + related.id + '">' +
+          '<span class="related-card-tag">' + escapeHtml(related.category) + '</span>' +
+          '<div class="related-card-title">' + escapeHtml(related.title) + '</div>' +
+          '<div class="related-card-desc">' + escapeHtml(related.oneLiner) + '</div>' +
+        '</a>';
+      }
+    });
+    html += '</div></div>';
+  }
+
+  document.getElementById('detailSections').innerHTML = html;
 }
 
 // ============ INTERACTIONS ============
@@ -775,6 +1047,19 @@ function toggleExample(btn) {
   } else {
     btn.innerHTML = '&#9654; expand';
   }
+}
+
+// ============ CURSOR-TRACKING GLOW ============
+var grid = document.getElementById('indexGrid');
+if (grid) {
+  grid.addEventListener('mousemove', function(e) {
+    var cards = grid.querySelectorAll('.index-card');
+    cards.forEach(function(card) {
+      var rect = card.getBoundingClientRect();
+      card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
+      card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
+    });
+  });
 }
 
 // ============ THEME & SCROLL ============

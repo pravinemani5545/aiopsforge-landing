@@ -8,45 +8,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/design-system/tokens.css">
+<link rel="stylesheet" href="/design-system/tokens.css">
 <style>
 :root {
-  --green: #00FF41; --green-dim: #00cc34;
-  --green-glow: rgba(0, 255, 65, 0.15); --green-glow-strong: rgba(0, 255, 65, 0.3);
-  --bg-primary: #0a0a0a; --bg-secondary: #111111; --bg-tertiary: #161616;
-  --bg-card: #1a1a1a; --bg-card-hover: #222222;
-  --border: #2a2a2a; --border-green: rgba(0, 255, 65, 0.2);
-  --text-primary: #f0f0f0; --text-secondary: #999999; --text-dim: #666666;
-  --red: #ff4444; --blue: #4488ff;
   --accent: #38bdf8;
-}
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --green: #00892e; --green-dim: #006b24;
-    --green-glow: rgba(0, 137, 46, 0.12); --green-glow-strong: rgba(0, 137, 46, 0.25);
-    --bg-primary: #f5f5f5; --bg-secondary: #ebebeb; --bg-tertiary: #e0e0e0;
-    --bg-card: #ffffff; --bg-card-hover: #f8f8f8;
-    --border: #d4d4d4; --border-green: rgba(0, 137, 46, 0.2);
-    --text-primary: #1a1a1a; --text-secondary: #555555; --text-dim: #888888;
-    --red: #cc3333; --blue: #2266cc;
-    --accent: #0284c7;
-  }
-}
-:root[data-theme="light"] {
-  --green: #00892e; --green-dim: #006b24;
-  --green-glow: rgba(0, 137, 46, 0.12); --green-glow-strong: rgba(0, 137, 46, 0.25);
-  --bg-primary: #f5f5f5; --bg-secondary: #ebebeb; --bg-tertiary: #e0e0e0;
-  --bg-card: #ffffff; --bg-card-hover: #f8f8f8;
-  --border: #d4d4d4; --border-green: rgba(0, 137, 46, 0.2);
-  --text-primary: #1a1a1a; --text-secondary: #555555; --text-dim: #888888;
-  --red: #cc3333; --blue: #2266cc;
-  --accent: #0284c7;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
   font-family: 'IBM Plex Sans', sans-serif; background: var(--bg-primary);
   color: var(--text-primary); line-height: 1.6; overflow-x: hidden;
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 9998; pointer-events: none; opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat; background-size: 256px 256px;
 }
 .scroll-progress {
   position: fixed; top: 0; left: 0; width: 0%; height: 3px;
@@ -71,14 +48,39 @@ body {
   padding-top: 24px;
 }
 .back-link:hover { color: var(--green); }
+
+/* ============ GRADIENT HEADING ============ */
+.gradient-heading {
+  background: linear-gradient(180deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============ FADING DIVIDER ============ */
+.section-divider {
+  border: none; height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--border) 20%, var(--border) 80%, transparent 100%);
+  margin: 0;
+}
+
+/* ============ PAGE HEADER ============ */
 .page-header {
   padding: 60px 0 40px; text-align: center; position: relative;
 }
 .page-header::before {
-  content: ''; position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
-  width: 600px; height: 300px;
-  background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%);
+  content: ''; position: absolute; top: -40px; left: 50%; transform: translateX(-50%);
+  width: 800px; height: 400px;
+  background:
+    radial-gradient(circle at 40% 50%, rgba(56,189,248,0.12) 0%, transparent 60%),
+    radial-gradient(circle at 60% 50%, rgba(0,255,65,0.08) 0%, transparent 60%);
   pointer-events: none;
+}
+.page-header::after {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
+  background-size: 32px 32px; pointer-events: none; z-index: 0;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
 }
 .page-label {
   font-family: 'JetBrains Mono', monospace; font-size: 11px;
@@ -135,8 +137,15 @@ body {
   background: var(--bg-card); border: 1px solid var(--border);
   padding: 24px; cursor: pointer; transition: all 0.2s;
   text-decoration: none; color: inherit; display: flex;
-  flex-direction: column; gap: 12px;
+  flex-direction: column; gap: 12px; position: relative;
+  overflow: hidden;
 }
+.index-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(56,189,248,0.06) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.3s; pointer-events: none;
+}
+.index-card:hover::before { opacity: 1; }
 .index-card:hover {
   border-color: var(--border-green); background: var(--bg-card-hover);
 }
@@ -194,7 +203,7 @@ body {
 .detail-hero::before {
   content: ''; position: absolute; top: -20px; left: 0;
   width: 400px; height: 200px;
-  background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(56,189,248,0.1) 0%, transparent 70%);
   pointer-events: none;
 }
 .detail-tag {
@@ -214,10 +223,12 @@ body {
   display: flex; gap: 12px; align-items: center; position: relative;
 }
 
-/* ============ DETAIL SECTIONS GRID ============ */
-.detail-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr);
-  gap: 16px; padding-bottom: 60px;
+/* ============ DETAIL SECTIONS (vertical stacked) ============ */
+.detail-sections {
+  display: flex; flex-direction: column; gap: 24px; padding-bottom: 60px;
+}
+.detail-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
 }
 .detail-section {
   background: var(--bg-card); border: 1px solid var(--border);
@@ -236,35 +247,35 @@ body {
   letter-spacing: 2px; text-transform: uppercase; color: var(--accent);
 }
 
-/* ============ SECTION: PIPELINE ============ */
-.pipeline-step {
-  padding: 16px 0; border-bottom: 1px solid var(--border);
+/* ============ PIPELINE (with connecting line) ============ */
+.pipeline { position: relative; padding-left: 48px; }
+.pipeline::before {
+  content: ''; position: absolute; left: 15px; top: 24px; bottom: 24px; width: 1px;
+  background: linear-gradient(180deg, var(--accent) 0%, var(--border) 30%, var(--border) 70%, transparent 100%);
 }
+.pipeline-step { position: relative; padding: 20px 0; border-bottom: 1px solid var(--border); }
 .pipeline-step:last-child { border-bottom: none; }
-.pipeline-step-header {
-  display: flex; align-items: center; gap: 12px; margin-bottom: 8px;
-}
-.pipeline-step-num {
-  font-family: 'Space Grotesk', sans-serif; font-size: 18px;
-  font-weight: 700; color: var(--accent); min-width: 28px;
-  text-align: center;
+.pipeline-num {
+  position: absolute; left: -48px; top: 20px; width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;
+  color: var(--accent); border: 1px solid rgba(56,189,248,0.3); background: var(--bg-primary);
 }
 .pipeline-step-title {
-  font-size: 14px; font-weight: 600;
+  font-size: 14px; font-weight: 600; margin-bottom: 4px;
 }
 .pipeline-step-tool {
   font-family: 'JetBrains Mono', monospace; font-size: 9px;
   padding: 2px 6px; color: var(--accent);
   border: 1px solid rgba(56,189,248,0.2);
   background: rgba(56,189,248,0.06);
-  margin-left: auto;
+  display: inline-block; margin-bottom: 8px;
 }
 .pipeline-step-desc {
   font-size: 13px; color: var(--text-secondary); line-height: 1.6;
-  padding-left: 40px;
 }
 
-/* ============ SECTION: REQUIREMENTS ============ */
+/* ============ REQUIREMENTS ============ */
 .req-sub {
   font-family: 'JetBrains Mono', monospace; font-size: 10px;
   letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim);
@@ -288,9 +299,7 @@ body {
   color: #eab308; border: 1px solid rgba(234,179,8,0.3);
   background: rgba(234,179,8,0.06);
 }
-.req-keys {
-  list-style: none; padding: 0;
-}
+.req-keys { list-style: none; padding: 0; }
 .req-keys li {
   font-size: 13px; color: var(--text-secondary);
   padding: 3px 0 3px 16px; position: relative;
@@ -300,15 +309,42 @@ body {
   color: var(--accent); font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
 }
-.req-setup {
+
+/* ============ SETUP & COST ============ */
+.setup-grid { display: flex; flex-direction: column; gap: 16px; }
+.setup-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 0; border-bottom: 1px solid var(--border);
+}
+.setup-row:last-child { border-bottom: none; }
+.setup-key {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;
+}
+.setup-val { font-size: 13px; color: var(--text-secondary); }
+
+/* ============ WALKTHROUGH (expandable) ============ */
+.walkthrough-step { border-bottom: 1px solid var(--border); }
+.walkthrough-step:last-child { border-bottom: none; }
+.walkthrough-header {
+  display: flex; align-items: center; gap: 12px; padding: 16px 0; cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px;
+}
+.walkthrough-header::after {
+  content: '+'; margin-left: auto; font-family: 'JetBrains Mono', monospace;
+  color: var(--accent); font-size: 18px; transition: transform 0.2s;
+}
+.walkthrough-step.open .walkthrough-header::after { transform: rotate(45deg); }
+.walkthrough-body { display: none; padding: 0 0 16px 36px; }
+.walkthrough-step.open .walkthrough-body { display: block; }
+.walkthrough-body p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 12px; }
+.walkthrough-body p:last-child { margin-bottom: 0; }
+.walkthrough-num {
   font-family: 'JetBrains Mono', monospace; font-size: 12px;
-  color: var(--accent); margin-top: 16px;
-  padding: 8px 12px; background: rgba(56,189,248,0.06);
-  border: 1px solid rgba(56,189,248,0.2);
-  display: inline-block;
+  color: var(--accent); min-width: 24px;
 }
 
-/* ============ SECTION: CONFIGURATION ============ */
+/* ============ CONFIGURATION ============ */
 .config-step {
   padding: 14px 0; border-bottom: 1px solid var(--border);
 }
@@ -328,7 +364,22 @@ body {
   padding-left: 28px;
 }
 
-/* ============ SECTION: CUSTOMIZATION ============ */
+/* ============ EXAMPLE RUN ============ */
+.example-run { background: var(--bg-card); border: 1px solid var(--border); padding: 24px; }
+.run-scenario { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 20px; }
+.run-step { padding: 12px 0; border-bottom: 1px solid var(--border); }
+.run-step:last-child { border-bottom: none; }
+.run-step-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent);
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;
+}
+.run-step-result {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+  padding: 8px 12px; background: var(--bg-tertiary); border: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ============ CUSTOMIZATION ============ */
 .custom-list { display: flex; flex-direction: column; gap: 16px; }
 .custom-item {
   padding-bottom: 16px; border-bottom: 1px solid var(--border);
@@ -346,6 +397,23 @@ body {
   font-size: 13px; color: var(--text-secondary); line-height: 1.6;
   margin-top: 6px;
 }
+
+/* ============ TROUBLESHOOTING ============ */
+.trouble-item { padding: 16px 0; border-bottom: 1px solid var(--border); }
+.trouble-item:last-child { border-bottom: none; }
+.trouble-issue {
+  font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px;
+  margin-bottom: 8px;
+}
+.trouble-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px;
+}
+.trouble-label.cause { color: var(--warn); }
+.trouble-label.fix { color: var(--green); }
+.trouble-text { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+/* ============ PLACEHOLDER ============ */
 .placeholder-text {
   font-size: 13px; color: var(--text-dim); font-style: italic;
   padding: 20px 0;
@@ -381,7 +449,7 @@ body {
   .index-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
-  .detail-grid { grid-template-columns: 1fr; }
+  .detail-row { grid-template-columns: 1fr; }
 }
 @media (max-width: 600px) {
   .page-header { padding: 40px 0 32px; }
@@ -390,7 +458,9 @@ body {
   .stats-row { gap: 24px; }
   .detail-hero { padding: 32px 0 24px; }
   .detail-meta-row { flex-wrap: wrap; }
-  .pipeline-step-desc { padding-left: 0; }
+  .pipeline { padding-left: 40px; }
+  .pipeline-num { left: -40px; width: 26px; height: 26px; font-size: 11px; }
+  .walkthrough-body { padding-left: 24px; }
 }
 </style>
 <script>
@@ -415,7 +485,7 @@ if (!SANDBOX_MODE && sessionStorage.getItem('aof_cw_auth') !== '1') { window.loc
   <div id="indexView">
     <div class="page-header">
       <div class="page-label">workflows</div>
-      <h1 class="page-title">Workflows</h1>
+      <h1 class="page-title gradient-heading">Workflows</h1>
       <p class="page-subtitle">End-to-end automation workflows. Chain tools, models, and agents into repeatable production pipelines.</p>
     </div>
     <div class="stats-row" id="statsRow"></div>
@@ -426,7 +496,7 @@ if (!SANDBOX_MODE && sessionStorage.getItem('aof_cw_auth') !== '1') { window.loc
   <!-- DETAIL VIEW -->
   <div id="detailView" style="display:none">
     <div id="detailHeader"></div>
-    <div class="detail-grid" id="detailGrid"></div>
+    <div class="detail-sections" id="detailSections"></div>
   </div>
 </div>
 <footer class="footer">
@@ -448,6 +518,8 @@ var WORKFLOWS_DATA = [
     oneLiner: 'Automate the full cycle from topic research to published, SEO-optimized blog post.',
     category: 'Content',
     complexity: 'Intermediate',
+    difficulty: 'Intermediate',
+    estimatedCost: '$2-5 per post',
     steps: [
       {
         name: 'Web Research',
@@ -473,6 +545,66 @@ var WORKFLOWS_DATA = [
         name: 'Format & Publish',
         tool: 'CMS API',
         description: 'Convert markdown to your CMS format (WordPress, Ghost, Webflow). Add featured image placeholder, set categories and tags, configure SEO metadata, and schedule or publish immediately.'
+      }
+    ],
+    stepByStep: [
+      {
+        step: 1,
+        title: 'Web Research',
+        detail: 'Start by defining your research query. Take your blog topic and break it into 3-5 sub-questions that cover the full scope. For example, if your topic is "AI code review tools," your sub-questions might be: What tools exist? How do they compare? What do real users say? What are the pricing models?\n\nFeed each sub-question to the Perplexity API with the search focus set to "internet." The API will return structured results with citations. Collect all responses and deduplicate the sources. You want 10-15 unique, credible sources minimum.\n\nOrganize the extracted information into a research brief document. Group findings by theme (not by source). Include direct quotes with attribution, statistics with source URLs, and any conflicting viewpoints. This brief becomes the foundation for everything that follows.'
+      },
+      {
+        step: 2,
+        title: 'Outline Generation',
+        detail: 'Pass the research brief to Claude Sonnet along with your outline prompt. The prompt should specify your target audience, desired tone, and content format (how-to guide, listicle, deep dive, etc.).\n\nThe model will generate a structured outline with H2 and H3 headings, key points under each section, and suggested word counts. It also produces 3 title options ranked by SEO potential. Review the outline and make adjustments before moving on. This is the cheapest point to change direction.\n\nA good outline has 4-7 H2 sections, each with 2-4 key points. Include an introduction hook, a conclusion with CTA, and at least one section dedicated to practical advice or examples.'
+      },
+      {
+        step: 3,
+        title: 'Draft Writing',
+        detail: 'Send the approved outline and the full research brief to Claude Opus. Your system prompt should include your brand voice guidelines, examples of your writing style, and any formatting conventions (how you handle lists, callouts, code blocks, etc.).\n\nThe model writes the complete post in markdown, weaving in statistics and quotes from the research brief with proper attribution. It follows the word count targets from the outline. The output is a publish-ready first draft.\n\nReview the draft for factual accuracy, tone consistency, and flow. The AI handles the heavy lifting, but a 5-minute human review catches hallucinated statistics or awkward phrasing. Flag any sections that need revision and re-run just those portions.'
+      },
+      {
+        step: 4,
+        title: 'SEO Optimization',
+        detail: 'Run your custom SEO script against the completed draft. The script checks keyword density (target 1-2% for your primary keyword), validates the meta description length (150-160 characters), and verifies the heading hierarchy (no skipped levels).\n\nThe readability scorer calculates the Flesch-Kincaid grade level. For general audiences, aim for a score of 60-70. For technical content, 40-50 is acceptable. If the score is too low, the script flags overly complex sentences for simplification.\n\nThe script also checks for internal link opportunities by comparing your draft against your sitemap, flags images missing alt text, and generates a keyword distribution report showing where your target keywords appear across headings and body text.'
+      },
+      {
+        step: 5,
+        title: 'Format & Publish',
+        detail: 'The final step converts your optimized markdown into your CMS format. For WordPress, this means converting to Gutenberg blocks via the REST API. For Ghost, it is their JSON format via the Admin API. For Webflow, it maps to their CMS item structure.\n\nThe publishing script sets all metadata: title, slug, meta description, featured image placeholder, categories, tags, and author. It also sets the Open Graph and Twitter Card metadata for social sharing.\n\nYou can configure the script to publish immediately or schedule for a specific date and time. After publishing, it returns the live URL and a summary of everything that was set. Keep a log of published posts with their URLs and metadata for tracking.'
+      }
+    ],
+    exampleRun: {
+      scenario: 'Writing a blog post about AI code review tools.',
+      steps: [
+        { label: 'Input Topic', result: '"Best AI Code Review Tools in 2026 — A Practical Comparison"' },
+        { label: 'Research Output', result: 'Research brief with 14 sources covering: CodeRabbit, Sourcery, Codium, GitHub Copilot PR review, Qodo. Key stats: 73% of teams using AI review report fewer bugs in production. Average review time reduced from 45min to 12min.' },
+        { label: 'Outline', result: '6 H2 sections: Introduction (200 words), Tool-by-Tool Breakdown (800 words), Feature Comparison Matrix (400 words), Pricing Analysis (300 words), Real Team Results (400 words), Verdict + Recommendations (300 words). Total target: 2,400 words.' },
+        { label: 'Draft', result: '2,487 word markdown document. 14 citations integrated. 3 comparison tables. 1 decision flowchart described. Brand voice: professional but accessible.' },
+        { label: 'SEO Score', result: 'Keyword density: 1.4% (pass). Readability: 62 Flesch-Kincaid (pass). Meta description: 156 chars (pass). 3 internal link opportunities found. 2 alt text placeholders flagged.' },
+        { label: 'Published', result: 'Post published to Ghost CMS at /blog/ai-code-review-tools-2026. Scheduled for Tuesday 9am. Social cards configured. Estimated API cost: $3.20.' }
+      ]
+    },
+    troubleshooting: [
+      {
+        issue: 'API rate limits hit during research phase',
+        cause: 'Sending too many Perplexity queries in rapid succession. The Pro plan allows 600 requests per minute, but burst patterns can trigger temporary blocks.',
+        fix: 'Add a 2-second delay between research queries. Batch your sub-questions into a single, well-structured prompt when possible to reduce total API calls.'
+      },
+      {
+        issue: 'Research results are thin or irrelevant',
+        cause: 'The search query is too broad or too niche. Perplexity returns shallow results when the topic lacks sufficient web coverage.',
+        fix: 'Refine your sub-questions to be more specific. Add date constraints (e.g., "2025-2026") to get recent content. Try alternative phrasing. If the topic is truly niche, supplement with a manual source list.'
+      },
+      {
+        issue: 'Draft comes back significantly shorter than target',
+        cause: 'The outline word counts were not enforced in the writing prompt, or the research brief lacked enough detail for the model to expand on.',
+        fix: 'Explicitly state "Write exactly X words for this section" in your draft prompt. Ensure the research brief has at least 3 data points per outline section. If still short, re-run individual sections with more specific instructions.'
+      },
+      {
+        issue: 'SEO score below 60',
+        cause: 'Keyword density too low, sentences too complex, or heading structure missing H3 sub-sections.',
+        fix: 'Run the SEO script in verbose mode to see which checks failed. For keyword density, add 2-3 natural keyword mentions in the intro and conclusion. For readability, break sentences longer than 25 words. Add H3 headings to sections over 300 words.'
       }
     ],
     requirements: {
@@ -540,31 +672,92 @@ var WORKFLOWS_DATA = [
     oneLiner: 'Automated PR review pipeline that posts inline comments with severity levels and team metrics.',
     category: 'Engineering',
     complexity: 'Advanced',
+    difficulty: 'Advanced',
+    estimatedCost: '$0.50-2 per PR',
     steps: [
       {
-        name: 'PR Webhook',
+        name: 'PR Detection',
         tool: 'GitHub Actions',
         description: 'Trigger on pull_request events (opened, synchronize). Filter by file patterns — ignore docs, config files, and lockfiles. Extract PR metadata: author, branch, description, labels, and linked issues.'
       },
       {
-        name: 'Diff Extraction',
+        name: 'Diff Analysis',
         tool: 'Git API',
         description: 'Fetch the full diff via GitHub API. Parse into per-file change sets with added/removed/modified line context (3 lines surrounding each change). Filter out generated files, lockfiles, and binary assets.'
       },
       {
-        name: 'Code Analysis',
+        name: 'Review Generation',
         tool: 'Claude Code',
         description: 'Send diff + surrounding file context to Claude. Analyze for: bugs, security vulnerabilities (OWASP Top 10), performance issues, style violations, missing tests, and incomplete error handling. Generate inline review comments with severity levels (critical, warning, suggestion).'
       },
       {
-        name: 'Post Review',
+        name: 'Comment Posting',
         tool: 'GitHub API',
         description: 'Post review comments as a GitHub PR review. Map each comment to the specific file path and line number. Add a summary comment with overall assessment score. Set review status: approve (0 critical), request changes (1+ critical), or comment.'
       },
       {
-        name: 'Log Metrics',
+        name: 'Metrics Tracking',
         tool: 'Datastore',
         description: 'Record per-review metrics: review duration, issues found by severity, files analyzed, lines of code reviewed, model API cost. Aggregate into weekly team dashboards showing trends and top issue categories.'
+      }
+    ],
+    stepByStep: [
+      {
+        step: 1,
+        title: 'PR Detection',
+        detail: 'Create a GitHub Actions workflow file (.github/workflows/ai-review.yml) that triggers on pull_request events with types "opened" and "synchronize." The synchronize type ensures the review re-runs when new commits are pushed to the PR branch.\n\nAdd path filters to ignore files that do not need code review: documentation files (docs/**, *.md), lockfiles (package-lock.json, yarn.lock, Pipfile.lock), generated files, and configuration files. This keeps your API costs down and review quality high.\n\nThe workflow extracts PR metadata using the github context object: PR number, author, base branch, head branch, title, body, and labels. Pass this metadata as environment variables to the subsequent analysis steps. Labels can be used to skip review (e.g., a "skip-ai-review" label) or to adjust review strictness.'
+      },
+      {
+        step: 2,
+        title: 'Diff Analysis',
+        detail: 'Use the GitHub REST API to fetch the PR diff. The endpoint is GET /repos/{owner}/{repo}/pulls/{pull_number}/files, which returns a list of changed files with their patch content. For each file, you get the filename, status (added/modified/removed), additions count, deletions count, and the actual patch.\n\nParse the diff into structured change objects. For each changed file, extract the added lines, removed lines, and 3 lines of surrounding context. This context is critical for the AI reviewer to understand what the code is doing. Without it, the review will miss issues that depend on neighboring code.\n\nFilter out files you do not want reviewed: anything in node_modules, vendor directories, test fixtures with large data files, and binary assets. Also check the total diff size. If it exceeds 5,000 lines, skip the review and post a comment explaining why — very large PRs produce low-quality AI reviews.'
+      },
+      {
+        step: 3,
+        title: 'Review Generation',
+        detail: 'Build the review prompt with three parts: a system prompt defining your review standards, the PR context (title, description, linked issues), and the structured diff from the previous step. The system prompt should include your team coding standards, preferred patterns, and known antipatterns.\n\nSend this to Claude with instructions to analyze for six categories: bugs (logic errors, null pointer risks), security vulnerabilities (OWASP Top 10, hardcoded secrets, injection risks), performance issues (N+1 queries, unnecessary re-renders, missing indexes), style violations (naming, formatting outside linter scope), missing tests, and incomplete error handling.\n\nEach finding must include: the file path, line number, severity (critical/warning/suggestion), category, a clear explanation of the issue, and a suggested fix. Limit output to 10-15 findings to avoid noise. Critical findings always appear first.'
+      },
+      {
+        step: 4,
+        title: 'Comment Posting',
+        detail: 'Parse the AI review output into GitHub PR review comment objects. Each comment needs: path (file path relative to repo root), position (line number in the diff, not the file), and body (the formatted review comment).\n\nPost the review using the GitHub API endpoint POST /repos/{owner}/{repo}/pulls/{pull_number}/reviews. Set the event field based on findings: "APPROVE" if zero critical and zero warning findings, "REQUEST_CHANGES" if any critical findings exist, or "COMMENT" for warnings only.\n\nInclude a summary comment at the top of the review with the overall score, finding counts by severity, and a one-line assessment. Format comments with severity badges and category labels so the PR author can quickly scan for the most important items.'
+      },
+      {
+        step: 5,
+        title: 'Metrics Tracking',
+        detail: 'After posting the review, record metrics to your datastore. Create a table with columns: pr_id, repo, author, review_time_ms (how long the AI took), critical_count, warning_count, suggestion_count, files_analyzed, lines_reviewed, api_cost_usd, and created_at timestamp.\n\nSet up a weekly digest job (cron or scheduled workflow) that queries the metrics table and generates a summary: total PRs reviewed, average findings per PR, most common issue categories, cost per review, and trends compared to the previous week.\n\nSend this digest to your team Slack channel. Over time, this data reveals patterns: which types of issues your team struggles with most, whether code quality is improving, and what the ROI of automated review is compared to manual review time saved.'
+      }
+    ],
+    exampleRun: {
+      scenario: 'Reviewing a PR that adds user authentication middleware.',
+      steps: [
+        { label: 'PR Detected', result: 'PR #247: "Add JWT auth middleware" by @dev-sarah. 4 files changed, 186 additions, 12 deletions. Labels: backend, security.' },
+        { label: 'Diff Parsed', result: '4 files analyzed: auth/middleware.js (new, 94 lines), auth/token.js (new, 52 lines), routes/api.js (modified, 28 lines changed), tests/auth.test.js (new, 24 lines). Total: 186 lines of new/changed code.' },
+        { label: 'Review Generated', result: '7 findings: 1 critical (JWT secret loaded from env without fallback — app crashes if missing), 2 warnings (token expiry set to 30 days is too long, missing rate limiting on auth endpoint), 4 suggestions (add TypeScript types, extract magic numbers, add refresh token flow note, improve test coverage).' },
+        { label: 'Comments Posted', result: 'PR review posted with status REQUEST_CHANGES. 7 inline comments mapped to specific lines. Summary: "Auth implementation is solid but has 1 critical issue: missing env variable validation for JWT_SECRET. Fix the critical item and consider the token expiry warning."' },
+        { label: 'Metrics Logged', result: 'Review completed in 8.3 seconds. API cost: $0.84. Running average: 5.2 findings per PR this week, down from 6.8 last week.' }
+      ]
+    },
+    troubleshooting: [
+      {
+        issue: 'False positives on style issues',
+        cause: 'The AI flags formatting and naming issues that your linter already handles, creating duplicate noise.',
+        fix: 'Add to your system prompt: "Our project uses ESLint + Prettier. Do not flag formatting, semicolons, quote style, or spacing issues. Focus only on logic, security, and patterns beyond what automated linters catch."'
+      },
+      {
+        issue: 'Context window exceeded for large PRs',
+        cause: 'PRs with 2000+ lines of changes exceed the model context window, causing truncated or failed reviews.',
+        fix: 'Set a max diff size of 5,000 lines. For larger PRs, split the review into per-file batches. Review each file independently with its own context, then combine the results into a single PR review.'
+      },
+      {
+        issue: 'Rate limiting on GitHub API',
+        cause: 'Posting many review comments rapidly hits GitHub API rate limits, especially on busy repositories.',
+        fix: 'Batch all comments into a single review submission using the create review endpoint instead of posting individual comments. This counts as one API call regardless of comment count.'
+      },
+      {
+        issue: 'Review quality inconsistency',
+        cause: 'Some reviews catch real bugs while others flag trivial issues. This happens when the prompt lacks specificity about your codebase.',
+        fix: 'Include a CODING_STANDARDS.md file in your repo and reference it in the system prompt. Add 3-5 examples of good vs. bad review comments. Periodically audit AI reviews and update the prompt based on false positive patterns.'
       }
     ],
     requirements: {
@@ -632,6 +825,8 @@ var WORKFLOWS_DATA = [
     oneLiner: 'Scheduled pipeline that checks for data anomalies and routes alerts to your team.',
     category: 'Data',
     complexity: 'Beginner',
+    difficulty: 'Beginner',
+    estimatedCost: '$10-30/month',
     steps: [
       {
         name: 'Schedule',
@@ -659,6 +854,65 @@ var WORKFLOWS_DATA = [
         description: 'Append the monitoring results to a shared Google Sheet for audit trail and trend analysis.'
       }
     ],
+    stepByStep: [
+      {
+        step: 1,
+        title: 'Schedule',
+        detail: 'Set up a cron job or scheduled task that triggers your monitoring script at regular intervals. For production-critical tables (orders, payments, user accounts), run hourly. For analytics and reporting tables, daily is sufficient.\n\nUse a simple cron expression. For hourly: "0 * * * *". For daily at 6am: "0 6 * * *". If you are using a cloud environment, services like AWS CloudWatch Events, Google Cloud Scheduler, or GitHub Actions scheduled workflows all support cron syntax.\n\nAdd a health check that pings a monitoring endpoint (like Healthchecks.io or a simple webhook) when the job starts and finishes. This way you know if the monitor itself goes down — the most dangerous failure mode is when your monitoring stops running and nobody notices.'
+      },
+      {
+        step: 2,
+        title: 'Snapshot',
+        detail: 'Connect to your database and run a set of diagnostic queries against each monitored table. The core metrics to capture are: total row count, row count added in the last interval, null rate for critical columns, distinct value count for categorical columns, and the most recent timestamp (for freshness checks).\n\nStore each snapshot as a row in a monitoring_snapshots table with columns: table_name, metric_name, metric_value, captured_at. This history is what makes anomaly detection possible — you need at least 7 days of baselines before anomaly detection becomes useful.\n\nKeep your queries lightweight. Use COUNT(*), COUNT(DISTINCT col), and SUM(CASE WHEN col IS NULL THEN 1 ELSE 0 END) rather than full table scans. On large tables, consider sampling or using database-native statistics tables (pg_stat_user_tables in PostgreSQL) for row counts.'
+      },
+      {
+        step: 3,
+        title: 'Anomaly Check',
+        detail: 'Load the current snapshot and the historical baselines for each metric. Calculate the simple moving average and standard deviation from the past 7-30 days. Any current value that deviates by more than your configured threshold (typically 2-3 standard deviations) gets flagged as an anomaly.\n\nAssign severity levels based on the magnitude: a 10% row count drop might be a warning, while a 50% drop is critical. A null rate increase in a required column is always critical. Freshness beyond 2x the expected interval is a warning, beyond 4x is critical.\n\nFor each anomaly, generate a structured alert object: table name, metric, expected range, actual value, severity, and a plain-English description like "orders table row count dropped 34% compared to the 7-day average (expected 12,000-15,000, got 8,900)." This description is what the person on call will read at 3am.'
+      },
+      {
+        step: 4,
+        title: 'Alert',
+        detail: 'Send anomaly alerts to Slack using an incoming webhook. Format the message with clear visual hierarchy: severity icon at the top, table name and metric in bold, the expected vs. actual values, and a direct link to the relevant dashboard or database tool.\n\nRoute alerts based on data domain. Sales data anomalies go to #data-sales-alerts. User data issues go to #data-platform-alerts. This prevents alert fatigue — teams only see alerts relevant to their domain.\n\nFor critical alerts, also mention the on-call person by their Slack user ID (e.g., <@U012ABC>). For warnings, just post to the channel. For info-level observations (like a metric trending upward but still within range), batch them into a daily digest rather than sending individual messages.'
+      },
+      {
+        step: 5,
+        title: 'Log Report',
+        detail: 'Append every monitoring run to a Google Sheet via the Sheets API. Each row should include: timestamp, table name, metric name, expected value, actual value, deviation percentage, severity, and whether an alert was sent. This creates an audit trail that anyone on the team can access without database credentials.\n\nCreate a summary tab with charts showing metric trends over time. Use conditional formatting to highlight anomalous entries in red. This sheet becomes your go-to reference during incident investigations — "when did this table start having issues?"\n\nSet the sheet to auto-archive monthly. Create a new sheet for each month and link them from an index tab. After 3 months, you will have enough data to tune your thresholds based on actual false positive and missed anomaly rates.'
+      }
+    ],
+    exampleRun: {
+      scenario: 'Monitoring daily sales data pipeline for anomalies.',
+      steps: [
+        { label: 'Trigger', result: 'Cron fires at 06:00 UTC. Monitoring script starts. Health check ping sent to Healthchecks.io.' },
+        { label: 'Snapshot Captured', result: 'orders table: 14,230 rows (yesterday: 14,892). null rate on customer_id: 0.0%. null rate on shipping_address: 2.1% (baseline: 0.8%). Freshness: last row 47 minutes ago (within 1-hour threshold).' },
+        { label: 'Anomalies Found', result: '1 warning: orders.shipping_address null rate at 2.1% (baseline 0.8%, threshold 1.5%). Row count within normal range. Freshness OK.' },
+        { label: 'Alert Sent', result: 'Warning posted to #data-sales-alerts: "shipping_address null rate on orders table is 2.1% — baseline is 0.8%. This suggests a form validation issue on the checkout flow. Started approximately 6 hours ago."' },
+        { label: 'Report Logged', result: 'Row appended to Google Sheet: 2026-04-22 06:00, orders, shipping_address_null_rate, 0.8%, 2.1%, +162%, WARNING, alert_sent=true.' }
+      ]
+    },
+    troubleshooting: [
+      {
+        issue: 'Too many false positive alerts',
+        cause: 'Thresholds are too tight, or seasonal patterns (weekends, holidays) are not accounted for in the baseline calculation.',
+        fix: 'Switch from a 7-day rolling average to a same-day-of-week comparison (compare this Tuesday to the past 4 Tuesdays). Widen thresholds during known low-traffic periods. Add a "suppress weekends" option for business-hours-only tables.'
+      },
+      {
+        issue: 'Monitoring queries slow down the database',
+        cause: 'Running COUNT(*) and aggregations on large tables during peak hours.',
+        fix: 'Schedule monitoring during off-peak hours. Use approximate counts (pg_class.reltuples in PostgreSQL) instead of exact counts. Add a query timeout of 30 seconds to prevent runaway queries from affecting production.'
+      },
+      {
+        issue: 'Google Sheets API rate limit errors',
+        cause: 'The Sheets API has a limit of 300 requests per minute per project. Monitoring many tables in rapid succession can hit this.',
+        fix: 'Batch all row appends into a single API call using the batchUpdate method. This sends all monitoring results in one request instead of one per table.'
+      },
+      {
+        issue: 'Alerts stop firing but anomalies exist',
+        cause: 'The monitoring cron job silently failed, or the Slack webhook URL expired.',
+        fix: 'Add a heartbeat check: if the monitoring script has not pinged in 2x the expected interval, send a separate "monitor is down" alert via a different channel (email or PagerDuty). Rotate Slack webhook URLs on a quarterly schedule.'
+      }
+    ],
     requirements: {
       tools: [
         { name: 'Python 3.9+', tier: 'free', note: '' },
@@ -676,15 +930,19 @@ var WORKFLOWS_DATA = [
     configuration: [
       {
         title: 'Cron Schedule',
-        instructions: 'Configure cron expression for your monitoring frequency. Recommend hourly for production tables, daily for analytics tables.'
+        instructions: 'Configure cron expression for your monitoring frequency. Recommend hourly for production tables, daily for analytics tables. Set up a health check endpoint to detect if the monitor itself stops running.'
       },
       {
         title: 'Table Selection',
-        instructions: 'List the tables to monitor with their key metrics: row count, null rate for critical columns, expected freshness window.'
+        instructions: 'List the tables to monitor with their key metrics: row count, null rate for critical columns, expected freshness window. Start with your 3 most important tables and expand from there.'
       },
       {
         title: 'Anomaly Thresholds',
-        instructions: 'Set deviation thresholds per metric: e.g., row count drop >10% = warning, >30% = critical. Null rate increase >5% = warning.'
+        instructions: 'Set deviation thresholds per metric: e.g., row count drop >10% = warning, >30% = critical. Null rate increase >5% = warning. Freshness beyond 2x expected interval = warning, 4x = critical.'
+      },
+      {
+        title: 'Slack Channel Routing',
+        instructions: 'Map data domains to Slack channels. Configure critical alerts to mention the on-call person. Set up a daily digest for info-level observations instead of individual messages.'
       }
     ],
     customizations: [
@@ -697,6 +955,11 @@ var WORKFLOWS_DATA = [
         title: 'PagerDuty Escalation',
         description: 'Route critical alerts to PagerDuty instead of Slack for on-call notification.',
         changes: 'Add a PagerDuty integration step after the anomaly check. Route critical severity alerts to PagerDuty Events API v2, keep warning/info in Slack.'
+      },
+      {
+        title: 'Dashboard Visualization',
+        description: 'Replace Google Sheets with a Grafana dashboard for real-time metric visualization.',
+        changes: 'Push monitoring snapshots to a time-series database (InfluxDB or Prometheus). Build Grafana dashboards with threshold lines and anomaly markers. Keep the Google Sheet as a backup audit trail.'
       }
     ]
   },
@@ -706,6 +969,8 @@ var WORKFLOWS_DATA = [
     oneLiner: 'Aggregate marketing metrics from multiple platforms into a unified performance dashboard.',
     category: 'Marketing',
     complexity: 'Intermediate',
+    difficulty: 'Intermediate',
+    estimatedCost: '$5-15/month',
     steps: [
       {
         name: 'Data Pull',
@@ -728,6 +993,59 @@ var WORKFLOWS_DATA = [
         description: 'Push normalized data and AI insights to a shared Google Sheet dashboard with charts and pivot tables.'
       }
     ],
+    stepByStep: [
+      {
+        step: 1,
+        title: 'Data Pull',
+        detail: 'Set up API connections to each advertising platform. For Google Ads, use the Google Ads API with a developer token and OAuth2 credentials. For Meta Ads, use the Marketing API with a long-lived access token generated from Business Manager. For LinkedIn, use the Campaign Manager API. For email platforms, most (Mailchimp, Sendgrid, ConvertKit) have straightforward REST APIs.\n\nFor each platform, pull the key metrics for the reporting period: impressions, clicks, click-through rate, conversions, conversion rate, spend, and revenue (if available). Request data at the campaign level, not the ad set or ad level — you want the big picture first.\n\nStore the raw API responses before normalizing them. This gives you a fallback if something goes wrong in the normalization step, and it makes debugging much easier when platform-specific metrics do not map cleanly to your unified schema.'
+      },
+      {
+        step: 2,
+        title: 'Normalize',
+        detail: 'Each platform uses different names and formats for similar metrics. Google calls it "cost," Meta calls it "spend," LinkedIn calls it "costInLocalCurrency." Your normalization step maps all of these to a single schema.\n\nDefine your unified schema: campaign_id, platform, campaign_name, date_range, impressions (integer), clicks (integer), ctr (float, percentage), conversions (integer), conversion_rate (float, percentage), spend (float, USD), revenue (float, USD), roas (float, ratio). Handle currency conversion if any platforms report in non-USD currencies.\n\nThe normalization script should also calculate derived metrics that platforms do not provide directly: cost per click (spend/clicks), cost per conversion (spend/conversions), and ROAS (revenue/spend). Flag any campaigns with zero spend or zero impressions as "inactive" rather than including them in performance calculations.'
+      },
+      {
+        step: 3,
+        title: 'AI Analysis',
+        detail: 'Feed the normalized data to Claude Sonnet with a prompt that asks for three outputs: a performance summary, trend identification, and action recommendations. The summary should be 2-3 paragraphs covering overall performance across platforms.\n\nFor trend identification, the prompt should compare this period to the previous period and flag significant changes: "Google Ads CPC increased 23% week-over-week while conversion rate held steady, suggesting increased competition in your keyword space." The model excels at spotting patterns humans miss when looking at spreadsheets.\n\nFor recommendations, ask the model to identify the top 3 actions that would have the biggest impact: pause underperforming campaigns, shift budget from low-ROAS to high-ROAS platforms, increase spend on campaigns approaching their daily budget cap. Keep recommendations specific and actionable, not generic advice.'
+      },
+      {
+        step: 4,
+        title: 'Dashboard Update',
+        detail: 'Push the normalized data and AI analysis to your Google Sheet dashboard. Structure the sheet with three tabs: Raw Data (one row per campaign per period), Summary (pivot tables and charts), and AI Insights (the natural language analysis from the previous step).\n\nUse the Google Sheets API to update specific cell ranges rather than clearing and rewriting the entire sheet. This preserves any custom formatting, comments, or manual annotations your team has added. Update the "Last Updated" timestamp cell so anyone viewing the sheet knows how fresh the data is.\n\nSet up conditional formatting rules: cells turn red when ROAS drops below 1.0 (spending more than earning), yellow when CPC exceeds your target, and green when conversion rates exceed benchmarks. These visual cues let stakeholders scan the dashboard in seconds without reading every number.'
+      }
+    ],
+    exampleRun: {
+      scenario: 'Weekly marketing performance report for Q2 campaign.',
+      steps: [
+        { label: 'Data Pulled', result: 'Google Ads: 12 active campaigns, $4,200 spend. Meta Ads: 8 campaigns, $2,800 spend. LinkedIn: 3 campaigns, $1,500 spend. Email (Mailchimp): 2 campaigns sent to 15,000 subscribers.' },
+        { label: 'Normalized', result: '25 campaigns normalized to unified schema. Total spend: $8,500. Total conversions: 342. Overall ROAS: 3.2x. 2 campaigns flagged as inactive (zero impressions).' },
+        { label: 'AI Analysis', result: '"Overall performance is strong at 3.2x ROAS. Google Ads brand campaigns lead at 5.1x ROAS. Meta retargeting is underperforming at 1.3x — recommend reducing daily budget by 30% and reallocating to Google brand. LinkedIn lead gen CPL of $45 is 20% above industry benchmark. Email open rates at 28% are healthy."' },
+        { label: 'Dashboard Updated', result: 'Google Sheet updated with 25 campaign rows, 3 summary charts (spend by platform, ROAS trend, conversion funnel), and AI insights tab. Shared link sent to marketing-team@company.com.' }
+      ]
+    },
+    troubleshooting: [
+      {
+        issue: 'Meta Ads API returns authentication errors',
+        cause: 'The long-lived access token expired. Meta tokens last 60 days and must be manually refreshed.',
+        fix: 'Set up a token refresh workflow that exchanges the current token for a new one every 50 days (before expiry). Store the token in a secrets manager, not in code. Add an alert when the token refresh fails.'
+      },
+      {
+        issue: 'Metric discrepancies between dashboard and platform UI',
+        cause: 'Time zone differences between your reporting script and the platform. Google Ads uses the account time zone, Meta uses UTC by default.',
+        fix: 'Standardize all API calls to use the same time zone. Set explicit date ranges in the API request (e.g., "2026-04-15 to 2026-04-21 in UTC") rather than relative dates like "last 7 days" which depend on the caller time zone.'
+      },
+      {
+        issue: 'AI analysis gives generic advice',
+        cause: 'The prompt lacks context about your business goals, industry benchmarks, and budget constraints.',
+        fix: 'Add a context block to the AI prompt: "Our target ROAS is 3.0x. Our industry (B2B SaaS) average CPC is $3.50 and CPL is $38. Monthly ad budget is $35,000. Primary goal: lead generation for enterprise accounts." This context produces much more specific recommendations.'
+      },
+      {
+        issue: 'Google Sheets API quota exceeded',
+        cause: 'Writing too many individual cell updates. The Sheets API has write limits per minute.',
+        fix: 'Use the batchUpdate endpoint to send all changes in a single request. For large datasets, write to a range (e.g., A2:L30) instead of individual cells. Keep total writes under 60 per minute.'
+      }
+    ],
     requirements: {
       tools: [
         { name: 'Google Ads API', tier: 'free', note: '' },
@@ -746,11 +1064,19 @@ var WORKFLOWS_DATA = [
     configuration: [
       {
         title: 'Platform Connections',
-        instructions: 'Configure API credentials for each ad platform. Set date range and campaign filters for data pulls.'
+        instructions: 'Configure API credentials for each ad platform. Set date range and campaign filters for data pulls. Store credentials in environment variables or a secrets manager, never in code.'
       },
       {
         title: 'Metric Normalization',
-        instructions: 'Define mapping rules from each platform\'s metric names to your standard schema. Handle currency conversions if needed.'
+        instructions: 'Define mapping rules from each platform\'s metric names to your standard schema. Handle currency conversions if needed. Set inactive campaign thresholds (e.g., zero spend in the reporting period).'
+      },
+      {
+        title: 'AI Prompt Context',
+        instructions: 'Add your business context to the analysis prompt: target ROAS, industry benchmarks, monthly budget, primary marketing goals. Update this quarterly as goals shift.'
+      },
+      {
+        title: 'Dashboard Layout',
+        instructions: 'Set up the Google Sheet structure: Raw Data tab, Summary tab with pivot tables and charts, AI Insights tab. Configure conditional formatting rules for ROAS, CPC, and conversion rate thresholds.'
       }
     ],
     customizations: [
@@ -758,6 +1084,16 @@ var WORKFLOWS_DATA = [
         title: 'Add Budget Reallocation Suggestions',
         description: 'Use Claude to analyze performance data and suggest budget shifts between campaigns.',
         changes: 'Add an analysis step that feeds 30-day performance trends to Claude with instructions to recommend budget changes based on ROAS and conversion trends.'
+      },
+      {
+        title: 'Competitor Tracking',
+        description: 'Add competitor ad monitoring using tools like SEMrush or SpyFu APIs.',
+        changes: 'Pull competitor ad data (estimated spend, top keywords, ad copy) and include it in the AI analysis prompt for competitive context. Add a "Competitive Landscape" tab to the dashboard.'
+      },
+      {
+        title: 'Automated Slack Reports',
+        description: 'Send the weekly summary to a Slack channel instead of relying on people checking the sheet.',
+        changes: 'After the AI analysis step, format the summary as a Slack message with key metrics and the top 3 recommendations. Post to #marketing-metrics channel every Monday at 9am.'
       }
     ]
   },
@@ -767,6 +1103,8 @@ var WORKFLOWS_DATA = [
     oneLiner: 'Automated incident triage pipeline — detect, diagnose, notify, and document in minutes.',
     category: 'Operations',
     complexity: 'Advanced',
+    difficulty: 'Advanced',
+    estimatedCost: '$20-50/month',
     steps: [
       {
         name: 'Alert Intake',
@@ -794,6 +1132,65 @@ var WORKFLOWS_DATA = [
         description: 'Generate a post-mortem document template from the incident data: timeline, root cause, impact, action items.'
       }
     ],
+    stepByStep: [
+      {
+        step: 1,
+        title: 'Alert Intake',
+        detail: 'Set up a webhook endpoint that receives alerts from your monitoring platforms. This can be an AWS Lambda function, a simple Express server, or a Cloud Function. The endpoint accepts POST requests with the alert payload (JSON), validates the source, and begins the triage pipeline.\n\nImplement deduplication logic to prevent the same incident from triggering multiple pipeline runs. Use a combination of alert source, service name, and alert type as a deduplication key, with a 15-minute window. If the same key arrives within the window, merge it with the existing incident instead of creating a new one.\n\nClassify each alert into severity tiers based on predefined rules: P0 (service down, revenue impact), P1 (degraded performance, partial outage), P2 (elevated errors, no user impact yet), P3 (warning threshold crossed, informational). The severity determines which subsequent steps execute and who gets notified.'
+      },
+      {
+        step: 2,
+        title: 'Log Collection',
+        detail: 'Once the alert is classified, automatically query the relevant log sources. Map each service to its log sources: application logs in Datadog or CloudWatch, infrastructure metrics in Prometheus or Datadog, and deployment events from your CI/CD system.\n\nPull logs for a time window starting 15 minutes before the alert trigger and ending 5 minutes after (or current time if the incident is ongoing). Filter for ERROR and WARN level entries. Also pull the deployment history for the affected service — a recent deploy is the most common cause of incidents.\n\nLimit the log volume sent to the AI diagnosis step. Sort by relevance (error logs first, then warnings, then context), and truncate at 50KB. The AI model works best with focused, relevant logs rather than a massive dump. Include the first occurrence of each unique error message and skip repetitions.'
+      },
+      {
+        step: 3,
+        title: 'AI Diagnosis',
+        detail: 'Send the collected logs, metrics, deployment history, and alert metadata to Claude Opus for analysis. The system prompt should describe your infrastructure architecture: which services talk to which, common failure modes, and your technology stack.\n\nThe model produces a structured diagnosis with: probable root cause (with confidence level), affected services (primary and downstream), blast radius estimate (what percentage of users are impacted), and 2-3 remediation suggestions ranked by likelihood of success.\n\nThe diagnosis should be written for the on-call engineer who may not be familiar with the specific service. It should explain not just what failed, but why, and what to check first. For example: "The database connection pool is exhausted (0 available, 50 in use). This is likely caused by the connection leak introduced in deploy v2.4.3 (deployed 2 hours ago, matching the error onset). Suggested first action: rollback to v2.4.2."'
+      },
+      {
+        step: 4,
+        title: 'Notify & Escalate',
+        detail: 'Post a structured incident summary to your incident Slack channel (#incidents or equivalent). The message format should include: severity badge, service name, alert summary, AI diagnosis summary, suggested remediation, and links to relevant dashboards and logs.\n\nFor P0 and P1 incidents, also trigger PagerDuty to page the on-call engineer. Include the AI diagnosis in the PagerDuty alert body so the engineer has context before even opening their laptop. For P2 and P3, Slack notification is sufficient — no need to wake people up.\n\nCreate a Jira ticket automatically for every P0, P1, and P2 incident. Set the priority, assign it to the on-call team, link the Slack thread, and pre-fill the description with the alert data and AI diagnosis. This saves the responder 5-10 minutes of manual ticket creation during a stressful moment.'
+      },
+      {
+        step: 5,
+        title: 'Post-Mortem Draft',
+        detail: 'After the incident is resolved (detected via alert resolution webhook or manual trigger), generate a post-mortem document. Feed the full incident data — alert timeline, logs, diagnosis, remediation actions taken, and resolution — to Claude Sonnet.\n\nThe model produces a structured post-mortem in your team template format: incident summary, timeline (with timestamps for each key event), root cause analysis, impact assessment (duration, affected users, revenue impact if known), what went well, what could be improved, and action items with suggested owners.\n\nThe draft is posted to a Confluence page (or Google Doc, or Notion — whatever your team uses) and linked in the incident Slack thread. The incident lead reviews and edits the draft before the post-mortem meeting. This saves 30-60 minutes of manual writing and ensures no details are forgotten while they are fresh.'
+      }
+    ],
+    exampleRun: {
+      scenario: 'Database connection timeout alert at 3am.',
+      steps: [
+        { label: 'Alert Received', result: 'PagerDuty webhook: "PostgreSQL connection timeout rate > 50% for api-service." Severity auto-classified as P1 (degraded performance). Dedup check: no existing incident for this service in the past 15 minutes. New incident created: INC-2847.' },
+        { label: 'Logs Collected', result: '847 log entries collected from api-service (15 min window). 312 ERROR: "connection pool exhausted — 0 available, 50 active." 89 WARN: "query timeout after 30s." Deployment history: v2.4.3 deployed 2h 14m ago. Previous deploy (v2.4.2) was 3 days ago with no issues.' },
+        { label: 'AI Diagnosis', result: '"Root cause (high confidence): Connection pool exhaustion caused by a connection leak in api-service v2.4.3. Evidence: error onset matches deploy timestamp, active connections at max (50/50) with 0 available. The connection.release() call in the new auth middleware is missing in the error path. Blast radius: all API endpoints degraded, estimated 40% of requests failing. Remediation: (1) Rollback to v2.4.2 for immediate relief. (2) Hot-fix: add connection.release() to the catch block in auth/middleware.js:47."' },
+        { label: 'Notifications Sent', result: 'Slack #incidents: P1 incident posted with full diagnosis. PagerDuty: On-call engineer @mike paged with context. Jira: INC-2847 created, priority High, assigned to Backend Team. Runbook link: "Database Connection Issues" attached.' },
+        { label: 'Post-Mortem Generated', result: 'Draft posted to Confluence. Timeline: 01:46 deploy, 03:00 alert, 03:02 AI diagnosis, 03:08 rollback initiated, 03:12 connections recovering, 03:18 all clear. Impact: 2h 32m degraded, ~1,200 failed API requests. Action items: (1) Add connection cleanup to error paths, (2) Add connection pool saturation alert at 80%, (3) Require load test for middleware changes.' }
+      ]
+    },
+    troubleshooting: [
+      {
+        issue: 'Webhook endpoint fails to receive alerts',
+        cause: 'The endpoint URL changed, the SSL certificate expired, or the monitoring platform webhook configuration was not updated after an infrastructure change.',
+        fix: 'Set up a synthetic health check that pings your webhook endpoint every 5 minutes. Monitor for non-200 responses. Use a stable URL (custom domain, not raw Lambda URL) and keep SSL certs on auto-renewal. Add webhook delivery logs in your monitoring platform to see failed delivery attempts.'
+      },
+      {
+        issue: 'AI diagnosis is vague or incorrect',
+        cause: 'The collected logs are too generic (not enough error context), or the system prompt lacks information about your infrastructure.',
+        fix: 'Improve log collection by including stack traces and the full error context (not just the message). Update the system prompt with a service dependency map and known failure modes. Add few-shot examples of past incidents with correct diagnoses to the prompt.'
+      },
+      {
+        issue: 'Alert storms trigger multiple incident pipelines',
+        cause: 'A single root cause (like a database outage) triggers alerts from 10 different services simultaneously, creating 10 separate incident pipelines.',
+        fix: 'Implement a correlation window. When multiple alerts arrive within 2 minutes affecting services that share a dependency, group them into a single incident. Use your service dependency map to identify the likely root service and focus the pipeline there.'
+      },
+      {
+        issue: 'Post-mortem document lacks detail',
+        cause: 'The incident was resolved quickly and the resolution data (what actions were taken, what fixed it) was not captured by the automation.',
+        fix: 'Add a Slack-based resolution flow. When the incident is marked resolved, prompt the responder in Slack: "What did you do to fix it? (one sentence)." Capture this response and include it in the post-mortem generation prompt. Also capture the resolution timestamp from the monitoring platform alert resolution webhook.'
+      }
+    ],
     requirements: {
       tools: [
         { name: 'PagerDuty or Datadog', tier: 'paid', note: '' },
@@ -812,15 +1209,23 @@ var WORKFLOWS_DATA = [
     configuration: [
       {
         title: 'Alert Routing Rules',
-        instructions: 'Define severity mapping: which alerts trigger the full pipeline vs. notification-only. Set deduplication windows.'
+        instructions: 'Define severity mapping: which alerts trigger the full pipeline vs. notification-only. Set deduplication windows (recommend 15 minutes). Map alert sources to severity tiers based on service criticality.'
       },
       {
         title: 'Log Collection Scope',
-        instructions: 'Configure which log sources to pull per service. Set time window (recommend 15 minutes before alert to 5 minutes after).'
+        instructions: 'Configure which log sources to pull per service. Set time window (recommend 15 minutes before alert to 5 minutes after). Define max log volume per collection (50KB) and priority order (errors > warnings > info).'
       },
       {
         title: 'Escalation Policy',
-        instructions: 'Define escalation tiers: P0 pages on-call immediately, P1 sends Slack + creates ticket, P2 logs for daily review.'
+        instructions: 'Define escalation tiers: P0 pages on-call immediately, P1 sends Slack + creates ticket, P2 logs for daily review. Configure PagerDuty integration for P0/P1. Set up Jira project and issue type for auto-created tickets.'
+      },
+      {
+        title: 'Infrastructure Context',
+        instructions: 'Document your service dependency map for the AI diagnosis prompt. List services, their dependencies, common failure modes, and deployment pipeline. Update this whenever your architecture changes.'
+      },
+      {
+        title: 'Post-Mortem Template',
+        instructions: 'Configure your post-mortem template with required sections: summary, timeline, root cause, impact, action items. Set the destination (Confluence, Notion, Google Docs) and auto-share settings.'
       }
     ],
     customizations: [
@@ -828,6 +1233,16 @@ var WORKFLOWS_DATA = [
         title: 'Add Automated Runbook Execution',
         description: 'For known issue types, automatically execute predefined remediation runbooks before paging humans.',
         changes: 'Maintain a mapping of error signatures to runbook scripts. After AI diagnosis, check if the identified root cause matches a known pattern. If yes, execute the runbook and report the result. Only escalate to humans if auto-remediation fails.'
+      },
+      {
+        title: 'Status Page Updates',
+        description: 'Automatically update your public status page when incidents are detected.',
+        changes: 'After severity classification, post an update to your Statuspage.io or Instatus page. Map service names to status page components. Set status to "degraded" for P1, "major outage" for P0. Clear when the alert resolves.'
+      },
+      {
+        title: 'Incident Cost Estimation',
+        description: 'Estimate the revenue impact of each incident based on duration and affected services.',
+        changes: 'Pre-configure revenue-per-minute estimates for each service tier. After resolution, calculate total estimated impact: (incident duration) x (revenue per minute) x (blast radius percentage). Include this in the post-mortem and track over time.'
       }
     ]
   }
@@ -944,11 +1359,12 @@ function renderDetailHeader(item) {
     '<button class="detail-back" onclick="goBack()">&larr; back to all workflows</button>' +
     '<div class="detail-hero">' +
       '<div class="detail-tag">' + escapeHtml(item.category) + '</div>' +
-      '<h1 class="detail-title">' + escapeHtml(item.title) + '</h1>' +
+      '<h1 class="detail-title gradient-heading">' + escapeHtml(item.title) + '</h1>' +
       '<p class="detail-desc">' + escapeHtml(item.oneLiner) + '</p>' +
       '<div class="detail-meta-row">' +
         '<span class="complexity-badge ' + compClass + '">' + escapeHtml(item.complexity) + '</span>' +
         '<span style="font-family:JetBrains Mono,monospace;font-size:11px;color:var(--text-dim)">' + item.steps.length + ' steps</span>' +
+        (item.estimatedCost ? '<span style="font-family:JetBrains Mono,monospace;font-size:11px;color:var(--accent)">' + escapeHtml(item.estimatedCost) + '</span>' : '') +
       '</div>' +
     '</div>';
 }
@@ -956,24 +1372,27 @@ function renderDetailHeader(item) {
 function renderDetailSections(item) {
   var html = '';
 
-  // Section 1: PIPELINE
+  // ---- Section 1: PIPELINE OVERVIEW (full-width) ----
   html += '<div class="detail-section">' +
-    '<div class="section-header"><span class="section-label">pipeline</span></div>';
+    '<div class="section-header"><span class="section-label">pipeline overview</span></div>';
   if (item.steps && item.steps.length > 0) {
+    html += '<div class="pipeline">';
     item.steps.forEach(function(step, i) {
       html += '<div class="pipeline-step">' +
-        '<div class="pipeline-step-header">' +
-          '<span class="pipeline-step-num">' + (i + 1) + '</span>' +
-          '<span class="pipeline-step-title">' + escapeHtml(step.name) + '</span>' +
-          '<span class="pipeline-step-tool">' + escapeHtml(step.tool) + '</span>' +
-        '</div>' +
+        '<span class="pipeline-num">' + (i + 1) + '</span>' +
+        '<div class="pipeline-step-title">' + escapeHtml(step.name) + '</div>' +
+        '<span class="pipeline-step-tool">' + escapeHtml(step.tool) + '</span>' +
         '<div class="pipeline-step-desc">' + escapeHtml(step.description) + '</div>' +
       '</div>';
     });
+    html += '</div>';
   }
   html += '</div>';
 
-  // Section 2: REQUIREMENTS
+  // ---- Section 2: REQUIREMENTS | SETUP & COST (side-by-side) ----
+  html += '<div class="detail-row">';
+
+  // Left: Requirements
   html += '<div class="detail-section">' +
     '<div class="section-header"><span class="section-label">requirements</span></div>';
   if (item.requirements) {
@@ -992,15 +1411,46 @@ function renderDetailSections(item) {
       });
       html += '</ul>';
     }
-    if (item.requirements.setupTime) {
-      html += '<div class="req-setup">setup time: ' + escapeHtml(item.requirements.setupTime) + '</div>';
-    }
   } else {
     html += '<p class="placeholder-text">Requirements will be documented as this workflow is developed.</p>';
   }
   html += '</div>';
 
-  // Section 3: CONFIGURATION
+  // Right: Setup & Cost
+  html += '<div class="detail-section">' +
+    '<div class="section-header"><span class="section-label">setup &amp; cost</span></div>' +
+    '<div class="setup-grid">';
+  html += '<div class="setup-row"><span class="setup-key">Setup Time</span><span class="setup-val">' + escapeHtml(item.requirements ? item.requirements.setupTime || 'Varies' : 'Varies') + '</span></div>';
+  html += '<div class="setup-row"><span class="setup-key">Est. Cost</span><span class="setup-val">' + escapeHtml(item.estimatedCost || 'Varies') + '</span></div>';
+  html += '<div class="setup-row"><span class="setup-key">Difficulty</span><span class="setup-val">' + escapeHtml(item.difficulty || item.complexity) + '</span></div>';
+  html += '<div class="setup-row"><span class="setup-key">Steps</span><span class="setup-val">' + item.steps.length + '</span></div>';
+  html += '</div></div>';
+
+  html += '</div>'; // close .detail-row
+
+  // ---- Section 3: STEP-BY-STEP WALKTHROUGH (full-width) ----
+  html += '<div class="detail-section">' +
+    '<div class="section-header"><span class="section-label">step-by-step walkthrough</span></div>';
+  if (item.stepByStep && item.stepByStep.length > 0) {
+    item.stepByStep.forEach(function(s) {
+      var paragraphs = s.detail.split('\n\n');
+      html += '<div class="walkthrough-step" onclick="this.classList.toggle(\'open\')">' +
+        '<div class="walkthrough-header">' +
+          '<span class="walkthrough-num">' + s.step + '.</span>' +
+          '<span>' + escapeHtml(s.title) + '</span>' +
+        '</div>' +
+        '<div class="walkthrough-body">';
+      paragraphs.forEach(function(p) {
+        html += '<p>' + escapeHtml(p) + '</p>';
+      });
+      html += '</div></div>';
+    });
+  } else {
+    html += '<p class="placeholder-text">Detailed walkthrough coming soon.</p>';
+  }
+  html += '</div>';
+
+  // ---- Section 4: CONFIGURATION (full-width) ----
   html += '<div class="detail-section">' +
     '<div class="section-header"><span class="section-label">configuration</span></div>';
   if (item.configuration && item.configuration.length > 0) {
@@ -1018,9 +1468,27 @@ function renderDetailSections(item) {
   }
   html += '</div>';
 
-  // Section 4: CUSTOMIZATION
+  // ---- Section 5: EXAMPLE RUN (full-width) ----
   html += '<div class="detail-section">' +
-    '<div class="section-header"><span class="section-label">customization</span></div>';
+    '<div class="section-header"><span class="section-label">example run</span></div>';
+  if (item.exampleRun) {
+    html += '<div class="example-run">' +
+      '<div class="run-scenario"><strong style="color:var(--text-primary)">Scenario:</strong> ' + escapeHtml(item.exampleRun.scenario) + '</div>';
+    item.exampleRun.steps.forEach(function(s) {
+      html += '<div class="run-step">' +
+        '<div class="run-step-label">' + escapeHtml(s.label) + '</div>' +
+        '<div class="run-step-result">' + escapeHtml(s.result) + '</div>' +
+      '</div>';
+    });
+    html += '</div>';
+  } else {
+    html += '<p class="placeholder-text">Example run coming soon.</p>';
+  }
+  html += '</div>';
+
+  // ---- Section 6: CUSTOMIZATION OPTIONS (full-width) ----
+  html += '<div class="detail-section">' +
+    '<div class="section-header"><span class="section-label">customization options</span></div>';
   if (item.customizations && item.customizations.length > 0) {
     html += '<div class="custom-list">';
     item.customizations.forEach(function(c, i) {
@@ -1038,8 +1506,40 @@ function renderDetailSections(item) {
   }
   html += '</div>';
 
-  document.getElementById('detailGrid').innerHTML = html;
+  // ---- Section 7: TROUBLESHOOTING (full-width) ----
+  html += '<div class="detail-section">' +
+    '<div class="section-header"><span class="section-label">troubleshooting</span></div>';
+  if (item.troubleshooting && item.troubleshooting.length > 0) {
+    item.troubleshooting.forEach(function(t) {
+      html += '<div class="trouble-item">' +
+        '<div class="trouble-issue">' + escapeHtml(t.issue) + '</div>' +
+        '<div class="trouble-label cause">cause</div>' +
+        '<div class="trouble-text">' + escapeHtml(t.cause) + '</div>' +
+        '<div class="trouble-label fix" style="margin-top:8px">fix</div>' +
+        '<div class="trouble-text">' + escapeHtml(t.fix) + '</div>' +
+      '</div>';
+    });
+  } else {
+    html += '<p class="placeholder-text">Troubleshooting guide coming soon.</p>';
+  }
+  html += '</div>';
+
+  document.getElementById('detailSections').innerHTML = html;
 }
+
+// ============ CURSOR TRACKING GLOW ============
+(function() {
+  document.addEventListener('mousemove', function(e) {
+    var cards = document.querySelectorAll('.index-card');
+    cards.forEach(function(card) {
+      var rect = card.getBoundingClientRect();
+      var x = ((e.clientX - rect.left) / rect.width) * 100;
+      var y = ((e.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty('--mouse-x', x + '%');
+      card.style.setProperty('--mouse-y', y + '%');
+    });
+  });
+})();
 
 // ============ THEME & SCROLL ============
 (function() {
