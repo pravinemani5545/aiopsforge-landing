@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Skills — AIOpsForge</title>
+<title>Workflows — AIOpsForge</title>
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -78,7 +78,7 @@ body {
 }
 .page-label {
   font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  letter-spacing: 3px; text-transform: uppercase; color: #eab308;
+  letter-spacing: 3px; text-transform: uppercase; color: #38bdf8;
   margin-bottom: 16px; position: relative;
 }
 .page-title {
@@ -96,7 +96,7 @@ body {
 }
 .coming-soon::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0;
-  height: 2px; background: #eab308;
+  height: 2px; background: #38bdf8;
 }
 .coming-soon-icon {
   font-size: 32px; margin-bottom: 16px; color: var(--text-dim);
@@ -132,16 +132,16 @@ body {
 </head>
 <body>
 <script>
-if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/commwork/'; }
+if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/community/'; }
 </script>
 <div class="scroll-progress" id="scrollProgress"></div>
 <button class="floating-theme-toggle" id="floatingThemeToggle">&#9728;</button>
 <div class="container">
-  <a href="/commwork/" class="back-link">&larr; back to hub</a>
+  <a href="/community/" class="back-link">&larr; back to hub</a>
   <div class="page-header">
-    <div class="page-label">skills</div>
-    <h1 class="page-title">Skills</h1>
-    <p class="page-subtitle">Individual AI skill modules. Master one capability at a time — prompting, RAG, fine-tuning, evaluation.</p>
+    <div class="page-label">workflows</div>
+    <h1 class="page-title">Workflows</h1>
+    <p class="page-subtitle">End-to-end automation workflows. Chain tools, models, and agents into repeatable production pipelines.</p>
   </div>
   <div class="coming-soon">
     <div class="coming-soon-icon">&#128736;</div>
@@ -153,7 +153,7 @@ if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/co
   <div class="footer-inner">
     <span style="font-family: 'JetBrains Mono', monospace;">AIOpsForge &middot; Community Workspace</span>
     <div class="footer-links">
-      <a href="/commwork/">Hub</a>
+      <a href="/community/">Hub</a>
       <a href="../index.html">Home</a>
     </div>
     <span>built by an engineer who ships</span>
