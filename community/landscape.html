@@ -65,7 +65,6 @@ body {
   width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
   font-size: 16px; transition: all 0.2s;
   font-family: 'JetBrains Mono', monospace; line-height: 1;
-  border-radius: 8px;
 }
 .floating-theme-toggle:hover { color: var(--green); border-color: var(--border-green); }
 
@@ -83,7 +82,7 @@ body {
   display: inline-flex; align-items: center; gap: 6px;
   font-family: 'JetBrains Mono', monospace; font-size: 12px;
   color: var(--text-dim); text-decoration: none; transition: color 0.2s;
-  margin-bottom: 8px; position: relative;
+  padding-top: 24px; margin-bottom: 8px; position: relative;
 }
 .back-link:hover { color: var(--green); }
 .page-label {
@@ -123,7 +122,6 @@ body {
   display: flex; align-items: center; gap: 10px;
   padding: 12px 16px; cursor: pointer; transition: all 0.2s;
   border-left: 3px solid transparent; margin-bottom: 2px;
-  border-radius: 0 6px 6px 0;
 }
 .cat-nav-item:hover { background: var(--bg-card-hover); }
 .cat-nav-item.active { background: var(--bg-card); border-left-color: var(--green); }
@@ -157,7 +155,7 @@ body {
 /* ============ SUBTASK CARDS ============ */
 .subtask-card {
   background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 8px; margin-bottom: 12px; overflow: hidden;
+  margin-bottom: 12px; overflow: hidden;
   transition: border-color 0.2s;
 }
 .subtask-card:hover { border-color: var(--border-green); }
@@ -174,9 +172,17 @@ body {
 }
 .subtask-metric-badge {
   font-family: 'JetBrains Mono', monospace; font-size: 9px;
-  letter-spacing: 0.5px; padding: 3px 8px; border-radius: 4px;
+  letter-spacing: 0.5px; padding: 3px 8px;
   color: var(--text-dim); border: 1px solid var(--border);
-  background: var(--bg-tertiary);
+  background: var(--bg-tertiary); cursor: help; position: relative;
+}
+.subtask-metric-badge[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+  background: var(--bg-card); border: 1px solid var(--border-green); color: var(--text-secondary);
+  font-size: 11px; letter-spacing: 0; text-transform: none;
+  padding: 6px 10px; white-space: nowrap; z-index: 100;
+  font-family: 'IBM Plex Sans', sans-serif;
 }
 .subtask-chevron {
   font-size: 12px; color: var(--text-dim); transition: transform 0.25s;
@@ -193,7 +199,7 @@ body {
   display: grid; grid-template-columns: 24px 1fr auto auto auto;
   align-items: center; gap: 10px;
   padding: 10px 12px; margin-bottom: 4px;
-  background: var(--bg-tertiary); border-radius: 6px;
+  background: var(--bg-tertiary);
   border: 1px solid transparent; transition: all 0.2s;
 }
 .model-row.top-pick {
@@ -215,7 +221,7 @@ body {
 .badge {
   font-family: 'JetBrains Mono', monospace; font-size: 9px;
   letter-spacing: 0.5px; text-transform: uppercase;
-  padding: 2px 6px; border-radius: 3px;
+  padding: 2px 6px;
 }
 .badge.os { color: var(--green); border: 1px solid rgba(0, 255, 65, 0.3); background: rgba(0, 255, 65, 0.08); }
 .badge.cross { color: #22d3ee; border: 1px solid rgba(34, 211, 238, 0.3); background: rgba(34, 211, 238, 0.08); }
@@ -251,9 +257,9 @@ body {
 }
 .metric-bar-label { color: var(--text-dim); width: 140px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .metric-bar-track {
-  flex: 1; height: 6px; background: var(--bg-secondary); border-radius: 3px; overflow: hidden; position: relative;
+  flex: 1; height: 6px; background: var(--bg-secondary); overflow: hidden; position: relative;
 }
-.metric-bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+.metric-bar-fill { height: 100%; transition: width 0.6s ease; }
 .metric-bar-value { color: var(--text-secondary); width: 65px; text-align: right; flex-shrink: 0; font-size: 10px; }
 
 /* ============ LEGEND ============ */
@@ -285,12 +291,30 @@ body {
 .updated-badge {
   display: inline-flex; align-items: center; gap: 6px;
   font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  color: var(--green); padding: 4px 10px; border-radius: 4px;
+  color: var(--green); padding: 4px 10px;
   border: 1px solid rgba(0, 255, 65, 0.2); background: rgba(0, 255, 65, 0.06);
   margin-top: 12px;
 }
 .updated-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* ============ QUICK ANSWER ============ */
+.quick-answer {
+  background: var(--bg-card); border: 1px solid var(--border-green);
+  padding: 20px; margin-bottom: 24px; position: relative;
+}
+.quick-answer::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--green);
+}
+.quick-answer-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--green);
+  margin-bottom: 8px;
+}
+.quick-answer-text {
+  font-size: 14px; line-height: 1.6; color: var(--text-primary);
+}
 
 /* ============ RESPONSIVE ============ */
 @media (max-width: 900px) {
@@ -300,7 +324,7 @@ body {
     border-bottom: 1px solid var(--border); padding-right: 0; padding-bottom: 16px;
     display: flex; flex-wrap: wrap; gap: 4px;
   }
-  .cat-nav-item { padding: 8px 12px; border-left: none; border-bottom: 2px solid transparent; border-radius: 6px; }
+  .cat-nav-item { padding: 8px 12px; border-left: none; border-bottom: 2px solid transparent; }
   .cat-nav-item.active { border-bottom-color: var(--green); border-left: none; }
   .cat-nav-count { display: none; }
   .cat-content { padding-left: 0; padding-top: 20px; }
@@ -334,7 +358,7 @@ body {
   <div class="page-header">
     <div class="page-label">landscape</div>
     <h1 class="page-title">AI Tools Landscape</h1>
-    <p class="page-subtitle">The best models and tools across 9 categories — ranked by what actually works in production, not hype.</p>
+    <p class="page-subtitle">The best models and tools across 9 domains — ranked by what actually works in production, not hype.</p>
     <div class="updated-badge">Updated April 22, 2026</div>
   </div>
 
@@ -349,7 +373,7 @@ body {
     <div class="legend-item"><span class="legend-star">&#9733;</span> Top Pick</div>
     <div class="legend-item"><span class="legend-dot" style="background: var(--green)"></span> Open Source</div>
     <div class="legend-item"><span class="legend-dot" style="background: var(--text-dim)"></span> Proprietary</div>
-    <div class="legend-item"><span class="badge cross">3X</span> Cross-domain</div>
+    <div class="legend-item"><span class="badge cross">3X</span> Cross-Domain</div>
   </div>
 </div>
 
@@ -374,14 +398,14 @@ var LANDSCAPE_DATA = [
   {
     name: 'Text Generation & Writing', color: '#ff4444',
     description: 'AI models for writing long-form articles, short copy, creative fiction, and summarization.',
+    quickAnswer: 'Use Claude Opus 4.7 for long-form and marketing copy. Use Claude Sonnet 4.6 for high-volume short-form and creative fiction.',
     subtasks: [
       {
         name: 'Long-form Content', metric: 'Arena IF Elo',
         models: [
           { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: true, score: '~1520', pct: 96, detail: '1M context window (beta), 128K output. Leads SWE-bench (87.6%) and 7/10 benchmarks vs GPT-5.4. Best prose rhythm and tonal consistency.' },
           { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: false, score: '~1490', pct: 94, detail: '1M context, 65K output. GPQA Diamond 94.3%. Best cost-to-quality ratio at $1.25/$5 per MTok.' },
-          { name: 'GPT-5.4 Thinking', provider: 'OpenAI', tags: [], topPick: false, score: '~1480', pct: 93, detail: 'Excels at structured knowledge work and browser research (BrowseComp 89.3%). Strong broad knowledge base.' },
-          { name: 'Kimi K2.6', provider: 'Moonshot AI', tags: ['OS', '3X'], topPick: false, score: '~1460', pct: 92, detail: '1T parameters, 256K context. Shipped April 20, 2026. Open-weight under permissive license.' }
+          { name: 'GPT-5.4 Thinking', provider: 'OpenAI', tags: [], topPick: false, score: '~1480', pct: 93, detail: 'Excels at structured knowledge work and browser research (BrowseComp 89.3%). Strong broad knowledge base.' }
         ]
       },
       {
@@ -389,8 +413,7 @@ var LANDSCAPE_DATA = [
         models: [
           { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: true, score: '~1520', pct: 96, detail: 'Best at brand voice instructions. Stanford GSB: 127% faster content creation at 89% quality standards.' },
           { name: 'Claude Sonnet 4.6', provider: 'Anthropic', tags: [], topPick: false, score: '~1500', pct: 95, detail: 'Leads IFEval (95%). Fraction of Opus cost — strong for high-volume marketing teams.' },
-          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: false, score: '~1490', pct: 94, detail: 'Leads Arena Creative Writing Elo (1487). Excellent for A/B testing copy variants cheaply.' },
-          { name: 'GPT-5.4 Thinking', provider: 'OpenAI', tags: [], topPick: false, score: '~1480', pct: 93, detail: 'Stronger for structured/factual copy (specs, comparison tables) than emotional brand copy.' }
+          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: false, score: '~1490', pct: 94, detail: 'Leads Arena Creative Writing Elo (1487). Excellent for A/B testing copy variants cheaply.' }
         ]
       },
       {
@@ -398,8 +421,7 @@ var LANDSCAPE_DATA = [
         models: [
           { name: 'Claude Sonnet 4.6', provider: 'Anthropic', tags: [], topPick: true, score: '1936', pct: 97, detail: 'Edges out Opus on creative writing. Best narrative quality and character voice at lower cost.' },
           { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: false, score: '~1932', pct: 97, detail: 'Best for long-form fiction (novels, scripts) due to 1M context window.' },
-          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: false, score: '~1487', pct: 90, detail: 'Highest Arena creative writing score. Strong on imaginative prompts.' },
-          { name: 'Sudowrite Muse 1.5', provider: 'Sudowrite', tags: [], topPick: false, score: 'N/A', pct: 0, detail: 'Purpose-built fiction engine. Trained on contemporary literature. Called "BEST for natural prose."' }
+          { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: false, score: '~1487', pct: 90, detail: 'Highest Arena creative writing score. Strong on imaginative prompts.' }
         ]
       },
       {
@@ -415,14 +437,14 @@ var LANDSCAPE_DATA = [
   {
     name: 'Code Generation & Dev', color: '#4488ff',
     description: 'Tools for code completion, review, debugging, and full-stack app generation.',
+    quickAnswer: 'Use Claude Code (Opus 4.7) for coding. Use Greptile for code review. Use Lovable for full-stack app generation.',
     subtasks: [
       {
         name: 'Code Completion & Generation', metric: 'SWE-bench Verified %',
         models: [
           { name: 'Claude Code (Opus 4.7)', provider: 'Anthropic', tags: ['3X'], topPick: true, score: '87.6%', pct: 88, detail: 'Released April 16, 2026. +37 Elo over Opus 4.6. 1M context. xhigh effort + ultrareview. 64.3% SWE-bench Pro.' },
           { name: 'GPT-5.3-Codex', provider: 'OpenAI', tags: [], topPick: false, score: '85.0%', pct: 85, detail: 'Dedicated coding model. Codex + GPT-5 training stacks. ~25% faster than GPT-5.2.' },
-          { name: 'Kimi K2.6', provider: 'Moonshot AI', tags: ['OS'], topPick: false, score: '80.2%', pct: 80, detail: 'Best open-weight coding. 12-hour autonomous sessions. 58.6% SWE-bench Pro. Apache 2.0.' },
-          { name: 'Qwen 3.6-35B', provider: 'Alibaba', tags: ['OS'], topPick: false, score: '73.4%', pct: 73, detail: 'Released April 16, 2026. Best self-hosted. Qwen3-Coder-480B rivals Claude Sonnet 4.' }
+          { name: 'Kimi K2.6', provider: 'Moonshot AI', tags: ['OS'], topPick: false, score: '80.2%', pct: 80, detail: 'Best open-weight coding. 12-hour autonomous sessions. 58.6% SWE-bench Pro. Apache 2.0.' }
         ]
       },
       {
@@ -430,8 +452,7 @@ var LANDSCAPE_DATA = [
         models: [
           { name: 'Greptile', provider: 'Greptile', tags: [], topPick: true, score: '82%', pct: 82, detail: 'Catches 82% of bugs vs CodeRabbit 44%. Higher false positives (11 vs 2). Best raw detection.' },
           { name: 'Qodo 2.0 (PR-Agent)', provider: 'Qodo', tags: ['OS'], topPick: false, score: '60.1% F1', pct: 60, detail: 'Highest F1 score. Automated test generation. Self-hostable via Docker.' },
-          { name: 'CodeRabbit', provider: 'CodeRabbit', tags: [], topPick: false, score: '44%', pct: 44, detail: '2M+ repos, 13M+ PRs. 40+ linters. Lowest false positives. $24/user/month.' },
-          { name: 'Claude Code (ultrareview)', provider: 'Anthropic', tags: [], topPick: false, score: 'Semantic', pct: 0, detail: 'Reasons about architectural implications, not line-level. Implements fixes, not just identifies them.' }
+          { name: 'CodeRabbit', provider: 'CodeRabbit', tags: [], topPick: false, score: '44%', pct: 44, detail: '2M+ repos, 13M+ PRs. 40+ linters. Lowest false positives. $24/user/month.' }
         ]
       },
       {
@@ -439,8 +460,7 @@ var LANDSCAPE_DATA = [
         models: [
           { name: 'Lovable', provider: 'Lovable', tags: [], topPick: true, score: 'Complete', pct: 95, detail: 'Cleanest React code. GitHub sync, Stripe payments. $20M ARR in 2 months.' },
           { name: 'Replit Agent 3', provider: 'Replit', tags: [], topPick: false, score: 'Complete', pct: 90, detail: '200+ min autonomous. Most autonomous. True full-stack with built-in DB. Closing gap with Lovable.' },
-          { name: 'Bolt.new', provider: 'StackBlitz', tags: [], topPick: false, score: 'Partial', pct: 65, detail: 'Fastest prompt-to-preview. Zero-setup. Enterprise success ~31% for complex features.' },
-          { name: 'v0', provider: 'Vercel', tags: [], topPick: false, score: 'Frontend', pct: 50, detail: 'Excellent React + Tailwind. Locks into Next.js. No native DB/auth.' }
+          { name: 'Bolt.new', provider: 'StackBlitz', tags: [], topPick: false, score: 'Partial', pct: 65, detail: 'Fastest prompt-to-preview. Zero-setup. Enterprise success ~31% for complex features.' }
         ]
       }
     ]
@@ -448,6 +468,7 @@ var LANDSCAPE_DATA = [
   {
     name: 'Image Generation', color: '#a855f7',
     description: 'Models for photorealistic images, artistic styles, editing, logos, and architectural visualization.',
+    quickAnswer: 'Use GPT-Image-2 for everything except artistic/stylized work — use Midjourney V8 for that. Use Recraft V4 for logos (native SVG).',
     subtasks: [
       {
         name: 'Photorealistic Generation', metric: 'LM Arena T2I Elo',
@@ -455,7 +476,6 @@ var LANDSCAPE_DATA = [
           { name: 'GPT-Image-2', provider: 'OpenAI', tags: ['3X'], topPick: true, score: '1512', pct: 99, detail: 'Launched April 21, 2026. +242 Elo over #2 — largest gap ever. Native 2K/4K, sub-3s, 99%+ text accuracy.' },
           { name: 'FLUX.2 Max', provider: 'Black Forest Labs', tags: [], topPick: false, score: '~1201', pct: 79, detail: 'Best material rendering (metal, fabric, glass). 32B params, 4MP. Open-weight dev variant.' },
           { name: 'Google Imagen 4 Ultra', provider: 'Google', tags: [], topPick: false, score: 'Top 5', pct: 75, detail: 'Best for environments — foliage, water, atmospheric haze. Native 2K.' },
-          { name: 'Midjourney V8 Alpha', provider: 'Midjourney', tags: [], topPick: false, score: '~1172 HF', pct: 72, detail: 'Launched March 2026. 5x faster than V7. Artist\'s choice for distinctive aesthetics.' }
         ]
       },
       {
@@ -464,7 +484,6 @@ var LANDSCAPE_DATA = [
           { name: 'Midjourney V8 Alpha', provider: 'Midjourney', tags: [], topPick: true, score: '#1 Artist', pct: 95, detail: 'Most distinctively artistic outputs. Preferred by creative professionals for surreal, emotional work.' },
           { name: 'GPT-Image-2', provider: 'OpenAI', tags: ['3X'], topPick: false, score: '1512 Elo', pct: 92, detail: 'Topped Arena Art subcategory. Superior prompt adherence but less "distinctive" than Midjourney.' },
           { name: 'Recraft V4', provider: 'Recraft', tags: [], topPick: false, score: '1172 HF #1', pct: 85, detail: 'Topped HuggingFace T2I. Strong for illustration and design-oriented art. Native SVG.' },
-          { name: 'Stable Diffusion 3.5', provider: 'Stability AI', tags: ['OS'], topPick: false, score: 'N/A', pct: 0, detail: 'Open-source flexibility. Massive LoRA ecosystem for custom artistic fine-tuning.' }
         ]
       },
       {
@@ -473,7 +492,6 @@ var LANDSCAPE_DATA = [
           { name: 'GPT-Image-2', provider: 'OpenAI', tags: ['3X'], topPick: true, score: '1513', pct: 99, detail: 'Tops single-image and multi-image edit leaderboards. +125 over #2. Context-aware iterative edits.' },
           { name: 'Nano Banana Pro', provider: 'Google', tags: [], topPick: false, score: '~1388', pct: 91, detail: 'Strong editing, fast turnaround. Solid inpainting but significantly behind GPT-Image-2.' },
           { name: 'Adobe Firefly', provider: 'Adobe', tags: [], topPick: false, score: 'Integrated', pct: 0, detail: 'Precision Flow + AI Markup. Uniquely embedded in Photoshop, Illustrator, Premiere.' },
-          { name: 'Stable Diffusion 3.5', provider: 'Stability AI', tags: ['OS'], topPick: false, score: 'N/A', pct: 0, detail: 'Best open-source inpainting with ControlNet for precise mask-based editing.' }
         ]
       },
       {
@@ -482,7 +500,6 @@ var LANDSCAPE_DATA = [
           { name: 'Recraft V4', provider: 'Recraft', tags: [], topPick: true, score: 'SVG native', pct: 95, detail: 'Only AI with native SVG export. Production vector files for Illustrator/Figma. HF Elo 1172.' },
           { name: 'Ideogram 3.0', provider: 'Ideogram', tags: [], topPick: false, score: 'Best text', pct: 85, detail: 'Near-perfect typography accuracy. Go-to for text-heavy logos and branded content.' },
           { name: 'Logo Diffusion', provider: 'Logo Diffusion', tags: [], topPick: false, score: 'Purpose-built', pct: 75, detail: 'Trained on curated logo datasets. Magic Editor, AI mockups, image-to-logo conversion.' },
-          { name: 'GPT-Image-2', provider: 'OpenAI', tags: ['3X'], topPick: false, score: '99%+ text', pct: 70, detail: 'Arena Product/Branding #1. 99%+ text accuracy. All raster — no vector output.' }
         ]
       },
       {
@@ -498,6 +515,7 @@ var LANDSCAPE_DATA = [
   {
     name: 'Video Generation', color: '#FFB800',
     description: 'Tools for generating, editing, and enhancing video — from short clips to long-form and avatars.',
+    quickAnswer: 'Use Seedance 2.0 for short clips. Use Mootion for long-form. Use HeyGen for talking head avatars.',
     subtasks: [
       {
         name: 'Short-form Video (clips, reels)', metric: 'AA T2V Arena Elo',
@@ -505,7 +523,6 @@ var LANDSCAPE_DATA = [
           { name: 'Seedance 2.0', provider: 'ByteDance', tags: [], topPick: true, score: '1270', pct: 93, detail: 'Leads with-audio T2V arena. Strong motion accuracy and temporal consistency. 720p native.' },
           { name: 'Kling 3.0 Pro', provider: 'Kuaishou', tags: [], topPick: false, score: '1246', pct: 91, detail: 'Native 4K/60fps. Multi-shot storyboard (6 shots, 15s). Best budget at ~$0.10/sec.' },
           { name: 'Runway Gen-4.5', provider: 'Runway', tags: [], topPick: false, score: '~1247', pct: 91, detail: 'Best creative control — motion brushes, scene consistency, camera control. $12/mo.' },
-          { name: 'Veo 3.1', provider: 'Google', tags: [], topPick: false, score: '~1226', pct: 90, detail: 'Killer feature: native audio generation (lip sync, SFX, ambient). Best for YouTube with sound.' }
         ]
       },
       {
@@ -522,7 +539,6 @@ var LANDSCAPE_DATA = [
           { name: 'Adobe Premiere 26.0', provider: 'Adobe', tags: [], topPick: true, score: 'Industry #1', pct: 95, detail: 'Generative Extend, AI Object Mask, Media Intelligence, agentic AI assistant. $22.99/mo.' },
           { name: 'DaVinci Resolve 21', provider: 'Blackmagic', tags: [], topPick: false, score: 'NAB 2026', pct: 85, detail: 'AI IntelliSearch, CineFocus, AI Speech Gen, facial de-aging. Free/$295 one-time.' },
           { name: 'CapCut Pro', provider: 'ByteDance', tags: [], topPick: false, score: '8hr→1.5hr', pct: 75, detail: '"Remix" generates multiple short formats. Dominant for TikTok/Reels. Free-$12.99/mo.' },
-          { name: 'Runway', provider: 'Runway', tags: [], topPick: false, score: 'Gen-4 leader', pct: 70, detail: 'Generative editing platform. Powers indie films to TikTok virals. $12/mo+.' }
         ]
       },
       {
@@ -531,7 +547,6 @@ var LANDSCAPE_DATA = [
           { name: 'HeyGen', provider: 'HeyGen', tags: [], topPick: true, score: '97%', pct: 97, detail: 'Avatar IV with motion capture. Most natural micro-expressions. 175+ languages. $24/mo.' },
           { name: 'Synthesia', provider: 'Synthesia', tags: [], topPick: false, score: 'Best multilingual', pct: 90, detail: 'Edge in multilingual phoneme precision. SOC 2. 140+ languages. Best enterprise/L&D. $18/mo.' },
           { name: 'Colossyan', provider: 'Colossyan', tags: [], topPick: false, score: 'Training-grade', pct: 80, detail: 'Accurate sync, appropriate expressions. Best for structured e-learning workflows.' },
-          { name: 'D-ID', provider: 'D-ID', tags: [], topPick: false, score: 'Adequate', pct: 65, detail: 'Lower price point. Good for quick avatar needs. Trails top 3 in realism.' }
         ]
       }
     ]
@@ -539,6 +554,7 @@ var LANDSCAPE_DATA = [
   {
     name: 'Music & Audio', color: '#22d3ee',
     description: 'AI tools for music composition, sound effects, audio mastering, and voice cloning.',
+    quickAnswer: 'Use Suno v5.5 for full songs. Use ElevenLabs for sound effects. Use Fish Audio for voice cloning.',
     subtasks: [
       {
         name: 'Music Composition', metric: 'Music Quality Elo',
@@ -546,7 +562,6 @@ var LANDSCAPE_DATA = [
           { name: 'Suno v5.5', provider: 'Suno', tags: [], topPick: true, score: '1293', pct: 95, detail: 'March 2026. Voices, Custom Models, My Taste. 2M paid subs. Best vocals — natural vibrato, breath. $10/mo.' },
           { name: 'Udio', provider: 'Udio', tags: [], topPick: false, score: '48kHz', pct: 85, detail: 'Settled with UMG/WMG. Inpainting (2s surgical editing). Best for orchestral, ambient, jazz. $10/mo.' },
           { name: 'ElevenLabs Music', provider: 'ElevenLabs', tags: [], topPick: false, score: 'Best licensing', pct: 75, detail: 'Built on licensed training data. Best for commercial/client-facing work.' },
-          { name: 'Stable Audio 3.0', provider: 'Stability AI', tags: ['OS'], topPick: false, score: '180s max', pct: 70, detail: 'Longest generation. Trails vocals but strong atmospheric. Open-source for fine-tuning.' }
         ]
       },
       {
@@ -571,7 +586,6 @@ var LANDSCAPE_DATA = [
           { name: 'Fish Audio S2 Pro', provider: 'Fish Audio', tags: ['OS'], topPick: true, score: '3.07 (#1)', pct: 97, detail: 'Open-source. 10M+ hours, 80+ langs. Beats ElevenLabs 60-40 blind. 15K+ emotion tags. ~$15/1M chars.' },
           { name: 'ElevenLabs v3', provider: 'ElevenLabs', tags: [], topPick: false, score: 'Strong', pct: 85, detail: 'Most feature-complete platform. SOC 2. 41% Fortune 500. 70+ languages.' },
           { name: 'Voxtral TTS', provider: 'Mistral', tags: ['OS'], topPick: false, score: '68.4% pref', pct: 80, detail: 'March 2026. 9 languages, 70ms latency. Zero-shot clone from 3s. Open weights.' },
-          { name: 'Chatterbox', provider: 'Resemble AI', tags: ['OS'], topPick: false, score: 'MIT', pct: 70, detail: 'Completely free under MIT License. Good budget voice cloning option.' }
         ]
       }
     ]
@@ -579,6 +593,7 @@ var LANDSCAPE_DATA = [
   {
     name: 'Research & Reasoning', color: '#eab308',
     description: 'Models for deep research, mathematical reasoning, scientific analysis, and data visualization.',
+    quickAnswer: 'Use Gemini Deep Research Max for research. Use GPT-5.4 Thinking for math and logic. Use ChatGPT for data analysis.',
     subtasks: [
       {
         name: 'Deep Research & Analysis', metric: 'DeepSearchQA %',
@@ -586,7 +601,6 @@ var LANDSCAPE_DATA = [
           { name: 'Gemini Deep Research Max', provider: 'Google', tags: ['3X'], topPick: true, score: '93.3%', pct: 93, detail: 'Up from 66.1% in Dec 2025. MCP support, native visualizations. BrowseComp 85.9%.' },
           { name: 'ChatGPT Deep Research', provider: 'OpenAI', tags: [], topPick: false, score: '88.5%', pct: 89, detail: 'Feb 2026 update. MCP connectors, editable research plans. Synthesizes hundreds of papers.' },
           { name: 'Claude Advanced Research', provider: 'Anthropic', tags: ['3X'], topPick: false, score: '~78-80%', pct: 79, detail: 'Opus 4.7 base. Up to 45 min autonomous investigation. Strong nuanced synthesis.' },
-          { name: 'Elicit', provider: 'Elicit', tags: [], topPick: false, score: 'Specialist', pct: 0, detail: '138M+ papers + 545K clinical trials. Purpose-built for systematic literature review.' }
         ]
       },
       {
@@ -595,7 +609,6 @@ var LANDSCAPE_DATA = [
           { name: 'GPT-5.4 Thinking', provider: 'OpenAI', tags: [], topPick: true, score: '99% / 47.6%', pct: 97, detail: 'Near-perfect AIME. Leads FrontierMath at 47.6%. GPT-5.4 Pro reaches 50%.' },
           { name: 'Gemini Deep Think', provider: 'Google', tags: ['3X'], topPick: false, score: '98-99% AIME', pct: 95, detail: 'IMO 2025 gold medal (35/42). 98-99% AIME. GPQA Diamond 97%.' },
           { name: 'Grok 4 Heavy', provider: 'xAI', tags: [], topPick: false, score: '100% AIME', pct: 93, detail: 'Claims 100% AIME — no other model matches. 2M context. No FrontierMath published.' },
-          { name: 'DeepSeek-R1-0528', provider: 'DeepSeek', tags: ['OS'], topPick: false, score: '87.5% AIME', pct: 85, detail: 'Best open-source math reasoning. V4 and R2 still unreleased as of today.' }
         ]
       },
       {
@@ -604,7 +617,6 @@ var LANDSCAPE_DATA = [
           { name: 'AlphaFold 3 / IsoDDE', provider: 'DeepMind', tags: [], topPick: true, score: 'SOTA protein', pct: 98, detail: 'AlphaFold 3 + IsoDDE ("AlphaFold 4"). Outperforms physics-based docking. 3M+ researchers.' },
           { name: 'Google AI Co-Scientist', provider: 'Google', tags: [], topPick: false, score: 'Multi-agent', pct: 85, detail: 'Reproduced a decade of bacterial gene research in 48 hours. New paradigm.' },
           { name: 'Elicit / Consensus', provider: 'Various', tags: [], topPick: false, score: '138M+ papers', pct: 75, detail: 'Elicit best for data extraction. Consensus best for yes/no scientific questions.' },
-          { name: 'Semantic Scholar', provider: 'Allen AI', tags: ['OS'], topPick: false, score: 'AI-ranked', pct: 70, detail: 'Citation pattern analysis superior to keyword databases.' }
         ]
       },
       {
@@ -620,6 +632,7 @@ var LANDSCAPE_DATA = [
   {
     name: 'Text-to-Speech (TTS)', color: '#00FF41',
     description: 'Voice synthesis for natural conversation, narration, multilingual speech, and real-time applications.',
+    quickAnswer: 'Use Inworld TTS for conversational and emotional speech. Use ElevenLabs for narration. Use Fish Audio for multilingual.',
     subtasks: [
       {
         name: 'Natural Conversation', metric: 'AA TTS Arena ELO',
@@ -627,7 +640,6 @@ var LANDSCAPE_DATA = [
           { name: 'Inworld TTS-1.5 Max', provider: 'Inworld', tags: [], topPick: true, score: '1236', pct: 97, detail: '#1 on Artificial Analysis Speech Arena. 40-point gap over ElevenLabs.' },
           { name: 'Gemini 3.1 Flash TTS', provider: 'Google', tags: [], topPick: false, score: '1211', pct: 95, detail: 'April 15, 2026. Debuted at #2, leapfrogging ElevenLabs. 70+ languages. Audio tags.' },
           { name: 'ElevenLabs v3', provider: 'ElevenLabs', tags: [], topPick: false, score: '1196', pct: 94, detail: 'Flash v2.5 at 75ms latency. Dropped to #3 behind Gemini Flash. Mature ecosystem.' },
-          { name: 'Fish Audio S2 Pro', provider: 'Fish Audio', tags: ['OS'], topPick: false, score: '~1165', pct: 91, detail: '81.88% EmergentTTS win rate. Preferred over ElevenLabs 60-40 in blind tests.' }
         ]
       },
       {
@@ -644,7 +656,6 @@ var LANDSCAPE_DATA = [
           { name: 'Fish Audio S2 Pro', provider: 'Fish Audio', tags: ['OS'], topPick: true, score: '80+ langs', pct: 97, detail: '10M+ hours. Dominates CJK (Chinese: 8.11 vs ElevenLabs 2.36). 1.6x pref Latin-script.' },
           { name: 'Gemini 3.1 Flash TTS', provider: 'Google', tags: [], topPick: false, score: '70+ langs', pct: 90, detail: 'Native multi-speaker dialogue. Serious contender at Google scale.' },
           { name: 'Voxtral TTS', provider: 'Mistral', tags: ['OS'], topPick: false, score: '9 langs, 70ms', pct: 80, detail: 'Open-source. Zero-shot from 3s audio. 73% cheaper than ElevenLabs.' },
-          { name: 'ElevenLabs Multilingual v3', provider: 'ElevenLabs', tags: [], topPick: false, score: '70+ langs', pct: 78, detail: 'Strong accent handling. Most mature multilingual ecosystem.' }
         ]
       },
       {
@@ -653,7 +664,6 @@ var LANDSCAPE_DATA = [
           { name: 'Inworld TTS-1.5 Max', provider: 'Inworld', tags: [], topPick: true, score: '1236 ELO', pct: 97, detail: '30% more expressive than 1.0. Best at complex emotional states.' },
           { name: 'Fish Audio S2 Pro', provider: 'Fish Audio', tags: ['OS'], topPick: false, score: '15K+ tags', pct: 90, detail: 'Most granular control of any model. Tags for every emotion and prosody control.' },
           { name: 'Hume Octave', provider: 'Hume AI', tags: [], topPick: false, score: '71.6% pref', pct: 88, detail: 'Purpose-built for emotional intelligence. HF Arena ELO 1561.' },
-          { name: 'ElevenLabs v3', provider: 'ElevenLabs', tags: [], topPick: false, score: '68% fewer errors', pct: 85, detail: 'Strong emotional expressiveness with consistent long-form character voice.' }
         ]
       },
       {
@@ -662,7 +672,6 @@ var LANDSCAPE_DATA = [
           { name: 'Inworld TTS-1.5 Mini', provider: 'Inworld', tags: [], topPick: true, score: '<130ms', pct: 95, detail: 'Best quality-speed tradeoff. Top-5 family quality with sub-130ms.' },
           { name: 'Fish Audio S2 Pro', provider: 'Fish Audio', tags: ['OS'], topPick: false, score: '~100ms', pct: 90, detail: 'Strong quality with competitive latency. Self-hostable.' },
           { name: 'CosyVoice2-0.5B', provider: 'Alibaba', tags: ['OS'], topPick: false, score: '~150ms', pct: 82, detail: 'MOS 5.53. Pronunciation errors reduced 30-50% over v1.' },
-          { name: 'Chatterbox-Turbo', provider: 'Resemble AI', tags: ['OS'], topPick: false, score: '<150ms', pct: 80, detail: '350M params. Most hardware-efficient open-source. MIT license.' }
         ]
       }
     ]
@@ -670,6 +679,7 @@ var LANDSCAPE_DATA = [
   {
     name: 'Speech-to-Text (STT)', color: '#f472b6',
     description: 'Transcription models for general, real-time, multilingual, diarization, and noisy environment use cases.',
+    quickAnswer: 'Use AssemblyAI Universal-3 for accuracy. Use Deepgram Nova-3 for real-time. Use Whisper for open-source multilingual.',
     subtasks: [
       {
         name: 'General Transcription', metric: 'WER (lower is better)',
@@ -677,7 +687,6 @@ var LANDSCAPE_DATA = [
           { name: 'AssemblyAI Universal-3 Pro', provider: 'AssemblyAI', tags: [], topPick: true, score: '5.6% WER', pct: 94, detail: 'Feb 2026. First "promptable" STT. 35-50% lower cost than competitors.' },
           { name: 'IBM Granite 4.0 1B', provider: 'IBM', tags: ['OS'], topPick: false, score: '5.52% WER', pct: 95, detail: 'Tops OpenASR at only 1B params. Remarkable efficiency for edge deployment.' },
           { name: 'Deepgram Nova-3', provider: 'Deepgram', tags: [], topPick: false, score: '~5.26%', pct: 95, detail: 'Strong internal benchmarks. Third-party varies (~18.3% AA). Developer-friendly.' },
-          { name: 'Whisper Large v3 Turbo', provider: 'OpenAI', tags: ['OS'], topPick: false, score: '~5.1%', pct: 95, detail: '100+ languages, 216x real-time. Still the go-to open-source STT.' }
         ]
       },
       {
@@ -710,7 +719,6 @@ var LANDSCAPE_DATA = [
           { name: 'IBM Granite 4.0 1B', provider: 'IBM', tags: ['OS'], topPick: true, score: '7.54% deg', pct: 92, detail: 'Most consistent across acoustic environments. Only 7.54% WER increase in noise.' },
           { name: 'AssemblyAI Universal-3 Pro', provider: 'AssemblyAI', tags: [], topPick: false, score: '30% diar imp', pct: 88, detail: 'Promptable noise instructions. 30% diarization improvement in noisy settings.' },
           { name: 'Speechmatics', provider: 'Speechmatics', tags: [], topPick: false, score: '12-16% > Whisper', pct: 85, detail: 'Ships inside Adobe Premiere. Trained for accented, non-native, field audio.' },
-          { name: 'Deepgram Nova-3', provider: 'Deepgram', tags: [], topPick: false, score: '5.26% batch', pct: 82, detail: 'Strong noise robustness with sub-300ms latency maintained.' }
         ]
       }
     ]
@@ -718,6 +726,7 @@ var LANDSCAPE_DATA = [
   {
     name: 'Multimodal & Reasoning', color: '#38bdf8',
     description: 'Models that reason across text, images, audio, video, and documents in unified architectures.',
+    quickAnswer: 'Use Gemini 3.1 Pro for cross-modal understanding. Use GPT-5.4 for video comprehension.',
     subtasks: [
       {
         name: 'Visual Understanding & Analysis', metric: 'MMMU-Pro %',
@@ -725,7 +734,6 @@ var LANDSCAPE_DATA = [
           { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: true, score: '88.2%', pct: 88, detail: 'Approaching best human expert (88.6%). Natively processes charts, diagrams, video in unified representation.' },
           { name: 'GPT-5.4', provider: 'OpenAI', tags: ['3X'], topPick: false, score: '86.5%', pct: 87, detail: 'Dominates Video-MMMU at 90.5%. Strong diverse visual reasoning with image generation.' },
           { name: 'Kimi K2.5', provider: 'Moonshot AI', tags: ['OS', '3X'], topPick: false, score: '78.5%', pct: 79, detail: 'Pre-trained on 15T visual-text tokens. Best open-source for visual knowledge.' },
-          { name: 'GLM-5V-Turbo', provider: 'Zhipu AI', tags: ['OS'], topPick: false, score: '~77%', pct: 77, detail: 'April 2026. Vision-based coding and agent workflows. 128K context.' }
         ]
       },
       {
@@ -734,7 +742,6 @@ var LANDSCAPE_DATA = [
           { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: true, score: '~97%+', pct: 97, detail: 'Leads overall multimodal document understanding. Native multi-format processing.' },
           { name: 'Qwen3-VL (235B MoE)', provider: 'Alibaba', tags: ['OS'], topPick: false, score: '96.5%', pct: 97, detail: 'Replaces Qwen2.5-VL as top open-source. 32-language OCR. 88+ ChartQA.' },
           { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: false, score: 'GPQA 94.2%', pct: 94, detail: 'Excellent careful document analysis with nuanced understanding of visual layouts.' },
-          { name: 'GPT-5.4', provider: 'OpenAI', tags: ['3X'], topPick: false, score: '86.5% MMMU', pct: 87, detail: 'Strong chart interpretation and data relationship reasoning.' }
         ]
       },
       {
@@ -743,12 +750,34 @@ var LANDSCAPE_DATA = [
           { name: 'Gemini 3.1 Pro', provider: 'Google', tags: ['3X'], topPick: true, score: '87.6/88.2%', pct: 88, detail: '1501 Elo multimodal leaderboard. Broadest modality support. 8.4hr audio / 1hr video per prompt.' },
           { name: 'GPT-5.4', provider: 'OpenAI', tags: ['3X'], topPick: false, score: '90.5/86.5%', pct: 87, detail: 'Leads Video-MMMU. Stronger temporal video comprehension. Native image gen + voice.' },
           { name: 'Kimi K2.5', provider: 'Moonshot AI', tags: ['OS', '3X'], topPick: false, score: '78.5% MMMU', pct: 79, detail: '15T visual-text token pretraining. Best open-source for cross-modal agentic tool use.' },
-          { name: 'Claude Opus 4.7', provider: 'Anthropic', tags: ['3X'], topPick: false, score: 'GPQA 94.2%', pct: 78, detail: 'Strong text+image reasoning. 1M context for massive multimodal document analysis.' }
         ]
       }
     ]
   }
 ];
+
+// ============ METRIC TOOLTIPS ============
+var METRIC_TIPS = {
+  'Arena IF Elo': 'Chatbot Arena ranking — higher = better at following instructions',
+  'SWE-bench Verified %': 'Percentage of real GitHub issues the model can solve',
+  'Bug Catch Rate %': 'Percentage of bugs detected during code review',
+  'Functional Completion': 'How complete the generated app is — features, auth, DB, etc.',
+  'EQ-Bench CW Elo': 'Creative writing quality ranking — emotional depth and narrative skill',
+  'Factual Accuracy %': 'How accurately the summary preserves the original facts',
+  'LM Arena T2I Elo': 'Text-to-image ranking — higher = more preferred by humans',
+  'LM Arena Edit Elo': 'Image editing ranking — higher = better edits preferred by humans',
+  'DocVQA %': 'Accuracy at answering questions about documents and charts',
+  'MMMU-Pro %': 'Multimodal understanding benchmark — images, charts, diagrams',
+  'DeepSearchQA %': 'Accuracy on complex research questions requiring multi-source synthesis',
+  'Capability Assessment': 'Overall capability rating based on features, quality, and reliability',
+  'Video-MMMU / MMMU-Pro': 'Combined video and image understanding scores',
+  'AIME 2025 / FrontierMath': 'Advanced math competition and frontier math problem scores',
+  'MOS / Naturalness': 'Mean Opinion Score — how natural the voice sounds to listeners',
+  'WER %': 'Word Error Rate — lower = more accurate transcription',
+  'Arena Music Elo': 'Music generation ranking — higher = more preferred by listeners',
+  'Arena Video Elo': 'Video generation ranking — higher = more preferred by viewers',
+  'Design Quality': 'Overall design quality assessment for branding and graphics'
+};
 
 // ============ RENDER ============
 
@@ -764,7 +793,7 @@ function renderStats() {
   var s = countStats();
   document.getElementById('statsRow').innerHTML =
     '<div class="stat-item"><span class="stat-num">' + s.tools + '</span><span class="stat-label">tools</span></div>' +
-    '<div class="stat-item"><span class="stat-num">' + s.categories + '</span><span class="stat-label">categories</span></div>' +
+    '<div class="stat-item"><span class="stat-num">' + s.categories + '</span><span class="stat-label">domains</span></div>' +
     '<div class="stat-item"><span class="stat-num">' + s.tasks + '</span><span class="stat-label">tasks</span></div>';
 }
 
@@ -791,12 +820,19 @@ function renderContent(idx) {
     '<p class="cat-header-desc">' + cat.description + '</p>' +
   '</div>';
 
+  if (cat.quickAnswer) {
+    html += '<div class="quick-answer">' +
+      '<div class="quick-answer-label">quick answer</div>' +
+      '<div class="quick-answer-text">' + cat.quickAnswer + '</div>' +
+    '</div>';
+  }
+
   cat.subtasks.forEach(function(st, si) {
     html += '<div class="subtask-card' + (si === 0 ? ' open' : '') + '" id="st-' + idx + '-' + si + '">' +
       '<div class="subtask-trigger" onclick="toggleST(' + idx + ',' + si + ')">' +
         '<div class="subtask-trigger-left">' +
           '<span class="subtask-name">' + st.name + '</span>' +
-          '<span class="subtask-metric-badge">' + st.metric + '</span>' +
+          '<span class="subtask-metric-badge"' + (METRIC_TIPS[st.metric] ? ' data-tooltip="' + METRIC_TIPS[st.metric] + '"' : '') + '>' + st.metric + '</span>' +
         '</div>' +
         '<span class="subtask-chevron">&#9654;</span>' +
       '</div>' +
