@@ -77,6 +77,55 @@ body {
 }
 .floating-theme-toggle:hover { color: var(--green); border-color: var(--border-green); }
 
+.site-nav {
+  display: none;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border); padding: 0 24px;
+}
+:root[data-theme="light"] .site-nav { background: rgba(245, 245, 245, 0.88); }
+.sections-wrap.visible .site-nav { display: block; }
+.nav-inner {
+  max-width: 1100px; margin: 0 auto; display: flex; align-items: center;
+  justify-content: space-between; height: 56px;
+}
+.nav-brand {
+  font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700;
+  color: var(--green); text-decoration: none; letter-spacing: 0.5px;
+  display: flex; align-items: center; gap: 8px;
+}
+.nav-logo { width: 24px; height: 24px; object-fit: contain; }
+.nav-links { display: flex; align-items: center; gap: 16px; }
+.nav-links a {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim);
+  text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--green); }
+.nav-cta {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+  color: #000 !important; background: var(--green); padding: 6px 14px;
+  text-decoration: none; transition: all 0.2s;
+}
+.nav-cta:hover { background: #33ff66; box-shadow: 0 0 16px var(--green-glow-strong); }
+.theme-toggle {
+  background: none; border: 1px solid var(--border); color: var(--text-primary);
+  cursor: pointer; padding: 6px 10px; min-width: 36px; min-height: 36px;
+  justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 14px;
+  transition: all 0.2s; display: flex; align-items: center; line-height: 1;
+}
+.theme-toggle:hover { color: var(--green); border-color: var(--border-green); }
+.nav-toggle {
+  display: none; background: none; border: none; cursor: pointer; padding: 10px 8px; z-index: 1001;
+}
+.nav-toggle span {
+  display: block; width: 24px; height: 2px; background: var(--green); margin: 5px 0; transition: all 0.3s;
+}
+.nav-open .nav-toggle span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
+.nav-open .nav-toggle span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+.sections-wrap.visible { display: block; padding-top: 72px; }
+
 .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
 /* ============ PAGE HEADER ============ */
@@ -84,11 +133,10 @@ body {
   padding: 80px 0 40px; text-align: center; position: relative;
 }
 .page-header::before {
-  content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
-  width: 900px; height: 500px;
+  content: ''; position: absolute; inset: -200px -20vw 0;
   background:
-    radial-gradient(ellipse at 40% 40%, rgba(0,255,65,0.1) 0%, transparent 60%),
-    radial-gradient(ellipse at 65% 50%, rgba(68,136,255,0.04) 0%, transparent 50%);
+    radial-gradient(ellipse at 40% 40%, rgba(0,255,65,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 65% 50%, rgba(68,136,255,0.04) 0%, transparent 40%);
   pointer-events: none;
 }
 .page-label {
@@ -152,6 +200,11 @@ body {
   padding-bottom: 60px;
 }
 .section-card {
+  --card-accent: #00FF41;
+  --card-gradient: linear-gradient(135deg, rgba(0, 255, 65, 0.05) 0%, transparent 60%);
+  --card-border-hover: rgba(0, 255, 65, 0.2);
+  --card-glow: rgba(0, 255, 65, 0.06);
+  --card-shadow: rgba(0, 255, 65, 0.1);
   background: var(--bg-card); border: 1px solid var(--border);
   padding: 28px 24px; cursor: pointer; transition: all 0.3s;
   position: relative; overflow: hidden; text-decoration: none; color: inherit;
@@ -160,54 +213,20 @@ body {
 .section-card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0;
   height: 2px; opacity: 0; transition: opacity 0.3s;
+  background: var(--card-accent);
 }
 .section-card::after {
   content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
   opacity: 0; transition: opacity 0.3s; pointer-events: none;
+  background: var(--card-gradient);
 }
 .section-card:hover {
   background: var(--bg-card-hover); transform: translateY(-3px);
-  border-color: var(--border-green);
+  border-color: var(--card-border-hover);
 }
 .section-card:hover::before { opacity: 1; }
 .section-card:hover::after { opacity: 1; }
-
-/* Per-card colors */
-.section-card:nth-child(1)::before { background: #00FF41; }
-.section-card:nth-child(2)::before { background: #4488ff; }
-.section-card:nth-child(3)::before { background: #a855f7; }
-.section-card:nth-child(4)::before { background: #ff4444; }
-.section-card:nth-child(5)::before { background: #22d3ee; }
-.section-card:nth-child(6)::before { background: #FFB800; }
-.section-card:nth-child(7)::before { background: #f472b6; }
-.section-card:nth-child(8)::before { background: #eab308; }
-.section-card:nth-child(9)::before { background: #38bdf8; }
-.section-card:nth-child(10)::before { background: #10b981; }
-.section-card:nth-child(11)::before { background: #f97316; }
-
-.section-card:nth-child(1)::after { background: linear-gradient(135deg, rgba(0, 255, 65, 0.05) 0%, transparent 60%); }
-.section-card:nth-child(2)::after { background: linear-gradient(135deg, rgba(68, 136, 255, 0.05) 0%, transparent 60%); }
-.section-card:nth-child(3)::after { background: linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, transparent 60%); }
-.section-card:nth-child(4)::after { background: linear-gradient(135deg, rgba(255, 68, 68, 0.05) 0%, transparent 60%); }
-.section-card:nth-child(5)::after { background: linear-gradient(135deg, rgba(34, 211, 238, 0.05) 0%, transparent 60%); }
-.section-card:nth-child(6)::after { background: linear-gradient(135deg, rgba(255, 184, 0, 0.05) 0%, transparent 60%); }
-.section-card:nth-child(7)::after { background: linear-gradient(135deg, rgba(244, 114, 182, 0.05) 0%, transparent 60%); }
-.section-card:nth-child(8)::after { background: linear-gradient(135deg, rgba(234, 179, 8, 0.05) 0%, transparent 60%); }
-.section-card:nth-child(9)::after { background: linear-gradient(135deg, rgba(56, 189, 248, 0.05) 0%, transparent 60%); }
-.section-card:nth-child(10)::after { background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, transparent 60%); }
-.section-card:nth-child(11)::after { background: linear-gradient(135deg, rgba(249, 115, 22, 0.05) 0%, transparent 60%); }
-
-.section-card:nth-child(1):hover { box-shadow: 0 4px 20px rgba(0, 255, 65, 0.1); }
-.section-card:nth-child(2):hover { box-shadow: 0 4px 20px rgba(68, 136, 255, 0.1); }
-.section-card:nth-child(3):hover { box-shadow: 0 4px 20px rgba(168, 85, 247, 0.1); }
-.section-card:nth-child(4):hover { box-shadow: 0 4px 20px rgba(255, 68, 68, 0.1); }
-.section-card:nth-child(5):hover { box-shadow: 0 4px 20px rgba(34, 211, 238, 0.1); }
-.section-card:nth-child(6):hover { box-shadow: 0 4px 20px rgba(255, 184, 0, 0.1); }
-.section-card:nth-child(7):hover { box-shadow: 0 4px 20px rgba(244, 114, 182, 0.1); }
-.section-card:nth-child(8):hover { box-shadow: 0 4px 20px rgba(234, 179, 8, 0.1); }
-.section-card:nth-child(9):hover { box-shadow: 0 4px 20px rgba(56, 189, 248, 0.1); }
-.section-card:nth-child(10):hover { box-shadow: 0 4px 20px rgba(16, 185, 129, 0.1); }
-.section-card:nth-child(11):hover { box-shadow: 0 4px 20px rgba(249, 115, 22, 0.1); }
+.section-card:hover { box-shadow: 0 4px 20px var(--card-shadow); }
 
 .card-header {
   display: flex; align-items: center; gap: 10px;
@@ -249,6 +268,17 @@ body {
 /* ============ RESPONSIVE ============ */
 @media (max-width: 900px) {
   .sections-grid { grid-template-columns: repeat(2, 1fr); }
+  .nav-toggle { display: block; }
+  .nav-links {
+    position: fixed; top: 56px; left: 0; right: 0; height: calc(100vh - 56px);
+    background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+    display: none; z-index: 999; overflow-y: auto;
+  }
+  :root[data-theme="light"] .nav-links { background: rgba(245, 245, 245, 0.98); }
+  .nav-open .nav-links { display: flex; }
+  .nav-links a { font-size: 16px !important; }
+  .nav-cta { padding: 12px 24px !important; font-size: 13px !important; }
 }
 @media (max-width: 600px) {
   .sections-grid { grid-template-columns: 1fr; }
@@ -288,7 +318,7 @@ body::after {
   inset: 0;
   opacity: 0;
   transition: opacity 0.3s;
-  background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(0,255,65,0.06), transparent 60%);
+  background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), var(--card-glow), transparent 60%);
   pointer-events: none;
   z-index: 0;
 }
@@ -329,8 +359,28 @@ body::after {
 
   <!-- Sections Grid (hidden until authed) -->
   <div class="sections-wrap" id="sectionsWrap">
+    <nav class="site-nav" id="communityNav">
+      <div class="nav-inner">
+        <a href="../index.html" class="nav-brand"><img src="../favicon.png" alt="AIOpsForge" class="nav-logo">AIOpsForge</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="nav-links" id="navLinks">
+          <a href="../index.html">Home</a>
+          <a href="../blogs.html">Blog</a>
+          <a href="../tools.html">Tools</a>
+          <a href="../pricing.html">Pricing</a>
+          <a href="../custom-solutions.html">Custom Solutions</a>
+          <a href="../newsletter.html">Newsletter</a>
+          <a href="#" class="nav-cta">Waitlist</a>
+          <button class="theme-toggle" id="navThemeToggle" aria-label="Toggle theme">&#9728;</button>
+        </div>
+      </div>
+    </nav>
     <div class="sections-grid">
-      <a href="start-here" class="section-card">
+      <a href="start-here.html" class="section-card" style="--card-accent:#00FF41;--card-gradient:linear-gradient(135deg, rgba(0,255,65,0.05) 0%, transparent 60%);--card-border-hover:rgba(0,255,65,0.2);--card-glow:rgba(0,255,65,0.06);--card-shadow:rgba(0,255,65,0.1);">
         <div class="card-header">
           <span class="card-dot" style="background:#00FF41;color:#00FF41"></span>
           <span class="card-title">Start Here</span>
@@ -338,7 +388,7 @@ body::after {
         <p class="card-desc">Onboarding guide — where to begin, what to expect, and how to get the most out of this community.</p>
         <div class="card-status">0% launch ready</div>
       </a>
-      <a href="ai-fundamentals-curriculum" class="section-card">
+      <a href="ai-fundamentals-curriculum.html" class="section-card" style="--card-accent:#4488ff;--card-gradient:linear-gradient(135deg, rgba(68,136,255,0.05) 0%, transparent 60%);--card-border-hover:rgba(68,136,255,0.24);--card-glow:rgba(68,136,255,0.07);--card-shadow:rgba(68,136,255,0.1);">
         <div class="card-header">
           <span class="card-dot" style="background:#4488ff;color:#4488ff"></span>
           <span class="card-title">AI Fundamentals Curriculum</span>
@@ -346,7 +396,7 @@ body::after {
         <p class="card-desc">Core AI concepts and training modules. Build your foundation before shipping production systems.</p>
         <div class="card-status">0% launch ready</div>
       </a>
-      <a href="weekly-guides" class="section-card">
+      <a href="weekly-guides.html" class="section-card" style="--card-accent:#a855f7;--card-gradient:linear-gradient(135deg, rgba(168,85,247,0.05) 0%, transparent 60%);--card-border-hover:rgba(168,85,247,0.24);--card-glow:rgba(168,85,247,0.07);--card-shadow:rgba(168,85,247,0.1);">
         <div class="card-header">
           <span class="card-dot" style="background:#a855f7;color:#a855f7"></span>
           <span class="card-title">Weekly Guides</span>
@@ -354,7 +404,7 @@ body::after {
         <p class="card-desc">Production-grade AI system builds, delivered weekly. Architecture, error handling, token costs, and deployment.</p>
         <div class="card-status">0% launch ready</div>
       </a>
-      <a href="landscape" class="section-card">
+      <a href="landscape.html" class="section-card" style="--card-accent:#ff4444;--card-gradient:linear-gradient(135deg, rgba(255,68,68,0.05) 0%, transparent 60%);--card-border-hover:rgba(255,68,68,0.24);--card-glow:rgba(255,68,68,0.07);--card-shadow:rgba(255,68,68,0.1);">
         <div class="card-header">
           <span class="card-dot" style="background:#ff4444;color:#ff4444"></span>
           <span class="card-title">AI Tools Landscape</span>
@@ -362,7 +412,7 @@ body::after {
         <p class="card-desc">128 tools ranked across 9 domains — know what model to use for every task.</p>
         <div class="card-status almost">90% launch ready</div>
       </a>
-      <a href="ai-coach" class="section-card">
+      <a href="ai-coach.html" class="section-card" style="--card-accent:#22d3ee;--card-gradient:linear-gradient(135deg, rgba(34,211,238,0.05) 0%, transparent 60%);--card-border-hover:rgba(34,211,238,0.24);--card-glow:rgba(34,211,238,0.07);--card-shadow:rgba(34,211,238,0.1);">
         <div class="card-header">
           <span class="card-dot" style="background:#22d3ee;color:#22d3ee"></span>
           <span class="card-title">AI Coach</span>
@@ -370,7 +420,7 @@ body::after {
         <p class="card-desc">Personal AI systems coaching. Get direct help with your builds, architecture decisions, and roadblocks.</p>
         <div class="card-status">0% launch ready</div>
       </a>
-      <a href="context-profiles" class="section-card">
+      <a href="context-profiles.html" class="section-card" style="--card-accent:#FFB800;--card-gradient:linear-gradient(135deg, rgba(255,184,0,0.05) 0%, transparent 60%);--card-border-hover:rgba(255,184,0,0.24);--card-glow:rgba(255,184,0,0.07);--card-shadow:rgba(255,184,0,0.1);">
         <div class="card-header">
           <span class="card-dot" style="background:#FFB800;color:#FFB800"></span>
           <span class="card-title">Context Profiles</span>
@@ -378,7 +428,7 @@ body::after {
         <p class="card-desc">Reusable context templates for different AI tasks. Plug into any model for better, more consistent output.</p>
         <div class="card-status">0% launch ready</div>
       </a>
-      <a href="agents-hub" class="section-card">
+      <a href="agents-hub.html" class="section-card" style="--card-accent:#f472b6;--card-gradient:linear-gradient(135deg, rgba(244,114,182,0.05) 0%, transparent 60%);--card-border-hover:rgba(244,114,182,0.24);--card-glow:rgba(244,114,182,0.07);--card-shadow:rgba(244,114,182,0.1);">
         <div class="card-header">
           <span class="card-dot" style="background:#f472b6;color:#f472b6"></span>
           <span class="card-title">Agents Hub</span>
@@ -386,7 +436,7 @@ body::after {
         <p class="card-desc">Pre-built agent configurations ready to deploy. From research agents to code review to content pipelines.</p>
         <div class="card-status">0% launch ready</div>
       </a>
-      <a href="skills" class="section-card">
+      <a href="skills.html" class="section-card" style="--card-accent:#eab308;--card-gradient:linear-gradient(135deg, rgba(234,179,8,0.05) 0%, transparent 60%);--card-border-hover:rgba(234,179,8,0.24);--card-glow:rgba(234,179,8,0.07);--card-shadow:rgba(234,179,8,0.1);">
         <div class="card-header">
           <span class="card-dot" style="background:#eab308;color:#eab308"></span>
           <span class="card-title">Skills</span>
@@ -394,7 +444,7 @@ body::after {
         <p class="card-desc">Individual AI skill modules. Master one capability at a time — prompting, RAG, fine-tuning, evaluation.</p>
         <div class="card-status almost">50% launch ready</div>
       </a>
-      <a href="workflows" class="section-card">
+      <a href="workflows.html" class="section-card" style="--card-accent:#38bdf8;--card-gradient:linear-gradient(135deg, rgba(56,189,248,0.05) 0%, transparent 60%);--card-border-hover:rgba(56,189,248,0.24);--card-glow:rgba(56,189,248,0.07);--card-shadow:rgba(56,189,248,0.1);">
         <div class="card-header">
           <span class="card-dot" style="background:#38bdf8;color:#38bdf8"></span>
           <span class="card-title">Workflows</span>
@@ -402,7 +452,7 @@ body::after {
         <p class="card-desc">End-to-end automation workflows. Chain tools, models, and agents into repeatable production pipelines.</p>
         <div class="card-status almost">50% launch ready</div>
       </a>
-      <a href="prompts" class="section-card">
+      <a href="prompts.html" class="section-card" style="--card-accent:#10b981;--card-gradient:linear-gradient(135deg, rgba(16,185,129,0.05) 0%, transparent 60%);--card-border-hover:rgba(16,185,129,0.24);--card-glow:rgba(16,185,129,0.07);--card-shadow:rgba(16,185,129,0.1);">
         <div class="card-header">
           <span class="card-dot" style="background:#10b981;color:#10b981"></span>
           <span class="card-title">Prompts</span>
@@ -410,7 +460,7 @@ body::after {
         <p class="card-desc">Production-tested prompt library. Copy, adapt, and deploy prompts that actually work at scale.</p>
         <div class="card-status almost">50% launch ready</div>
       </a>
-      <a href="need-planning" class="section-card">
+      <a href="need-planning.html" class="section-card" style="--card-accent:#f97316;--card-gradient:linear-gradient(135deg, rgba(249,115,22,0.05) 0%, transparent 60%);--card-border-hover:rgba(249,115,22,0.24);--card-glow:rgba(249,115,22,0.07);--card-shadow:rgba(249,115,22,0.1);">
         <div class="card-header">
           <span class="card-dot" style="background:#f97316;color:#f97316"></span>
           <span class="card-title">Need Planning</span>
@@ -450,6 +500,7 @@ function checkAuth(input) {
 if (isAuthed()) {
   document.getElementById('authGate').classList.add('hidden');
   document.getElementById('sectionsWrap').classList.add('visible');
+  document.getElementById('floatingThemeToggle').style.display = 'none';
 }
 
 document.getElementById('authForm').addEventListener('submit', function(e) {
@@ -460,6 +511,7 @@ document.getElementById('authForm').addEventListener('submit', function(e) {
       sessionStorage.setItem('aof_cw_auth', '1');
       document.getElementById('authGate').classList.add('hidden');
       document.getElementById('sectionsWrap').classList.add('visible');
+      document.getElementById('floatingThemeToggle').style.display = 'none';
     } else {
       document.getElementById('authError').classList.add('show');
       document.getElementById('authInput').value = '';
@@ -472,10 +524,14 @@ document.getElementById('authForm').addEventListener('submit', function(e) {
 (function() {
   var root = document.documentElement;
   var floatingToggle = document.getElementById('floatingThemeToggle');
+  var navToggleBtn = document.getElementById('navThemeToggle');
+  var navShell = document.getElementById('communityNav');
+  var navBurger = document.getElementById('navToggle');
   function applyTheme(theme) {
     root.setAttribute('data-theme', theme);
     var icon = theme === 'light' ? '\u263E' : '\u2600';
     if (floatingToggle) floatingToggle.textContent = icon;
+    if (navToggleBtn) navToggleBtn.textContent = icon;
   }
   var stored = localStorage.getItem('aof_theme');
   applyTheme(stored || 'dark');
@@ -486,6 +542,17 @@ document.getElementById('authForm').addEventListener('submit', function(e) {
     applyTheme(next);
   }
   if (floatingToggle) floatingToggle.addEventListener('click', handleToggle);
+  if (navToggleBtn) navToggleBtn.addEventListener('click', handleToggle);
+  if (navBurger && navShell) {
+    navBurger.addEventListener('click', function() {
+      navShell.classList.toggle('nav-open');
+    });
+  }
+  document.querySelectorAll('.nav-links a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      if (navShell) navShell.classList.remove('nav-open');
+    });
+  });
   var scrollBar = document.getElementById('scrollProgress');
   if (scrollBar) {
     window.addEventListener('scroll', function() {

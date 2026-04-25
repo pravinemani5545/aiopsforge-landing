@@ -75,10 +75,10 @@ body {
 /* ============ PAGE HEADER ============ */
 .page-header { padding: 80px 0 32px; position: relative; }
 .page-header::before {
-  content: ''; position: absolute; top: -100px; left: 0; width: 700px; height: 500px;
+  content: ''; position: absolute; inset: -200px -20vw 0;
   background:
-    radial-gradient(ellipse at 30% 40%, rgba(0,255,65,0.1) 0%, transparent 60%),
-    radial-gradient(ellipse at 60% 50%, rgba(68,136,255,0.04) 0%, transparent 50%);
+    radial-gradient(ellipse at 30% 40%, rgba(0,255,65,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 50%, rgba(68,136,255,0.04) 0%, transparent 40%);
   pointer-events: none;
 }
 .back-link {
@@ -106,11 +106,11 @@ body {
 /* ============ STATS ROW ============ */
 .stats-row {
   display: flex; gap: 32px; padding: 20px 0; margin-bottom: 32px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--active-accent-border, var(--border));
   font-family: 'JetBrains Mono', monospace; font-size: 13px;
 }
 .stat-item { display: flex; align-items: baseline; gap: 6px; }
-.stat-num { color: var(--green); font-weight: 700; font-size: 22px; }
+.stat-num { color: var(--active-accent, var(--green)); font-weight: 700; font-size: 22px; }
 .stat-label { color: var(--text-dim); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
 
 /* ============ CATEGORY NAV (SIDEBAR + MAIN LAYOUT) ============ */
@@ -122,12 +122,13 @@ body {
   padding-right: 24px; border-right: 1px solid var(--border);
 }
 .cat-nav-item {
+  --nav-color: var(--green);
   display: flex; align-items: center; gap: 10px;
   padding: 12px 16px; cursor: pointer; transition: all 0.2s;
   border-left: 3px solid transparent; margin-bottom: 2px;
 }
 .cat-nav-item:hover { background: var(--bg-card-hover); }
-.cat-nav-item.active { background: var(--bg-card); border-left-color: var(--green); }
+.cat-nav-item.active { background: var(--bg-card); border-left-color: var(--nav-color); }
 .cat-nav-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 .cat-nav-name {
   font-family: 'JetBrains Mono', monospace; font-size: 12px;
@@ -159,15 +160,20 @@ body {
 .subtask-card {
   background: var(--bg-card); border: 1px solid var(--border);
   margin-bottom: 12px; overflow: hidden;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  position: relative;
 }
-.subtask-card:hover { border-color: var(--border-green); }
+.subtask-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--category-color, var(--green));
+}
+.subtask-card:hover { border-color: var(--category-border, var(--border-green)); box-shadow: 0 8px 28px var(--category-glow, rgba(0,255,65,0.08)); }
 .subtask-trigger {
   display: flex; align-items: center; justify-content: space-between;
   padding: 16px 20px; cursor: pointer; user-select: none;
   transition: background 0.2s;
 }
-.subtask-trigger:hover { background: var(--bg-card-hover); }
+.subtask-trigger:hover { background: var(--category-surface, var(--bg-card-hover)); }
 .subtask-trigger-left { display: flex; align-items: center; gap: 12px; }
 .subtask-name {
   font-family: 'JetBrains Mono', monospace; font-size: 13px;
@@ -182,7 +188,7 @@ body {
 .subtask-metric-badge[data-tooltip]:hover::after {
   content: attr(data-tooltip);
   position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
-  background: var(--bg-card); border: 1px solid var(--border-green); color: var(--text-secondary);
+  background: var(--bg-card); border: 1px solid var(--category-border, var(--border-green)); color: var(--text-secondary);
   font-size: 11px; letter-spacing: 0; text-transform: none;
   padding: 6px 10px; white-space: nowrap; z-index: 100;
   font-family: 'IBM Plex Sans', sans-serif;
@@ -206,13 +212,13 @@ body {
   border: 1px solid transparent; transition: all 0.2s;
 }
 .model-row.top-pick {
-  border-color: rgba(0, 255, 65, 0.15);
-  background: rgba(0, 255, 65, 0.04);
+  border-color: var(--category-border, rgba(0, 255, 65, 0.15));
+  background: var(--category-surface, rgba(0, 255, 65, 0.04));
 }
 :root[data-theme="light"] .model-row.top-pick,
 :root:not([data-theme="dark"]) .model-row.top-pick {
-  background: rgba(0, 137, 46, 0.06);
-  border-color: rgba(0, 137, 46, 0.18);
+  background: var(--category-surface, rgba(0, 137, 46, 0.06));
+  border-color: var(--category-border, rgba(0, 137, 46, 0.18));
 }
 .model-star { color: #eab308; font-size: 14px; text-align: center; }
 .model-name {
@@ -232,7 +238,7 @@ body {
 /* Metric column */
 .model-metric {
   font-family: 'JetBrains Mono', monospace; font-size: 12px;
-  color: var(--green); font-weight: 700; text-align: right; white-space: nowrap;
+  color: var(--category-color, var(--green)); font-weight: 700; text-align: right; white-space: nowrap;
 }
 .model-row:not(.top-pick) .model-metric { color: var(--text-secondary); font-weight: 400; }
 .model-provider {
@@ -308,7 +314,8 @@ body {
   display: inline-flex; align-items: center; gap: 6px;
   font-family: 'JetBrains Mono', monospace; font-size: 10px;
   color: var(--green); padding: 4px 10px;
-  border: 1px solid rgba(0, 255, 65, 0.2); background: rgba(0, 255, 65, 0.06);
+  border: 1px solid rgba(0, 255, 65, 0.2);
+  background: rgba(0, 255, 65, 0.06);
   margin-top: 12px;
 }
 .updated-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
@@ -316,16 +323,17 @@ body {
 
 /* ============ QUICK ANSWER ============ */
 .quick-answer {
-  background: var(--bg-card); border: 1px solid var(--border-green);
+  background: var(--active-accent-surface-soft, var(--bg-card));
+  border: 1px solid var(--active-accent-border, var(--border-green));
   padding: 20px; margin-bottom: 24px; position: relative;
 }
 .quick-answer::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0;
-  height: 2px; background: var(--green);
+  height: 2px; background: var(--active-accent, var(--green));
 }
 .quick-answer-label {
   font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  letter-spacing: 2px; text-transform: uppercase; color: var(--green);
+  letter-spacing: 2px; text-transform: uppercase; color: var(--active-accent, var(--green));
   margin-bottom: 8px;
 }
 .quick-answer-text {
@@ -341,7 +349,7 @@ body {
     display: flex; flex-wrap: wrap; gap: 4px;
   }
   .cat-nav-item { padding: 8px 12px; border-left: none; border-bottom: 2px solid transparent; }
-  .cat-nav-item.active { border-bottom-color: var(--green); border-left: none; }
+  .cat-nav-item.active { border-bottom-color: var(--nav-color); border-left: none; }
   .cat-nav-count { display: none; }
   .cat-content { padding-left: 0; padding-top: 20px; }
 }
@@ -392,7 +400,7 @@ body::after {
 <button class="floating-theme-toggle" id="floatingThemeToggle">&#9728;</button>
 
 <div class="container">
-  <a href="/community/" class="back-link" id="hubLink">&larr; back to hub</a>
+  <a href="/community/index.html" class="back-link" id="hubLink">&larr; back to hub</a>
   <div class="page-header">
     <div class="page-label">landscape</div>
     <h1 class="page-title">AI Tools Landscape</h1>
@@ -419,7 +427,7 @@ body::after {
   <div class="footer-inner">
     <span style="font-family: 'JetBrains Mono', monospace;">AIOpsForge &middot; AI Tools Landscape</span>
     <div class="footer-links">
-      <a href="/community/">Hub</a>
+      <a href="/community/index.html">Hub</a>
       <a href="../index.html">Home</a>
     </div>
     <span>built by an engineer who ships</span>
@@ -430,7 +438,7 @@ body::after {
 // ============ AUTH REDIRECT ============
 var SANDBOX_MODE = sessionStorage.getItem('aof_sandbox') === '1';
 if (!SANDBOX_MODE && sessionStorage.getItem('aof_cw_auth') !== '1') {
-  window.location.href = '/community/';
+  window.location.href = '/community/index.html';
 }
 
 var LANDSCAPE_DATA = [
@@ -828,19 +836,40 @@ function countStats() {
   return { tools: tools, categories: LANDSCAPE_DATA.length, tasks: tasks };
 }
 
+function setActiveAccent(cat) {
+  var root = document.documentElement;
+  root.style.setProperty('--active-accent', cat.color);
+  root.style.setProperty('--active-accent-border', hexToRgba(cat.color, 0.24));
+  root.style.setProperty('--active-accent-surface', hexToRgba(cat.color, 0.08));
+  root.style.setProperty('--active-accent-surface-soft', hexToRgba(cat.color, 0.05));
+  root.style.setProperty('--active-accent-glow', hexToRgba(cat.color, 0.10));
+}
+
 function renderStats() {
-  var s = countStats();
+  var totals = countStats();
   document.getElementById('statsRow').innerHTML =
-    '<div class="stat-item"><span class="stat-num">' + s.tools + '</span><span class="stat-label">tools</span></div>' +
-    '<div class="stat-item"><span class="stat-num">' + s.categories + '</span><span class="stat-label">domains</span></div>' +
-    '<div class="stat-item"><span class="stat-num">' + s.tasks + '</span><span class="stat-label">tasks</span></div>';
+    '<div class="stat-item"><span class="stat-num">' + totals.tools + '</span><span class="stat-label">tools</span></div>' +
+    '<div class="stat-item"><span class="stat-num">' + totals.categories + '</span><span class="stat-label">domains</span></div>' +
+    '<div class="stat-item"><span class="stat-num">' + totals.tasks + '</span><span class="stat-label">tasks</span></div>';
+}
+
+function hexToRgba(hex, alpha) {
+  var value = (hex || '').replace('#', '');
+  if (value.length === 3) {
+    value = value.split('').map(function(ch) { return ch + ch; }).join('');
+  }
+  var intVal = parseInt(value, 16);
+  var r = (intVal >> 16) & 255;
+  var g = (intVal >> 8) & 255;
+  var b = intVal & 255;
+  return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')';
 }
 
 function renderSidebar() {
   var html = '';
   LANDSCAPE_DATA.forEach(function(c, i) {
     var tc = 0; c.subtasks.forEach(function(s) { tc += s.models.length; });
-    html += '<div class="cat-nav-item' + (i === activeCategory ? ' active' : '') + '" data-idx="' + i + '">' +
+    html += '<div class="cat-nav-item' + (i === activeCategory ? ' active' : '') + '" data-idx="' + i + '" style="--nav-color:' + c.color + '">' +
       '<span class="cat-nav-dot" style="background:' + c.color + '"></span>' +
       '<span class="cat-nav-name">' + c.name + '</span>' +
       '<span class="cat-nav-count">' + tc + '</span>' +
@@ -867,7 +896,7 @@ function renderContent(idx) {
   }
 
   cat.subtasks.forEach(function(st, si) {
-    html += '<div class="subtask-card' + (si === 0 ? ' open' : '') + '" id="st-' + idx + '-' + si + '">' +
+    html += '<div class="subtask-card' + (si === 0 ? ' open' : '') + '" id="st-' + idx + '-' + si + '" style="--category-color:' + cat.color + ';--category-border:' + hexToRgba(cat.color, 0.24) + ';--category-glow:' + hexToRgba(cat.color, 0.10) + ';--category-surface:' + hexToRgba(cat.color, 0.05) + '">' +
       '<div class="subtask-trigger" onclick="toggleST(' + idx + ',' + si + ')">' +
         '<div class="subtask-trigger-left">' +
           '<span class="subtask-name">' + st.name + '</span>' +
@@ -886,7 +915,7 @@ function renderContent(idx) {
         else if (t === '3X') badges += '<span class="badge cross">3X</span>';
       });
 
-      html += '<div class="' + cls + '" onclick="toggleModelDetail(this)">' +
+      html += '<div class="' + cls + '" onclick="toggleModelDetail(this)" style="--category-color:' + cat.color + ';--category-border:' + hexToRgba(cat.color, 0.24) + ';--category-surface:' + hexToRgba(cat.color, 0.05) + '">' +
         '<span class="model-star">' + star + '</span>' +
         '<span class="model-name">' + m.name + '</span>' +
         '<div class="model-badges">' + badges + '</div>' +
@@ -924,6 +953,8 @@ function toggleModelDetail(row) {
 
 function switchCategory(idx) {
   activeCategory = idx;
+  setActiveAccent(LANDSCAPE_DATA[idx]);
+  renderStats();
   renderSidebar();
   renderContent(idx);
   if (window.innerWidth <= 900) {
@@ -969,6 +1000,7 @@ if (SANDBOX_MODE) {
 }
 
 // ============ INIT ============
+setActiveAccent(LANDSCAPE_DATA[0]);
 renderStats();
 renderSidebar();
 renderContent(0);

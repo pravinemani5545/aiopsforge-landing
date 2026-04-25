@@ -72,9 +72,8 @@ body {
   padding: 60px 0 40px; text-align: center; position: relative;
 }
 .page-header::before {
-  content: ''; position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
-  width: 600px; height: 300px;
-  background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%);
+  content: ''; position: absolute; inset: -140px -20vw 0;
+  background: radial-gradient(ellipse at 50% 35%, var(--green-glow) 0%, transparent 48%);
   pointer-events: none;
 }
 .page-label {
@@ -133,12 +132,12 @@ body {
 </head>
 <body>
 <script>
-if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/community/'; }
+if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/community/index.html'; }
 </script>
 <div class="scroll-progress" id="scrollProgress"></div>
 <button class="floating-theme-toggle" id="floatingThemeToggle">&#9728;</button>
 <div class="container">
-  <a href="/community/" class="back-link">&larr; back to hub</a>
+  <a href="/community/index.html" class="back-link">&larr; back to hub</a>
   <div class="page-header">
     <div class="page-label">ai-coach</div>
     <h1 class="page-title">AI Coach</h1>
@@ -154,7 +153,7 @@ if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/co
   <div class="footer-inner">
     <span style="font-family: 'JetBrains Mono', monospace;">AIOpsForge &middot; Community Workspace</span>
     <div class="footer-links">
-      <a href="/community/">Hub</a>
+      <a href="/community/index.html">Hub</a>
       <a href="../index.html">Home</a>
     </div>
     <span>built by an engineer who ships</span>

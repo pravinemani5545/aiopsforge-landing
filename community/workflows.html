@@ -68,11 +68,10 @@ body::after {
   padding: 60px 0 40px; text-align: center; position: relative;
 }
 .page-header::before {
-  content: ''; position: absolute; top: -40px; left: 50%; transform: translateX(-50%);
-  width: 800px; height: 400px;
+  content: ''; position: absolute; inset: -100px -20vw 0;
   background:
-    radial-gradient(circle at 40% 50%, rgba(56,189,248,0.12) 0%, transparent 60%),
-    radial-gradient(circle at 60% 50%, rgba(0,255,65,0.08) 0%, transparent 60%);
+    radial-gradient(ellipse at 40% 40%, rgba(56,189,248,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 50%, rgba(0,255,65,0.08) 0%, transparent 45%);
   pointer-events: none;
 }
 .page-header::after {
@@ -134,6 +133,7 @@ body::after {
   gap: 16px; padding-bottom: 60px;
 }
 .index-card {
+  --card-glow-size: 180px;
   background: var(--bg-card); border: 1px solid var(--border);
   padding: 24px; cursor: pointer; transition: all 0.2s;
   text-decoration: none; color: inherit; display: flex;
@@ -142,12 +142,12 @@ body::after {
 }
 .index-card::before {
   content: ''; position: absolute; inset: 0;
-  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(56,189,248,0.06) 0%, transparent 60%);
+  background: radial-gradient(var(--card-glow-size) circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(56,189,248,0.09) 0%, transparent 55%);
   opacity: 0; transition: opacity 0.3s; pointer-events: none;
 }
 .index-card:hover::before { opacity: 1; }
 .index-card:hover {
-  border-color: var(--border-green); background: var(--bg-card-hover);
+  border-color: rgba(56, 189, 248, 0.24); background: var(--bg-card-hover);
 }
 .index-card-top {
   display: flex; justify-content: space-between; align-items: center;
@@ -201,9 +201,8 @@ body::after {
   padding: 40px 0 32px; position: relative;
 }
 .detail-hero::before {
-  content: ''; position: absolute; top: -20px; left: 0;
-  width: 400px; height: 200px;
-  background: radial-gradient(circle, rgba(56,189,248,0.1) 0%, transparent 70%);
+  content: ''; position: absolute; inset: -60px -20vw 0;
+  background: radial-gradient(ellipse at 20% 40%, rgba(56,189,248,0.1) 0%, transparent 45%);
   pointer-events: none;
 }
 .detail-tag {
@@ -231,13 +230,22 @@ body::after {
   display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
 }
 .detail-section {
+  --card-glow-size: 56px;
   background: var(--bg-card); border: 1px solid var(--border);
   padding: 24px; position: relative;
+  overflow: hidden; transition: border-color 0.2s, background 0.2s;
 }
 .detail-section::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0;
   height: 2px; background: var(--accent);
 }
+.detail-section::after {
+  content: ''; position: absolute; inset: 0; opacity: 0; pointer-events: none;
+  transition: opacity 0.3s;
+  background: radial-gradient(var(--card-glow-size) circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(56,189,248,0.038) 0%, transparent 42%);
+}
+.detail-section:hover { border-color: rgba(56, 189, 248, 0.22); background: var(--bg-card-hover); }
+.detail-section:hover::after { opacity: 0.7; }
 .section-header {
   display: flex; justify-content: space-between; align-items: center;
   margin-bottom: 16px;
@@ -324,8 +332,14 @@ body::after {
 .setup-val { font-size: 13px; color: var(--text-secondary); }
 
 /* ============ WALKTHROUGH (expandable) ============ */
-.walkthrough-step { border-bottom: 1px solid var(--border); }
+.walkthrough-step { --card-glow-size: 52px; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
 .walkthrough-step:last-child { border-bottom: none; }
+.walkthrough-step::after {
+  content: ''; position: absolute; inset: 0; opacity: 0; pointer-events: none;
+  transition: opacity 0.3s;
+  background: radial-gradient(var(--card-glow-size) circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(56,189,248,0.032) 0%, transparent 40%);
+}
+.walkthrough-step:hover::after { opacity: 0.62; }
 .walkthrough-header {
   display: flex; align-items: center; gap: 12px; padding: 16px 0; cursor: pointer;
   font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px;
@@ -473,13 +487,13 @@ body::after {
 <body>
 <script>
 var SANDBOX_MODE = sessionStorage.getItem('aof_sandbox') === '1';
-if (!SANDBOX_MODE && sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/community/'; }
+if (!SANDBOX_MODE && sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/community/index.html'; }
 </script>
 <div class="scroll-progress" id="scrollProgress"></div>
 <div class="sandbox-banner" id="sandboxBanner">Viewing free preview &mdash; <a href="https://whop.com/ai-ops-forge/">Join the community</a> for the full library</div>
 <button class="floating-theme-toggle" id="floatingThemeToggle">&#9728;</button>
 <div class="container">
-  <a href="/community/" class="back-link" id="hubLink">&larr; back to hub</a>
+  <a href="/community/index.html" class="back-link" id="hubLink">&larr; back to hub</a>
 
   <!-- INDEX VIEW -->
   <div id="indexView">
@@ -503,7 +517,7 @@ if (!SANDBOX_MODE && sessionStorage.getItem('aof_cw_auth') !== '1') { window.loc
   <div class="footer-inner">
     <span style="font-family: 'JetBrains Mono', monospace;">AIOpsForge &middot; Community Workspace</span>
     <div class="footer-links">
-      <a href="/community/">Hub</a>
+      <a href="/community/index.html">Hub</a>
       <a href="../index.html">Home</a>
     </div>
     <span>built by an engineer who ships</span>
@@ -1530,13 +1544,11 @@ function renderDetailSections(item) {
 // ============ CURSOR TRACKING GLOW ============
 (function() {
   document.addEventListener('mousemove', function(e) {
-    var cards = document.querySelectorAll('.index-card');
+    var cards = document.querySelectorAll('.index-card, .detail-section, .walkthrough-step');
     cards.forEach(function(card) {
       var rect = card.getBoundingClientRect();
-      var x = ((e.clientX - rect.left) / rect.width) * 100;
-      var y = ((e.clientY - rect.top) / rect.height) * 100;
-      card.style.setProperty('--mouse-x', x + '%');
-      card.style.setProperty('--mouse-y', y + '%');
+      card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
+      card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
     });
   });
 })();

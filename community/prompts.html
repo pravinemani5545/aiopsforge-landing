@@ -59,17 +59,13 @@ body::after {
 
 /* ============ PAGE HEADER ============ */
 .page-header {
-  padding: 60px 0 40px; text-align: center; position: relative; overflow: hidden;
+  padding: 60px 0 40px; text-align: center; position: relative;
 }
 .page-header::before {
-  content: ''; position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
-  width: 900px; height: 400px;
-  background: radial-gradient(ellipse at center, rgba(16,185,129,0.08) 0%, rgba(16,185,129,0.02) 40%, transparent 70%);
-  pointer-events: none;
-}
-.page-header::after {
-  content: ''; position: absolute; top: -60px; right: -200px; width: 500px; height: 400px;
-  background: radial-gradient(ellipse at center, rgba(0,255,65,0.04) 0%, transparent 60%);
+  content: ''; position: absolute; inset: -100px -20vw 0;
+  background:
+    radial-gradient(ellipse at 45% 40%, rgba(16,185,129,0.08) 0%, rgba(16,185,129,0.02) 35%, transparent 55%),
+    radial-gradient(ellipse at 70% 30%, rgba(0,255,65,0.04) 0%, transparent 45%);
   pointer-events: none;
 }
 .page-header .dot-bg {
@@ -133,6 +129,7 @@ body::after {
   gap: 16px; padding-bottom: 60px;
 }
 .index-card {
+  --card-glow-size: 180px;
   position: relative; overflow: hidden;
   background: var(--bg-card); border: 1px solid var(--border);
   padding: 24px; cursor: pointer; transition: all 0.2s;
@@ -141,12 +138,12 @@ body::after {
 }
 .index-card::before {
   content: ''; position: absolute; inset: 0;
-  background: radial-gradient(300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(16,185,129,0.06) 0%, transparent 60%);
+  background: radial-gradient(var(--card-glow-size) circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(16,185,129,0.09) 0%, transparent 55%);
   pointer-events: none; opacity: 0; transition: opacity 0.3s;
 }
 .index-card:hover::before { opacity: 1; }
 .index-card:hover {
-  border-color: var(--border-green); background: var(--bg-card-hover);
+  border-color: rgba(16, 185, 129, 0.24); background: var(--bg-card-hover);
 }
 .index-card-tag {
   font-family: 'JetBrains Mono', monospace; font-size: 9px;
@@ -179,7 +176,7 @@ body::after {
 }
 .detail-back:hover { color: var(--green); }
 .detail-hero {
-  padding: 40px 0 32px; position: relative; overflow: hidden;
+  padding: 40px 0 32px; position: relative;
 }
 .detail-hero .dot-bg {
   position: absolute; inset: 0; pointer-events: none; z-index: 0;
@@ -189,9 +186,8 @@ body::after {
   -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
 }
 .detail-hero::before {
-  content: ''; position: absolute; top: -20px; left: 0;
-  width: 400px; height: 200px;
-  background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%);
+  content: ''; position: absolute; inset: -60px -20vw 0;
+  background: radial-gradient(ellipse at 20% 40%, var(--green-glow) 0%, transparent 45%);
   pointer-events: none;
 }
 .detail-tag {
@@ -224,13 +220,22 @@ body::after {
   display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
 }
 .detail-section {
+  --card-glow-size: 56px;
   background: var(--bg-card); border: 1px solid var(--border);
   padding: 24px; position: relative;
+  overflow: hidden; transition: border-color 0.2s, background 0.2s;
 }
 .detail-section::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0;
   height: 2px; background: var(--accent);
 }
+.detail-section::after {
+  content: ''; position: absolute; inset: 0; opacity: 0; pointer-events: none;
+  transition: opacity 0.3s;
+  background: radial-gradient(var(--card-glow-size) circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(16,185,129,0.038) 0%, transparent 42%);
+}
+.detail-section:hover { border-color: rgba(16, 185, 129, 0.2); background: var(--bg-card-hover); }
+.detail-section:hover::after { opacity: 0.7; }
 .section-header {
   display: flex; justify-content: space-between; align-items: center;
   margin-bottom: 16px;
@@ -355,10 +360,19 @@ body::after {
 .related-strip::-webkit-scrollbar-track { background: var(--bg-card); }
 .related-strip::-webkit-scrollbar-thumb { background: var(--border); }
 .related-card {
+  --card-glow-size: 52px;
   flex: 0 0 280px; background: var(--bg-card); border: 1px solid var(--border);
   padding: 16px; text-decoration: none; color: inherit; transition: all 0.2s;
+  position: relative; overflow: hidden;
 }
-.related-card:hover { border-color: var(--border-green); background: var(--bg-card-hover); }
+.related-card::after {
+  content: ''; position: absolute; inset: 0; opacity: 0; pointer-events: none;
+  transition: opacity 0.3s;
+  background: radial-gradient(var(--card-glow-size) circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(16,185,129,0.032) 0%, transparent 40%);
+}
+.related-card:hover { border-color: rgba(16, 185, 129, 0.24); background: var(--bg-card-hover); }
+.related-card:hover::after { opacity: 0.62; }
+.related-card > * { position: relative; z-index: 1; }
 .related-card-tag {
   font-family: 'JetBrains Mono', monospace; font-size: 9px;
   letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim);
@@ -423,13 +437,13 @@ body::after {
 <body>
 <script>
 var SANDBOX_MODE = sessionStorage.getItem('aof_sandbox') === '1';
-if (!SANDBOX_MODE && sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/community/'; }
+if (!SANDBOX_MODE && sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/community/index.html'; }
 </script>
 <div class="scroll-progress" id="scrollProgress"></div>
 <div class="sandbox-banner" id="sandboxBanner">Viewing free preview &mdash; <a href="https://whop.com/ai-ops-forge/">Join the community</a> for the full library</div>
 <button class="floating-theme-toggle" id="floatingThemeToggle">&#9728;</button>
 <div class="container">
-  <a href="/community/" class="back-link" id="hubLink">&larr; back to hub</a>
+  <a href="/community/index.html" class="back-link" id="hubLink">&larr; back to hub</a>
 
   <!-- INDEX VIEW -->
   <div id="indexView">
@@ -454,7 +468,7 @@ if (!SANDBOX_MODE && sessionStorage.getItem('aof_cw_auth') !== '1') { window.loc
   <div class="footer-inner">
     <span style="font-family: 'JetBrains Mono', monospace;">AIOpsForge &middot; Community Workspace</span>
     <div class="footer-links">
-      <a href="/community/">Hub</a>
+      <a href="/community/index.html">Hub</a>
       <a href="../index.html">Home</a>
     </div>
     <span>built by an engineer who ships</span>
@@ -1050,17 +1064,16 @@ function toggleExample(btn) {
 }
 
 // ============ CURSOR-TRACKING GLOW ============
-var grid = document.getElementById('indexGrid');
-if (grid) {
-  grid.addEventListener('mousemove', function(e) {
-    var cards = grid.querySelectorAll('.index-card');
+(function() {
+  document.addEventListener('mousemove', function(e) {
+    var cards = document.querySelectorAll('.index-card, .detail-section, .related-card');
     cards.forEach(function(card) {
       var rect = card.getBoundingClientRect();
       card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
       card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
     });
   });
-}
+})();
 
 // ============ THEME & SCROLL ============
 (function() {

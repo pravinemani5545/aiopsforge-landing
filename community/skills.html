@@ -58,10 +58,9 @@ body::after {
   -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
 }
 .page-header::after {
-  content: ''; position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
-  width: 800px; height: 400px; pointer-events: none; z-index: 0;
-  background: radial-gradient(circle at 50% 40%, rgba(234,179,8,0.10) 0%, transparent 50%),
-              radial-gradient(circle at 50% 60%, var(--green-glow) 0%, transparent 60%);
+  content: ''; position: absolute; inset: -100px -20vw 0; pointer-events: none; z-index: 0;
+  background: radial-gradient(ellipse at 45% 40%, rgba(234,179,8,0.10) 0%, transparent 45%),
+              radial-gradient(ellipse at 50% 60%, var(--green-glow) 0%, transparent 50%);
 }
 .page-label {
   font-family: 'JetBrains Mono', monospace; font-size: 11px;
@@ -123,6 +122,7 @@ body::after {
   gap: 16px; padding-bottom: 60px;
 }
 .index-card {
+  --card-glow-size: 190px;
   background: var(--bg-card); border: 1px solid var(--border);
   padding: 24px; cursor: pointer; transition: all 0.2s;
   text-decoration: none; color: inherit; display: flex;
@@ -131,12 +131,12 @@ body::after {
 .index-card::before {
   content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s;
   pointer-events: none; z-index: 0;
-  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(234, 179, 8, 0.06), transparent 40%);
+  background: radial-gradient(var(--card-glow-size) circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(234, 179, 8, 0.09), transparent 55%);
 }
 .index-card:hover::before { opacity: 1; }
 .index-card:hover {
-  border-color: var(--border-green); background: var(--bg-card-hover);
+  border-color: rgba(234, 179, 8, 0.24); background: var(--bg-card-hover);
 }
 .index-card > * { position: relative; z-index: 1; }
 .index-card-top {
@@ -191,10 +191,10 @@ body::after {
   padding: 40px 0 32px; position: relative;
 }
 .detail-hero::before {
-  content: ''; position: absolute; top: -40px; left: -60px;
-  width: 500px; height: 300px; pointer-events: none;
-  background: radial-gradient(circle at 30% 40%, rgba(234,179,8,0.08) 0%, transparent 50%),
-              radial-gradient(circle at 40% 60%, var(--green-glow) 0%, transparent 60%);
+  content: ''; position: absolute; inset: -80px -20vw 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 25% 35%, rgba(234,179,8,0.08) 0%, transparent 45%),
+              radial-gradient(ellipse at 35% 55%, var(--green-glow) 0%, transparent 50%);
 }
 .detail-tag {
   font-family: 'JetBrains Mono', monospace; font-size: 10px;
@@ -220,13 +220,22 @@ body::after {
   display: flex; flex-direction: column; gap: 24px; padding-bottom: 60px;
 }
 .detail-section {
+  --card-glow-size: 56px;
   background: var(--bg-card); border: 1px solid var(--border);
   padding: 24px; position: relative;
+  overflow: hidden; transition: border-color 0.2s, background 0.2s;
 }
 .detail-section::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0;
   height: 2px; background: var(--accent);
 }
+.detail-section::after {
+  content: ''; position: absolute; inset: 0; opacity: 0; pointer-events: none;
+  transition: opacity 0.3s;
+  background: radial-gradient(var(--card-glow-size) circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(234,179,8,0.04) 0%, transparent 42%);
+}
+.detail-section:hover { border-color: rgba(234, 179, 8, 0.22); background: var(--bg-card-hover); }
+.detail-section:hover::after { opacity: 0.7; }
 .detail-row {
   display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
 }
@@ -302,9 +311,17 @@ body::after {
   background: linear-gradient(180deg, var(--accent) 0%, var(--border) 30%, var(--border) 70%, transparent 100%);
 }
 .timeline-item {
-  position: relative; padding: 16px 0; border-bottom: 1px solid var(--border);
+  --card-glow-size: 52px;
+  position: relative; padding: 16px 12px 16px 0; border-bottom: 1px solid var(--border);
+  overflow: hidden;
 }
 .timeline-item:last-child { border-bottom: none; }
+.timeline-item::after {
+  content: ''; position: absolute; inset: 0; opacity: 0; pointer-events: none;
+  transition: opacity 0.3s;
+  background: radial-gradient(var(--card-glow-size) circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(234,179,8,0.034) 0%, transparent 40%);
+}
+.timeline-item:hover::after { opacity: 0.62; }
 .timeline-num {
   position: absolute; left: -48px; top: 16px; width: 30px; height: 30px;
   display: flex; align-items: center; justify-content: center;
@@ -477,13 +494,13 @@ body::after {
 <body>
 <script>
 var SANDBOX_MODE = sessionStorage.getItem('aof_sandbox') === '1';
-if (!SANDBOX_MODE && sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/community/'; }
+if (!SANDBOX_MODE && sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/community/index.html'; }
 </script>
 <div class="scroll-progress" id="scrollProgress"></div>
 <div class="sandbox-banner" id="sandboxBanner">Viewing free preview &mdash; <a href="https://whop.com/ai-ops-forge/">Join the community</a> for the full library</div>
 <button class="floating-theme-toggle" id="floatingThemeToggle">&#9728;</button>
 <div class="container">
-  <a href="/community/" class="back-link" id="hubLink">&larr; back to hub</a>
+  <a href="/community/index.html" class="back-link" id="hubLink">&larr; back to hub</a>
 
   <!-- INDEX VIEW -->
   <div id="indexView">
@@ -507,7 +524,7 @@ if (!SANDBOX_MODE && sessionStorage.getItem('aof_cw_auth') !== '1') { window.loc
   <div class="footer-inner">
     <span style="font-family: 'JetBrains Mono', monospace;">AIOpsForge &middot; Community Workspace</span>
     <div class="footer-links">
-      <a href="/community/">Hub</a>
+      <a href="/community/index.html">Hub</a>
       <a href="../index.html">Home</a>
     </div>
     <span>built by an engineer who ships</span>
@@ -1352,10 +1369,10 @@ function renderDetailSections(item) {
   document.getElementById('detailSections').innerHTML = html;
 }
 
-// ============ CURSOR-TRACKING GLOW ON INDEX CARDS ============
+// ============ CURSOR-TRACKING GLOW ON CARDS ============
 (function() {
   document.addEventListener('mousemove', function(e) {
-    var cards = document.querySelectorAll('.index-card');
+    var cards = document.querySelectorAll('.index-card, .detail-section, .timeline-item');
     cards.forEach(function(card) {
       var rect = card.getBoundingClientRect();
       var x = e.clientX - rect.left;
