@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIOpsForge | Reminders</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/design-system/tokens.css">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--font-body), 'IBM Plex Sans', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  padding: 64px 24px;
+}
+.container { max-width: 880px; margin: 0 auto; }
+.label {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 12px;
+}
+h1 {
+  font-family: var(--font-display); font-size: 44px;
+  font-weight: 600; letter-spacing: -0.02em;
+  color: var(--text-primary); margin-bottom: 16px;
+}
+.lead {
+  font-size: 17px; color: var(--text-secondary);
+  margin-bottom: 48px; max-width: 640px; line-height: 1.55;
+}
+.meta-line {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-dim); margin-bottom: 32px;
+  display: flex; align-items: center; gap: 8px;
+}
+.meta-line .pulse {
+  width: 6px; height: 6px; background: var(--green);
+  animation: pulse-dot 1.6s infinite;
+}
+@keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+section { margin-bottom: 48px; }
+section h2 {
+  font-family: var(--font-display); font-size: 22px;
+  font-weight: 600; color: var(--text-primary);
+  margin-bottom: 8px; letter-spacing: -0.01em;
+}
+section .section-meta {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 16px;
+}
+ul.todo {
+  list-style: none; display: flex; flex-direction: column; gap: 0;
+}
+ul.todo li {
+  padding: 14px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--border);
+  font-size: 14px; color: var(--text-secondary);
+  line-height: 1.55;
+  display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start;
+}
+ul.todo li + li { border-top: none; }
+ul.todo li.unlocked-by { border-left-color: var(--green); }
+ul.todo li.code-deferred { border-left-color: #4488ff; }
+ul.todo li.operator-action { border-left-color: #a855f7; }
+ul.todo li.research { border-left-color: #1e40af; }
+ul.todo li .tag {
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 2px 8px; border: 1px solid currentColor;
+  white-space: nowrap;
+}
+ul.todo li.unlocked-by .tag { color: var(--green); }
+ul.todo li.code-deferred .tag { color: #4488ff; }
+ul.todo li.operator-action .tag { color: #a855f7; }
+ul.todo li.research .tag { color: #1e40af; }
+ul.todo li .item-body strong { color: var(--text-primary); display: block; margin-bottom: 4px; font-weight: 600; }
+ul.todo li .item-body code {
+  font-family: var(--font-mono); font-size: 12px;
+  background: var(--bg-tertiary); padding: 1px 6px;
+  border: 1px solid var(--border); color: var(--text-primary);
+}
+.legend {
+  display: flex; gap: 16px; flex-wrap: wrap; margin-top: 24px;
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-dim);
+}
+.legend .key { display: flex; align-items: center; gap: 6px; }
+.legend .key .dot { width: 8px; height: 12px; background: var(--green); }
+.legend .key.b1 .dot { background: var(--green); }
+.legend .key.b2 .dot { background: #4488ff; }
+.legend .key.b3 .dot { background: #a855f7; }
+.legend .key.b4 .dot { background: #1e40af; }
+hr {
+  border: none; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
+  margin: 32px 0;
+}
+.footer-note {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.1em; color: var(--text-dim);
+  text-transform: uppercase; margin-top: 48px;
+  padding-top: 24px; border-top: 1px solid var(--border);
+}
+.footer-note a { color: var(--green); text-decoration: none; }
+.footer-note a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="meta-line">
+    <span class="pulse"></span>
+    <span>/REMINDERS · INTERNAL TODO · NOINDEX</span>
+  </div>
+
+  <div class="label">DEFERRED WORK</div>
+  <h1>Things to ship when conditions unlock.</h1>
+  <p class="lead">A single page memory for code-deferrable improvements, operator action items, and research follow-ups that came up during build sessions but couldn't ship immediately. Cross off as conditions unlock.</p>
+
+  <div class="legend">
+    <span class="key b1"><span class="dot"></span> UNLOCKED BY EVENT</span>
+    <span class="key b2"><span class="dot"></span> CODE DEFERRED</span>
+    <span class="key b3"><span class="dot"></span> OPERATOR ACTION</span>
+    <span class="key b4"><span class="dot"></span> RESEARCH / INVESTIGATE</span>
+  </div>
+
+  <hr>
+
+  <!-- ===== Section: Brand presence ===== -->
+  <section>
+    <h2>Brand presence</h2>
+    <div class="section-meta">UNLOCK WHEN SOCIAL PROFILES EXIST</div>
+    <ul class="todo">
+      <li class="unlocked-by">
+        <span class="tag">WHEN X EXISTS</span>
+        <div class="item-body">
+          <strong>Add X / Twitter to Organization JSON-LD <code>sameAs</code> on every page</strong>
+          When @AIOpsForge handle is claimed, add <code>https://x.com/AIOpsForge</code> to the JSON-LD <code>sameAs</code> array in every page. The Organization JSON-LD is currently injected before <code>&lt;/head&gt;</code> with Whop + GitHub only.
+        </div>
+      </li>
+      <li class="unlocked-by">
+        <span class="tag">WHEN LINKEDIN EXISTS</span>
+        <div class="item-body">
+          <strong>Add LinkedIn Company Page to <code>sameAs</code></strong>
+          When <code>linkedin.com/company/aiopsforge</code> is created, add to JSON-LD <code>sameAs</code> on every page. Same edit pattern as X above.
+        </div>
+      </li>
+      <li class="unlocked-by">
+        <span class="tag">WHEN YOUTUBE EXISTS</span>
+        <div class="item-body">
+          <strong>Add YouTube channel to <code>sameAs</code></strong>
+          When <code>youtube.com/@AIOpsForge</code> goes live, add to JSON-LD <code>sameAs</code>. Update on every page.
+        </div>
+      </li>
+      <li class="unlocked-by">
+        <span class="tag">WHEN GBP CLAIMED</span>
+        <div class="item-body">
+          <strong>Add Google Business Profile URL to <code>sameAs</code></strong>
+          When Google Business Profile is claimed + filled, add the <code>google.com/maps/place/?cid=...</code> short URL. Strengthens entity match for Google.
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ===== Section: Page-level metadata ===== -->
+  <section>
+    <h2>Page-level metadata</h2>
+    <div class="section-meta">SEO + GEO INFRASTRUCTURE — CODE NOT YET SHIPPED</div>
+    <ul class="todo">
+      <li class="code-deferred">
+        <span class="tag">CODE</span>
+        <div class="item-body">
+          <strong>Unique <code>&lt;title&gt;</code> + <code>meta description</code> per page</strong>
+          Most pages still use the default title. Each should have a unique title ≤60 chars + description ≤155 chars, keyword-targeted. Index, pricing, blogs, tools, newsletter, custom-solutions, community/*, sandbox/*, aifounder/.
+        </div>
+      </li>
+      <li class="code-deferred">
+        <span class="tag">CODE</span>
+        <div class="item-body">
+          <strong>Canonical tags on every page</strong>
+          Add <code>&lt;link rel="canonical" href="..."&gt;</code> to all pages — currently missing. Prevents duplicate-content split.
+        </div>
+      </li>
+      <li class="code-deferred">
+        <span class="tag">CODE</span>
+        <div class="item-body">
+          <strong>Per-page OG images (1200×630)</strong>
+          Generate branded OG images for every major page (home, pricing, blogs, tools, newsletter, custom-solutions, aifounder). Add <code>og:image</code> + <code>twitter:image</code> meta tags. Use Canva or auto-generate via OG-image API.
+        </div>
+      </li>
+      <li class="code-deferred">
+        <span class="tag">CODE</span>
+        <div class="item-body">
+          <strong>FAQ JSON-LD schema</strong>
+          Add <code>FAQPage</code> structured data to landing, pricing, custom-solutions, community/index — visible Q&amp;A with matching JSON-LD. Highest-leverage GEO move (2.1× citation lift on Perplexity + ChatGPT browse).
+        </div>
+      </li>
+      <li class="code-deferred">
+        <span class="tag">CODE</span>
+        <div class="item-body">
+          <strong><code>llms.txt</code> at site root</strong>
+          Drop a 1-paragraph markdown index at <code>/llms.txt</code> describing AIOpsForge + key page links. Low-effort GEO hygiene. Adoption is &lt;10% so don't optimize for it, but ship it.
+        </div>
+      </li>
+      <li class="code-deferred">
+        <span class="tag">CODE</span>
+        <div class="item-body">
+          <strong>BreadcrumbList JSON-LD on nested pages</strong>
+          Add to community/*, sandbox/*, tools/* sub-pages. Tells search engines the hierarchy.
+        </div>
+      </li>
+      <li class="code-deferred">
+        <span class="tag">CODE</span>
+        <div class="item-body">
+          <strong>Build <code>/about</code> page with Person schema</strong>
+          Founder bio, photo, credibility line. <code>Person</code> JSON-LD with <code>sameAs</code> to socials. E-E-A-T signal for AI search engines.
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ===== Section: Funnel + email ===== -->
+  <section>
+    <h2>Funnel + email</h2>
+    <div class="section-meta">PROVIDER MIGRATION + LEAD MAGNETS</div>
+    <ul class="todo">
+      <li class="operator-action">
+        <span class="tag">OPERATOR</span>
+        <div class="item-body">
+          <strong>Sign up Beehiiv + verify sending domain</strong>
+          Free tier. Verify SPF / DKIM / DMARC at domain registrar. Then migrate Kit subscribers via CSV. Keep <code>/api/subscribe.js</code> as fallback for 1 week.
+        </div>
+      </li>
+      <li class="code-deferred">
+        <span class="tag">CODE</span>
+        <div class="item-body">
+          <strong>Replace Kit form action with Beehiiv API after sign-up</strong>
+          Update <code>/api/subscribe.js</code> to call Beehiiv instead of Kit. Tag subscribers by source: <code>waitlist</code>, <code>lead-magnet-systems</code>, <code>lead-magnet-claude-code</code>, etc.
+        </div>
+      </li>
+      <li class="code-deferred">
+        <span class="tag">CODE</span>
+        <div class="item-body">
+          <strong>Build <code>/resources</code> page with 3 email-gated lead magnets</strong>
+          11 AI Systems PDF, Claude Code Cheat Sheet, 50 Battle-Tested Prompts. Email gate → Beehiiv tag → auto-delivery via Incentive Email.
+        </div>
+      </li>
+      <li class="operator-action">
+        <span class="tag">OPERATOR</span>
+        <div class="item-body">
+          <strong>Author 3 lead magnet PDFs</strong>
+          11 Systems framework (visual PDF), Claude Code Power-User Cheat Sheet (one-page), 50 Battle-Tested Prompts (categorized). Watermark with aiopsforge.com on every page.
+        </div>
+      </li>
+      <li class="code-deferred">
+        <span class="tag">CODE</span>
+        <div class="item-body">
+          <strong>7-email Beehiiv welcome sequence</strong>
+          Day 0/2/5/8/12/17/21. Tag-segmented variants. CASL-compliant double opt-in.
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ===== Section: Whop automation ===== -->
+  <section>
+    <h2>Whop automation</h2>
+    <div class="section-meta">SERVERLESS WEBHOOK HANDLERS</div>
+    <ul class="todo">
+      <li class="code-deferred">
+        <span class="tag">CODE</span>
+        <div class="item-body">
+          <strong>4 Whop webhook handlers via Vercel serverless</strong>
+          <code>/api/whop-webhook-membership-created.ts</code>, <code>...-cancelled.ts</code>, <code>...-renewed.ts</code>, <code>...-payment-failed.ts</code>. HMAC-verified. Each calls Beehiiv API to tag + trigger sequence + sends Whop DM.
+        </div>
+      </li>
+      <li class="operator-action">
+        <span class="tag">OPERATOR</span>
+        <div class="item-body">
+          <strong>Configure Whop welcome flow</strong>
+          Record 2-min orientation video (face cam). Pin welcome message in community chat. First-week guidance doc. Auto-DM at day 14 + day 30.
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ===== Section: Operator action items ===== -->
+  <section>
+    <h2>Operator action items</h2>
+    <div class="section-meta">CAN'T BE AUTOMATED — REQUIRES PRAVINE</div>
+    <ul class="todo">
+      <li class="operator-action">
+        <span class="tag">OPERATOR</span>
+        <div class="item-body">
+          <strong>Set up Google Search Console (Domain property)</strong>
+          search.google.com/search-console → Add Domain property for <code>aiopsforge.com</code>. Verify via DNS TXT. Submit <code>/sitemap.xml</code>.
+        </div>
+      </li>
+      <li class="operator-action">
+        <span class="tag">OPERATOR</span>
+        <div class="item-body">
+          <strong>Set up Bing Webmaster Tools</strong>
+          bing.com/webmasters → import GSC verification. Submit sitemap. Free incremental traffic from Bing + DuckDuckGo + Yahoo.
+        </div>
+      </li>
+      <li class="operator-action">
+        <span class="tag">OPERATOR</span>
+        <div class="item-body">
+          <strong>Sign up X Premium + Typefully Creator</strong>
+          $8/mo + $19/mo. Required for sub-10k account algorithm boost + clean thread scheduling.
+        </div>
+      </li>
+      <li class="operator-action">
+        <span class="tag">OPERATOR</span>
+        <div class="item-body">
+          <strong>Sign up 12 affiliate programs</strong>
+          Beehiiv Partner, Skool, ElevenLabs, Opus Clip, Plausible, Lovable, v0/Vercel, HeyGen, Hypefury, Whop creator-affiliate, Notion (via Cuelinks), TubeBuddy. <strong>Skip n8n + Make</strong> — not in operator's stack.
+        </div>
+      </li>
+      <li class="operator-action">
+        <span class="tag">OPERATOR</span>
+        <div class="item-body">
+          <strong>Push for Whop reviews</strong>
+          DM first ~10 active members personally. Target: 10+ Whop reviews at 4.7+ avg by day 90. Whop Discover marketplace ranking weights review count heavily.
+        </div>
+      </li>
+      <li class="operator-action">
+        <span class="tag">OPERATOR</span>
+        <div class="item-body">
+          <strong>Claim Google Business Profile</strong>
+          Then unlock the JSON-LD <code>sameAs</code> entry above. Strengthens entity match in Google AI Overviews.
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ===== Section: Research / decide later ===== -->
+  <section>
+    <h2>Research / decide later</h2>
+    <div class="section-meta">PENDING INPUTS OR DECISION POINTS</div>
+    <ul class="todo">
+      <li class="research">
+        <span class="tag">RESEARCH</span>
+        <div class="item-body">
+          <strong>Otterly.ai for AI-search visibility tracking</strong>
+          $29/mo. Track citation rate across ChatGPT / Perplexity / Claude / Gemini for prompts like "AI community for developers", "best AI ops community", etc. Start when newsletter hits 500 subs.
+        </div>
+      </li>
+      <li class="research">
+        <span class="tag">RESEARCH</span>
+        <div class="item-body">
+          <strong>Cohort platform: Whop apps vs Maven</strong>
+          Maven takes 10% (vs Reforge 50%, Uplimit 70%) but adds platform context-switch. Whop apps integrates with existing community SKU at 3% + Stripe. Decide before launching first $299 cohort at month 4.
+        </div>
+      </li>
+      <li class="research">
+        <span class="tag">RESEARCH</span>
+        <div class="item-body">
+          <strong>Custom domain decision: stay on www or flip to apex</strong>
+          Vercel currently serves <code>www.aiopsforge.com</code> as production with apex redirect. No SEO downside to staying on www. Revisit only if branding strongly prefers apex.
+        </div>
+      </li>
+      <li class="research">
+        <span class="tag">RESEARCH</span>
+        <div class="item-body">
+          <strong>aifounder.ca → separate domain vs sub-path</strong>
+          Currently at <code>aiopsforge.com/aifounder/</code> for SEO consolidation. If aifounder reaches independent product-market fit, move to <code>aifounder.ca</code> + add 301 redirects from sub-path.
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <hr>
+
+  <div class="footer-note">
+    Add new deferred items to this file directly. Clean up resolved entries quarterly. <br>
+    Source: <code>/reminders/index.html</code> · <a href="/">← back to home</a>
+  </div>
+
+</div>
+</body>
+</html>

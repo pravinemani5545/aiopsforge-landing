@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://aiopsforge.com/sitemap.xml
