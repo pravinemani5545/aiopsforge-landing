@@ -3,209 +3,168 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Context Profiles — AIOpsForge</title>
-<link rel="icon" type="image/png" href="../favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/design-system/tokens.css">
-<style>
-:root {
-  --green: #00FF41; --green-dim: #00cc34;
-  --green-glow: rgba(0, 255, 65, 0.15); --green-glow-strong: rgba(0, 255, 65, 0.3);
-  --bg-primary: #0a0a0a; --bg-secondary: #111111; --bg-tertiary: #161616;
-  --bg-card: #1a1a1a; --bg-card-hover: #222222;
-  --border: #2a2a2a; --border-green: rgba(0, 255, 65, 0.2);
-  --text-primary: #f0f0f0; --text-secondary: #999999; --text-dim: #666666;
-  --red: #ff4444; --blue: #4488ff;
-}
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --green: #00892e; --green-dim: #006b24;
-    --green-glow: rgba(0, 137, 46, 0.12); --green-glow-strong: rgba(0, 137, 46, 0.25);
-    --bg-primary: #f5f5f5; --bg-secondary: #ebebeb; --bg-tertiary: #e0e0e0;
-    --bg-card: #ffffff; --bg-card-hover: #f8f8f8;
-    --border: #d4d4d4; --border-green: rgba(0, 137, 46, 0.2);
-    --text-primary: #1a1a1a; --text-secondary: #555555; --text-dim: #888888;
-    --red: #cc3333; --blue: #2266cc;
-  }
-}
-:root[data-theme="light"] {
-  --green: #00892e; --green-dim: #006b24;
-  --green-glow: rgba(0, 137, 46, 0.12); --green-glow-strong: rgba(0, 137, 46, 0.25);
-  --bg-primary: #f5f5f5; --bg-secondary: #ebebeb; --bg-tertiary: #e0e0e0;
-  --bg-card: #ffffff; --bg-card-hover: #f8f8f8;
-  --border: #d4d4d4; --border-green: rgba(0, 137, 46, 0.2);
-  --text-primary: #1a1a1a; --text-secondary: #555555; --text-dim: #888888;
-  --red: #cc3333; --blue: #2266cc;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'IBM Plex Sans', sans-serif; background: var(--bg-primary);
-  color: var(--text-primary); line-height: 1.6; overflow-x: hidden;
-}
-.scroll-progress {
-  position: fixed; top: 0; left: 0; width: 0%; height: 3px;
-  background: var(--green);
-  box-shadow: 0 0 10px var(--green), 0 0 20px var(--green-glow-strong), 0 0 40px var(--green-glow);
-  z-index: 10000; transition: width 0.1s linear;
-}
-.floating-theme-toggle {
-  position: fixed; top: 20px; right: 24px; z-index: 999;
-  background: var(--bg-card); border: 1px solid var(--border);
-  color: var(--text-primary); cursor: pointer; width: 40px; height: 40px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px; transition: all 0.2s;
-  font-family: 'JetBrains Mono', monospace; line-height: 1;
-}
-.floating-theme-toggle:hover { color: var(--green); border-color: var(--border-green); }
-.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-.back-link {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-family: 'JetBrains Mono', monospace; font-size: 12px;
-  color: var(--text-dim); text-decoration: none; transition: color 0.2s;
-  padding-top: 24px;
-}
-.back-link:hover { color: var(--green); }
-.page-header {
-  padding: 60px 0 40px; text-align: center; position: relative;
-}
-.page-header::before {
-  content: ''; position: absolute; inset: -140px -20vw 0;
-  background: radial-gradient(ellipse at 50% 35%, var(--green-glow) 0%, transparent 48%);
-  pointer-events: none;
-}
-.page-label {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  letter-spacing: 3px; text-transform: uppercase; color: #FFB800;
-  margin-bottom: 16px; position: relative;
-}
-.page-title {
-  font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 5vw, 42px);
-  font-weight: 700; margin-bottom: 12px; position: relative;
-}
-.page-subtitle {
-  color: var(--text-secondary); font-size: 15px; max-width: 600px;
-  margin: 0 auto; line-height: 1.7; position: relative;
-}
-.coming-soon {
-  max-width: 500px; margin: 60px auto 120px; text-align: center;
-  background: var(--bg-card); border: 1px solid var(--border);
-  padding: 48px 32px; position: relative; overflow: hidden;
-}
-.coming-soon::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0;
-  height: 2px; background: #FFB800;
-}
-.coming-soon-icon {
-  font-size: 32px; margin-bottom: 16px; color: var(--text-dim);
-}
-.coming-soon-title {
-  font-family: 'Space Grotesk', sans-serif; font-size: 20px;
-  font-weight: 700; margin-bottom: 8px;
-}
-.coming-soon-desc {
-  color: var(--text-secondary); font-size: 13px; line-height: 1.6;
-}
-.footer {
-  padding: 40px 24px; border-top: 1px solid var(--border); text-align: center;
-}
-.footer-inner {
-  display: flex; justify-content: space-between; align-items: center;
-  max-width: 1100px; margin: 0 auto; font-size: 12px; color: var(--text-dim);
-}
-.footer a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
-.footer a:hover { color: var(--green); }
-.footer-links { display: flex; gap: 24px; }
-@media (max-width: 600px) {
-  .page-header { padding: 40px 0 32px; }
-  .footer-inner { flex-direction: column; gap: 16px; }
-}
-</style>
-<script>
-(function() {
-  var t = localStorage.getItem('aof_theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', t);
-})();
-</script>
-<!-- Privacy-friendly analytics by Plausible -->
+<title>Context Profiles — AIOpsForge Community</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/design-system/tokens.css">
+<link rel="stylesheet" href="/community/_shared.css">
 <script async src="https://plausible.io/js/pa-rDlrb-w9Wsz9vcppD3o0K.js"></script>
-<script>
-  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-  plausible.init()
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "AIOpsForge",
-  "url": "https://aiopsforge.dev",
-  "logo": "https://aiopsforge.dev/favicon.png",
-  "description": "AI systems community shipping production-grade builds every week. $9.99/month membership via Whop, with 2,000 monthly credits for aifounder.ca bundled.",
-  "sameAs": [
-    "https://whop.com/ai-ops-forge/",
-    "https://github.com/pravinemani5545/aiopsforge-landing"
-  ]
-}
-</script>
+<script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+<style>
+.profile-card { background: var(--bg-card); border: 1px solid var(--border); position: relative; margin-bottom: 24px; }
+.profile-card.live { border-color: var(--border-green); }
+.profile-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--card-accent, var(--green)); }
+.profile-head { display: grid; grid-template-columns: 64px 1fr auto; gap: 18px; align-items: center; padding: 20px 24px; border-bottom: 1px solid var(--border); background: var(--bg-tertiary); }
+.profile-head .avatar { width: 56px; height: 56px; background: var(--bg-card); border: 1px solid var(--border-strong, #3a3a3a); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 600; }
+.profile-head .info .nm { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; }
+.profile-head .info .role { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--text-dim); text-transform: uppercase; margin-top: 3px; }
+.profile-head .meta { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase; text-align: right; }
+.profile-head .meta .v { color: var(--green); }
+.profile-body { padding: 22px 26px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.profile-body .col h4 { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--green); text-transform: uppercase; margin-bottom: 10px; }
+.profile-body .col p { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 10px; }
+.json-block { font-family: 'JetBrains Mono', monospace; font-size: 11px; line-height: 1.7; color: var(--text-secondary); background: var(--bg-tertiary); border: 1px solid var(--border); padding: 14px 16px; white-space: pre; overflow-x: auto; }
+.json-block .k { color: var(--green); }
+.json-block .v { color: var(--text-primary); }
+.json-block .c { color: var(--text-dim); }
+.profile-list { display: grid; grid-template-columns: 1fr; gap: 0; border: 1px solid var(--border); }
+.profile-list .row { display: grid; grid-template-columns: 40px 36px 1fr auto; gap: 14px; align-items: center; padding: 14px 20px; border-bottom: 1px solid var(--border); background: var(--bg-card); }
+.profile-list .row:last-child { border-bottom: none; }
+.profile-list .row .n { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-muted, #444); letter-spacing: 0.1em; text-align: right; }
+.profile-list .row .av { width: 32px; height: 32px; background: var(--bg-tertiary); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; }
+.profile-list .row .info .nm { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 2px; }
+.profile-list .row .info .role { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.1em; color: var(--text-dim); text-transform: uppercase; }
+.profile-list .row .status { font-family: 'JetBrains Mono', monospace; font-size: 9px; padding: 2px 7px; border: 1px solid currentColor; letter-spacing: 0.12em; text-transform: uppercase; }
+.profile-list .row .status.q { color: #ffd84a; }
+.profile-list .row .status.d { color: #a855f7; }
+.profile-list .row .status.s { color: var(--text-dim); }
+@media (max-width: 980px) { .profile-body { grid-template-columns: 1fr; } }
+</style>
 </head>
 <body>
-<script>
-if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/community/index.html'; }
-</script>
+<script>if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/community/'; }</script>
 <div class="scroll-progress" id="scrollProgress"></div>
 <button class="floating-theme-toggle" id="floatingThemeToggle">&#9728;</button>
-<div class="container">
-  <a href="/community/index.html" class="back-link">&larr; back to hub</a>
-  <div class="page-header">
-    <div class="page-label">context-profiles</div>
-    <h1 class="page-title">Context Profiles</h1>
-    <p class="page-subtitle">Reusable context templates for different AI tasks. Plug into any model for better, more consistent output.</p>
-  </div>
-  <div class="coming-soon">
-    <div class="coming-soon-icon">&#128736;</div>
-    <div class="coming-soon-title">Under Construction</div>
-    <p class="coming-soon-desc">This section is being built. Content will appear here as it's ready.</p>
-  </div>
+<div class="community-header"><a href="/community/" class="back-link">&larr; HUB</a><span class="crumb"><span>COMMUNITY</span><span class="sep">/</span><span class="cur">CONTEXT PROFILES</span></span></div>
+
+<section class="page-hero">
+  <div class="badge"><span class="dot"></span><span>10 · PROFILES · LOAD A PERSONA</span></div>
+  <h1>Stop letting your AI sound generic.<br><span class="accent">Load a profile.</span></h1>
+  <p class="subtitle">Context profiles are JSON files that tell Claude (or any AI) <em>how</em> to respond — voice, depth, citation rules, response shape. Load a profile once, every subsequent prompt inherits it. Senior dev, copywriter, analyst, strategist — each gives you a different lens on the same input.</p>
+</section>
+
+<div class="progress-bar-wrap">
+  <div class="progress-bar-head"><span class="lab">2 OF 12 PROFILES LIVE · 10 QUEUED</span><span class="pct">17% COMPLETE</span></div>
+  <div class="progress-bar"><div class="fill" style="width: 17%;"></div></div>
 </div>
-<footer class="footer">
-  <div class="footer-inner">
-    <span style="font-family: 'JetBrains Mono', monospace;">AIOpsForge &middot; Community Workspace</span>
-    <div class="footer-links">
-      <a href="/community/index.html">Hub</a>
-      <a href="../index.html">Home</a>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">live profiles</div>
+    <h2>Two ready to load today.</h2>
+    <p>Drop these JSON files into Claude Code's context (via <code style="font-family:monospace;color:var(--green);background:var(--bg-tertiary);padding:1px 6px;border:1px solid var(--border);">/profile load</code> skill or paste into your system prompt). Every subsequent response shifts.</p>
+  </div>
+
+  <div class="profile-card live">
+    <div class="profile-head">
+      <div class="avatar" style="color: #00FF41;">CE</div>
+      <div class="info"><div class="nm">Copywriting Expert</div><div class="role">SHARP · CONVERSION-FIRST · BRAND VOICE</div></div>
+      <div class="meta"><div>LOADED · <span class="v">14×</span></div><div>SIZE · <span class="v">1.8 KB</span></div></div>
     </div>
-    <span>built by an engineer who ships</span>
+    <div class="profile-body">
+      <div class="col">
+        <h4>BEHAVIOR</h4>
+        <p>Strips passive voice. Cuts every hedge ("perhaps," "might," "could"). Leads with the answer, then the evidence. Treats every paragraph as a candidate to delete.</p>
+        <p>Output reads like a senior copywriter — confident, specific, conversion-aware. Will refuse to write fluff even when asked.</p>
+      </div>
+      <div class="col">
+        <h4>JSON</h4>
+        <div class="json-block">{
+  <span class="k">"role"</span>: <span class="v">"copywriting-expert"</span>,
+  <span class="k">"voice"</span>: <span class="v">"sharp · direct · no hedging"</span>,
+  <span class="k">"forbid"</span>: [
+    <span class="v">"passive voice"</span>,
+    <span class="v">"perhaps · might · could"</span>,
+    <span class="v">"in order to"</span>,
+    <span class="v">"in conclusion"</span>
+  ],
+  <span class="k">"prefer"</span>: {
+    <span class="k">"openers"</span>: <span class="v">"action verbs"</span>,
+    <span class="k">"length"</span>: <span class="v">"shortest that works"</span>
+  },
+  <span class="k">"refuse"</span>: <span class="v">"fluff requests"</span>
+}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-card live">
+    <div class="profile-head">
+      <div class="avatar" style="color: #4488ff;">SD</div>
+      <div class="info"><div class="nm">Senior Developer</div><div class="role">DIRECT · ARCHITECTURE-MINDED · PRAGMATIC</div></div>
+      <div class="meta"><div>LOADED · <span class="v">22×</span></div><div>SIZE · <span class="v">2.4 KB</span></div></div>
+    </div>
+    <div class="profile-body">
+      <div class="col">
+        <h4>BEHAVIOR</h4>
+        <p>Pushes back on overengineering. Names trade-offs out loud. Won't add abstractions unless they solve a real, current problem. Will tell you when the "right" answer doesn't matter for your scale.</p>
+        <p>Writes code like someone who's been on-call. Defensive, observable, easy to debug at 3am.</p>
+      </div>
+      <div class="col">
+        <h4>JSON</h4>
+        <div class="json-block">{
+  <span class="k">"role"</span>: <span class="v">"senior-developer"</span>,
+  <span class="k">"voice"</span>: <span class="v">"direct · pragmatic · push-back"</span>,
+  <span class="k">"prefer"</span>: {
+    <span class="k">"code"</span>: <span class="v">"defensive · observable"</span>,
+    <span class="k">"tradeoffs"</span>: <span class="v">"named explicitly"</span>,
+    <span class="k">"complexity"</span>: <span class="v">"only when paid-for"</span>
+  },
+  <span class="k">"refuse"</span>: <span class="v">"abstractions for hypothetical futures"</span>
+}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">10 more profiles · queued</div>
+    <h2>The growing library.</h2>
+    <p>Each profile follows the same shape. Two new profiles drop monthly. Community members can submit their own — best ones get added.</p>
+  </div>
+
+  <div class="profile-list">
+    <div class="row"><div class="n">03</div><div class="av" style="color: #a855f7;">RA</div><div class="info"><div class="nm">Research Analyst</div><div class="role">EVIDENCE · CITE-FIRST · UNCERTAINTY-AWARE</div></div><div class="status q">NEXT</div></div>
+    <div class="row"><div class="n">04</div><div class="av" style="color: #ffd84a;">MS</div><div class="info"><div class="nm">Marketing Strategist</div><div class="role">FUNNEL · POSITIONING · DISTRIBUTION</div></div><div class="status q">NEXT</div></div>
+    <div class="row"><div class="n">05</div><div class="av" style="color: #1e40af;">PD</div><div class="info"><div class="nm">Product Designer</div><div class="role">USER-CENTERED · FRICTION-HUNTING · MINIMAL</div></div><div class="status d">DRAFT</div></div>
+    <div class="row"><div class="n">06</div><div class="av" style="color: #ff4444;">EE</div><div class="info"><div class="nm">Engineering Manager</div><div class="role">UNBLOCK · DELEGATE · PROTECT FOCUS</div></div><div class="status d">DRAFT</div></div>
+    <div class="row"><div class="n">07</div><div class="av" style="color: #00FF41;">FN</div><div class="info"><div class="nm">Founder · Narrative</div><div class="role">INVESTOR UPDATE · STORY-FIRST</div></div><div class="status s">SOON</div></div>
+    <div class="row"><div class="n">08</div><div class="av" style="color: #4488ff;">DE</div><div class="info"><div class="nm">Data Engineer</div><div class="role">SCHEMA-AWARE · PIPELINE · IDEMPOTENT</div></div><div class="status s">SOON</div></div>
+    <div class="row"><div class="n">09</div><div class="av" style="color: #a855f7;">CS</div><div class="info"><div class="nm">Customer Success</div><div class="role">EMPATHY · DE-ESCALATION · FORWARD-LOOKING</div></div><div class="status s">SOON</div></div>
+    <div class="row"><div class="n">10</div><div class="av" style="color: #ffd84a;">LE</div><div class="info"><div class="nm">Legal-aware Editor</div><div class="role">FLAG RISK · CITE CASES · NO-OPINION</div></div><div class="status s">SOON</div></div>
+    <div class="row"><div class="n">11</div><div class="av" style="color: #1e40af;">SE</div><div class="info"><div class="nm">Security Engineer</div><div class="role">THREAT-MODEL · OWASP-AWARE · ASSUME-HOSTILE</div></div><div class="status s">SOON</div></div>
+    <div class="row"><div class="n">12</div><div class="av" style="color: var(--text-dim);">+ +</div><div class="info"><div class="nm">Submit your own profile</div><div class="role">COMMUNITY SUBMISSIONS · BEST GET ADDED</div></div><div class="status s">OPEN</div></div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>AIOPSFORGE · CONTEXT PROFILES · v0.2</span>
+    <div class="right"><a href="/community/">HUB</a><a href="/community/skills">SKILLS</a><a href="/community/prompts">PROMPTS</a><a href="/">HOME</a></div>
+    <span>LOAD A PROFILE · CHANGE THE OUTPUT</span>
   </div>
 </footer>
 <script>
-(function() {
-  var root = document.documentElement;
-  var floatingToggle = document.getElementById('floatingThemeToggle');
-  function applyTheme(theme) {
-    root.setAttribute('data-theme', theme);
-    var icon = theme === 'light' ? '\u263E' : '\u2600';
-    if (floatingToggle) floatingToggle.textContent = icon;
-  }
-  var stored = localStorage.getItem('aof_theme');
-  applyTheme(stored || 'dark');
-  function handleToggle() {
-    var current = root.getAttribute('data-theme');
-    var next = current === 'light' ? 'dark' : 'light';
-    localStorage.setItem('aof_theme', next);
-    applyTheme(next);
-  }
-  if (floatingToggle) floatingToggle.addEventListener('click', handleToggle);
-  var scrollBar = document.getElementById('scrollProgress');
-  if (scrollBar) {
-    window.addEventListener('scroll', function() {
-      var scrollTop = window.scrollY;
-      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      var percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      scrollBar.style.width = percent + '%';
-    }, { passive: true });
-  }
+(function() { var r = document.documentElement; var t = document.getElementById('floatingThemeToggle');
+function s(x) { r.setAttribute('data-theme', x); if (t) t.textContent = x === 'light' ? '☾' : '☀'; }
+s(localStorage.getItem('aof_theme') || 'dark');
+if (t) t.addEventListener('click', function() { var n = r.getAttribute('data-theme') === 'light' ? 'dark' : 'light'; localStorage.setItem('aof_theme', n); s(n); });
+var b = document.getElementById('scrollProgress');
+if (b) window.addEventListener('scroll', function() { var h = document.documentElement.scrollHeight - window.innerHeight; b.style.width = (h > 0 ? (window.scrollY/h)*100 : 0) + '%'; }, { passive: true });
 })();
 </script>
 </body>

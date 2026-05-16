@@ -3,209 +3,187 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Fundamentals Curriculum — AIOpsForge</title>
-<link rel="icon" type="image/png" href="../favicon.png">
+<title>AI Fundamentals Curriculum — AIOpsForge Community</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/design-system/tokens.css">
-<style>
-:root {
-  --green: #00FF41; --green-dim: #00cc34;
-  --green-glow: rgba(0, 255, 65, 0.15); --green-glow-strong: rgba(0, 255, 65, 0.3);
-  --bg-primary: #0a0a0a; --bg-secondary: #111111; --bg-tertiary: #161616;
-  --bg-card: #1a1a1a; --bg-card-hover: #222222;
-  --border: #2a2a2a; --border-green: rgba(0, 255, 65, 0.2);
-  --text-primary: #f0f0f0; --text-secondary: #999999; --text-dim: #666666;
-  --red: #ff4444; --blue: #4488ff;
-}
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --green: #00892e; --green-dim: #006b24;
-    --green-glow: rgba(0, 137, 46, 0.12); --green-glow-strong: rgba(0, 137, 46, 0.25);
-    --bg-primary: #f5f5f5; --bg-secondary: #ebebeb; --bg-tertiary: #e0e0e0;
-    --bg-card: #ffffff; --bg-card-hover: #f8f8f8;
-    --border: #d4d4d4; --border-green: rgba(0, 137, 46, 0.2);
-    --text-primary: #1a1a1a; --text-secondary: #555555; --text-dim: #888888;
-    --red: #cc3333; --blue: #2266cc;
-  }
-}
-:root[data-theme="light"] {
-  --green: #00892e; --green-dim: #006b24;
-  --green-glow: rgba(0, 137, 46, 0.12); --green-glow-strong: rgba(0, 137, 46, 0.25);
-  --bg-primary: #f5f5f5; --bg-secondary: #ebebeb; --bg-tertiary: #e0e0e0;
-  --bg-card: #ffffff; --bg-card-hover: #f8f8f8;
-  --border: #d4d4d4; --border-green: rgba(0, 137, 46, 0.2);
-  --text-primary: #1a1a1a; --text-secondary: #555555; --text-dim: #888888;
-  --red: #cc3333; --blue: #2266cc;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'IBM Plex Sans', sans-serif; background: var(--bg-primary);
-  color: var(--text-primary); line-height: 1.6; overflow-x: hidden;
-}
-.scroll-progress {
-  position: fixed; top: 0; left: 0; width: 0%; height: 3px;
-  background: var(--green);
-  box-shadow: 0 0 10px var(--green), 0 0 20px var(--green-glow-strong), 0 0 40px var(--green-glow);
-  z-index: 10000; transition: width 0.1s linear;
-}
-.floating-theme-toggle {
-  position: fixed; top: 20px; right: 24px; z-index: 999;
-  background: var(--bg-card); border: 1px solid var(--border);
-  color: var(--text-primary); cursor: pointer; width: 40px; height: 40px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px; transition: all 0.2s;
-  font-family: 'JetBrains Mono', monospace; line-height: 1;
-}
-.floating-theme-toggle:hover { color: var(--green); border-color: var(--border-green); }
-.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-.back-link {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-family: 'JetBrains Mono', monospace; font-size: 12px;
-  color: var(--text-dim); text-decoration: none; transition: color 0.2s;
-  padding-top: 24px;
-}
-.back-link:hover { color: var(--green); }
-.page-header {
-  padding: 60px 0 40px; text-align: center; position: relative;
-}
-.page-header::before {
-  content: ''; position: absolute; inset: -140px -20vw 0;
-  background: radial-gradient(ellipse at 50% 35%, var(--green-glow) 0%, transparent 48%);
-  pointer-events: none;
-}
-.page-label {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  letter-spacing: 3px; text-transform: uppercase; color: #4488ff;
-  margin-bottom: 16px; position: relative;
-}
-.page-title {
-  font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 5vw, 42px);
-  font-weight: 700; margin-bottom: 12px; position: relative;
-}
-.page-subtitle {
-  color: var(--text-secondary); font-size: 15px; max-width: 600px;
-  margin: 0 auto; line-height: 1.7; position: relative;
-}
-.coming-soon {
-  max-width: 500px; margin: 60px auto 120px; text-align: center;
-  background: var(--bg-card); border: 1px solid var(--border);
-  padding: 48px 32px; position: relative; overflow: hidden;
-}
-.coming-soon::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0;
-  height: 2px; background: #4488ff;
-}
-.coming-soon-icon {
-  font-size: 32px; margin-bottom: 16px; color: var(--text-dim);
-}
-.coming-soon-title {
-  font-family: 'Space Grotesk', sans-serif; font-size: 20px;
-  font-weight: 700; margin-bottom: 8px;
-}
-.coming-soon-desc {
-  color: var(--text-secondary); font-size: 13px; line-height: 1.6;
-}
-.footer {
-  padding: 40px 24px; border-top: 1px solid var(--border); text-align: center;
-}
-.footer-inner {
-  display: flex; justify-content: space-between; align-items: center;
-  max-width: 1100px; margin: 0 auto; font-size: 12px; color: var(--text-dim);
-}
-.footer a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
-.footer a:hover { color: var(--green); }
-.footer-links { display: flex; gap: 24px; }
-@media (max-width: 600px) {
-  .page-header { padding: 40px 0 32px; }
-  .footer-inner { flex-direction: column; gap: 16px; }
-}
-</style>
-<script>
-(function() {
-  var t = localStorage.getItem('aof_theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', t);
-})();
-</script>
-<!-- Privacy-friendly analytics by Plausible -->
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/design-system/tokens.css">
+<link rel="stylesheet" href="/community/_shared.css">
+
 <script async src="https://plausible.io/js/pa-rDlrb-w9Wsz9vcppD3o0K.js"></script>
 <script>
   window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
   plausible.init()
 </script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "AIOpsForge",
-  "url": "https://aiopsforge.dev",
-  "logo": "https://aiopsforge.dev/favicon.png",
-  "description": "AI systems community shipping production-grade builds every week. $9.99/month membership via Whop, with 2,000 monthly credits for aifounder.ca bundled.",
-  "sameAs": [
-    "https://whop.com/ai-ops-forge/",
-    "https://github.com/pravinemani5545/aiopsforge-landing"
-  ]
-}
-</script>
+
+<style>
+.curr-grid { display: grid; grid-template-columns: 280px 1fr; gap: 28px; margin-top: 32px; }
+.curr-rail { position: sticky; top: 88px; align-self: flex-start; border: 1px solid var(--border); background: var(--bg-card); padding: 18px 20px; display: flex; flex-direction: column; gap: 4px; }
+.curr-rail .head { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--text-dim); text-transform: uppercase; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 10px; display: flex; justify-content: space-between; }
+.curr-rail .head .pct { color: var(--green); }
+.curr-rail .week-link { display: grid; grid-template-columns: 36px 1fr auto; gap: 10px; align-items: center; padding: 8px 8px; font-size: 12px; color: var(--text-secondary); transition: all var(--dur-micro, 150ms) var(--ease); border-left: 2px solid transparent; }
+.curr-rail .week-link:hover { color: var(--green); border-left-color: var(--green); padding-left: 10px; }
+.curr-rail .week-link.done { color: var(--text-primary); }
+.curr-rail .week-link.now { color: var(--green); border-left-color: var(--green); padding-left: 10px; }
+.curr-rail .week-link .w { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-muted, #444); letter-spacing: 0.08em; }
+.curr-rail .week-link.done .w, .curr-rail .week-link.now .w { color: var(--green); }
+.curr-rail .week-link .marker { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.1em; color: var(--text-dim); }
+.curr-rail .week-link.done .marker, .curr-rail .week-link.now .marker { color: var(--green); }
+.curr-body { display: flex; flex-direction: column; gap: 32px; }
+.week-card { background: var(--bg-card); border: 1px solid var(--border); position: relative; }
+.week-card.live { border-color: var(--border-green); }
+.week-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--card-accent, var(--green)); opacity: 0.8; }
+.week-card.future { opacity: 0.6; }
+.week-head { display: flex; justify-content: space-between; align-items: center; padding: 18px 26px; border-bottom: 1px solid var(--border); background: var(--bg-tertiary); }
+.week-head .left { display: flex; align-items: center; gap: 14px; }
+.week-head .left .badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--green); text-transform: uppercase; padding: 4px 10px; border: 1px solid var(--border-green); }
+.week-card.done .week-head .left .badge { color: var(--green); border-color: var(--border-green); }
+.week-card.future .week-head .left .badge { color: var(--text-dim); border-color: var(--border); }
+.week-head .left h3 { font-family: 'Space Grotesk', sans-serif; font-size: 19px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; }
+.week-head .right { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase; }
+.week-body { padding: 24px 28px; }
+.week-body .lead { font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 20px; max-width: 760px; }
+.exercise-list { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+.exercise { background: var(--bg-tertiary); padding: 14px 18px; display: flex; flex-direction: column; gap: 4px; }
+.exercise .num { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; color: var(--green); text-transform: uppercase; }
+.exercise .nm { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: var(--text-primary); line-height: 1.3; }
+.exercise .min { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; }
+@media (max-width: 980px) { .curr-grid { grid-template-columns: 1fr; } .curr-rail { position: static; } .exercise-list { grid-template-columns: 1fr; } }
+</style>
 </head>
 <body>
-<script>
-if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/community/index.html'; }
-</script>
+<script>if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/community/'; }</script>
+
 <div class="scroll-progress" id="scrollProgress"></div>
 <button class="floating-theme-toggle" id="floatingThemeToggle">&#9728;</button>
-<div class="container">
-  <a href="/community/index.html" class="back-link">&larr; back to hub</a>
-  <div class="page-header">
-    <div class="page-label">ai-fundamentals</div>
-    <h1 class="page-title">AI Fundamentals Curriculum</h1>
-    <p class="page-subtitle">Core AI concepts and training modules. Build your foundation before shipping production systems.</p>
-  </div>
-  <div class="coming-soon">
-    <div class="coming-soon-icon">&#128736;</div>
-    <div class="coming-soon-title">Under Construction</div>
-    <p class="coming-soon-desc">This section is being built. Content will appear here as it's ready.</p>
-  </div>
+<div class="community-header">
+  <a href="/community/" class="back-link">&larr; HUB</a>
+  <span class="crumb"><span>COMMUNITY</span><span class="sep">/</span><span class="cur">AI FUNDAMENTALS</span></span>
 </div>
-<footer class="footer">
-  <div class="footer-inner">
-    <span style="font-family: 'JetBrains Mono', monospace;">AIOpsForge &middot; Community Workspace</span>
-    <div class="footer-links">
-      <a href="/community/index.html">Hub</a>
-      <a href="../index.html">Home</a>
+
+<section class="page-hero">
+  <div class="badge"><span class="dot"></span><span>03 · CURRICULUM · 7 WEEKS</span></div>
+  <h1>The hands-on AI foundation.<br><span class="accent">Short exercises, not 10 hours of video.</span></h1>
+  <p class="subtitle">A 7-week path where you actually prompt the models, break things, fix them, and understand what's happening. Read the orientation in each week, run the exercises in your own terminal, ship the proof-of-learning at the end. No grade, no quiz — just whether your build runs.</p>
+</section>
+
+<div class="progress-bar-wrap">
+  <div class="progress-bar-head"><span class="lab">WEEK 2 OF 7 LIVE · 5 QUEUED</span><span class="pct">29% COMPLETE</span></div>
+  <div class="progress-bar"><div class="fill" style="width: 29%;"></div></div>
+</div>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">the 7-week path</div>
+    <h2>Live weeks below — outlines for the rest.</h2>
+    <p>Two weeks have full content (Week 1 + Week 2). Five more are outlined so you see the destination. New week unlocks every 3-4 days.</p>
+  </div>
+
+  <div class="curr-grid">
+    <aside class="curr-rail">
+      <div class="head"><span>JUMP TO</span><span class="pct">29%</span></div>
+      <a href="#wk1" class="week-link done"><span class="w">WK 01</span><span>What is AI, really</span><span class="marker">DONE</span></a>
+      <a href="#wk2" class="week-link now"><span class="w">WK 02</span><span>Attention &amp; structure</span><span class="marker">NOW</span></a>
+      <a href="#wk3" class="week-link"><span class="w">WK 03</span><span>Context engineering</span><span class="marker">NEXT</span></a>
+      <a href="#wk4" class="week-link"><span class="w">WK 04</span><span>Systems thinking</span><span class="marker">SOON</span></a>
+      <a href="#wk5" class="week-link"><span class="w">WK 05</span><span>Vibe coding</span><span class="marker">SOON</span></a>
+      <a href="#wk6" class="week-link"><span class="w">WK 06</span><span>Building skills</span><span class="marker">SOON</span></a>
+      <a href="#wk7" class="week-link"><span class="w">WK 07</span><span>Writing with AI</span><span class="marker">SOON</span></a>
+    </aside>
+
+    <div class="curr-body">
+
+      <div class="week-card done" id="wk1">
+        <div class="week-head">
+          <div class="left"><span class="badge">WEEK 01 · LIVE</span><h3>What is AI, really.</h3></div>
+          <div class="right">2 HRS · 4 EXERCISES</div>
+        </div>
+        <div class="week-body">
+          <p class="lead">Strip the marketing. What a language model actually does, token by token. Why "AI is just autocomplete" is both true and useless. You'll prompt a model 5 times the same way and 5 times completely differently to feel the difference yourself.</p>
+          <div class="exercise-list">
+            <div class="exercise"><span class="num">EX 01 · 15 MIN</span><span class="nm">Tokenize 6 sentences. Predict next-token by hand.</span><span class="min">no code · pen + paper</span></div>
+            <div class="exercise"><span class="num">EX 02 · 20 MIN</span><span class="nm">Same prompt, 5 temperatures. Diff the output.</span><span class="min">claude API · curl</span></div>
+            <div class="exercise"><span class="num">EX 03 · 25 MIN</span><span class="nm">Build a system prompt that changes outputs predictably.</span><span class="min">claude code</span></div>
+            <div class="exercise"><span class="num">EX 04 · 30 MIN</span><span class="nm">Ship: a 1-paragraph "what is AI" you'd give a non-tech friend.</span><span class="min">your words</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="week-card live" id="wk2">
+        <div class="week-head">
+          <div class="left"><span class="badge">WEEK 02 · NOW</span><h3>Attention &amp; structure.</h3></div>
+          <div class="right">2 HRS · 4 EXERCISES</div>
+        </div>
+        <div class="week-body">
+          <p class="lead">Why where information sits in your prompt matters more than what's in it. You'll discover attention by breaking it — long prompts where the model "forgets" the middle, structured prompts that survive 10x the length. The lesson: structure is leverage.</p>
+          <div class="exercise-list">
+            <div class="exercise"><span class="num">EX 01 · 20 MIN</span><span class="nm">Bury an instruction in a 3000-word prompt. Watch it fail.</span><span class="min">claude code</span></div>
+            <div class="exercise"><span class="num">EX 02 · 25 MIN</span><span class="nm">Add XML tags. Watch it recover. Diff the cost.</span><span class="min">claude API</span></div>
+            <div class="exercise"><span class="num">EX 03 · 30 MIN</span><span class="nm">Write a structured prompt for a real task you have today.</span><span class="min">your task</span></div>
+            <div class="exercise"><span class="num">EX 04 · 25 MIN</span><span class="nm">Ship: one repeatable prompt for your daily workflow.</span><span class="min">save to /community/prompts</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="week-card future" id="wk3">
+        <div class="week-head">
+          <div class="left"><span class="badge">WEEK 03 · NEXT</span><h3>Context engineering.</h3></div>
+          <div class="right">~2 HRS · OUTLINED</div>
+        </div>
+        <div class="week-body">
+          <p class="lead">Beyond prompting — when to load CLAUDE.md, when to use system messages, when to load files, when to use sub-agents. The skill that separates "prompt user" from "AI engineer."</p>
+        </div>
+      </div>
+
+      <div class="week-card future" id="wk4">
+        <div class="week-head">
+          <div class="left"><span class="badge">WEEK 04 · SOON</span><h3>Systems thinking for AI.</h3></div>
+          <div class="right">~2 HRS · OUTLINED</div>
+        </div>
+      </div>
+
+      <div class="week-card future" id="wk5">
+        <div class="week-head">
+          <div class="left"><span class="badge">WEEK 05 · SOON</span><h3>Vibe coding with Claude Code.</h3></div>
+          <div class="right">~2 HRS · OUTLINED</div>
+        </div>
+      </div>
+
+      <div class="week-card future" id="wk6">
+        <div class="week-head">
+          <div class="left"><span class="badge">WEEK 06 · SOON</span><h3>Building skills and sub-agents.</h3></div>
+          <div class="right">~2 HRS · OUTLINED</div>
+        </div>
+      </div>
+
+      <div class="week-card future" id="wk7">
+        <div class="week-head">
+          <div class="left"><span class="badge">WEEK 07 · SOON</span><h3>Writing with AI without losing your voice.</h3></div>
+          <div class="right">~2 HRS · OUTLINED</div>
+        </div>
+      </div>
+
     </div>
-    <span>built by an engineer who ships</span>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>AIOPSFORGE · CURRICULUM · v0.2</span>
+    <div class="right"><a href="/community/">HUB</a><a href="/community/weekly-guides">WEEKLY</a><a href="/community/skills">SKILLS</a><a href="/">HOME</a></div>
+    <span>HANDS-ON · NOT 10 HOURS OF VIDEO</span>
   </div>
 </footer>
+
 <script>
-(function() {
-  var root = document.documentElement;
-  var floatingToggle = document.getElementById('floatingThemeToggle');
-  function applyTheme(theme) {
-    root.setAttribute('data-theme', theme);
-    var icon = theme === 'light' ? '\u263E' : '\u2600';
-    if (floatingToggle) floatingToggle.textContent = icon;
-  }
-  var stored = localStorage.getItem('aof_theme');
-  applyTheme(stored || 'dark');
-  function handleToggle() {
-    var current = root.getAttribute('data-theme');
-    var next = current === 'light' ? 'dark' : 'light';
-    localStorage.setItem('aof_theme', next);
-    applyTheme(next);
-  }
-  if (floatingToggle) floatingToggle.addEventListener('click', handleToggle);
-  var scrollBar = document.getElementById('scrollProgress');
-  if (scrollBar) {
-    window.addEventListener('scroll', function() {
-      var scrollTop = window.scrollY;
-      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      var percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      scrollBar.style.width = percent + '%';
-    }, { passive: true });
-  }
+(function() { var root = document.documentElement; var t = document.getElementById('floatingThemeToggle');
+function set(x) { root.setAttribute('data-theme', x); if (t) t.textContent = x === 'light' ? '☾' : '☀'; }
+set(localStorage.getItem('aof_theme') || 'dark');
+if (t) t.addEventListener('click', function() { var n = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light'; localStorage.setItem('aof_theme', n); set(n); });
+var b = document.getElementById('scrollProgress');
+if (b) window.addEventListener('scroll', function() { var s = document.documentElement.scrollHeight - window.innerHeight; b.style.width = (s > 0 ? (window.scrollY/s)*100 : 0) + '%'; }, { passive: true });
 })();
 </script>
 </body>

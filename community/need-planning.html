@@ -3,209 +3,187 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Need Planning — AIOpsForge</title>
-<link rel="icon" type="image/png" href="../favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/design-system/tokens.css">
-<style>
-:root {
-  --green: #00FF41; --green-dim: #00cc34;
-  --green-glow: rgba(0, 255, 65, 0.15); --green-glow-strong: rgba(0, 255, 65, 0.3);
-  --bg-primary: #0a0a0a; --bg-secondary: #111111; --bg-tertiary: #161616;
-  --bg-card: #1a1a1a; --bg-card-hover: #222222;
-  --border: #2a2a2a; --border-green: rgba(0, 255, 65, 0.2);
-  --text-primary: #f0f0f0; --text-secondary: #999999; --text-dim: #666666;
-  --red: #ff4444; --blue: #4488ff;
-}
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --green: #00892e; --green-dim: #006b24;
-    --green-glow: rgba(0, 137, 46, 0.12); --green-glow-strong: rgba(0, 137, 46, 0.25);
-    --bg-primary: #f5f5f5; --bg-secondary: #ebebeb; --bg-tertiary: #e0e0e0;
-    --bg-card: #ffffff; --bg-card-hover: #f8f8f8;
-    --border: #d4d4d4; --border-green: rgba(0, 137, 46, 0.2);
-    --text-primary: #1a1a1a; --text-secondary: #555555; --text-dim: #888888;
-    --red: #cc3333; --blue: #2266cc;
-  }
-}
-:root[data-theme="light"] {
-  --green: #00892e; --green-dim: #006b24;
-  --green-glow: rgba(0, 137, 46, 0.12); --green-glow-strong: rgba(0, 137, 46, 0.25);
-  --bg-primary: #f5f5f5; --bg-secondary: #ebebeb; --bg-tertiary: #e0e0e0;
-  --bg-card: #ffffff; --bg-card-hover: #f8f8f8;
-  --border: #d4d4d4; --border-green: rgba(0, 137, 46, 0.2);
-  --text-primary: #1a1a1a; --text-secondary: #555555; --text-dim: #888888;
-  --red: #cc3333; --blue: #2266cc;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'IBM Plex Sans', sans-serif; background: var(--bg-primary);
-  color: var(--text-primary); line-height: 1.6; overflow-x: hidden;
-}
-.scroll-progress {
-  position: fixed; top: 0; left: 0; width: 0%; height: 3px;
-  background: var(--green);
-  box-shadow: 0 0 10px var(--green), 0 0 20px var(--green-glow-strong), 0 0 40px var(--green-glow);
-  z-index: 10000; transition: width 0.1s linear;
-}
-.floating-theme-toggle {
-  position: fixed; top: 20px; right: 24px; z-index: 999;
-  background: var(--bg-card); border: 1px solid var(--border);
-  color: var(--text-primary); cursor: pointer; width: 40px; height: 40px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px; transition: all 0.2s;
-  font-family: 'JetBrains Mono', monospace; line-height: 1;
-}
-.floating-theme-toggle:hover { color: var(--green); border-color: var(--border-green); }
-.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-.back-link {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-family: 'JetBrains Mono', monospace; font-size: 12px;
-  color: var(--text-dim); text-decoration: none; transition: color 0.2s;
-  padding-top: 24px;
-}
-.back-link:hover { color: var(--green); }
-.page-header {
-  padding: 60px 0 40px; text-align: center; position: relative;
-}
-.page-header::before {
-  content: ''; position: absolute; inset: -140px -20vw 0;
-  background: radial-gradient(ellipse at 50% 35%, var(--green-glow) 0%, transparent 48%);
-  pointer-events: none;
-}
-.page-label {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  letter-spacing: 3px; text-transform: uppercase; color: #f97316;
-  margin-bottom: 16px; position: relative;
-}
-.page-title {
-  font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 5vw, 42px);
-  font-weight: 700; margin-bottom: 12px; position: relative;
-}
-.page-subtitle {
-  color: var(--text-secondary); font-size: 15px; max-width: 600px;
-  margin: 0 auto; line-height: 1.7; position: relative;
-}
-.coming-soon {
-  max-width: 500px; margin: 60px auto 120px; text-align: center;
-  background: var(--bg-card); border: 1px solid var(--border);
-  padding: 48px 32px; position: relative; overflow: hidden;
-}
-.coming-soon::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0;
-  height: 2px; background: #f97316;
-}
-.coming-soon-icon {
-  font-size: 32px; margin-bottom: 16px; color: var(--text-dim);
-}
-.coming-soon-title {
-  font-family: 'Space Grotesk', sans-serif; font-size: 20px;
-  font-weight: 700; margin-bottom: 8px;
-}
-.coming-soon-desc {
-  color: var(--text-secondary); font-size: 13px; line-height: 1.6;
-}
-.footer {
-  padding: 40px 24px; border-top: 1px solid var(--border); text-align: center;
-}
-.footer-inner {
-  display: flex; justify-content: space-between; align-items: center;
-  max-width: 1100px; margin: 0 auto; font-size: 12px; color: var(--text-dim);
-}
-.footer a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
-.footer a:hover { color: var(--green); }
-.footer-links { display: flex; gap: 24px; }
-@media (max-width: 600px) {
-  .page-header { padding: 40px 0 32px; }
-  .footer-inner { flex-direction: column; gap: 16px; }
-}
-</style>
-<script>
-(function() {
-  var t = localStorage.getItem('aof_theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', t);
-})();
-</script>
-<!-- Privacy-friendly analytics by Plausible -->
+<title>Need Planning — AIOpsForge Community</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/design-system/tokens.css">
+<link rel="stylesheet" href="/community/_shared.css">
 <script async src="https://plausible.io/js/pa-rDlrb-w9Wsz9vcppD3o0K.js"></script>
-<script>
-  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-  plausible.init()
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "AIOpsForge",
-  "url": "https://aiopsforge.dev",
-  "logo": "https://aiopsforge.dev/favicon.png",
-  "description": "AI systems community shipping production-grade builds every week. $9.99/month membership via Whop, with 2,000 monthly credits for aifounder.ca bundled.",
-  "sameAs": [
-    "https://whop.com/ai-ops-forge/",
-    "https://github.com/pravinemani5545/aiopsforge-landing"
-  ]
-}
-</script>
+<script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+<style>
+.intake-wrap { background: var(--bg-card); border: 1px solid var(--border-green); position: relative; margin-top: 32px; }
+.intake-wrap::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--green); }
+.intake-head { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid var(--border); background: var(--bg-tertiary); font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+.intake-head .left { color: var(--text-dim); }
+.intake-head .right { color: var(--green); }
+.intake-body { padding: 28px 30px; display: flex; flex-direction: column; gap: 24px; }
+.q-block { display: flex; flex-direction: column; gap: 10px; }
+.q-block .num { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--green); text-transform: uppercase; }
+.q-block h3 { font-family: 'Space Grotesk', sans-serif; font-size: 19px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; line-height: 1.3; }
+.q-block .hint { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+.q-block .options { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+.q-block .option { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 12px; background: var(--bg-tertiary); border: 1px solid var(--border); color: var(--text-secondary); cursor: default; transition: all var(--dur-micro, 150ms) var(--ease); }
+.q-block .option:hover { border-color: var(--green); color: var(--green); }
+.q-block .option.selected { background: rgba(0, 255, 65, 0.08); border-color: var(--green); color: var(--green); }
+.q-block .text-input { padding: 12px 16px; background: var(--bg-tertiary); border: 1px solid var(--border); font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; color: var(--text-dim); }
+.q-block .text-input.filled { color: var(--text-primary); border-color: var(--border-green); }
+.intake-output { background: var(--bg-tertiary); border-top: 1px solid var(--border); padding: 24px 30px; }
+.intake-output .lab { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--green); text-transform: uppercase; margin-bottom: 10px; }
+.intake-output .out-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.intake-output .out-cell { background: var(--bg-card); border: 1px solid var(--border); padding: 14px 18px; }
+.intake-output .out-cell .k { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px; }
+.intake-output .out-cell .v { font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; color: var(--text-primary); line-height: 1.45; }
+.intake-output .out-cell .v .acc { color: var(--green); }
+.intake-cta { margin-top: 14px; padding: 14px 18px; background: var(--green); color: var(--bg-primary); display: inline-flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; cursor: default; }
+.flow-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 32px; }
+.flow-step { background: var(--bg-card); border: 1px solid var(--border); padding: 22px 24px; position: relative; }
+.flow-step::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--green); }
+.flow-step .num { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--green); text-transform: uppercase; margin-bottom: 8px; }
+.flow-step h4 { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+.flow-step p { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+@media (max-width: 980px) { .intake-output .out-grid { grid-template-columns: 1fr; } .flow-grid { grid-template-columns: 1fr; } }
+</style>
 </head>
 <body>
-<script>
-if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/community/index.html'; }
-</script>
+<script>if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/community/'; }</script>
 <div class="scroll-progress" id="scrollProgress"></div>
 <button class="floating-theme-toggle" id="floatingThemeToggle">&#9728;</button>
-<div class="container">
-  <a href="/community/index.html" class="back-link">&larr; back to hub</a>
-  <div class="page-header">
-    <div class="page-label">need-planning</div>
-    <h1 class="page-title">Need Planning</h1>
-    <p class="page-subtitle">Planning tools and frameworks. Scope projects, estimate costs, and architect systems before you build.</p>
-  </div>
-  <div class="coming-soon">
-    <div class="coming-soon-icon">&#128736;</div>
-    <div class="coming-soon-title">Under Construction</div>
-    <p class="coming-soon-desc">This section is being built. Content will appear here as it's ready.</p>
-  </div>
+<div class="community-header"><a href="/community/" class="back-link">&larr; HUB</a><span class="crumb"><span>COMMUNITY</span><span class="sep">/</span><span class="cur">NEED PLANNING</span></span></div>
+
+<section class="page-hero">
+  <div class="badge"><span class="dot"></span><span>13 · PLANNING · TURNS IDEAS INTO BUILDS</span></div>
+  <h1>Vague AI idea?<br><span class="accent">Five questions and you're shipping.</span></h1>
+  <p class="subtitle">Most "I want to build something with AI" stops at the idea. This intake forces you through 5 questions that scope, sequence, and time-box the work — output is a specific build, the right weekly guide, and a ship-by date. Takes 6 minutes.</p>
+</section>
+
+<div class="progress-bar-wrap">
+  <div class="progress-bar-head"><span class="lab">INTAKE TOOL LIVE · 2 OF 5 QUESTIONS DRAFTED IN DETAIL</span><span class="pct">FUNCTIONAL</span></div>
+  <div class="progress-bar"><div class="fill" style="width: 40%;"></div></div>
 </div>
-<footer class="footer">
-  <div class="footer-inner">
-    <span style="font-family: 'JetBrains Mono', monospace;">AIOpsForge &middot; Community Workspace</span>
-    <div class="footer-links">
-      <a href="/community/index.html">Hub</a>
-      <a href="../index.html">Home</a>
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">the intake · 5 questions</div>
+    <h2>A sample run, end-to-end.</h2>
+    <p>This is what filling out the intake actually looks like — questions, sample answers, the routing output at the end. The live form prefills your selections to skip the second time around.</p>
+  </div>
+
+  <div class="intake-wrap">
+    <div class="intake-head">
+      <div class="left">~/need-planning · intake-form</div>
+      <div class="right">SESSION 09:14 ET</div>
     </div>
-    <span>built by an engineer who ships</span>
+    <div class="intake-body">
+
+      <div class="q-block">
+        <div class="num">Q 01 / 5 · DETAILED</div>
+        <h3>What outcome do you need by Friday?</h3>
+        <p class="hint">Not "learn AI." Not "build an agent." The actual change in your day or your business. "I'd like 2 hours back from research" or "I want client onboarding to run without me touching it."</p>
+        <div class="text-input filled">I want 2 hours back per day on competitive research — right now I check 8 sources manually.</div>
+      </div>
+
+      <div class="q-block">
+        <div class="num">Q 02 / 5 · DETAILED</div>
+        <h3>What's blocking you today?</h3>
+        <p class="hint">Pick all that apply. The intake routes around whatever blockers you flag.</p>
+        <div class="options">
+          <span class="option selected">DON'T KNOW WHICH AI MODEL</span>
+          <span class="option selected">DON'T KNOW HOW TO DEPLOY</span>
+          <span class="option">NO BUDGET FOR PAID API</span>
+          <span class="option">CAN'T CODE</span>
+          <span class="option selected">TIME — &lt; 1 HR/DAY</span>
+          <span class="option">NONE — JUST STARTED</span>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="num">Q 03 / 5 · OUTLINED</div>
+        <h3>What inputs do you already have?</h3>
+        <p class="hint">URLs, account access, existing prompts, source documents — anything that means we're not starting from zero.</p>
+      </div>
+
+      <div class="q-block">
+        <div class="num">Q 04 / 5 · OUTLINED</div>
+        <h3>Which skills + tools are you willing to use?</h3>
+        <p class="hint">Constrains the recommendation. If you won't write code, the intake routes to a no-code variant. If you're a Claude Code user, it routes to that.</p>
+      </div>
+
+      <div class="q-block">
+        <div class="num">Q 05 / 5 · OUTLINED</div>
+        <h3>What ship date forces a scope cut?</h3>
+        <p class="hint">No date = no shipping. Pick a real date. The intake cuts scope to fit.</p>
+      </div>
+
+    </div>
+
+    <div class="intake-output">
+      <div class="lab">ROUTING OUTPUT — BASED ON YOUR ANSWERS</div>
+      <div class="out-grid">
+        <div class="out-cell">
+          <div class="k">RECOMMENDED BUILD</div>
+          <div class="v"><span class="acc">Week 21 · Automate competitive research with Claude + Vercel cron</span> — matches your outcome, fits your time budget</div>
+        </div>
+        <div class="out-cell">
+          <div class="k">SUPPORTING SKILL</div>
+          <div class="v"><span class="acc">Claude Code MCP servers</span> — addresses your "don't know which model" blocker</div>
+        </div>
+        <div class="out-cell">
+          <div class="k">ESTIMATED BUILD TIME</div>
+          <div class="v"><span class="acc">28 min</span> · fits within 1 hr/day cap</div>
+        </div>
+        <div class="out-cell">
+          <div class="k">SHIP-BY</div>
+          <div class="v"><span class="acc">Friday 5pm ET</span> · 3 days from now</div>
+        </div>
+      </div>
+      <div class="intake-cta">OPEN THE WEEK 21 GUIDE →</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">why this works</div>
+    <h2>The intake replaces three weeks of wandering.</h2>
+    <p>Most people who say "I want to build with AI" spend 3 weeks reading content before deciding what to build. The intake compresses that to 6 minutes.</p>
+  </div>
+
+  <div class="flow-grid">
+    <div class="flow-step">
+      <div class="num">PROBLEM</div>
+      <h4>Idea inflation</h4>
+      <p>You start with "automate research." Then "build a research agent." Then "build a research platform with auth and a UI." By week 2 you've shipped nothing.</p>
+    </div>
+    <div class="flow-step">
+      <div class="num">INTERVENTION</div>
+      <h4>Force a scope cut</h4>
+      <p>Q5 demands a real ship date. The intake auto-trims your scope to what fits. The platform version goes on the "next quarter" list.</p>
+    </div>
+    <div class="flow-step">
+      <div class="num">OUTPUT</div>
+      <h4>A specific build, picked + scheduled</h4>
+      <p>You leave with: a weekly guide link, an estimated build time, a ship-by date, and the supporting skill cheatsheet. Now you just execute.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>AIOPSFORGE · NEED PLANNING · v0.2</span>
+    <div class="right"><a href="/community/">HUB</a><a href="/community/weekly-guides">WEEKLY</a><a href="/community/start-here">START HERE</a><a href="/">HOME</a></div>
+    <span>5 QUESTIONS · 6 MINUTES · SHIPS YOU</span>
   </div>
 </footer>
 <script>
-(function() {
-  var root = document.documentElement;
-  var floatingToggle = document.getElementById('floatingThemeToggle');
-  function applyTheme(theme) {
-    root.setAttribute('data-theme', theme);
-    var icon = theme === 'light' ? '\u263E' : '\u2600';
-    if (floatingToggle) floatingToggle.textContent = icon;
-  }
-  var stored = localStorage.getItem('aof_theme');
-  applyTheme(stored || 'dark');
-  function handleToggle() {
-    var current = root.getAttribute('data-theme');
-    var next = current === 'light' ? 'dark' : 'light';
-    localStorage.setItem('aof_theme', next);
-    applyTheme(next);
-  }
-  if (floatingToggle) floatingToggle.addEventListener('click', handleToggle);
-  var scrollBar = document.getElementById('scrollProgress');
-  if (scrollBar) {
-    window.addEventListener('scroll', function() {
-      var scrollTop = window.scrollY;
-      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      var percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      scrollBar.style.width = percent + '%';
-    }, { passive: true });
-  }
+(function() { var r = document.documentElement; var t = document.getElementById('floatingThemeToggle');
+function s(x) { r.setAttribute('data-theme', x); if (t) t.textContent = x === 'light' ? '☾' : '☀'; }
+s(localStorage.getItem('aof_theme') || 'dark');
+if (t) t.addEventListener('click', function() { var n = r.getAttribute('data-theme') === 'light' ? 'dark' : 'light'; localStorage.setItem('aof_theme', n); s(n); });
+var b = document.getElementById('scrollProgress');
+if (b) window.addEventListener('scroll', function() { var h = document.documentElement.scrollHeight - window.innerHeight; b.style.width = (h > 0 ? (window.scrollY/h)*100 : 0) + '%'; }, { passive: true });
 })();
 </script>
 </body>
