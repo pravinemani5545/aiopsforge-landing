@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cheatsheets — AIOpsForge Community</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/design-system/tokens.css">
+<link rel="stylesheet" href="/community/_shared.css">
+
+<script async src="https://plausible.io/js/pa-rDlrb-w9Wsz9vcppD3o0K.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+
+<style>
+/* ===== Page-specific: cheatsheet detail ===== */
+.cheat-toc {
+  display: grid; grid-template-columns: 240px 1fr;
+  gap: 32px; margin-top: 32px;
+}
+.toc-rail {
+  position: sticky; top: 88px;
+  align-self: flex-start;
+  background: var(--bg-card); border: 1px solid var(--border);
+  padding: 18px 20px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+}
+.toc-rail .head {
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text-dim); padding-bottom: 12px; margin-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.toc-rail ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.toc-rail li a {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 8px; color: var(--text-secondary);
+  font-size: 11px; letter-spacing: 0.04em;
+  transition: all var(--dur-micro, 150ms) var(--ease);
+  border-left: 2px solid transparent;
+}
+.toc-rail li a:hover { color: var(--green); border-left-color: var(--green); padding-left: 12px; }
+.toc-rail li a .n { color: var(--text-muted, #444); min-width: 16px; }
+
+.cheat-body { display: flex; flex-direction: column; gap: 16px; }
+
+.cheat-section {
+  background: var(--bg-card); border: 1px solid var(--border);
+  padding: 0; position: relative;
+}
+.cheat-section::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--green);
+}
+.cheat-section .sec-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 20px; border-bottom: 1px solid var(--border);
+  background: var(--bg-tertiary);
+}
+.cheat-section .sec-head .title {
+  display: flex; align-items: baseline; gap: 12px;
+}
+.cheat-section .sec-head .title .id {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 0.12em; color: var(--green); text-transform: uppercase;
+}
+.cheat-section .sec-head .title h3 {
+  font-family: 'Space Grotesk', sans-serif; font-size: 17px;
+  font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em;
+}
+.cheat-section .sec-head .count {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase;
+}
+
+.cheat-grid {
+  padding: 16px 20px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+}
+.cheat-row {
+  display: grid; grid-template-columns: minmax(120px, max-content) 1fr;
+  align-items: baseline; gap: 16px;
+  padding: 9px 0;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border);
+}
+.cheat-row:last-child, .cheat-row:nth-last-child(2) { border-bottom: none; }
+.cheat-row .keys {
+  display: flex; gap: 4px; align-items: center;
+  flex-wrap: wrap;
+}
+.cheat-row kbd {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500;
+  padding: 3px 7px; background: var(--bg-tertiary);
+  border: 1px solid var(--border-strong, #3a3a3a);
+  color: var(--green);
+  min-width: 24px; text-align: center;
+  display: inline-block;
+}
+.cheat-row kbd.plain { color: var(--text-secondary); }
+.cheat-row kbd.cmd { color: #ffd84a; border-color: rgba(255,216,74,0.3); }
+.cheat-row .plus {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--text-muted, #444);
+}
+.cheat-row .act {
+  font-family: 'IBM Plex Sans', sans-serif; font-size: 13px;
+  color: var(--text-secondary); line-height: 1.45;
+}
+.cheat-row .act .hl { color: var(--text-primary); font-weight: 500; }
+
+/* Single-column variant for narrow sections */
+.cheat-grid.one-col { grid-template-columns: 1fr; }
+.cheat-grid.one-col .cheat-row { border-bottom: 1px solid var(--border); }
+.cheat-grid.one-col .cheat-row:last-child { border-bottom: none; }
+
+/* Section note (callout style) */
+.sec-note {
+  margin: 0 20px 16px;
+  padding: 12px 16px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--green);
+  font-family: 'IBM Plex Sans', sans-serif; font-size: 13px;
+  color: var(--text-secondary); line-height: 1.55;
+}
+.sec-note .lab {
+  display: inline-block; margin-right: 8px;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 0.12em; color: var(--green); text-transform: uppercase;
+}
+
+/* Cheatsheet index — list of all sheets */
+.sheet-list {
+  display: grid; grid-template-columns: 1fr; gap: 0;
+  border: 1px solid var(--border); background: var(--bg-card);
+}
+.sheet-list a, .sheet-list .row {
+  display: grid; grid-template-columns: 40px 1fr auto auto;
+  align-items: center; gap: 16px;
+  padding: 18px 24px; border-bottom: 1px solid var(--border);
+  transition: all var(--dur-micro, 150ms) var(--ease);
+}
+.sheet-list a:last-child, .sheet-list .row:last-child { border-bottom: none; }
+.sheet-list a:hover { background: var(--bg-card-hover); border-left: 2px solid var(--green); padding-left: 22px; }
+.sheet-list .n {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  letter-spacing: 0.1em; color: var(--text-muted, #444); text-align: right;
+}
+.sheet-list .info .nm {
+  font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600;
+  color: var(--text-primary); margin-bottom: 3px;
+}
+.sheet-list .info .desc {
+  font-family: 'IBM Plex Sans', sans-serif; font-size: 13px;
+  color: var(--text-secondary); line-height: 1.45;
+}
+.sheet-list .row .info .nm { color: var(--text-secondary); }
+.sheet-list .row .info .desc { color: var(--text-dim); }
+.sheet-list .meta {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase;
+}
+.sheet-list .status {
+  padding: 3px 8px; font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  border: 1px solid currentColor;
+}
+.sheet-list .status.live { color: var(--green); }
+.sheet-list .status.queued { color: #ffd84a; }
+.sheet-list .status.drafting { color: #a855f7; }
+.sheet-list .status.soon { color: var(--text-dim); }
+
+/* Anchor-target offset (sticky header) */
+.cheat-section[id] { scroll-margin-top: 88px; }
+
+@media (max-width: 980px) {
+  .cheat-toc { grid-template-columns: 1fr; }
+  .toc-rail { position: static; }
+  .cheat-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<script>
+if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/community/'; }
+</script>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+<button class="floating-theme-toggle" id="floatingThemeToggle">&#9728;</button>
+
+<div class="community-header">
+  <a href="/community/" class="back-link">&larr; HUB</a>
+  <span class="crumb">
+    <span>COMMUNITY</span><span class="sep">/</span><span class="cur">CHEATSHEETS</span>
+  </span>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="page-hero">
+  <div class="badge">
+    <span class="dot"></span>
+    <span>12 · CHEATSHEETS · 1 LIVE</span>
+  </div>
+  <h1>One-page references.<br><span class="accent">Print, pin, ship.</span></h1>
+  <p class="subtitle">Concise references for the tools and patterns you'll use every day. Each cheatsheet is a single page — keyboard shortcuts, slash commands, flag flags, escape hatches. Designed to print and tape next to your monitor.</p>
+</section>
+
+<!-- ===== PROGRESS BAR ===== -->
+<div class="progress-bar-wrap">
+  <div class="progress-bar-head">
+    <span class="lab">1 OF 12 SHIPPED · 11 COMING</span>
+    <span class="pct">8% COMPLETE</span>
+  </div>
+  <div class="progress-bar"><div class="fill" style="width: 8%;"></div></div>
+</div>
+
+<!-- ===== ALL CHEATSHEETS — INDEX ===== -->
+<section class="section">
+  <div class="section-head">
+    <div class="label">cheatsheet index</div>
+    <h2>What's live and what's queued.</h2>
+    <p>Every cheatsheet planned. The Claude Code sheet below is the first complete one — the rest follow as I work through them. Tap any live entry to open.</p>
+  </div>
+
+  <div class="sheet-list">
+    <a href="#claude-code">
+      <div class="n">01</div>
+      <div class="info">
+        <div class="nm">Claude Code</div>
+        <div class="desc">Slash commands, hooks, MCP, sub-agents, headless mode, keyboard shortcuts</div>
+      </div>
+      <div class="meta">~600 LINES · 12 SECTIONS</div>
+      <div class="status live">LIVE</div>
+    </a>
+    <div class="row">
+      <div class="n">02</div>
+      <div class="info">
+        <div class="nm">Vercel CLI + cron</div>
+        <div class="desc">Deploy commands, cron syntax, environment management, edge functions</div>
+      </div>
+      <div class="meta">QUEUED</div>
+      <div class="status queued">NEXT</div>
+    </div>
+    <div class="row">
+      <div class="n">03</div>
+      <div class="info">
+        <div class="nm">Cursor rules + Composer</div>
+        <div class="desc">Cursor-specific shortcuts, rules syntax, agent mode, multi-file edits</div>
+      </div>
+      <div class="meta">DRAFTING</div>
+      <div class="status drafting">DRAFT</div>
+    </div>
+    <div class="row">
+      <div class="n">04</div>
+      <div class="info">
+        <div class="nm">MCP servers</div>
+        <div class="desc">Building, debugging, common patterns, Anthropic-published servers</div>
+      </div>
+      <div class="meta">QUEUED</div>
+      <div class="status queued">NEXT</div>
+    </div>
+    <div class="row">
+      <div class="n">05</div>
+      <div class="info">
+        <div class="nm">Prompt engineering</div>
+        <div class="desc">XML tags, system prompts, few-shot patterns, escape hatches</div>
+      </div>
+      <div class="meta">SOON</div>
+      <div class="status soon">SOON</div>
+    </div>
+    <div class="row">
+      <div class="n">06</div>
+      <div class="info">
+        <div class="nm">Git + GitHub power moves</div>
+        <div class="desc">Worktrees, interactive rebase, gh CLI, bisect, reflog recovery</div>
+      </div>
+      <div class="meta">SOON</div>
+      <div class="status soon">SOON</div>
+    </div>
+    <div class="row">
+      <div class="n">07</div>
+      <div class="info">
+        <div class="nm">Tailwind v4</div>
+        <div class="desc">Token reference, plugins, dark-mode variants, container queries</div>
+      </div>
+      <div class="meta">SOON</div>
+      <div class="status soon">SOON</div>
+    </div>
+    <div class="row">
+      <div class="n">08</div>
+      <div class="info">
+        <div class="nm">Supabase + Postgres</div>
+        <div class="desc">RLS policies, edge functions, type-gen, common psql commands</div>
+      </div>
+      <div class="meta">SOON</div>
+      <div class="status soon">SOON</div>
+    </div>
+    <div class="row">
+      <div class="n">09</div>
+      <div class="info">
+        <div class="nm">Beehiiv API</div>
+        <div class="desc">Subscriber endpoints, automation triggers, tag management, webhooks</div>
+      </div>
+      <div class="meta">SOON</div>
+      <div class="status soon">SOON</div>
+    </div>
+    <div class="row">
+      <div class="n">10</div>
+      <div class="info">
+        <div class="nm">Whop API + webhooks</div>
+        <div class="desc">Member events, HMAC verification, sandbox testing, common patterns</div>
+      </div>
+      <div class="meta">SOON</div>
+      <div class="status soon">SOON</div>
+    </div>
+    <div class="row">
+      <div class="n">11</div>
+      <div class="info">
+        <div class="nm">Shell power-user (zsh)</div>
+        <div class="desc">jq, fzf, ripgrep, fd, tmux, gh, common pipelines</div>
+      </div>
+      <div class="meta">SOON</div>
+      <div class="status soon">SOON</div>
+    </div>
+    <div class="row">
+      <div class="n">12</div>
+      <div class="info">
+        <div class="nm">Schema.org for AI search</div>
+        <div class="desc">FAQPage, HowTo, Organization, Article — JSON-LD templates</div>
+      </div>
+      <div class="meta">SOON</div>
+      <div class="status soon">SOON</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ===== CHEATSHEET 01 · CLAUDE CODE — FULL DETAIL ===== -->
+<section class="section" id="claude-code">
+  <div class="section-head">
+    <div class="label">cheatsheet 01 · claude code</div>
+    <h2>The Claude Code reference.</h2>
+    <p>Every command, hook, slash, and shortcut I actually use. Organized by what you'd reach for when. Print this. Tape it next to your monitor.</p>
+  </div>
+
+  <div class="cheat-toc">
+    <aside class="toc-rail">
+      <div class="head">JUMP TO</div>
+      <ul>
+        <li><a href="#cc-slash"><span class="n">01</span>Slash commands</a></li>
+        <li><a href="#cc-shortcuts"><span class="n">02</span>Keyboard shortcuts</a></li>
+        <li><a href="#cc-flags"><span class="n">03</span>CLI flags</a></li>
+        <li><a href="#cc-hooks"><span class="n">04</span>Hooks</a></li>
+        <li><a href="#cc-mcp"><span class="n">05</span>MCP servers</a></li>
+        <li><a href="#cc-subagents"><span class="n">06</span>Sub-agents</a></li>
+        <li><a href="#cc-headless"><span class="n">07</span>Headless mode</a></li>
+        <li><a href="#cc-claudemd"><span class="n">08</span>CLAUDE.md hierarchy</a></li>
+        <li><a href="#cc-skills"><span class="n">09</span>Skills</a></li>
+        <li><a href="#cc-perms"><span class="n">10</span>Permissions</a></li>
+        <li><a href="#cc-escape"><span class="n">11</span>Escape hatches</a></li>
+        <li><a href="#cc-gotchas"><span class="n">12</span>Gotchas</a></li>
+      </ul>
+    </aside>
+
+    <div class="cheat-body">
+
+      <!-- 01 · Slash commands -->
+      <div class="cheat-section" id="cc-slash">
+        <div class="sec-head">
+          <div class="title"><span class="id">01</span><h3>Slash commands</h3></div>
+          <span class="count">14 ESSENTIAL</span>
+        </div>
+        <div class="cheat-grid">
+          <div class="cheat-row">
+            <span class="keys"><kbd class="cmd">/init</kbd></span>
+            <span class="act">Generate a fresh <span class="hl">CLAUDE.md</span> from your codebase</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="cmd">/clear</kbd></span>
+            <span class="act">Reset conversation context · start fresh, keep CLAUDE.md</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="cmd">/compact</kbd></span>
+            <span class="act">Compress the conversation to free context tokens</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="cmd">/agents</kbd></span>
+            <span class="act">List + manage sub-agents for the project</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="cmd">/mcp</kbd></span>
+            <span class="act">List connected MCP servers · reconnect on hang</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="cmd">/hooks</kbd></span>
+            <span class="act">Open settings to configure event hooks</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="cmd">/model</kbd></span>
+            <span class="act">Switch between Opus / Sonnet / Haiku</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="cmd">/permissions</kbd></span>
+            <span class="act">Manage tool allow/deny lists for the project</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="cmd">/cost</kbd></span>
+            <span class="act">Show token + API cost for current session</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="cmd">/login</kbd></span>
+            <span class="act">Re-authenticate with Anthropic credentials</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="cmd">/config</kbd></span>
+            <span class="act">Open Claude Code settings (theme, model, etc.)</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="cmd">/help</kbd></span>
+            <span class="act">List all slash commands available now</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="cmd">/review</kbd></span>
+            <span class="act">Review a pull request (built-in skill)</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="cmd">/security-review</kbd></span>
+            <span class="act">Security audit of pending changes (built-in skill)</span>
+          </div>
+        </div>
+        <div class="sec-note">
+          <span class="lab">PRO TIP</span>
+          User-installed skills (in <code style="font-family: monospace; color: var(--green);">~/.claude/skills/</code>) appear as slash commands too. Anything with a <code style="font-family: monospace; color: var(--green);">name:</code> in its frontmatter becomes <code style="font-family: monospace; color: var(--green);">/skill-name</code>.
+        </div>
+      </div>
+
+      <!-- 02 · Keyboard shortcuts -->
+      <div class="cheat-section" id="cc-shortcuts">
+        <div class="sec-head">
+          <div class="title"><span class="id">02</span><h3>Keyboard shortcuts</h3></div>
+          <span class="count">IN-SESSION</span>
+        </div>
+        <div class="cheat-grid">
+          <div class="cheat-row">
+            <span class="keys"><kbd>⇧</kbd><span class="plus">+</span><kbd>⏎</kbd></span>
+            <span class="act">Newline in input (without sending)</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd>⏎</kbd></span>
+            <span class="act">Send message</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd>⌃</kbd><span class="plus">+</span><kbd>C</kbd></span>
+            <span class="act">Cancel running tool · interrupt response</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd>⌃</kbd><span class="plus">+</span><kbd>D</kbd></span>
+            <span class="act">Exit session cleanly</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd>⌃</kbd><span class="plus">+</span><kbd>R</kbd></span>
+            <span class="act">Reverse-search prompt history</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd>⌃</kbd><span class="plus">+</span><kbd>O</kbd></span>
+            <span class="act">Show full compression summary</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd>!</kbd><span class="act">cmd</span></span>
+            <span class="act">Run a shell command directly (without asking)</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd>↑</kbd> <kbd>↓</kbd></span>
+            <span class="act">Navigate prompt history</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 · CLI flags -->
+      <div class="cheat-section" id="cc-flags">
+        <div class="sec-head">
+          <div class="title"><span class="id">03</span><h3>CLI flags</h3></div>
+          <span class="count">LAUNCH OPTIONS</span>
+        </div>
+        <div class="cheat-grid one-col">
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">claude -p "..."</kbd></span>
+            <span class="act"><span class="hl">Print mode</span> — single-shot non-interactive call · ideal for scripts</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">--allowedTools</kbd></span>
+            <span class="act">Whitelist tools (e.g. <code style="font-family:monospace;color:var(--green);">"Bash,Read,Edit"</code>) for the run</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">--output-format</kbd></span>
+            <span class="act">Set output format · <code style="font-family:monospace;color:var(--green);">json</code>, <code style="font-family:monospace;color:var(--green);">stream-json</code>, <code style="font-family:monospace;color:var(--green);">text</code></span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">--model</kbd></span>
+            <span class="act">Force a specific model · <code style="font-family:monospace;color:var(--green);">claude-opus-4-7</code>, <code style="font-family:monospace;color:var(--green);">claude-sonnet-4-6</code></span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">--mcp-config</kbd></span>
+            <span class="act">Point to a custom MCP server config JSON</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">--resume</kbd></span>
+            <span class="act">Resume a prior session from a saved JSONL</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">--dangerously-skip-permissions</kbd></span>
+            <span class="act">Bypass tool-permission prompts · <span style="color:var(--red);">use carefully in CI only</span></span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">cat file | claude -p</kbd></span>
+            <span class="act">Pipe stdin into the prompt · great for transforming files</span>
+          </div>
+        </div>
+        <div class="sec-note">
+          <span class="lab">PATTERN</span>
+          <code style="font-family:monospace;color:var(--green);">claude -p "audit this branch" --allowedTools "Bash,Read,Grep" --output-format json</code> — gives you a structured audit you can pipe into the next step.
+        </div>
+      </div>
+
+      <!-- 04 · Hooks -->
+      <div class="cheat-section" id="cc-hooks">
+        <div class="sec-head">
+          <div class="title"><span class="id">04</span><h3>Hooks · event-triggered shell</h3></div>
+          <span class="count">5 EVENTS</span>
+        </div>
+        <div class="cheat-grid one-col">
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">PreToolUse</kbd></span>
+            <span class="act">Fires before any tool runs · gate writes, block git push, validate input</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">PostToolUse</kbd></span>
+            <span class="act">Fires after a tool · auto-lint, audit log, format on save</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">Notification</kbd></span>
+            <span class="act">Fires when Claude sends a notification · pipe to your DND or terminal-notifier</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">Stop</kbd></span>
+            <span class="act">Fires when Claude finishes a turn · summarize, git-commit, log timing</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">SubagentStop</kbd></span>
+            <span class="act">Fires when a sub-agent completes · roll up results, notify parent</span>
+          </div>
+        </div>
+        <div class="codeblock">
+<span class="dim">// .claude/settings.json — auto-lint HTML after every Write</span>
+{
+  <span class="gr">"hooks"</span>: {
+    <span class="gr">"PostToolUse"</span>: [{
+      <span class="gr">"matcher"</span>: <span class="yl">"Write|Edit"</span>,
+      <span class="gr">"hooks"</span>: [{
+        <span class="gr">"type"</span>: <span class="yl">"command"</span>,
+        <span class="gr">"command"</span>: <span class="yl">"~/scripts/lint-html.sh"</span>
+      }]
+    }]
+  }
+}</div>
+      </div>
+
+      <!-- 05 · MCP servers -->
+      <div class="cheat-section" id="cc-mcp">
+        <div class="sec-head">
+          <div class="title"><span class="id">05</span><h3>MCP servers · plugins for Claude</h3></div>
+          <span class="count">CORE PATTERN</span>
+        </div>
+        <div class="cheat-grid one-col">
+          <div class="cheat-row">
+            <span class="keys"><kbd class="cmd">/mcp</kbd></span>
+            <span class="act">List connected servers · reconnect if a transport wedges</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">claude mcp add</kbd></span>
+            <span class="act">Add a server · <code style="font-family:monospace;color:var(--green);">claude mcp add my-server -- npx my-mcp-server</code></span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">claude mcp list</kbd></span>
+            <span class="act">Show all configured MCP servers + their commands</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">claude mcp remove</kbd></span>
+            <span class="act">Remove a server config (doesn't uninstall the package)</span>
+          </div>
+        </div>
+        <div class="sec-note">
+          <span class="lab">GOTCHA</span>
+          Some MCP transports wedge silently after the first tool call. If subsequent calls hang &gt;60s, run <code style="font-family:monospace;color:var(--green);">/mcp</code> to reconnect.
+        </div>
+      </div>
+
+      <!-- 06 · Sub-agents -->
+      <div class="cheat-section" id="cc-subagents">
+        <div class="sec-head">
+          <div class="title"><span class="id">06</span><h3>Sub-agents · parallel work</h3></div>
+          <span class="count">SPECIALIZED CONTEXT</span>
+        </div>
+        <div class="cheat-grid">
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">general-purpose</kbd></span>
+            <span class="act">Full tool access · complex multi-step tasks</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">Explore</kbd></span>
+            <span class="act">Fast read-only search · find files / grep / answer "where is X"</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">Plan</kbd></span>
+            <span class="act">Designs an implementation plan · no code-writing tools</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">claude-code-guide</kbd></span>
+            <span class="act">Q&amp;A about Claude Code features, hooks, MCP, SDK</span>
+          </div>
+        </div>
+        <div class="sec-note">
+          <span class="lab">WHEN TO USE</span>
+          Spawn sub-agents for: broad codebase exploration (&gt;3 search queries), parallel content generation, audit + fix pipelines. Don't spawn one for trivial lookups — that's overhead.
+        </div>
+      </div>
+
+      <!-- 07 · Headless mode -->
+      <div class="cheat-section" id="cc-headless">
+        <div class="sec-head">
+          <div class="title"><span class="id">07</span><h3>Headless mode</h3></div>
+          <span class="count">AUTOMATION</span>
+        </div>
+        <div class="codeblock">
+<span class="dim"># One-shot task</span>
+claude -p <span class="yl">"generate this week's content schedule"</span>
+
+<span class="dim"># Pipe input</span>
+cat article.md | claude -p <span class="yl">"convert this to an X thread"</span>
+
+<span class="dim"># Tool-restricted</span>
+claude -p <span class="yl">"audit the SEO"</span> --allowedTools <span class="yl">"Read,Glob,Grep"</span>
+
+<span class="dim"># JSON output for downstream pipes</span>
+claude -p <span class="yl">"list todos"</span> --output-format json | jq <span class="yl">'.todos[]'</span>
+
+<span class="dim"># Cron-ready</span>
+0 6 * * 1-5 cd /path/to/proj && claude -p <span class="yl">"daily brief"</span> --allowedTools <span class="yl">"Bash,Read"</span> > brief-$(date +%F).md</div>
+      </div>
+
+      <!-- 08 · CLAUDE.md hierarchy -->
+      <div class="cheat-section" id="cc-claudemd">
+        <div class="sec-head">
+          <div class="title"><span class="id">08</span><h3>CLAUDE.md hierarchy</h3></div>
+          <span class="count">PROJECT INTELLIGENCE</span>
+        </div>
+        <div class="codeblock">
+~/.claude/CLAUDE.md                       <span class="dim">// global · all projects</span>
+~/Developer/.../proj/CLAUDE.md            <span class="dim">// repo root (committed)</span>
+~/Developer/.../proj/.claude/CLAUDE.md    <span class="dim">// local (gitignored ok)</span>
+~/Developer/.../proj/<span class="hl">subdir</span>/CLAUDE.md         <span class="dim">// directory-specific scope</span></div>
+        <div class="sec-note">
+          <span class="lab">CASCADE</span>
+          All applicable CLAUDE.md files load in scope order — most specific wins on conflicts. Add a <code style="font-family:monospace;color:var(--green);">subdir/CLAUDE.md</code> for rules that only apply within that subdir.
+        </div>
+      </div>
+
+      <!-- 09 · Skills -->
+      <div class="cheat-section" id="cc-skills">
+        <div class="sec-head">
+          <div class="title"><span class="id">09</span><h3>Skills · reusable prompts</h3></div>
+          <span class="count">~/.claude/skills/</span>
+        </div>
+        <div class="codeblock">
+<span class="dim">---</span>
+<span class="gr">name:</span> <span class="yl">my-skill</span>
+<span class="gr">description:</span> <span class="yl">One-line summary · used for auto-triggering</span>
+<span class="dim">---</span>
+
+<span class="hl"># Instructions for Claude</span>
+
+Steps to perform when invoked...</div>
+        <div class="sec-note">
+          <span class="lab">PATTERNS</span>
+          Single-file (<code style="font-family:monospace;color:var(--green);">name.md</code>) or directory (<code style="font-family:monospace;color:var(--green);">name/SKILL.md</code>) both work. Invoke as <code style="font-family:monospace;color:var(--green);">/name</code>. <code style="font-family:monospace;color:var(--green);">user-invocable: true</code> in frontmatter forces manual invocation only.
+        </div>
+      </div>
+
+      <!-- 10 · Permissions -->
+      <div class="cheat-section" id="cc-perms">
+        <div class="sec-head">
+          <div class="title"><span class="id">10</span><h3>Permissions</h3></div>
+          <span class="count">TOOL ALLOWLIST</span>
+        </div>
+        <div class="codeblock">
+<span class="dim">// .claude/settings.json — least-prompt setup</span>
+{
+  <span class="gr">"permissions"</span>: {
+    <span class="gr">"allow"</span>: [
+      <span class="yl">"Bash(git status:*)"</span>,
+      <span class="yl">"Bash(git diff:*)"</span>,
+      <span class="yl">"Bash(npm test:*)"</span>,
+      <span class="yl">"Read(./**)"</span>,
+      <span class="yl">"WebFetch(domain:vercel.com)"</span>
+    ],
+    <span class="gr">"deny"</span>: [
+      <span class="yl">"Bash(rm -rf:*)"</span>,
+      <span class="yl">"Bash(git push --force:*)"</span>
+    ]
+  }
+}</div>
+      </div>
+
+      <!-- 11 · Escape hatches -->
+      <div class="cheat-section" id="cc-escape">
+        <div class="sec-head">
+          <div class="title"><span class="id">11</span><h3>Escape hatches</h3></div>
+          <span class="count">WHEN STUCK</span>
+        </div>
+        <div class="cheat-grid one-col">
+          <div class="cheat-row">
+            <span class="keys"><kbd class="cmd">/clear</kbd></span>
+            <span class="act">Conversation gone weird? Reset context, keep CLAUDE.md</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="cmd">/compact</kbd></span>
+            <span class="act">Running long? Compact to summary + recent turns</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="cmd">/mcp</kbd></span>
+            <span class="act">MCP server wedged? Reconnect</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">⌃ + C</kbd></span>
+            <span class="act">Tool stuck? Cancel · resume on next message</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">⌃ + O</kbd></span>
+            <span class="act">Confused about state? Show compression summary</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">claude --resume</kbd></span>
+            <span class="act">Session crashed? Resume from saved JSONL</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 12 · Gotchas -->
+      <div class="cheat-section" id="cc-gotchas">
+        <div class="sec-head">
+          <div class="title"><span class="id">12</span><h3>Gotchas</h3></div>
+          <span class="count">LEARNED THE HARD WAY</span>
+        </div>
+        <div class="cheat-grid one-col">
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">~/Desktop</kbd></span>
+            <span class="act">iCloud-synced · file ops throttle. Keep code in <code style="font-family:monospace;color:var(--green);">~/Developer/</code></span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">git worktrees</kbd></span>
+            <span class="act">Background sessions REQUIRE a worktree before edits. Use <code style="font-family:monospace;color:var(--green);">EnterWorktree</code></span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">--no-verify</kbd></span>
+            <span class="act">Never skip git hooks unless explicitly asked · fix root cause instead</span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">cd everywhere</kbd></span>
+            <span class="act">Prefer absolute paths over <code style="font-family:monospace;color:var(--green);">cd</code> · stay in cwd, use <code style="font-family:monospace;color:var(--green);">git -C</code></span>
+          </div>
+          <div class="cheat-row">
+            <span class="keys"><kbd class="plain">commit msgs</kbd></span>
+            <span class="act">Use HEREDOC for multi-line · <code style="font-family:monospace;color:var(--green);">git commit -m "$(cat &lt;&lt;'EOF' ... EOF)"</code></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>AIOPSFORGE · CHEATSHEETS · v0.1</span>
+    <div class="right">
+      <a href="/community/">HUB</a>
+      <a href="/community/skills">SKILLS</a>
+      <a href="/community/workflows">WORKFLOWS</a>
+      <a href="/">HOME</a>
+    </div>
+    <span>PRINT · PIN · SHIP</span>
+  </div>
+</footer>
+
+<script>
+(function() {
+  var root = document.documentElement;
+  var floatingToggle = document.getElementById('floatingThemeToggle');
+  function applyTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    var icon = theme === 'light' ? '☾' : '☀';
+    if (floatingToggle) floatingToggle.textContent = icon;
+  }
+  var stored = localStorage.getItem('aof_theme');
+  applyTheme(stored || 'dark');
+  function handleToggle() {
+    var current = root.getAttribute('data-theme');
+    var next = current === 'light' ? 'dark' : 'light';
+    localStorage.setItem('aof_theme', next);
+    applyTheme(next);
+  }
+  if (floatingToggle) floatingToggle.addEventListener('click', handleToggle);
+  var scrollBar = document.getElementById('scrollProgress');
+  if (scrollBar) {
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      var percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      scrollBar.style.width = percent + '%';
+    }, { passive: true });
+  }
+})();
+</script>
+</body>
+</html>
