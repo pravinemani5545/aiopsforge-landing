@@ -39,8 +39,15 @@ body {
   font-family: 'IBM Plex Sans', sans-serif;
   background: var(--bg-primary);
   color: var(--text-primary);
-  line-height: 1.6;
+  line-height: 1.65;
+  font-size: 16px;
   overflow-x: hidden;
+}
+
+/* Better contrast on dark theme for readability */
+:root[data-theme="dark"], :root:not([data-theme="light"]) {
+  --text-secondary: #b8b8b8;
+  --text-dim: #7a7a7a;
 }
 a { color: inherit; text-decoration: none; }
 ::selection { background: var(--selection-bg, rgba(0,255,65,0.2)); color: var(--text-primary); }
@@ -119,17 +126,17 @@ a { color: inherit; text-decoration: none; }
 }
 .hero-banner h1 {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(36px, 5vw, 56px);
-  font-weight: 600; line-height: 1.05; letter-spacing: -0.03em;
-  color: var(--text-primary); margin-bottom: 20px;
+  font-size: clamp(40px, 5.4vw, 60px);
+  font-weight: 600; line-height: 1.08; letter-spacing: -0.03em;
+  color: var(--text-primary); margin-bottom: 24px;
   text-wrap: balance;
-  max-width: 880px;
+  max-width: 940px;
 }
 .hero-banner h1 .accent { color: var(--green); }
 .hero-banner .subtitle {
-  font-family: 'IBM Plex Sans', sans-serif; font-size: 17px;
-  color: var(--text-secondary); max-width: 640px;
-  line-height: 1.55;
+  font-family: 'IBM Plex Sans', sans-serif; font-size: 19px;
+  color: var(--text-secondary); max-width: 720px;
+  line-height: 1.6;
 }
 
 /* ============ STATS STRIP ============ */
@@ -175,13 +182,13 @@ a { color: inherit; text-decoration: none; }
 .section-head .label::before { content: '╭─ '; color: var(--text-dim); }
 .section-head .label::after { content: ' ─╮'; color: var(--text-dim); }
 .section-head h2 {
-  font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 3.5vw, 36px);
-  font-weight: 600; line-height: 1.1; letter-spacing: -0.02em;
-  color: var(--text-primary); margin-bottom: 12px;
+  font-family: 'Space Grotesk', sans-serif; font-size: clamp(30px, 3.6vw, 40px);
+  font-weight: 600; line-height: 1.15; letter-spacing: -0.02em;
+  color: var(--text-primary); margin-bottom: 14px;
 }
 .section-head p {
-  font-family: 'IBM Plex Sans', sans-serif; font-size: 16px;
-  color: var(--text-secondary); line-height: 1.55; max-width: 640px;
+  font-family: 'IBM Plex Sans', sans-serif; font-size: 17px;
+  color: var(--text-secondary); line-height: 1.6; max-width: 700px;
 }
 
 /* ============ AREAS GRID ============ */
@@ -221,16 +228,16 @@ a { color: inherit; text-decoration: none; }
   overflow: hidden;
 }
 .area-card .content {
-  padding: 18px 20px;
+  padding: 20px 22px;
 }
 .area-card .content .pname {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
   letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--card-accent); margin-bottom: 4px;
-  display: flex; align-items: center; gap: 6px;
+  color: var(--card-accent); margin-bottom: 6px;
+  display: flex; align-items: center; justify-content: space-between; gap: 6px;
 }
 .area-card .content .pname .status {
-  font-size: 9px; padding: 1px 6px; border: 1px solid currentColor;
+  font-size: 9px; padding: 2px 7px; border: 1px solid currentColor;
   color: var(--text-dim); border-color: var(--text-dim);
 }
 .area-card .content .pname .status.live { color: var(--green); border-color: var(--green); }
@@ -238,13 +245,14 @@ a { color: inherit; text-decoration: none; }
 .area-card .content .pname .status.progress { color: #ffd84a; border-color: #ffd84a; }
 .area-card .content .pname .status.soon { color: var(--text-dim); }
 .area-card .content h3 {
-  font-family: 'Space Grotesk', sans-serif; font-size: 18px;
+  font-family: 'Space Grotesk', sans-serif; font-size: 20px;
   font-weight: 600; color: var(--text-primary);
-  margin-bottom: 4px; letter-spacing: -0.01em;
+  margin-bottom: 6px; letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 .area-card .content p {
-  font-family: 'IBM Plex Sans', sans-serif; font-size: 13px;
-  color: var(--text-secondary); line-height: 1.45;
+  font-family: 'IBM Plex Sans', sans-serif; font-size: 14.5px;
+  color: var(--text-secondary); line-height: 1.55;
 }
 
 /* Glow distribution — 4 colors, no adjacent same.
@@ -555,8 +563,14 @@ a { color: inherit; text-decoration: none; }
 </head>
 <body>
 
+<!-- Hub is publicly viewable as the workspace gateway. Sub-pages gate to here. -->
 <script>
-if (sessionStorage.getItem('aof_cw_auth') !== '1') { window.location.href = '/'; }
+(function() {
+  // Allow ?preview=1 to set auth flag for testing/walkthroughs
+  if (new URLSearchParams(window.location.search).get('preview') === '1') {
+    sessionStorage.setItem('aof_cw_auth', '1');
+  }
+})();
 </script>
 
 <div class="scroll-progress" id="scrollProgress"></div>
