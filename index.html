@@ -379,10 +379,35 @@ body {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 80px 24px;
+  padding: 128px 48px 96px;
   position: relative;
+}
+
+.hero .container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  min-height: 520px;
+}
+
+.hero-left { text-align: left; }
+.hero-right { height: 440px; }
+
+@media (max-width: 900px) {
+  .hero { padding: 96px 24px 64px; }
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    min-height: 0;
+  }
+  .hero-right { height: 360px; }
 }
 
 .hero::before {
@@ -424,64 +449,244 @@ body {
 
 .hero h1 {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(36px, 7vw, 72px);
-  font-weight: 700;
-  line-height: 1.05;
-  margin-bottom: 24px;
-  max-width: 800px;
+  font-size: clamp(40px, 5.5vw, 64px);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  margin-bottom: 28px;
+  text-wrap: balance;
 }
 
 .hero h1 .accent { color: var(--green); }
 
 .hero .subtitle {
+  font-family: 'IBM Plex Sans', sans-serif;
   font-size: 18px;
   color: var(--text-secondary);
-  max-width: 560px;
-  margin: 0 auto 40px;
-  line-height: 1.7;
+  max-width: 520px;
+  margin: 0 0 40px;
+  line-height: 1.55;
 }
 
+/* Member monogram row — social-proof texture under CTAs */
+.hero-monograms {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.hero-monograms .avatars { display: flex; }
+
+.hero-monograms .avatar {
+  width: 32px;
+  height: 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  margin-left: -8px;
+}
+
+.hero-monograms .avatar:first-child { margin-left: 0; }
+
+.hero-monograms .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+/* Terminal mock — Terminal DS: sharp neutral square chrome, no macOS colors */
 .terminal-mock {
-  max-width: 640px;
-  margin: 48px auto 0;
   background: var(--bg-tertiary);
   border: 1px solid var(--border);
   overflow: hidden;
   text-align: left;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
 }
 
 .terminal-bar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
-  padding: 12px 16px;
+  padding: 10px 14px;
   background: var(--bg-card);
   border-bottom: 1px solid var(--border);
 }
 
-.terminal-bar .dot { width: 10px; height: 10px; border-radius: 50%; }
-.terminal-bar .dot:nth-child(1) { background: #ff5f57; }
-.terminal-bar .dot:nth-child(2) { background: #ffbd2e; }
-.terminal-bar .dot:nth-child(3) { background: #28c840; }
+.terminal-bar .chrome-dots { display: flex; gap: 6px; }
+.terminal-bar .chrome-dots .dot {
+  width: 10px;
+  height: 10px;
+  background: var(--border);
+  /* sharp corners per Terminal DS */
+}
 
 .terminal-bar .title {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
+  font-size: 10px;
   color: var(--text-dim);
-  margin-left: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.terminal-bar .live {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: var(--green);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.terminal-bar .live .live-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--green);
+  animation: pulse-dot 1.6s infinite;
 }
 
 .terminal-body {
-  padding: 20px;
+  padding: 16px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  line-height: 1.8;
+  font-size: 12px;
+  line-height: 1.6;
   color: var(--text-secondary);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
 }
 
 .terminal-body .prompt { color: var(--green); }
 .terminal-body .comment { color: var(--text-dim); }
 .terminal-body .val { color: var(--green); }
+
+.terminal-body .feed-line {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  animation: feed-in 350ms var(--ease, cubic-bezier(0.2, 0, 0, 1)) both;
+}
+
+.terminal-body .feed-line .ts {
+  color: var(--text-muted);
+  min-width: 52px;
+  font-size: 11px;
+}
+
+.terminal-body .feed-line .arrow { color: var(--text-dim); }
+.terminal-body .feed-line.sys .arrow { color: var(--text-dim); }
+.terminal-body .feed-line.user .body { color: var(--text-primary); }
+.terminal-body .feed-line.sys .body { color: var(--text-secondary); }
+.terminal-body .feed-line .body { flex: 1; }
+.terminal-body .feed-line .body .at { color: var(--green); }
+.terminal-body .feed-line .body .quote { color: var(--green); }
+
+.terminal-body .feed-line .tag {
+  font-size: 9px;
+  padding: 2px 6px;
+  letter-spacing: 0.12em;
+  border: 1px solid var(--green);
+  color: var(--green);
+  text-transform: uppercase;
+}
+
+.terminal-body .cursor {
+  color: var(--green);
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.terminal-body .cursor .blink {
+  display: inline-block;
+  width: 8px;
+  height: 14px;
+  background: var(--green);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes feed-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* ============ STATS STRIP (Terminal DS) ============ */
+.stats-strip {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-primary);
+}
+
+.stats-strip .container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 0;
+}
+
+.stats-strip .stat {
+  padding: 40px 32px;
+}
+
+.stats-strip .stat + .stat {
+  border-left: 1px solid var(--border);
+}
+
+.stats-strip .stat .num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 48px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.stats-strip .stat .label {
+  margin-top: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.stats-strip .stat .sub {
+  margin-top: 4px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+@media (max-width: 900px) {
+  .stats-strip .container { grid-template-columns: repeat(2, 1fr); }
+  .stats-strip .stat:nth-child(3) { border-left: none; border-top: 1px solid var(--border); }
+  .stats-strip .stat:nth-child(4) { border-top: 1px solid var(--border); }
+  .stats-strip .stat { padding: 28px 24px; }
+  .stats-strip .stat .num { font-size: 36px; }
+}
 
 /* ============ PROBLEM SECTION ============ */
 .problem-section {
@@ -591,6 +796,14 @@ body {
   transition: opacity 0.3s;
 }
 .feature-card:hover::before { opacity: 1; }
+/* Glow palette — distributed so no two adjacent cards share a color (or same family).
+   Grid layout (3 cols; cards 1, 4, 8 span 2):
+     Row 1: [1 GREEN—2cols] [2 RED]
+     Row 2: [3 DARKBLUE] [4 PURPLE—2cols]
+     Row 3: [5 RED] [6 GREEN] [7 LIGHTBLUE]
+     Row 4: [8 DARKBLUE—2cols] [9 PURPLE]
+   Distribution: green×2, red×2, dark-blue×2, purple×2, light-blue×1.
+   No amber. No cyan. Dark + light blue never adjacent. */
 .feature-card:nth-child(1) {
   --card-accent: var(--green);
   --card-border-hover: rgba(0, 255, 65, 0.2);
@@ -598,28 +811,28 @@ body {
   --card-shadow: rgba(0, 255, 65, 0.12);
 }
 .feature-card:nth-child(2) {
-  --card-accent: var(--blue);
-  --card-border-hover: rgba(68, 136, 255, 0.24);
-  --card-glow: rgba(68, 136, 255, 0.08);
-  --card-shadow: rgba(68, 136, 255, 0.14);
-}
-.feature-card:nth-child(3) {
   --card-accent: var(--red);
   --card-border-hover: rgba(255, 68, 68, 0.24);
   --card-glow: rgba(255, 68, 68, 0.08);
   --card-shadow: rgba(255, 68, 68, 0.14);
 }
-.feature-card:nth-child(4) {
-  --card-accent: #22d3ee;
-  --card-border-hover: rgba(34, 211, 238, 0.24);
-  --card-glow: rgba(34, 211, 238, 0.08);
-  --card-shadow: rgba(34, 211, 238, 0.14);
+.feature-card:nth-child(3) {
+  --card-accent: #1e40af;
+  --card-border-hover: rgba(30, 64, 175, 0.32);
+  --card-glow: rgba(30, 64, 175, 0.10);
+  --card-shadow: rgba(30, 64, 175, 0.18);
 }
-.feature-card:nth-child(5) {
+.feature-card:nth-child(4) {
   --card-accent: #a855f7;
   --card-border-hover: rgba(168, 85, 247, 0.24);
   --card-glow: rgba(168, 85, 247, 0.08);
   --card-shadow: rgba(168, 85, 247, 0.14);
+}
+.feature-card:nth-child(5) {
+  --card-accent: var(--red);
+  --card-border-hover: rgba(255, 68, 68, 0.24);
+  --card-glow: rgba(255, 68, 68, 0.08);
+  --card-shadow: rgba(255, 68, 68, 0.14);
 }
 .feature-card:nth-child(6) {
   --card-accent: var(--green);
@@ -628,22 +841,22 @@ body {
   --card-shadow: rgba(0, 255, 65, 0.12);
 }
 .feature-card:nth-child(7) {
-  --card-accent: #FFB800;
-  --card-border-hover: rgba(255, 184, 0, 0.24);
-  --card-glow: rgba(255, 184, 0, 0.08);
-  --card-shadow: rgba(255, 184, 0, 0.14);
+  --card-accent: var(--blue);
+  --card-border-hover: rgba(68, 136, 255, 0.24);
+  --card-glow: rgba(68, 136, 255, 0.08);
+  --card-shadow: rgba(68, 136, 255, 0.14);
 }
 .feature-card:nth-child(8) {
-  --card-accent: #22d3ee;
-  --card-border-hover: rgba(34, 211, 238, 0.24);
-  --card-glow: rgba(34, 211, 238, 0.08);
-  --card-shadow: rgba(34, 211, 238, 0.14);
+  --card-accent: #1e40af;
+  --card-border-hover: rgba(30, 64, 175, 0.32);
+  --card-glow: rgba(30, 64, 175, 0.10);
+  --card-shadow: rgba(30, 64, 175, 0.18);
 }
 .feature-card:nth-child(9) {
-  --card-accent: #22d3ee;
-  --card-border-hover: rgba(34, 211, 238, 0.24);
-  --card-glow: rgba(34, 211, 238, 0.08);
-  --card-shadow: rgba(34, 211, 238, 0.14);
+  --card-accent: #a855f7;
+  --card-border-hover: rgba(168, 85, 247, 0.24);
+  --card-glow: rgba(168, 85, 247, 0.08);
+  --card-shadow: rgba(168, 85, 247, 0.14);
 }
 .feature-card:nth-child(1)::before { background: var(--card-accent); }
 .feature-card:nth-child(2)::before { background: var(--card-accent); }
@@ -652,7 +865,7 @@ body {
 .feature-card:nth-child(5)::before { background: var(--card-accent); }
 .feature-card:nth-child(6)::before { background: var(--card-accent); }
 .feature-card:nth-child(7)::before { background: var(--card-accent); }
-.feature-card:nth-child(8)::before { background: linear-gradient(90deg, var(--green), #22d3ee); }
+.feature-card:nth-child(8)::before { background: var(--card-accent); }
 .feature-card:nth-child(9)::before { background: var(--card-accent); }
 
 .feature-card:hover {
@@ -831,7 +1044,7 @@ body {
 .dot-green { background: var(--green); }
 .dot-blue { background: var(--blue); }
 .dot-amber { background: #FFB800; }
-.dot-cyan { background: #22d3ee; }
+/* .dot-cyan removed — cyan/teal color retired from card palette */
 .preview-badge {
   margin-left: auto;
   font-family: 'JetBrains Mono', monospace;
@@ -859,6 +1072,387 @@ body {
 }
 .preview-tool-name { color: var(--text-primary); font-weight: 600; }
 .preview-tool-sub { color: var(--text-dim); font-size: 10px; }
+
+/* ============================================================
+   FEATURE CARD PREVIEWS — unique per card (Terminal DS)
+   ============================================================ */
+
+/* Shared chrome header for terminal-style previews */
+.pv-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-card);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.pv-head .pv-head-right { color: var(--green); display: flex; align-items: center; gap: 6px; }
+.pv-head .pv-head-right .pulse { width: 6px; height: 6px; background: var(--green); animation: pulse-dot 1.6s infinite; }
+.pv-foot {
+  padding: 8px 12px;
+  border-top: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+/* ===== Card 1: Notification Feed (Weekly Implementation Guides) ===== */
+.pv-notif {
+  display: flex; flex-direction: column;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  margin: -4px -4px 0;
+}
+.pv-notif-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.pv-notif-msg {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 12px; background: var(--bg-card); border: 1px solid var(--border);
+  border-left: 2px solid var(--green);
+}
+.pv-notif-msg .icon {
+  width: 28px; height: 28px; background: var(--bg-tertiary);
+  border: 1px solid var(--border-green); color: var(--green);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 14px; flex-shrink: 0;
+}
+.pv-notif-msg .text {
+  font-size: 12px; color: var(--text-primary); line-height: 1.5;
+}
+.pv-notif-msg .text .author {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--green);
+  display: block; margin-bottom: 4px;
+}
+.pv-notif-reactions { display: flex; gap: 6px; flex-wrap: wrap; }
+.pv-notif-reactions .rxn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 0.08em;
+  padding: 3px 8px; background: var(--bg-card);
+  border: 1px solid var(--border); color: var(--text-secondary);
+  text-transform: uppercase;
+}
+.pv-notif-reactions .rxn .count { color: var(--green); margin-right: 4px; }
+
+/* ===== Card 2: Curriculum Tracker (AI Fundamentals Training) ===== */
+.pv-track {
+  position: relative;
+  padding: 8px 4px 8px 36px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.pv-track::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: 20px;
+  bottom: 32px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--green) 0%, var(--green) 35%, var(--border) 35%, var(--border) 100%);
+}
+.pv-track-step { display: flex; align-items: center; gap: 12px; position: relative; }
+.pv-track-step .dot {
+  position: absolute; left: -22px;
+  width: 9px; height: 9px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+}
+.pv-track-step.done .dot { background: var(--green); border-color: var(--green); }
+.pv-track-step.current .dot {
+  background: var(--green); border-color: var(--green);
+  box-shadow: 0 0 0 4px var(--accent-glow); animation: pulse-dot 1.6s infinite;
+}
+.pv-track-step .wk {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase;
+  min-width: 50px;
+}
+.pv-track-step.done .wk { color: var(--green); }
+.pv-track-step.current .wk { color: var(--green); }
+.pv-track-step .topic {
+  font-size: 12px; color: var(--text-secondary); flex: 1;
+}
+.pv-track-step.done .topic { color: var(--text-primary); }
+.pv-track-step.current .topic { color: var(--text-primary); font-weight: 600; }
+.pv-track-step .status {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 2px 6px; border: 1px solid var(--border);
+  color: var(--text-dim);
+}
+.pv-track-step.done .status { border-color: var(--green); color: var(--green); }
+.pv-track-step.current .status { border-color: var(--green); color: var(--green); }
+.pv-track-bar {
+  margin-top: 6px;
+  height: 4px; background: var(--bg-card); border: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.pv-track-bar .fill { height: 100%; background: var(--green); width: 35%; }
+.pv-track-meter {
+  display: flex; justify-content: space-between; margin-top: 6px;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim);
+}
+.pv-track-meter .pct { color: var(--green); }
+
+/* ===== Card 3: Terminal `ls` (Prompts & Skills Library) ===== */
+.pv-ls {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  margin: -4px -4px 0;
+  font-family: 'JetBrains Mono', monospace;
+}
+.pv-ls-cmd {
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--green);
+  border-bottom: 1px solid var(--border);
+}
+.pv-ls-cmd .arg { color: var(--text-dim); }
+.pv-ls-rows { padding: 6px 0; }
+.pv-ls-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 14px;
+  font-size: 11px;
+  transition: background var(--dur-micro) var(--ease);
+}
+.pv-ls-row:hover { background: var(--bg-card); }
+.pv-ls-row:hover { border-left: 2px solid var(--green); padding-left: 12px; }
+.pv-ls-row .ln {
+  color: var(--text-muted); min-width: 22px; text-align: right;
+}
+.pv-ls-row .type {
+  padding: 1px 6px; font-size: 9px; letter-spacing: 0.12em;
+  border: 1px solid var(--border);
+  text-transform: uppercase; min-width: 64px; text-align: center;
+}
+.pv-ls-row .type.skill { color: var(--green); border-color: var(--green); }
+.pv-ls-row .type.workflow { color: #5b9dff; border-color: #5b9dff; }
+.pv-ls-row .type.prompt { color: #ffd84a; border-color: #ffd84a; }
+.pv-ls-row .name { color: var(--text-primary); flex: 1; }
+.pv-ls-row .size { color: var(--text-dim); font-size: 10px; }
+
+/* ===== Card 4: AI Landscape Comparison Grid (Current AI Landscape Map) ===== */
+.pv-map {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin: -4px -4px 0;
+}
+.pv-map-cell {
+  background: var(--bg-tertiary);
+  padding: 12px 14px;
+}
+.pv-map-cat {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--text-dim);
+  margin-bottom: 6px;
+}
+.pv-map-best {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; color: var(--text-primary);
+  font-weight: 600; margin-bottom: 2px;
+}
+.pv-map-best .check { color: var(--green); font-family: 'JetBrains Mono', monospace; }
+.pv-map-alt {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  color: var(--text-dim); margin-left: 16px;
+}
+.pv-map-legend {
+  grid-column: span 2;
+  background: var(--bg-card);
+  padding: 8px 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 0.12em;
+  color: var(--text-dim); text-transform: uppercase;
+  display: flex; justify-content: space-between;
+}
+.pv-map-legend .legend-key { display: flex; gap: 14px; }
+.pv-map-legend .legend-key .k { display: flex; align-items: center; gap: 4px; }
+
+/* ===== Card 5: Claude-Style Chat Mock (Private Custom AI Access) ===== */
+.pv-claude {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  margin: -4px -4px 0;
+  display: flex; flex-direction: column;
+}
+.pv-claude-input {
+  margin: 14px;
+  padding: 12px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-green);
+  font-size: 13px; color: var(--text-primary);
+  font-family: 'IBM Plex Sans', sans-serif;
+  display: flex; align-items: center; min-height: 22px;
+}
+.pv-claude-input .typed { color: var(--text-primary); }
+.pv-claude-input .cursor-bar {
+  display: inline-block; width: 7px; height: 14px;
+  background: var(--green); margin-left: 2px;
+  animation: blink 1s step-end infinite;
+}
+.pv-claude-thinking {
+  margin: 0 14px;
+  padding: 8px 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--text-dim);
+  display: flex; align-items: center; gap: 8px;
+}
+.pv-claude-thinking .dots { display: inline-flex; gap: 4px; }
+.pv-claude-thinking .dots span {
+  width: 4px; height: 4px; background: var(--text-dim);
+  animation: thinking 1.4s ease-in-out infinite;
+}
+.pv-claude-thinking .dots span:nth-child(2) { animation-delay: 0.2s; }
+.pv-claude-thinking .dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes thinking {
+  0%, 100% { background: var(--text-dim); transform: translateY(0); }
+  50% { background: var(--green); transform: translateY(-2px); }
+}
+.pv-claude-reply {
+  margin: 0 14px 14px;
+  padding: 12px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--green);
+  font-size: 12px; color: var(--text-secondary);
+  line-height: 1.55;
+}
+.pv-claude-reply .acc { color: var(--green); }
+.pv-claude-chips {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  padding: 0 14px 14px;
+}
+.pv-claude-chips .chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 0.08em;
+  padding: 5px 10px; background: var(--bg-card);
+  border: 1px solid var(--border); color: var(--text-secondary);
+}
+
+/* ===== Card 7: Agent Dashboard (Agents Hub) ===== */
+.pv-agents {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  margin: -4px -4px 0;
+}
+.pv-agent-row {
+  display: grid;
+  grid-template-columns: 14px 1fr auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.pv-agent-row:last-of-type { border-bottom: none; }
+.pv-agent-row .dot { width: 8px; height: 8px; }
+.pv-agent-row.ready .dot { background: var(--green); }
+.pv-agent-row.running .dot {
+  background: #ffd84a;
+  animation: pulse-dot 1s infinite;
+}
+.pv-agent-row.idle .dot { background: var(--text-muted); border: 1px solid var(--border-strong); }
+.pv-agent-row .name { color: var(--text-primary); font-weight: 600; }
+.pv-agent-row .last {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 0.08em; color: var(--text-dim); text-transform: uppercase;
+}
+.pv-agent-row .runs {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  color: var(--green); min-width: 32px; text-align: right;
+}
+.pv-agents-cmd {
+  padding: 10px 14px; background: var(--bg-primary);
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--text-secondary);
+  display: flex; align-items: center; gap: 6px;
+  border-top: 1px solid var(--border);
+}
+.pv-agents-cmd .prompt { color: var(--green); }
+.pv-agents-cmd .blink {
+  display: inline-block; width: 6px; height: 12px;
+  background: var(--green); animation: blink 1s step-end infinite;
+}
+
+/* ===== Card 8: Tool Launcher Grid (Production-Ready Business Tools) ===== */
+.pv-launcher {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin: -4px -4px 0;
+}
+.pv-tool-cell {
+  background: var(--bg-tertiary);
+  padding: 14px;
+  display: flex; flex-direction: column; gap: 8px;
+  transition: background var(--dur-micro) var(--ease);
+}
+.pv-tool-cell:hover { background: var(--bg-card); }
+.pv-tool-icon-row { display: flex; align-items: center; justify-content: space-between; }
+.pv-tool-icon {
+  width: 28px; height: 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  color: var(--green); font-weight: 600;
+}
+.pv-tool-ver {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  letter-spacing: 0.1em; color: var(--text-dim);
+}
+.pv-tool-name { font-size: 12px; color: var(--text-primary); font-weight: 600; }
+.pv-tool-meta {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  letter-spacing: 0.1em; color: var(--text-dim); text-transform: uppercase;
+  display: flex; align-items: center; gap: 5px;
+}
+.pv-tool-meta .live-dot {
+  width: 5px; height: 5px; background: var(--green);
+  animation: pulse-dot 1.6s infinite;
+}
+
+/* ===== Card 9: Profile Picker (Context Profiles Collection) ===== */
+.pv-profiles {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  margin: -4px -4px 0;
+}
+.pv-profile-row {
+  display: grid;
+  grid-template-columns: 32px 1fr 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.pv-profile-row:last-of-type { border-bottom: none; }
+.pv-profile-avatar {
+  width: 32px; height: 32px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  font-weight: 600;
+}
+.pv-profile-info .pname { font-size: 12px; color: var(--text-primary); font-weight: 600; }
+.pv-profile-info .pdesc { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+.pv-profile-json {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  color: var(--text-dim);
+  background: var(--bg-card); border: 1px solid var(--border);
+  padding: 6px 8px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pv-profile-json .k { color: var(--text-secondary); }
+.pv-profile-json .v { color: var(--green); }
 
 /* Preview: chat mock */
 .chat-mock {
@@ -1980,38 +2574,116 @@ body::after {
 <!-- ===================== HERO ===================== -->
 <section class="hero">
   <div class="container" style="position: relative; z-index: 1;">
-    <div class="hero-badge">
-      <span class="dot"></span>
-      <span>AIOpsForge · Learn AI by Building</span>
-    </div>
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          <span>9 OF 10 FOUNDING SPOTS LEFT</span>
+        </div>
 
-    <h1>Production-Grade<br>AI Systems.<br><span class="accent">Every Week.</span></h1>
+        <h1>Production-Grade<br>AI Systems.<br><span class="accent">Every Week.</span></h1>
 
-    <p class="subtitle">
-      Weekly hands-on guides that teach you to use AI in your actual work.<br>
-      No theory. No fluff. Just step-by-step builds you can finish in 30 minutes.
-    </p>
+        <p class="subtitle">
+          Weekly hands-on guides that teach you to use AI in your actual work. No theory. No fluff. Just step-by-step builds you can finish in 30 minutes.
+        </p>
 
-    <div class="cta-group">
-      <a href="#" class="cta-btn waitlist-trigger">Get early access →</a>
-      <span class="cta-sub">first 10 on the waitlist get their first month free — $9.99/mo for the first 20</span>
-    </div>
+        <div class="cta-group">
+          <a href="#" class="cta-btn waitlist-trigger">Get early access →</a>
+          <span class="cta-sub">first 10 on the waitlist get their first month free — $9.99/mo for the first 20</span>
+        </div>
 
-    <div class="terminal-mock">
-      <div class="terminal-bar">
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="title">~/builds/research-automation</span>
+        <div class="hero-monograms">
+          <div class="avatars">
+            <div class="avatar" style="color: #00FF41;">PM</div>
+            <div class="avatar" style="color: #ff8c42;">MR</div>
+            <div class="avatar" style="color: #5b9dff;">DK</div>
+            <div class="avatar" style="color: #e55aff;">PS</div>
+            <div class="avatar" style="color: #ffd84a;">AL</div>
+          </div>
+          <span class="label">FOUNDING BUILDERS SHIPPING WITH CLAUDE CODE WEEKLY</span>
+        </div>
       </div>
-      <div class="terminal-body">
-        <div><span class="prompt">$</span> project.status</div>
-        <div><span class="comment"># automated research workflow — built in 25 min</span></div>
-        <div>time saved: <span class="val">2 hrs/day</span> &nbsp;|&nbsp; cost: <span class="val">$0.08/run</span></div>
-        <div>runs this week: <span class="val">47</span></div>
-        <div><span class="comment"># set it up once, runs on autopilot</span></div>
-        <div><span class="prompt">$</span> <span style="animation: pulse-dot 1s infinite;">_</span></div>
+
+      <div class="hero-right">
+        <div class="terminal-mock">
+          <div class="terminal-bar">
+            <div class="chrome-dots">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+            <span class="title">~/aiopsforge/live</span>
+            <span class="live"><span class="live-dot"></span>LIVE</span>
+          </div>
+          <div class="terminal-body">
+            <div><span class="prompt">$</span> tail -f community.log</div>
+
+            <div class="feed-line user" style="animation-delay:0ms">
+              <span class="ts">2s ago</span>
+              <span class="arrow">›</span>
+              <span class="body"><span class="at">@pravine</span> shipped <span class="quote">"research-automation"</span> v2</span>
+              <span class="tag">NEW</span>
+            </div>
+
+            <div class="feed-line sys" style="animation-delay:60ms">
+              <span class="ts">14s ago</span>
+              <span class="arrow">▸</span>
+              <span class="body">build: claude code + vercel cron + mcp → 0 errors</span>
+            </div>
+
+            <div class="feed-line user" style="animation-delay:120ms">
+              <span class="ts">1m ago</span>
+              <span class="arrow">›</span>
+              <span class="body"><span class="at">@founding_03</span> forked <span class="quote">"prompt-library-v1"</span></span>
+            </div>
+
+            <div class="feed-line sys" style="animation-delay:180ms">
+              <span class="ts">3m ago</span>
+              <span class="arrow">▸</span>
+              <span class="body">47 systems shipped · 2,000 credits/mo unlocked</span>
+            </div>
+
+            <div class="feed-line user" style="animation-delay:240ms">
+              <span class="ts">7m ago</span>
+              <span class="arrow">›</span>
+              <span class="body"><span class="at">@founding_07</span> saved <span class="quote">"2 hrs/day"</span> on research</span>
+              <span class="tag">HOT</span>
+            </div>
+
+            <div class="feed-line sys" style="animation-delay:300ms">
+              <span class="ts">12m ago</span>
+              <span class="arrow">▸</span>
+              <span class="body">weekly build · thursday 11:00 ET · open to founding 10</span>
+            </div>
+
+            <div class="cursor">$ <span class="blink"></span></div>
+          </div>
+        </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== STATS STRIP ===================== -->
+<section class="stats-strip">
+  <div class="container">
+    <div class="stat">
+      <div class="num">11</div>
+      <div class="label">AI SYSTEMS</div>
+      <div class="sub">production-grade, every week</div>
+    </div>
+    <div class="stat">
+      <div class="num">9/10</div>
+      <div class="label">FOUNDING SPOTS LEFT</div>
+      <div class="sub">$9.99/mo locked for life</div>
+    </div>
+    <div class="stat">
+      <div class="num">2,000</div>
+      <div class="label">CREDITS PER MONTH</div>
+      <div class="sub">aifounder.ca tools bundled</div>
+    </div>
+    <div class="stat">
+      <div class="num">$0.20</div>
+      <div class="label">DAILY API COST</div>
+      <div class="sub">claude code stack baseline</div>
     </div>
   </div>
 </section>
@@ -2042,16 +2714,32 @@ body::after {
     </div>
     <div class="features-grid">
 
-      <!-- Card 1: System Build Blueprints -->
+      <!-- Card 1: Weekly Implementation Guides -->
       <div class="feature-card">
-        <div class="card-preview">
-          <div class="preview-notif">
-            <div class="notif-icon">&#9889;</div>
-            <div>New guide just dropped: How to automate competitive research with AI in 30min. Step-by-step with prompts included.</div>
-          </div>
-          <div class="preview-reply">
-            <div>Set it up this morning. Already saved 2 hours on research.</div>
-            <div class="reply-avatar"></div>
+        <div class="card-preview" style="padding: 0;">
+          <div class="pv-notif">
+            <div class="pv-head">
+              <span>~/community/this-week</span>
+              <span class="pv-head-right"><span class="pulse"></span>NEW THIS WEEK</span>
+            </div>
+            <div class="pv-notif-body">
+              <div class="pv-notif-msg">
+                <div class="icon">$</div>
+                <div class="text">
+                  <span class="author">AIOpsForge · WEEK 14</span>
+                  Automate competitive research with Claude Code + MCP. Full build in 32 minutes. Prompts, code, and cost breakdown included.
+                </div>
+              </div>
+              <div class="pv-notif-reactions">
+                <span class="rxn"><span class="count">47</span>SHIPPED</span>
+                <span class="rxn"><span class="count">12</span>FORKED</span>
+                <span class="rxn"><span class="count">2.4 hrs</span>SAVED AVG</span>
+              </div>
+            </div>
+            <div class="pv-foot">
+              <span>NEXT DROP · THURSDAY 9AM ET</span>
+              <span style="color: var(--green);">→ READ NOW</span>
+            </div>
           </div>
         </div>
         <div class="card-content">
@@ -2062,15 +2750,44 @@ body::after {
 
       <!-- Card 2: AI Fundamentals -->
       <div class="feature-card">
-        <div class="card-preview" style="gap: 6px; align-items: flex-start;">
-          <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); letter-spacing:1px; margin-bottom:4px;">OpenSource</div>
-          <span class="stag" style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); background:var(--bg-card); border:1px solid var(--border); padding:6px 14px; margin-bottom:2px;">What is AI?</span>
-          <span class="stag" style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); background:var(--bg-card); border:1px solid var(--border); padding:6px 14px; margin-bottom:2px;">Attention & Structure</span>
-          <span class="stag" style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); background:var(--bg-card); border:1px solid var(--border); padding:6px 14px; margin-bottom:2px;">Context Engineering</span>
-          <span class="stag" style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); background:var(--bg-card); border:1px solid var(--border); padding:6px 14px; margin-bottom:2px;">Systems Thinking</span>
-          <span class="stag" style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); background:var(--bg-card); border:1px solid var(--border); padding:6px 14px; margin-bottom:2px;">Building Skills</span>
-          <span class="stag" style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); background:var(--bg-card); border:1px solid var(--border); padding:6px 14px; margin-bottom:2px;">Vibe Coding</span>
-          <span class="stag" style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); background:var(--bg-card); border:1px solid var(--border); padding:6px 14px;">Writing with AI</span>
+        <div class="card-preview" style="padding: 16px 20px;">
+          <div class="pv-track">
+            <div class="pv-track-step done">
+              <span class="dot"></span>
+              <span class="wk">WK 01</span>
+              <span class="topic">What is AI, really</span>
+              <span class="status">DONE</span>
+            </div>
+            <div class="pv-track-step done">
+              <span class="dot"></span>
+              <span class="wk">WK 02</span>
+              <span class="topic">Attention &amp; structure</span>
+              <span class="status">DONE</span>
+            </div>
+            <div class="pv-track-step current">
+              <span class="dot"></span>
+              <span class="wk">WK 03</span>
+              <span class="topic">Context engineering</span>
+              <span class="status">NOW</span>
+            </div>
+            <div class="pv-track-step">
+              <span class="dot"></span>
+              <span class="wk">WK 04</span>
+              <span class="topic">Systems thinking for AI</span>
+              <span class="status">NEXT</span>
+            </div>
+            <div class="pv-track-step">
+              <span class="dot"></span>
+              <span class="wk">WK 05</span>
+              <span class="topic">Vibe coding with Claude</span>
+              <span class="status">SOON</span>
+            </div>
+            <div class="pv-track-bar"><div class="fill"></div></div>
+            <div class="pv-track-meter">
+              <span>3 OF 7 WEEKS</span>
+              <span class="pct">35% COMPLETE</span>
+            </div>
+          </div>
         </div>
         <div class="card-content">
           <h3>AI Fundamentals Training</h3>
@@ -2080,13 +2797,49 @@ body::after {
 
       <!-- Card 3: Prompts & Skills Library -->
       <div class="feature-card">
-        <div class="card-preview" style="padding: 16px 20px;">
-          <div class="preview-list">
-            <div class="preview-list-item"><div class="preview-dot dot-red"></div>AI Influencer<span class="preview-badge">SKILL</span></div>
-            <div class="preview-list-item"><div class="preview-dot dot-red"></div>Landing Page<span class="preview-badge">WORKFLOW</span></div>
-            <div class="preview-list-item"><div class="preview-dot dot-red"></div>Newsletter<span class="preview-badge">PROMPT</span></div>
-            <div class="preview-list-item"><div class="preview-dot dot-red"></div>LinkedIn Post<span class="preview-badge">SKILL</span></div>
-            <div class="preview-list-item"><div class="preview-dot dot-red"></div>Offer Creation<span class="preview-badge">WORKFLOW</span></div>
+        <div class="card-preview" style="padding: 0;">
+          <div class="pv-ls">
+            <div class="pv-head">
+              <span>~/library</span>
+              <span class="pv-head-right">47 ITEMS</span>
+            </div>
+            <div class="pv-ls-cmd">$ ls -la <span class="arg">--type=all</span></div>
+            <div class="pv-ls-rows">
+              <div class="pv-ls-row">
+                <span class="ln">01</span>
+                <span class="type skill">SKILL</span>
+                <span class="name">ai-influencer.md</span>
+                <span class="size">2.1k</span>
+              </div>
+              <div class="pv-ls-row">
+                <span class="ln">02</span>
+                <span class="type workflow">WORKFLOW</span>
+                <span class="name">landing-page-build</span>
+                <span class="size">4.7k</span>
+              </div>
+              <div class="pv-ls-row">
+                <span class="ln">03</span>
+                <span class="type prompt">PROMPT</span>
+                <span class="name">newsletter-hook.md</span>
+                <span class="size">1.2k</span>
+              </div>
+              <div class="pv-ls-row">
+                <span class="ln">04</span>
+                <span class="type skill">SKILL</span>
+                <span class="name">linkedin-post.md</span>
+                <span class="size">3.4k</span>
+              </div>
+              <div class="pv-ls-row">
+                <span class="ln">05</span>
+                <span class="type workflow">WORKFLOW</span>
+                <span class="name">offer-creation</span>
+                <span class="size">6.8k</span>
+              </div>
+            </div>
+            <div class="pv-foot">
+              <span>+ 42 MORE · UPDATED WEEKLY</span>
+              <span style="color: var(--green);">⌘ C  TO COPY</span>
+            </div>
           </div>
         </div>
         <div class="card-content">
@@ -2097,12 +2850,46 @@ body::after {
 
       <!-- Card 4: Current AI Landscape Map -->
       <div class="feature-card">
-        <div class="card-preview" style="padding: 16px 20px;">
-          <div class="preview-tool-row"><div class="preview-dot dot-blue"></div><div><div class="preview-tool-name">Image & Video Generation</div><div class="preview-tool-sub">Nano Banana Pro + VEO3.1</div></div></div>
-          <div class="preview-tool-row"><div class="preview-dot dot-red"></div><div><div class="preview-tool-name">Marketing & Copywriting</div><div class="preview-tool-sub">Claude + Skills and/or Kimi K2</div></div></div>
-          <div class="preview-tool-row"><div class="preview-dot dot-green"></div><div><div class="preview-tool-name">Study & Deep Research</div><div class="preview-tool-sub">Gemini 3 in NotebookLM</div></div></div>
-          <div class="preview-tool-row"><div class="preview-dot dot-red"></div><div><div class="preview-tool-name">Music & Audio</div><div class="preview-tool-sub">Suno + ElevenLabs</div></div></div>
-          <div class="preview-tool-row"><div class="preview-dot dot-blue"></div><div><div class="preview-tool-name">Vibe Coding</div><div class="preview-tool-sub">Opus 4.6 / GPT-5.4</div></div></div>
+        <div class="card-preview" style="padding: 0;">
+          <div class="pv-map">
+            <div class="pv-map-cell">
+              <div class="pv-map-cat">IMAGE + VIDEO</div>
+              <div class="pv-map-best"><span class="check">✓</span> Nano Banana Pro</div>
+              <div class="pv-map-alt">vs VEO 3.1 · Sora 2</div>
+            </div>
+            <div class="pv-map-cell">
+              <div class="pv-map-cat">COPYWRITING</div>
+              <div class="pv-map-best"><span class="check">✓</span> Claude + Skills</div>
+              <div class="pv-map-alt">vs Kimi K2 · GPT-5</div>
+            </div>
+            <div class="pv-map-cell">
+              <div class="pv-map-cat">DEEP RESEARCH</div>
+              <div class="pv-map-best"><span class="check">✓</span> Gemini 3 + NotebookLM</div>
+              <div class="pv-map-alt">vs Perplexity · GPT-DR</div>
+            </div>
+            <div class="pv-map-cell">
+              <div class="pv-map-cat">MUSIC + AUDIO</div>
+              <div class="pv-map-best"><span class="check">✓</span> Suno + ElevenLabs</div>
+              <div class="pv-map-alt">vs Udio · Hedra</div>
+            </div>
+            <div class="pv-map-cell">
+              <div class="pv-map-cat">CODE + SHIP</div>
+              <div class="pv-map-best"><span class="check">✓</span> Claude Code</div>
+              <div class="pv-map-alt">vs Cursor · v0 · Lovable</div>
+            </div>
+            <div class="pv-map-cell">
+              <div class="pv-map-cat">AGENTS</div>
+              <div class="pv-map-best"><span class="check">✓</span> Claude + MCP</div>
+              <div class="pv-map-alt">vs LangChain · CrewAI</div>
+            </div>
+            <div class="pv-map-legend">
+              <span>UPDATED MONTHLY · 2026 Q2</span>
+              <span class="legend-key">
+                <span class="k"><span style="color:var(--green);">✓</span> best</span>
+                <span class="k">vs alternatives</span>
+              </span>
+            </div>
+          </div>
         </div>
         <div class="card-content">
           <h3>Current AI Landscape Map</h3>
@@ -2112,15 +2899,27 @@ body::after {
 
       <!-- Card 5: Private Custom AI Access -->
       <div class="feature-card">
-        <div class="card-preview">
-          <div class="chat-mock" style="margin-bottom: 0; border: none; background: transparent; padding: 0;">
-            <div style="background: var(--bg-card); border: 1px solid var(--border); padding: 10px 14px; font-family:'JetBrains Mono',monospace; font-size: 12px; color: var(--text-dim); margin-bottom: 12px;">Ask me anything</div>
-            <div style="display: flex; justify-content: flex-end; margin-bottom: 12px;"><span style="font-size: 12px; color: var(--text-dim);">Generate with AI &rarr;</span></div>
-          </div>
-          <div class="chat-mock-chips">
-            <span class="chat-chip">&#128075; Write a blog post</span>
-            <span class="chat-chip">&#9711; AI influencer</span>
-            <span class="chat-chip">&#9998; Craft a newsletter</span>
+        <div class="card-preview" style="padding: 0;">
+          <div class="pv-claude">
+            <div class="pv-head">
+              <span>aof.claude/private</span>
+              <span class="pv-head-right"><span class="pulse"></span>READY</span>
+            </div>
+            <div class="pv-claude-input">
+              <span class="typed">How do I automate research</span><span class="cursor-bar"></span>
+            </div>
+            <div class="pv-claude-thinking">
+              <span>THINKING</span>
+              <span class="dots"><span></span><span></span><span></span></span>
+            </div>
+            <div class="pv-claude-reply">
+              Use the <span class="acc">Deep Research skill</span> — it pulls from your library and runs in under 4 min. Want the full setup walkthrough?
+            </div>
+            <div class="pv-claude-chips">
+              <span class="chip">+ BLOG POST</span>
+              <span class="chip">+ NEWSLETTER</span>
+              <span class="chip">+ AGENT BUILD</span>
+            </div>
           </div>
         </div>
         <div class="card-content">
@@ -2147,13 +2946,47 @@ body::after {
 
       <!-- Card 7: Agents Hub -->
       <div class="feature-card">
-        <div class="card-preview" style="padding: 16px 20px;">
-          <div class="preview-list">
-            <div class="preview-list-item"><div class="preview-dot dot-amber"></div>Skills<span class="preview-badge">LAUNCH</span></div>
-            <div class="preview-list-item"><div class="preview-dot dot-amber"></div>Workflows<span class="preview-badge">LAUNCH</span></div>
-            <div class="preview-list-item"><div class="preview-dot dot-amber"></div>Configs<span class="preview-badge">LAUNCH</span></div>
-            <div class="preview-list-item"><div class="preview-dot dot-amber"></div>Systems<span class="preview-badge">LAUNCH</span></div>
-            <div class="preview-list-item"><div class="preview-dot dot-amber"></div>Prompts<span class="preview-badge">LAUNCH</span></div>
+        <div class="card-preview" style="padding: 0;">
+          <div class="pv-agents">
+            <div class="pv-head">
+              <span>~/agents</span>
+              <span class="pv-head-right"><span class="pulse"></span>5 READY</span>
+            </div>
+            <div class="pv-agent-row ready">
+              <span class="dot"></span>
+              <span class="name">Research Analyst</span>
+              <span class="last">2m AGO</span>
+              <span class="runs">47×</span>
+            </div>
+            <div class="pv-agent-row running">
+              <span class="dot"></span>
+              <span class="name">Content Pipeline</span>
+              <span class="last">RUNNING</span>
+              <span class="runs">23×</span>
+            </div>
+            <div class="pv-agent-row ready">
+              <span class="dot"></span>
+              <span class="name">Code Reviewer</span>
+              <span class="last">12m AGO</span>
+              <span class="runs">18×</span>
+            </div>
+            <div class="pv-agent-row ready">
+              <span class="dot"></span>
+              <span class="name">Newsletter Writer</span>
+              <span class="last">1h AGO</span>
+              <span class="runs">9×</span>
+            </div>
+            <div class="pv-agent-row idle">
+              <span class="dot"></span>
+              <span class="name">Client Onboarder</span>
+              <span class="last">YESTERDAY</span>
+              <span class="runs">4×</span>
+            </div>
+            <div class="pv-agents-cmd">
+              <span class="prompt">$</span>
+              <span>claude --agent research-analyst</span>
+              <span class="blink"></span>
+            </div>
           </div>
         </div>
         <div class="card-content">
@@ -2164,14 +2997,45 @@ body::after {
 
       <!-- Card 8: Production-Ready Business Tools -->
       <div class="feature-card">
-        <div class="card-preview" style="padding: 16px 20px;">
-          <div class="preview-list">
-            <div class="preview-list-item"><div class="preview-dot dot-amber"></div>AI Task Manager<span class="preview-badge">LAUNCH</span></div>
-            <div class="preview-list-item"><div class="preview-dot dot-amber"></div>Design System Library<span class="preview-badge">LAUNCH</span></div>
-            <div class="preview-list-item"><div class="preview-dot dot-amber"></div>Client Onboarding System<span class="preview-badge">LAUNCH</span></div>
-            <div class="preview-list-item"><div class="preview-dot dot-amber"></div>Content Pipeline<span class="preview-badge">LAUNCH</span></div>
+        <div class="card-preview" style="padding: 0;">
+          <div class="pv-launcher">
+            <div class="pv-tool-cell">
+              <div class="pv-tool-icon-row">
+                <div class="pv-tool-icon">T</div>
+                <span class="pv-tool-ver">v2.1</span>
+              </div>
+              <div class="pv-tool-name">AI Task Manager</div>
+              <div class="pv-tool-meta"><span class="live-dot"></span>ACTIVE · UPDATED 3D</div>
+            </div>
+            <div class="pv-tool-cell">
+              <div class="pv-tool-icon-row">
+                <div class="pv-tool-icon">D</div>
+                <span class="pv-tool-ver">v1.4</span>
+              </div>
+              <div class="pv-tool-name">Design System Library</div>
+              <div class="pv-tool-meta"><span class="live-dot"></span>ACTIVE · UPDATED 1W</div>
+            </div>
+            <div class="pv-tool-cell">
+              <div class="pv-tool-icon-row">
+                <div class="pv-tool-icon">C</div>
+                <span class="pv-tool-ver">v1.0</span>
+              </div>
+              <div class="pv-tool-name">Client Onboarder</div>
+              <div class="pv-tool-meta"><span class="live-dot"></span>ACTIVE · UPDATED 2W</div>
+            </div>
+            <div class="pv-tool-cell">
+              <div class="pv-tool-icon-row">
+                <div class="pv-tool-icon">P</div>
+                <span class="pv-tool-ver">v3.2</span>
+              </div>
+              <div class="pv-tool-name">Content Pipeline</div>
+              <div class="pv-tool-meta"><span class="live-dot"></span>ACTIVE · UPDATED TODAY</div>
+            </div>
           </div>
-          <div style="text-align: right; font-size: 11px; color: var(--text-dim); margin-top: 8px;">new tools added monthly</div>
+          <div class="pv-foot" style="margin: -1px -4px 0; border: 1px solid var(--border); border-top: none;">
+            <span>4 OF 11 SHIPPED · 7 IN BUILD QUEUE</span>
+            <span style="color: var(--green);">+ NEW TOOL MONTHLY</span>
+          </div>
         </div>
         <div class="card-content">
           <h3>Production-Ready Business Tools</h3>
@@ -2181,14 +3045,49 @@ body::after {
 
       <!-- Card 9: Context Profiles -->
       <div class="feature-card">
-        <div class="card-preview" style="padding: 16px 20px;">
-          <div class="preview-list">
-            <div class="preview-list-item"><div class="preview-dot dot-cyan"></div>Copywriting Expert<span class="preview-badge">.json</span></div>
-            <div class="preview-list-item"><div class="preview-dot dot-cyan"></div>Senior Developer<span class="preview-badge">.json</span></div>
-            <div class="preview-list-item"><div class="preview-dot dot-cyan"></div>Research Analyst<span class="preview-badge">.json</span></div>
-            <div class="preview-list-item"><div class="preview-dot dot-cyan"></div>Marketing Strategist<span class="preview-badge">.json</span></div>
+        <div class="card-preview" style="padding: 0;">
+          <div class="pv-profiles">
+            <div class="pv-head">
+              <span>~/profiles</span>
+              <span class="pv-head-right">12 PROFILES</span>
+            </div>
+            <div class="pv-profile-row">
+              <div class="pv-profile-avatar" style="color: #00FF41;">CE</div>
+              <div class="pv-profile-info">
+                <div class="pname">Copywriting Expert</div>
+                <div class="pdesc">CONVERSION + BRAND VOICE</div>
+              </div>
+              <div class="pv-profile-json"><span class="k">style:</span> <span class="v">"sharp"</span></div>
+            </div>
+            <div class="pv-profile-row">
+              <div class="pv-profile-avatar" style="color: #5b9dff;">SD</div>
+              <div class="pv-profile-info">
+                <div class="pname">Senior Developer</div>
+                <div class="pdesc">PRODUCTION + ARCHITECTURE</div>
+              </div>
+              <div class="pv-profile-json"><span class="k">tone:</span> <span class="v">"direct"</span></div>
+            </div>
+            <div class="pv-profile-row">
+              <div class="pv-profile-avatar" style="color: #ffd84a;">RA</div>
+              <div class="pv-profile-info">
+                <div class="pname">Research Analyst</div>
+                <div class="pdesc">EVIDENCE + CITATION</div>
+              </div>
+              <div class="pv-profile-json"><span class="k">cite:</span> <span class="v">true</span></div>
+            </div>
+            <div class="pv-profile-row">
+              <div class="pv-profile-avatar" style="color: #e55aff;">MS</div>
+              <div class="pv-profile-info">
+                <div class="pname">Marketing Strategist</div>
+                <div class="pdesc">FUNNEL + POSITIONING</div>
+              </div>
+              <div class="pv-profile-json"><span class="k">role:</span> <span class="v">"strategist"</span></div>
+            </div>
+            <div class="pv-foot">
+              <span>+ 8 MORE · LOAD ONE TO ACTIVATE</span>
+              <span style="color: var(--green);">⌘ L  TO LOAD</span>
+            </div>
           </div>
-          <div style="text-align: right; font-size: 11px; color: var(--text-dim); margin-top: 8px;">+ more at launch</div>
         </div>
         <div class="card-content">
           <h3>Context Profiles Collection</h3>

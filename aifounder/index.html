@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>aifounder.ca | AI tools on credits, not subscriptions</title>
+<meta name="description" content="The full AI stack on one credit balance. Image, video, research, code, voice, copy, agents — pay per use, not per tool. AIOpsForge members get 2,000 credits/mo bundled.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/design-system/tokens.css">
+<style>
+/* ===========================================================
+   aifounder.ca — page-specific styles
+   Built on shared Terminal DS tokens at /design-system/tokens.css
+   =========================================================== */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body), 'IBM Plex Sans', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--selection-bg); color: var(--text-primary); }
+
+/* ============ NAV ============ */
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 16px 32px;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-family: var(--font-mono); font-size: 14px;
+  letter-spacing: 0.04em; color: var(--text-primary);
+  font-weight: 600;
+}
+.nav-logo .green { color: var(--green); }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-secondary);
+  transition: color var(--dur-micro) var(--ease);
+}
+.nav-links a:hover { color: var(--green); }
+.nav-cta {
+  background: var(--green); color: var(--bg-primary);
+  padding: 10px 18px; font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  font-weight: 600;
+  transition: background var(--dur-micro) var(--ease), transform var(--dur-micro) var(--ease);
+}
+.nav-cta:hover { background: var(--text-primary); color: var(--bg-primary); transform: translateY(-1px); }
+
+/* ============ HERO ============ */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 128px 48px 96px;
+  position: relative;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: -300px -20vw 0;
+  background:
+    radial-gradient(ellipse at 45% 30%, rgba(0,255,65,0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 40%, rgba(68,136,255,0.05) 0%, transparent 40%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
+  background-size: 32px 32px;
+  pointer-events: none; z-index: 0;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+}
+.hero-container {
+  width: 100%; max-width: 1280px; margin: 0 auto;
+  position: relative; z-index: 1;
+}
+.hero-grid {
+  display: grid; grid-template-columns: 1.1fr 1fr;
+  gap: 64px; align-items: center; min-height: 520px;
+}
+.hero-left { text-align: left; }
+.hero-right { height: 440px; }
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--green);
+  border: 1px solid var(--border-green);
+  padding: 6px 16px;
+  margin-bottom: 32px;
+  background: rgba(0, 255, 65, 0.05);
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+.hero-badge .dot {
+  width: 6px; height: 6px;
+  background: var(--green);
+  animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+.hero h1 {
+  font-family: var(--font-display); font-size: clamp(40px, 5.5vw, 64px);
+  font-weight: 600; line-height: 1.02; letter-spacing: -0.03em;
+  color: var(--text-primary);
+  margin-bottom: 28px;
+  text-wrap: balance;
+  background: linear-gradient(180deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero h1 .accent {
+  color: var(--green);
+  -webkit-text-fill-color: var(--green);
+}
+.hero .subtitle {
+  font-family: var(--font-body); font-size: 18px;
+  color: var(--text-secondary); max-width: 520px;
+  margin: 0 0 40px; line-height: 1.55;
+}
+
+.cta-group { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.cta-btn {
+  height: 48px; padding: 0 24px;
+  font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  background: var(--green); color: var(--bg-primary);
+  display: inline-flex; align-items: center; gap: 10px;
+  transition: background var(--dur-micro) var(--ease), transform var(--dur-micro) var(--ease);
+}
+.cta-btn:hover { background: var(--text-primary); }
+.cta-btn:active { transform: translateY(1px); }
+.cta-btn-secondary {
+  background: transparent; color: var(--text-primary);
+  border: 1px solid var(--border);
+  transition: border-color var(--dur-micro) var(--ease);
+}
+.cta-btn-secondary:hover { border-color: var(--green); background: transparent; }
+.cta-sub {
+  display: block; margin-top: 12px;
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.hero-monograms {
+  margin-top: 40px; display: flex; align-items: center; gap: 24px;
+  flex-wrap: wrap;
+}
+.hero-monograms .avatars { display: flex; }
+.hero-monograms .avatar {
+  width: 32px; height: 32px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+  margin-left: -8px;
+}
+.hero-monograms .avatar:first-child { margin-left: 0; }
+.hero-monograms .label {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.08em; color: var(--text-dim); text-transform: uppercase;
+}
+
+/* ============ TERMINAL MOCK (credit-usage feed) ============ */
+.terminal-mock {
+  background: var(--bg-tertiary); border: 1px solid var(--border);
+  overflow: hidden; text-align: left;
+  height: 100%; display: flex; flex-direction: column;
+  font-family: var(--font-mono); font-size: 12px;
+}
+.terminal-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px; padding: 10px 14px;
+  background: var(--bg-card); border-bottom: 1px solid var(--border);
+}
+.terminal-bar .chrome-dots { display: flex; gap: 6px; }
+.terminal-bar .chrome-dots .dot { width: 10px; height: 10px; background: var(--border); }
+.terminal-bar .title {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--text-dim); letter-spacing: 0.12em; text-transform: uppercase;
+}
+.terminal-bar .live {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 10px; color: var(--green);
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+.terminal-bar .live .live-dot {
+  width: 6px; height: 6px; background: var(--green);
+  animation: pulse-dot 1.6s infinite;
+}
+.terminal-body {
+  padding: 16px; flex: 1;
+  display: flex; flex-direction: column; gap: 10px;
+  color: var(--text-secondary); overflow: hidden;
+}
+.feed-line {
+  display: flex; gap: 12px; align-items: baseline;
+  animation: feed-in 350ms var(--ease) both;
+}
+.feed-line .ts {
+  color: var(--text-muted); min-width: 52px; font-size: 11px;
+}
+.feed-line .arrow { color: var(--text-dim); }
+.feed-line .body { flex: 1; }
+.feed-line.user .body { color: var(--text-primary); }
+.feed-line.sys .body { color: var(--text-secondary); }
+.feed-line .body .at { color: var(--green); }
+.feed-line .body .credit { color: var(--green); }
+.feed-line .tag {
+  font-size: 9px; padding: 2px 6px;
+  letter-spacing: 0.12em; border: 1px solid var(--green);
+  color: var(--green); text-transform: uppercase;
+}
+.cursor {
+  color: var(--green); margin-top: auto;
+  display: flex; align-items: center; gap: 6px;
+}
+.cursor .blink {
+  display: inline-block; width: 8px; height: 14px;
+  background: var(--green); animation: blink 1s step-end infinite;
+}
+@keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@keyframes feed-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 900px) {
+  .hero { padding: 96px 24px 64px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; min-height: 0; }
+  .hero-right { height: 360px; }
+  .nav-links { gap: 16px; }
+  .nav-links a:not(.nav-cta) { display: none; }
+}
+
+/* ============ STATS STRIP ============ */
+.stats-strip {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-primary);
+}
+.stats-strip-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+}
+.stat { padding: 40px 32px; }
+.stat + .stat { border-left: 1px solid var(--border); }
+.stat .num {
+  font-family: var(--font-display); font-size: 48px;
+  font-weight: 600; color: var(--text-primary);
+  letter-spacing: -0.03em; line-height: 1;
+}
+.stat .label {
+  margin-top: 14px;
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--green);
+}
+.stat .sub {
+  margin-top: 4px;
+  font-family: var(--font-body); font-size: 13px;
+  color: var(--text-dim);
+}
+@media (max-width: 900px) {
+  .stats-strip-inner { grid-template-columns: repeat(2, 1fr); }
+  .stat:nth-child(3), .stat:nth-child(4) {
+    border-top: 1px solid var(--border);
+  }
+  .stat:nth-child(3) { border-left: none; }
+  .stat { padding: 28px 24px; }
+  .stat .num { font-size: 36px; }
+}
+
+/* ============ SECTION SCAFFOLDING ============ */
+.section { padding: 96px 48px; }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-header { text-align: left; max-width: 720px; margin-bottom: 56px; }
+.section-label {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 12px;
+}
+.section-title {
+  font-family: var(--font-display); font-size: clamp(28px, 4vw, 44px);
+  font-weight: 600; line-height: 1.1; letter-spacing: -0.02em;
+  color: var(--text-primary); margin-bottom: 16px;
+}
+.section-sub {
+  font-family: var(--font-body); font-size: 18px;
+  color: var(--text-secondary); line-height: 1.55;
+  max-width: 640px;
+}
+
+/* ============ FEATURE GRID (6 tool categories) ============ */
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.tool-grid > :nth-child(1) { grid-column: span 2; }
+.tool-grid > :nth-child(5) { grid-column: span 2; }
+.tool-card {
+  --card-accent: var(--green);
+  --card-glow: rgba(0, 255, 65, 0.06);
+  --card-shadow: rgba(0, 255, 65, 0.12);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  transition: all 0.3s;
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.tool-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--card-accent);
+  opacity: 0; transition: opacity 0.3s;
+}
+.tool-card:hover::before { opacity: 1; }
+.tool-card:hover {
+  border-color: rgba(0, 255, 65, 0.2);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px var(--card-shadow);
+}
+.tool-card .preview {
+  padding: 0;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border);
+  flex: 1; min-height: 200px;
+}
+.tool-card .content { padding: 24px; }
+.tool-card .content h3 {
+  font-family: var(--font-display); font-size: 22px;
+  font-weight: 600; color: var(--text-primary);
+  margin-bottom: 8px; letter-spacing: -0.01em;
+}
+.tool-card .content p {
+  font-family: var(--font-body); font-size: 14px;
+  color: var(--text-secondary); line-height: 1.55;
+}
+
+/* Per-card glow distribution (no adjacent same color) */
+.tool-grid > :nth-child(1) { --card-accent: var(--green); --card-glow: rgba(0,255,65,0.06); --card-shadow: rgba(0,255,65,0.12); }
+.tool-grid > :nth-child(2) { --card-accent: var(--red); --card-glow: rgba(255,68,68,0.08); --card-shadow: rgba(255,68,68,0.14); }
+.tool-grid > :nth-child(3) { --card-accent: #a855f7; --card-glow: rgba(168,85,247,0.08); --card-shadow: rgba(168,85,247,0.14); }
+.tool-grid > :nth-child(4) { --card-accent: #1e40af; --card-glow: rgba(30,64,175,0.10); --card-shadow: rgba(30,64,175,0.18); }
+.tool-grid > :nth-child(5) { --card-accent: var(--green); --card-glow: rgba(0,255,65,0.06); --card-shadow: rgba(0,255,65,0.12); }
+.tool-grid > :nth-child(6) { --card-accent: var(--red); --card-glow: rgba(255,68,68,0.08); --card-shadow: rgba(255,68,68,0.14); }
+.tool-grid > :nth-child(2):hover, .tool-grid > :nth-child(6):hover { border-color: rgba(255,68,68,0.24); }
+.tool-grid > :nth-child(3):hover { border-color: rgba(168,85,247,0.24); }
+.tool-grid > :nth-child(4):hover { border-color: rgba(30,64,175,0.32); }
+
+/* Shared preview chrome */
+.pv-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 12px; border-bottom: 1px solid var(--border);
+  background: var(--bg-card);
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim);
+}
+.pv-head .right { color: var(--green); display: flex; align-items: center; gap: 6px; }
+.pv-head .pulse { width: 6px; height: 6px; background: var(--green); animation: pulse-dot 1.6s infinite; }
+.pv-foot {
+  padding: 8px 12px; border-top: 1px solid var(--border);
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim);
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+/* Card 1: Image & Video — generation queue */
+.pv-genqueue { padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+.pv-genqueue .row {
+  display: grid; grid-template-columns: 36px 1fr auto auto;
+  gap: 10px; align-items: center;
+  padding: 8px 10px; background: var(--bg-card); border: 1px solid var(--border);
+}
+.pv-genqueue .row .thumb {
+  width: 36px; height: 36px; background: var(--bg-tertiary);
+  border: 1px solid var(--border-strong);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 16px; color: var(--green);
+}
+.pv-genqueue .row .name { font-size: 13px; color: var(--text-primary); }
+.pv-genqueue .row .meta {
+  font-family: var(--font-mono); font-size: 10px; color: var(--text-dim);
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.pv-genqueue .row .credits {
+  font-family: var(--font-mono); font-size: 11px; color: var(--green);
+}
+.pv-genqueue .row.running .thumb { color: #ffd84a; animation: pulse-dot 1.2s infinite; }
+.pv-genqueue .row.done .thumb { color: var(--green); }
+.pv-genqueue .row.queued .thumb { color: var(--text-muted); }
+
+/* Card 2: Voice & Audio — waveform */
+.pv-wave {
+  padding: 18px 16px;
+  display: flex; flex-direction: column; gap: 14px;
+  height: 100%;
+}
+.pv-wave .meta-line {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase;
+  display: flex; justify-content: space-between;
+}
+.pv-wave .meta-line .acc { color: var(--green); }
+.pv-wave .bars {
+  display: flex; align-items: center; gap: 3px; height: 60px;
+}
+.pv-wave .bars span {
+  flex: 1; background: var(--green);
+  animation: bar-wave 1.4s ease-in-out infinite;
+}
+.pv-wave .bars span:nth-child(1) { height: 30%; animation-delay: 0s; }
+.pv-wave .bars span:nth-child(2) { height: 60%; animation-delay: 0.1s; }
+.pv-wave .bars span:nth-child(3) { height: 90%; animation-delay: 0.2s; }
+.pv-wave .bars span:nth-child(4) { height: 70%; animation-delay: 0.3s; }
+.pv-wave .bars span:nth-child(5) { height: 40%; animation-delay: 0.4s; }
+.pv-wave .bars span:nth-child(6) { height: 85%; animation-delay: 0.5s; }
+.pv-wave .bars span:nth-child(7) { height: 50%; animation-delay: 0.2s; }
+.pv-wave .bars span:nth-child(8) { height: 75%; animation-delay: 0.1s; }
+.pv-wave .bars span:nth-child(9) { height: 35%; animation-delay: 0.4s; }
+.pv-wave .bars span:nth-child(10) { height: 65%; animation-delay: 0.3s; }
+.pv-wave .bars span:nth-child(11) { height: 55%; animation-delay: 0s; }
+.pv-wave .bars span:nth-child(12) { height: 80%; animation-delay: 0.5s; }
+.pv-wave .bars span:nth-child(13) { height: 45%; animation-delay: 0.2s; }
+.pv-wave .bars span:nth-child(14) { height: 70%; animation-delay: 0.1s; }
+.pv-wave .bars span:nth-child(15) { height: 60%; animation-delay: 0.3s; }
+@keyframes bar-wave {
+  0%, 100% { opacity: 0.45; transform: scaleY(0.7); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+.pv-wave .voice-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px; background: var(--bg-card); border: 1px solid var(--border);
+}
+.pv-wave .voice-row .avatar {
+  width: 28px; height: 28px;
+  background: var(--bg-tertiary); border: 1px solid var(--border-strong);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+  color: var(--green);
+}
+.pv-wave .voice-row .info { flex: 1; }
+.pv-wave .voice-row .info .name { font-size: 12px; color: var(--text-primary); font-weight: 600; }
+.pv-wave .voice-row .info .style {
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: 0.1em; color: var(--text-dim); text-transform: uppercase;
+  margin-top: 2px;
+}
+.pv-wave .voice-row .credits {
+  font-family: var(--font-mono); font-size: 10px; color: var(--green);
+}
+
+/* Card 3: Deep Research — query history */
+.pv-research { padding: 0; }
+.pv-research .row {
+  padding: 11px 14px; border-bottom: 1px solid var(--border);
+  display: grid; grid-template-columns: 12px 1fr auto; gap: 10px; align-items: center;
+}
+.pv-research .row:last-of-type { border-bottom: none; }
+.pv-research .row .dot {
+  width: 6px; height: 6px; background: #a855f7;
+}
+.pv-research .row.live .dot { animation: pulse-dot 1.2s infinite; }
+.pv-research .row .q { font-size: 12px; color: var(--text-primary); line-height: 1.35; }
+.pv-research .row .q .hl { color: #a855f7; }
+.pv-research .row .meta {
+  font-family: var(--font-mono); font-size: 9px;
+  color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase;
+}
+
+/* Card 4: Code & Build — terminal */
+.pv-code {
+  padding: 14px 16px;
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--text-secondary); line-height: 1.7;
+  height: 100%;
+  display: flex; flex-direction: column;
+}
+.pv-code .ln { color: var(--text-muted); margin-right: 10px; }
+.pv-code .acc { color: #4488ff; }
+.pv-code .accent2 { color: #1e40af; }
+.pv-code .gr { color: var(--green); }
+.pv-code .dim { color: var(--text-dim); }
+.pv-code .cursor-blink {
+  display: inline-block; width: 7px; height: 12px;
+  background: var(--green); margin-left: 2px; animation: blink 1s step-end infinite;
+  vertical-align: middle;
+}
+
+/* Card 5: Marketing & Copy — chat writer */
+.pv-copy { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.pv-copy .you {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase;
+}
+.pv-copy .draft {
+  padding: 14px; background: var(--bg-card); border: 1px solid var(--border);
+  border-left: 2px solid var(--green);
+  font-size: 13px; color: var(--text-primary); line-height: 1.55;
+}
+.pv-copy .draft .hl { color: var(--green); }
+.pv-copy .control {
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.pv-copy .control .chip {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 4px 10px; background: var(--bg-card);
+  border: 1px solid var(--border); color: var(--text-secondary);
+}
+.pv-copy .control .chip.active { border-color: var(--green); color: var(--green); }
+
+/* Card 6: Agents — dashboard */
+.pv-agents { padding: 0; }
+.pv-agents .row {
+  display: grid; grid-template-columns: 14px 1fr auto auto;
+  align-items: center; gap: 10px;
+  padding: 9px 14px; border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.pv-agents .row:last-of-type { border-bottom: none; }
+.pv-agents .row .dot { width: 8px; height: 8px; }
+.pv-agents .row.ready .dot { background: var(--green); }
+.pv-agents .row.running .dot { background: #ffd84a; animation: pulse-dot 1s infinite; }
+.pv-agents .row.idle .dot { background: var(--text-muted); border: 1px solid var(--border-strong); }
+.pv-agents .row .name { color: var(--text-primary); font-weight: 600; }
+.pv-agents .row .last {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.08em; color: var(--text-dim); text-transform: uppercase;
+}
+.pv-agents .row .credits {
+  font-family: var(--font-mono); font-size: 10px; color: var(--green);
+}
+
+/* ============ HOW IT WORKS (3 steps) ============ */
+.steps-section { background: var(--bg-secondary); }
+.steps-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+.step-cell {
+  background: var(--bg-primary);
+  padding: 32px 28px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.step-cell .num {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.16em; color: var(--green); text-transform: uppercase;
+}
+.step-cell h3 {
+  font-family: var(--font-display); font-size: 22px;
+  font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em;
+}
+.step-cell p {
+  font-family: var(--font-body); font-size: 14px;
+  color: var(--text-secondary); line-height: 1.55;
+}
+.step-cell .demo {
+  margin-top: 8px; padding: 12px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--text-secondary);
+}
+.step-cell .demo .gr { color: var(--green); }
+.step-cell .demo .dim { color: var(--text-dim); }
+@media (max-width: 900px) {
+  .steps-grid { grid-template-columns: 1fr; }
+}
+
+/* ============ PRICING ============ */
+.pricing-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.price-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  padding: 32px 28px;
+  display: flex; flex-direction: column; gap: 14px;
+  transition: all var(--dur-base) var(--ease);
+  position: relative;
+}
+.price-card.popular {
+  border-color: var(--border-green);
+  background: rgba(0, 255, 65, 0.02);
+}
+.price-card.popular::after {
+  content: 'MOST POPULAR';
+  position: absolute; top: -1px; right: -1px;
+  padding: 6px 12px; background: var(--green); color: var(--bg-primary);
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.12em; font-weight: 600;
+}
+.price-card .tier {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.16em; color: var(--text-dim); text-transform: uppercase;
+}
+.price-card .amount {
+  display: flex; align-items: baseline; gap: 6px;
+}
+.price-card .amount .dollar {
+  font-family: var(--font-display); font-size: 48px;
+  font-weight: 600; color: var(--text-primary); letter-spacing: -0.03em;
+  line-height: 1;
+}
+.price-card .amount .unit {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.08em; color: var(--text-dim); text-transform: uppercase;
+}
+.price-card .credits {
+  font-family: var(--font-mono); font-size: 13px;
+  color: var(--green); letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+.price-card ul {
+  list-style: none; display: flex; flex-direction: column; gap: 8px;
+}
+.price-card ul li {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.5;
+  padding-left: 20px; position: relative;
+}
+.price-card ul li::before {
+  content: '+';
+  position: absolute; left: 0;
+  font-family: var(--font-mono); font-size: 13px;
+  color: var(--green); font-weight: 600;
+}
+.price-card .price-cta {
+  margin-top: auto;
+  display: block; text-align: center;
+  padding: 14px 0; background: transparent; color: var(--text-primary);
+  border: 1px solid var(--border);
+  font-family: var(--font-mono); font-size: 12px;
+  letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600;
+  transition: all var(--dur-micro) var(--ease);
+}
+.price-card .price-cta:hover { border-color: var(--green); color: var(--green); }
+.price-card.popular .price-cta {
+  background: var(--green); color: var(--bg-primary); border-color: var(--green);
+}
+.price-card.popular .price-cta:hover { background: var(--text-primary); border-color: var(--text-primary); }
+@media (max-width: 900px) {
+  .pricing-grid { grid-template-columns: 1fr; }
+}
+
+/* ============ AOF BUNDLE CALLOUT ============ */
+.bundle-callout {
+  margin-top: 48px; padding: 32px 36px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--green);
+  display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
+}
+.bundle-callout .lead {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.16em; color: var(--green); text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.bundle-callout h3 {
+  font-family: var(--font-display); font-size: 24px;
+  font-weight: 600; color: var(--text-primary); margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.bundle-callout p {
+  font-family: var(--font-body); font-size: 14px; color: var(--text-secondary);
+  line-height: 1.55; max-width: 540px;
+}
+.bundle-callout .cta-btn { white-space: nowrap; }
+@media (max-width: 900px) {
+  .bundle-callout { grid-template-columns: 1fr; }
+}
+
+/* ============ FAQ ============ */
+.faq-grid { display: flex; flex-direction: column; gap: 0; max-width: 880px; }
+.faq-item {
+  border-bottom: 1px solid var(--border);
+  padding: 20px 0;
+}
+.faq-q {
+  font-family: var(--font-display); font-size: 17px; font-weight: 500;
+  color: var(--text-primary); cursor: pointer; padding-right: 40px;
+  position: relative; list-style: none;
+}
+.faq-q::-webkit-details-marker { display: none; }
+.faq-q::after {
+  content: '+'; position: absolute; right: 8px; top: 0;
+  font-family: var(--font-mono); color: var(--green); font-size: 20px;
+  transition: transform var(--dur-base) var(--ease);
+}
+.faq-item[open] .faq-q::after { content: '−'; }
+.faq-a {
+  font-family: var(--font-body); font-size: 14px;
+  color: var(--text-secondary); line-height: 1.6; margin-top: 12px;
+  max-width: 720px;
+}
+.faq-a .acc { color: var(--green); }
+
+/* ============ FINAL CTA ============ */
+.final-cta { background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.final-cta-inner {
+  max-width: 880px; margin: 0 auto; text-align: center;
+  padding: 96px 32px;
+}
+.final-cta h2 {
+  font-family: var(--font-display); font-size: clamp(32px, 5vw, 56px);
+  font-weight: 600; line-height: 1.05; letter-spacing: -0.02em;
+  color: var(--text-primary); margin-bottom: 24px; text-wrap: balance;
+}
+.final-cta h2 .accent { color: var(--green); }
+.final-cta .lead {
+  font-family: var(--font-body); font-size: 18px;
+  color: var(--text-secondary); margin-bottom: 40px; line-height: 1.55;
+}
+.final-cta .cta-group { justify-content: center; }
+
+/* ============ FOOTER ============ */
+.site-footer { padding: 48px 32px; }
+.footer-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 16px;
+}
+.footer-inner .left {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.1em; color: var(--text-dim); text-transform: uppercase;
+}
+.footer-inner .right { display: flex; gap: 24px; }
+.footer-inner .right a {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.1em; color: var(--text-dim); text-transform: uppercase;
+  transition: color var(--dur-micro) var(--ease);
+}
+.footer-inner .right a:hover { color: var(--green); }
+
+@media (max-width: 900px) {
+  .section { padding: 64px 24px; }
+  .tool-grid { grid-template-columns: 1fr; }
+  .tool-grid > :nth-child(1), .tool-grid > :nth-child(5) { grid-column: span 1; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/aifounder/" class="nav-logo">aifounder<span class="green">.ca</span></a>
+    <div class="nav-links">
+      <a href="#tools">Tools</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#" class="nav-cta">Get credits →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="hero-container">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          <span>2,000 CREDITS FREE FOR AIOPSFORGE MEMBERS</span>
+        </div>
+
+        <h1>The full AI stack.<br><span class="accent">One credit balance.</span></h1>
+
+        <p class="subtitle">Image, video, research, code, voice, copy, agents — every tool on one balance. Pay per use, not per tool. Switch models the moment a better one ships.</p>
+
+        <div class="cta-group">
+          <a href="#pricing" class="cta-btn">Get credits →</a>
+          <a href="#tools" class="cta-btn cta-btn-secondary">See what's inside</a>
+        </div>
+        <span class="cta-sub">no subscription · pay only what you use · credits never expire</span>
+
+        <div class="hero-monograms">
+          <div class="avatars">
+            <div class="avatar" style="color: #00FF41;">PM</div>
+            <div class="avatar" style="color: #ff4444;">MR</div>
+            <div class="avatar" style="color: #4488ff;">DK</div>
+            <div class="avatar" style="color: #a855f7;">PS</div>
+            <div class="avatar" style="color: #1e40af;">AL</div>
+          </div>
+          <span class="label">FOUNDERS BUILDING ON ONE BALANCE</span>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="terminal-mock">
+          <div class="terminal-bar">
+            <div class="chrome-dots">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+            <span class="title">~/aifounder/usage</span>
+            <span class="live"><span class="live-dot"></span>LIVE</span>
+          </div>
+          <div class="terminal-body">
+            <div style="color: var(--green);">$ tail -f credits.log</div>
+
+            <div class="feed-line user" style="animation-delay:0ms">
+              <span class="ts">2s ago</span>
+              <span class="arrow">›</span>
+              <span class="body"><span class="at">@pravine</span> image · Nano Banana Pro · <span class="credit">-12</span></span>
+              <span class="tag">DONE</span>
+            </div>
+
+            <div class="feed-line sys" style="animation-delay:60ms">
+              <span class="ts">14s ago</span>
+              <span class="arrow">▸</span>
+              <span class="body">research · Gemini 3 + NotebookLM · <span class="credit">-3</span></span>
+            </div>
+
+            <div class="feed-line user" style="animation-delay:120ms">
+              <span class="ts">1m ago</span>
+              <span class="arrow">›</span>
+              <span class="body"><span class="at">@founding_03</span> voice · ElevenLabs · <span class="credit">-8</span></span>
+            </div>
+
+            <div class="feed-line sys" style="animation-delay:180ms">
+              <span class="ts">3m ago</span>
+              <span class="arrow">▸</span>
+              <span class="body">code · Claude Code · <span class="credit">-1.2</span> avg/call</span>
+            </div>
+
+            <div class="feed-line user" style="animation-delay:240ms">
+              <span class="ts">7m ago</span>
+              <span class="arrow">›</span>
+              <span class="body"><span class="at">@founding_07</span> agent · research-analyst · <span class="credit">-4</span></span>
+              <span class="tag">SAVED 2h</span>
+            </div>
+
+            <div class="feed-line sys" style="animation-delay:300ms">
+              <span class="ts">12m ago</span>
+              <span class="arrow">▸</span>
+              <span class="body">balance: <span class="credit">1,847</span> · top up at 200</span>
+            </div>
+
+            <div class="cursor">$ <span class="blink"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== STATS STRIP ===================== -->
+<section class="stats-strip">
+  <div class="stats-strip-inner">
+    <div class="stat">
+      <div class="num">47+</div>
+      <div class="label">AI MODELS</div>
+      <div class="sub">image, video, code, voice, text</div>
+    </div>
+    <div class="stat">
+      <div class="num">$0.01</div>
+      <div class="label">PER CREDIT</div>
+      <div class="sub">unit price · bulk discounts</div>
+    </div>
+    <div class="stat">
+      <div class="num">2,000</div>
+      <div class="label">FREE FOR AOF</div>
+      <div class="sub">members get credits monthly</div>
+    </div>
+    <div class="stat">
+      <div class="num">∞</div>
+      <div class="label">EXPIRY</div>
+      <div class="sub">credits never expire</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TOOLS GRID ===================== -->
+<section class="section" id="tools">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label">what's inside</div>
+      <h2 class="section-title">Every AI tool you actually need.<br>One balance, one login.</h2>
+      <p class="section-sub">Stop juggling subscriptions to OpenAI, Anthropic, ElevenLabs, Midjourney, Runway. Pay only for what you use, switch models without churn.</p>
+    </div>
+
+    <div class="tool-grid">
+
+      <!-- Tool 1: Image & Video — generation queue -->
+      <div class="tool-card">
+        <div class="preview">
+          <div class="pv-head">
+            <span>~/queue</span>
+            <span class="right"><span class="pulse"></span>3 RUNNING</span>
+          </div>
+          <div class="pv-genqueue">
+            <div class="row running">
+              <div class="thumb">▶</div>
+              <div class="name">product-hero-shot.jpg</div>
+              <div class="meta">NANO BANANA PRO</div>
+              <div class="credits">-12</div>
+            </div>
+            <div class="row done">
+              <div class="thumb">✓</div>
+              <div class="name">tutorial-thumbnail.png</div>
+              <div class="meta">FLUX 1.1</div>
+              <div class="credits">-4</div>
+            </div>
+            <div class="row done">
+              <div class="thumb">✓</div>
+              <div class="name">brand-video-15s.mp4</div>
+              <div class="meta">VEO 3.1</div>
+              <div class="credits">-48</div>
+            </div>
+            <div class="row queued">
+              <div class="thumb">◌</div>
+              <div class="name">explainer-shorts.mp4</div>
+              <div class="meta">SORA 2</div>
+              <div class="credits">-32</div>
+            </div>
+          </div>
+          <div class="pv-foot">
+            <span>BATCH IN 2 MIN · NEXT MODEL READY</span>
+            <span style="color: var(--green);">→ NEW JOB</span>
+          </div>
+        </div>
+        <div class="content">
+          <h3>Image &amp; Video Generation</h3>
+          <p>Generate, iterate, finish. Switch between Nano Banana Pro, Flux, VEO, Sora, Runway — all on the same balance. No new logins, no surprise bills.</p>
+        </div>
+      </div>
+
+      <!-- Tool 2: Voice & Audio — waveform -->
+      <div class="tool-card">
+        <div class="preview">
+          <div class="pv-head">
+            <span>~/voice</span>
+            <span class="right"><span class="pulse" style="background: var(--red); --green: var(--red);"></span>SYNTH</span>
+          </div>
+          <div class="pv-wave">
+            <div class="meta-line">
+              <span>~ 0:14 / 0:32</span>
+              <span class="acc" style="color: var(--red);">ELEVENLABS · MULTI-LINGUAL V2</span>
+            </div>
+            <div class="bars">
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="voice-row">
+              <div class="avatar" style="color: var(--red);">VO</div>
+              <div class="info">
+                <div class="name">Studio Narrator · F · EN-US</div>
+                <div class="style">CALM · WARM · 28% PACE</div>
+              </div>
+              <div class="credits" style="color: var(--red);">-8</div>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <h3>Voice &amp; Audio</h3>
+          <p>ElevenLabs voices, Suno music, Hedra animation — generated on demand. Clone your own voice once, narrate your whole channel without a mic.</p>
+        </div>
+      </div>
+
+      <!-- Tool 3: Deep Research — query history -->
+      <div class="tool-card">
+        <div class="preview">
+          <div class="pv-head">
+            <span>~/research</span>
+            <span class="right" style="color: #a855f7;">7 ACTIVE</span>
+          </div>
+          <div class="pv-research">
+            <div class="row live">
+              <span class="dot"></span>
+              <span class="q"><span class="hl">[live]</span> competitor pricing teardown · 14 sources scanned</span>
+              <span class="meta">-3</span>
+            </div>
+            <div class="row">
+              <span class="dot"></span>
+              <span class="q">AI agent eval benchmarks Q1 2026</span>
+              <span class="meta">-2</span>
+            </div>
+            <div class="row">
+              <span class="dot"></span>
+              <span class="q">SOC2 audit prep checklist · indie SaaS</span>
+              <span class="meta">-2</span>
+            </div>
+            <div class="row">
+              <span class="dot"></span>
+              <span class="q">Whop vs Skool vs Circle · fee math</span>
+              <span class="meta">-1</span>
+            </div>
+          </div>
+          <div class="pv-foot">
+            <span>GEMINI 3 + NOTEBOOKLM + PERPLEXITY</span>
+            <span style="color: #a855f7;">+ NEW QUERY</span>
+          </div>
+        </div>
+        <div class="content">
+          <h3>Deep Research</h3>
+          <p>Multi-source research that actually cites. Gemini 3 in NotebookLM for synthesis, Perplexity for live web, GPT for connect-the-dots. Pick the model per query.</p>
+        </div>
+      </div>
+
+      <!-- Tool 4: Code & Build — terminal -->
+      <div class="tool-card">
+        <div class="preview">
+          <div class="pv-head">
+            <span>~/build/landing</span>
+            <span class="right" style="color: #1e40af;">CLAUDE CODE</span>
+          </div>
+          <div class="pv-code">
+            <div><span class="ln">01</span><span class="acc">$ aifounder</span> <span class="accent2">build</span> <span class="dim">--stack=vercel</span></div>
+            <div><span class="ln">02</span><span class="dim"># planning…</span></div>
+            <div><span class="ln">03</span><span class="gr">✓</span> hero · split layout</div>
+            <div><span class="ln">04</span><span class="gr">✓</span> stats strip · 4 cells</div>
+            <div><span class="ln">05</span><span class="gr">✓</span> 6 feature cards · unique</div>
+            <div><span class="ln">06</span><span class="dim"># shipped in 32 minutes</span></div>
+            <div><span class="ln">07</span><span class="acc">$ </span><span class="cursor-blink"></span></div>
+          </div>
+        </div>
+        <div class="content">
+          <h3>Code &amp; Build</h3>
+          <p>Claude Code, v0, Lovable, Cursor — all paid through the same balance. Ship a full landing in 30 min, not 30 days. No per-seat pricing trap.</p>
+        </div>
+      </div>
+
+      <!-- Tool 5: Marketing & Copy — chat writer -->
+      <div class="tool-card">
+        <div class="preview">
+          <div class="pv-head">
+            <span>~/copy</span>
+            <span class="right"><span class="pulse"></span>DRAFT v3</span>
+          </div>
+          <div class="pv-copy">
+            <div class="you">YOU · 09:14 ET</div>
+            <div class="draft">
+              Headline test: <span class="hl">"Ship AI workflows, not subscriptions."</span> Punchier than v2. Want me to A/B against three more angles?
+            </div>
+            <div class="control">
+              <span class="chip active">SHARPER</span>
+              <span class="chip">SHORTER</span>
+              <span class="chip">CONTRARIAN</span>
+              <span class="chip">+ ADD ANGLE</span>
+            </div>
+          </div>
+          <div class="pv-foot">
+            <span>CLAUDE 4.7 · KIMI K2 · GPT-5 — PICK PER DRAFT</span>
+            <span style="color: var(--green);">-1.4 PER DRAFT</span>
+          </div>
+        </div>
+        <div class="content">
+          <h3>Marketing &amp; Copy</h3>
+          <p>Hooks, landing pages, ad scripts, email sequences. Run 5 variations through 3 models. Keep the one that converts, kill the rest. No retainer fees.</p>
+        </div>
+      </div>
+
+      <!-- Tool 6: Agents — dashboard -->
+      <div class="tool-card">
+        <div class="preview">
+          <div class="pv-head">
+            <span>~/agents</span>
+            <span class="right" style="color: var(--red);"><span class="pulse" style="background: var(--red);"></span>2 RUNNING</span>
+          </div>
+          <div class="pv-agents">
+            <div class="row running">
+              <span class="dot"></span>
+              <span class="name">Research Analyst</span>
+              <span class="last">RUNNING</span>
+              <span class="credits" style="color: var(--red);">-4</span>
+            </div>
+            <div class="row running">
+              <span class="dot"></span>
+              <span class="name">Content Pipeline</span>
+              <span class="last">RUNNING</span>
+              <span class="credits" style="color: var(--red);">-2.8</span>
+            </div>
+            <div class="row ready">
+              <span class="dot"></span>
+              <span class="name">Code Reviewer</span>
+              <span class="last">12m AGO</span>
+              <span class="credits" style="color: var(--red);">-1.1</span>
+            </div>
+            <div class="row idle">
+              <span class="dot"></span>
+              <span class="name">Newsletter Writer</span>
+              <span class="last">YESTERDAY</span>
+              <span class="credits" style="color: var(--red);">-3.4</span>
+            </div>
+          </div>
+          <div class="pv-foot">
+            <span>$ aifounder agent run research-analyst</span>
+            <span style="color: var(--red);">→ DEPLOY</span>
+          </div>
+        </div>
+        <div class="content">
+          <h3>Agents &amp; Automation</h3>
+          <p>Plug Claude Code, Manus, custom agents into one billing surface. Each run debits credits transparently. No hidden seat fees, no annual lock-in.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== HOW IT WORKS ===================== -->
+<section class="section steps-section" id="how">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label">how credits work</div>
+      <h2 class="section-title">Three steps. No subscriptions.</h2>
+      <p class="section-sub">Credits are the unit. Top up once, draw from the balance across every tool. Switch models the moment a better one ships — no migration, no new card.</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-cell">
+        <div class="num">STEP 01</div>
+        <h3>Buy a credit pack.</h3>
+        <p>One-time top-up. No subscription. Credits never expire. Bulk discounts at 5k+, 25k+, and enterprise volume.</p>
+        <div class="demo">
+          <span class="gr">$</span> aifounder topup <span class="dim">--pack=5000</span><br>
+          <span class="gr">✓</span> <span class="dim">5,000 credits added · $50</span>
+        </div>
+      </div>
+      <div class="step-cell">
+        <div class="num">STEP 02</div>
+        <h3>Pick the right model.</h3>
+        <p>Each tool shows live unit-cost in credits before you run. Pick fast/cheap or slow/best per task. No subscription lock-in.</p>
+        <div class="demo">
+          <span class="dim"># cost preview</span><br>
+          claude-4.7 <span class="gr">→</span> <span class="dim">-1.4</span> · <span class="dim">15s</span><br>
+          gpt-5 <span class="gr">→</span> <span class="dim">-2.1</span> · <span class="dim">11s</span>
+        </div>
+      </div>
+      <div class="step-cell">
+        <div class="num">STEP 03</div>
+        <h3>Ship. Don't think about billing.</h3>
+        <p>Run image, voice, code, agent jobs side-by-side. One ledger, one invoice, transparent draw-down per task. Receipts auto-organize by project.</p>
+        <div class="demo">
+          <span class="gr">balance:</span> 1,847 credits<br>
+          <span class="dim">spent today: 153 · top up at 200</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRICING ===================== -->
+<section class="section" id="pricing">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label">credit packs</div>
+      <h2 class="section-title">Pay once. Burn it down.</h2>
+      <p class="section-sub">Credits never expire. Bulk packs save big. Most builders run their full month on the 5K pack.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="tier">Starter</div>
+        <div class="amount">
+          <span class="dollar">$15</span>
+          <span class="unit">one-time</span>
+        </div>
+        <div class="credits">1,500 credits · $0.010/credit</div>
+        <ul>
+          <li>~125 hero images</li>
+          <li>~250 deep research queries</li>
+          <li>~30 minutes of voice synthesis</li>
+          <li>~1,000 code-assist calls</li>
+          <li>Credits never expire</li>
+        </ul>
+        <a href="#" class="price-cta">Start with $15 →</a>
+      </div>
+
+      <div class="price-card popular">
+        <div class="tier">Builder</div>
+        <div class="amount">
+          <span class="dollar">$50</span>
+          <span class="unit">one-time</span>
+        </div>
+        <div class="credits">5,500 credits · $0.0091/credit</div>
+        <ul>
+          <li>10% bulk discount baked in</li>
+          <li>~450 hero images OR ~115 short videos</li>
+          <li>~900 deep research queries</li>
+          <li>~2 hours voice synthesis · cloned voice ready</li>
+          <li>Priority generation queue</li>
+          <li>Project receipts + auto-tagging</li>
+        </ul>
+        <a href="#" class="price-cta">Get the Builder pack →</a>
+      </div>
+
+      <div class="price-card">
+        <div class="tier">Operator</div>
+        <div class="amount">
+          <span class="dollar">$200</span>
+          <span class="unit">one-time</span>
+        </div>
+        <div class="credits">25,000 credits · $0.008/credit</div>
+        <ul>
+          <li>20% bulk discount baked in</li>
+          <li>Unlimited team seats on one balance</li>
+          <li>Priority queue + early-access models</li>
+          <li>Per-project ledger + monthly statement</li>
+          <li>Slack support channel</li>
+          <li>Credits never expire</li>
+        </ul>
+        <a href="#" class="price-cta">Power up at $200 →</a>
+      </div>
+    </div>
+
+    <div class="bundle-callout">
+      <div>
+        <div class="lead">AIOPSFORGE BUNDLE</div>
+        <h3>Members get 2,000 credits/month — free.</h3>
+        <p>Already on AIOpsForge? Your $9.99/mo membership includes 2,000 monthly credits on aifounder.ca — that's $20 in tools at zero extra cost. Plus everything in the community: 11 systems, prompts, skills, workflows.</p>
+      </div>
+      <a href="https://aiopsforge.com/" class="cta-btn">Join AIOpsForge →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="section" id="faq">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label">questions</div>
+      <h2 class="section-title">Everything else you'd ask.</h2>
+    </div>
+
+    <div class="faq-grid">
+      <details class="faq-item">
+        <summary class="faq-q">How is this different from buying API access directly?</summary>
+        <div class="faq-a">Two things: <span class="acc">one balance for every tool</span>, and <span class="acc">no per-tool subscription</span>. With direct APIs you'd manage 8+ accounts, 8+ invoices, 8+ rate limits, and switch costs every time a better model ships. Here, you top up once and any tool draws from the same balance — including image, video, voice, research, code, and agent runs.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Do credits expire?</summary>
+        <div class="faq-a"><span class="acc">No.</span> Buy 5,000 credits today, use them in three years. We don't burn down your balance with renewal cycles.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">How does the AIOpsForge bundle work?</summary>
+        <div class="faq-a">If you're an AIOpsForge member ($9.99/mo), you automatically get <span class="acc">2,000 credits per month</span> on aifounder.ca — refilled on your billing cycle. Use them on any tool. Unused credits roll over indefinitely. Cancel AOF and your bundled credits stop, but everything you've already accumulated stays.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">What's the unit cost per task?</summary>
+        <div class="faq-a">Every tool shows live unit cost <span class="acc">before</span> you run. Rough averages: image generation $0.04–$0.40 depending on model, video $0.30–$2 per second, voice synth ~$0.05 per minute, deep research $0.02–$0.15 per query, code assist ~$0.01 per call. Credits = $0.01 each (volume discount drops it lower).</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Can my team share one balance?</summary>
+        <div class="faq-a"><span class="acc">Yes — on the Operator pack and above.</span> Unlimited seats on one shared balance. Per-seat usage tracking, per-project ledger, monthly statements broken down by member. No per-seat charge.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">Which models do you support?</summary>
+        <div class="faq-a">As of 2026 Q2: Claude (Anthropic), GPT-5 (OpenAI), Gemini 3 (Google), Kimi K2 (Moonshot), Nano Banana Pro + Flux (image), VEO 3.1 + Sora 2 + Runway (video), ElevenLabs + Suno + Hedra (audio), Perplexity (research). We add models within 2 weeks of public release. Models retire when usage drops below 1% — you're auto-migrated to the closest equivalent.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">What happens to my data?</summary>
+        <div class="faq-a">We don't store your prompts or outputs by default — they pass through to the underlying provider, then evict from our edge cache within 24 hours. Enable project archival in settings if you want a persistent ledger of generations. We never train on your data.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FINAL CTA ===================== -->
+<section class="final-cta">
+  <div class="final-cta-inner">
+    <h2>Stop paying 8 subscriptions.<br><span class="accent">Pay once. Use everything.</span></h2>
+    <p class="lead">Start with $15. Get 1,500 credits. Run your first month before you ever need to top up again.</p>
+    <div class="cta-group">
+      <a href="#pricing" class="cta-btn">Get credits →</a>
+      <a href="https://aiopsforge.com/" class="cta-btn cta-btn-secondary">Or join AIOpsForge — credits included</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="left">© aifounder.ca · 2026</div>
+    <div class="right">
+      <a href="/aifounder/#tools">Tools</a>
+      <a href="/aifounder/#pricing">Pricing</a>
+      <a href="https://aiopsforge.com/">AIOpsForge</a>
+      <a href="#">Terms</a>
+      <a href="#">Privacy</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
