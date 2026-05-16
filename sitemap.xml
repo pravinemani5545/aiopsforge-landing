@@ -3,7 +3,7 @@
 
   <!-- Home — priority 1.0 -->
   <url>
-    <loc>https://aiopsforge.com/</loc>
+    <loc>https://aiopsforge.dev/</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -11,37 +11,37 @@
 
   <!-- Main pages — priority 0.8 -->
   <url>
-    <loc>https://aiopsforge.com/pricing</loc>
+    <loc>https://aiopsforge.dev/pricing</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://aiopsforge.com/blogs</loc>
+    <loc>https://aiopsforge.dev/blogs</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://aiopsforge.com/tools</loc>
+    <loc>https://aiopsforge.dev/tools</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://aiopsforge.com/newsletter</loc>
+    <loc>https://aiopsforge.dev/newsletter</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://aiopsforge.com/custom-solutions</loc>
+    <loc>https://aiopsforge.dev/custom-solutions</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://aiopsforge.com/aifounder/</loc>
+    <loc>https://aiopsforge.dev/aifounder/</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -49,79 +49,79 @@
 
   <!-- Community subpages — priority 0.6 -->
   <url>
-    <loc>https://aiopsforge.com/community/</loc>
+    <loc>https://aiopsforge.dev/community/</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://aiopsforge.com/community/start-here</loc>
+    <loc>https://aiopsforge.dev/community/start-here</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://aiopsforge.com/community/skills</loc>
+    <loc>https://aiopsforge.dev/community/skills</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://aiopsforge.com/community/prompts</loc>
+    <loc>https://aiopsforge.dev/community/prompts</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://aiopsforge.com/community/workflows</loc>
+    <loc>https://aiopsforge.dev/community/workflows</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://aiopsforge.com/community/landscape</loc>
+    <loc>https://aiopsforge.dev/community/landscape</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://aiopsforge.com/community/tools</loc>
+    <loc>https://aiopsforge.dev/community/tools</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://aiopsforge.com/community/weekly-guides</loc>
+    <loc>https://aiopsforge.dev/community/weekly-guides</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://aiopsforge.com/community/agents-hub</loc>
+    <loc>https://aiopsforge.dev/community/agents-hub</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://aiopsforge.com/community/ai-coach</loc>
+    <loc>https://aiopsforge.dev/community/ai-coach</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://aiopsforge.com/community/ai-fundamentals-curriculum</loc>
+    <loc>https://aiopsforge.dev/community/ai-fundamentals-curriculum</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://aiopsforge.com/community/context-profiles</loc>
+    <loc>https://aiopsforge.dev/community/context-profiles</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://aiopsforge.com/community/need-planning</loc>
+    <loc>https://aiopsforge.dev/community/need-planning</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -129,31 +129,31 @@
 
   <!-- Sandbox subpages — priority 0.6 -->
   <url>
-    <loc>https://aiopsforge.com/sandbox/</loc>
+    <loc>https://aiopsforge.dev/sandbox/</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://aiopsforge.com/sandbox/skills</loc>
+    <loc>https://aiopsforge.dev/sandbox/skills</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://aiopsforge.com/sandbox/prompts</loc>
+    <loc>https://aiopsforge.dev/sandbox/prompts</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://aiopsforge.com/sandbox/workflows</loc>
+    <loc>https://aiopsforge.dev/sandbox/workflows</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://aiopsforge.com/sandbox/landscape</loc>
+    <loc>https://aiopsforge.dev/sandbox/landscape</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
