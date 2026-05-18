@@ -563,13 +563,12 @@ a { color: inherit; text-decoration: none; }
 </head>
 <body>
 
-<!-- Hub is publicly viewable as the workspace gateway. Sub-pages gate to here. -->
+<!-- Hub is publicly viewable. Anyone who reaches /community/ gets the
+     session flag so sub-page links work without bouncing back. Real
+     Whop auth gating will replace this at launch. -->
 <script>
 (function() {
-  // Allow ?preview=1 to set auth flag for testing/walkthroughs
-  if (new URLSearchParams(window.location.search).get('preview') === '1') {
-    sessionStorage.setItem('aof_cw_auth', '1');
-  }
+  sessionStorage.setItem('aof_cw_auth', '1');
 })();
 </script>
 
