@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stack — Pravine Mani</title>
+<meta name="description" content="The operator stack — every tool I use daily, what it does, what it costs, and what I deliberately avoid.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/design-system/tokens.css">
+<link rel="stylesheet" href="/portfolio/_shell.css">
+<script async src="https://plausible.io/js/pa-rDlrb-w9Wsz9vcppD3o0K.js"></script>
+<script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+<style>
+.stack-cat { background: var(--bg-card); border: 1px solid var(--border); margin-bottom: 20px; position: relative; }
+.stack-cat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--card-accent, var(--green)); opacity: 0.8; }
+.sc-head { padding: 18px 26px; border-bottom: 1px solid var(--border); background: var(--bg-tertiary); display: flex; justify-content: space-between; align-items: center; }
+.sc-head .name { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; color: var(--green); text-transform: uppercase; }
+.sc-head .name .n { color: var(--text-dim); }
+.sc-head .cost { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--text-dim); text-transform: uppercase; }
+.sc-head .cost .v { color: var(--text-primary); }
+.tool-rows { padding: 0; }
+.tool { display: grid; grid-template-columns: 200px 1fr auto auto; gap: 18px; align-items: center; padding: 14px 26px; border-bottom: 1px solid var(--border); }
+.tool:last-child { border-bottom: none; }
+.tool .nm { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: var(--text-primary); }
+.tool .nm.daily::after { content: ' ●'; color: var(--green); font-size: 12px; }
+.tool .why { font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+.tool .price { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); letter-spacing: 0.06em; text-align: right; }
+.tool .tag { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 7px; border: 1px solid currentColor; color: var(--text-dim); }
+.tool.daily .tag { color: var(--green); }
+.tool.optional .tag { color: var(--text-dim); }
+.stack-cat:nth-of-type(1) { --card-accent: var(--green); }
+.stack-cat:nth-of-type(2) { --card-accent: var(--red); }
+.stack-cat:nth-of-type(3) { --card-accent: #a855f7; }
+.stack-cat:nth-of-type(4) { --card-accent: var(--blue); }
+.stack-cat:nth-of-type(5) { --card-accent: #1e40af; }
+.stack-cat.avoid { border-color: rgba(255, 68, 68, 0.2); }
+.stack-cat.avoid::before { background: var(--red); }
+.stack-cat.avoid .sc-head .name { color: var(--red); }
+.legend { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--text-dim); text-transform: uppercase; padding: 14px 22px; background: var(--bg-card); border: 1px solid var(--border); margin-bottom: 24px; display: flex; gap: 24px; flex-wrap: wrap; }
+.legend .green { color: var(--green); }
+@media (max-width: 720px) { .tool { grid-template-columns: 1fr; gap: 6px; padding: 14px 20px; } .tool .price, .tool .tag { text-align: left; } }
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/portfolio/" class="nav-brand">~/pravine<span class="cursor"></span></a>
+    <div class="nav-links">
+      <a href="/portfolio/services/">Services</a>
+      <a href="/portfolio/work/">Work</a>
+      <a href="/portfolio/writing/">Writing</a>
+      <a href="/portfolio/stack/" class="active">Stack</a>
+      <a href="/portfolio/now/">Now</a>
+      <a href="/portfolio/about/">About</a>
+      <a href="/portfolio/contact/" class="nav-cta">Contact →</a>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="breadcrumb"><span class="gr">$</span> cat ~/.stack <span class="you">→ what i build with daily</span></div>
+  <h1>The operator stack.<br><span class="accent">Every tool. Why. What it costs.</span></h1>
+  <p class="lead">Opinionated, not exhaustive. The tools I actually use, ranked by frequency. Daily-rotation marked with a green dot. Monthly costs are honest — the totals at the bottom of each category include only what I pay personally.</p>
+</section>
+
+<section class="section">
+  <div class="legend">
+    <span><span class="green">●</span> DAILY DRIVER</span>
+    <span>○ OCCASIONAL</span>
+    <span>RED CARD = DELIBERATELY AVOIDED</span>
+  </div>
+
+  <div class="stack-cat">
+    <div class="sc-head">
+      <div class="name"><span class="n">01 ·</span> CODE + SHIP</div>
+      <div class="cost">MONTHLY · <span class="v">~$40</span></div>
+    </div>
+    <div class="tool-rows">
+      <div class="tool daily">
+        <div class="nm daily">Claude Code</div>
+        <div class="why">Primary dev surface. Sub-agents, MCP, hooks, headless mode — the whole package. Replaced VS Code as my default.</div>
+        <div class="price">$20 / mo</div>
+        <div class="tag">DAILY</div>
+      </div>
+      <div class="tool daily">
+        <div class="nm daily">Vercel</div>
+        <div class="why">Hosting + serverless + cron + KV. Hobby tier covers most personal projects; Pro for client work.</div>
+        <div class="price">$0–20 / mo</div>
+        <div class="tag">DAILY</div>
+      </div>
+      <div class="tool daily">
+        <div class="nm daily">TypeScript</div>
+        <div class="why">Default for anything past a one-file script. Strict mode on. Auto-fix saves on commit.</div>
+        <div class="price">FREE</div>
+        <div class="tag">DAILY</div>
+      </div>
+      <div class="tool">
+        <div class="nm">Cursor</div>
+        <div class="why">Backup for VS Code-native moments. Tab completion is still best-in-class.</div>
+        <div class="price">$20 / mo</div>
+        <div class="tag">OCCASIONAL</div>
+      </div>
+      <div class="tool">
+        <div class="nm">v0</div>
+        <div class="why">UI scaffolds. React + Tailwind components in minutes. Port to production after.</div>
+        <div class="price">USAGE-BASED</div>
+        <div class="tag">OCCASIONAL</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stack-cat">
+    <div class="sc-head">
+      <div class="name"><span class="n">02 ·</span> AI + AGENTS</div>
+      <div class="cost">MONTHLY · <span class="v">~$60</span> (API)</div>
+    </div>
+    <div class="tool-rows">
+      <div class="tool daily">
+        <div class="nm daily">Anthropic API</div>
+        <div class="why">Claude 4.7 Opus for code + reasoning, Sonnet 4.6 for high-volume. Token-based pricing, prompt caching cuts ~70%.</div>
+        <div class="price">~$40 / mo</div>
+        <div class="tag">DAILY</div>
+      </div>
+      <div class="tool daily">
+        <div class="nm daily">MCP</div>
+        <div class="why">Model Context Protocol — plugins for Claude. Filesystem, GitHub, Playwright, Obsidian, custom servers.</div>
+        <div class="price">FREE PROTOCOL</div>
+        <div class="tag">DAILY</div>
+      </div>
+      <div class="tool">
+        <div class="nm">OpenAI / GPT-5</div>
+        <div class="why">For comparison work + specific tasks where GPT pulls ahead. Not the primary.</div>
+        <div class="price">USAGE-BASED</div>
+        <div class="tag">OCCASIONAL</div>
+      </div>
+      <div class="tool">
+        <div class="nm">Gemini 3 / NotebookLM</div>
+        <div class="why">Best research synthesis tool right now. 1M-token context. Audio overviews are a 10x feature.</div>
+        <div class="price">FREE / $20</div>
+        <div class="tag">OCCASIONAL</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stack-cat">
+    <div class="sc-head">
+      <div class="name"><span class="n">03 ·</span> DATA + INFRA</div>
+      <div class="cost">MONTHLY · <span class="v">~$30</span></div>
+    </div>
+    <div class="tool-rows">
+      <div class="tool daily">
+        <div class="nm daily">Vercel KV</div>
+        <div class="why">Redis-compatible key-value store on Vercel. Default for idempotency keys, session state, cron-job memory.</div>
+        <div class="price">USAGE-BASED</div>
+        <div class="tag">DAILY</div>
+      </div>
+      <div class="tool daily">
+        <div class="nm daily">Vercel Cron</div>
+        <div class="why">Scheduled functions. Replaces n8n / Make for me. Code in repo, versioned, debugable.</div>
+        <div class="price">INCLUDED</div>
+        <div class="tag">DAILY</div>
+      </div>
+      <div class="tool">
+        <div class="nm">Supabase</div>
+        <div class="why">Postgres + auth + RLS for any app that needs a real database. Free tier handles most personal projects.</div>
+        <div class="price">$0–25 / mo</div>
+        <div class="tag">OCCASIONAL</div>
+      </div>
+      <div class="tool">
+        <div class="nm">Resend</div>
+        <div class="why">Transactional email API. Clean SDK, easy DKIM, good deliverability. Default mail provider.</div>
+        <div class="price">FREE TIER</div>
+        <div class="tag">OCCASIONAL</div>
+      </div>
+      <div class="tool">
+        <div class="nm">Stripe</div>
+        <div class="why">Payments. Standard.</div>
+        <div class="price">2.9% + 30¢</div>
+        <div class="tag">OCCASIONAL</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stack-cat">
+    <div class="sc-head">
+      <div class="name"><span class="n">04 ·</span> CONTENT + GROWTH</div>
+      <div class="cost">MONTHLY · <span class="v">~$50</span></div>
+    </div>
+    <div class="tool-rows">
+      <div class="tool daily">
+        <div class="nm daily">Beehiiv</div>
+        <div class="why">Newsletter. 0% on paid subs, built-in ads marketplace, Boost Network for cross-promo growth.</div>
+        <div class="price">FREE–$49 / mo</div>
+        <div class="tag">DAILY</div>
+      </div>
+      <div class="tool daily">
+        <div class="nm daily">Plausible</div>
+        <div class="why">Privacy-friendly analytics. No cookie banner, EU-friendly, $9/mo. Replaced GA4.</div>
+        <div class="price">$9 / mo</div>
+        <div class="tag">DAILY</div>
+      </div>
+      <div class="tool">
+        <div class="nm">Whop</div>
+        <div class="why">Community + checkout. 3% platform + Stripe. Marketplace discoverability is the actual win.</div>
+        <div class="price">3% + STRIPE</div>
+        <div class="tag">OCCASIONAL</div>
+      </div>
+      <div class="tool">
+        <div class="nm">Typefully</div>
+        <div class="why">X scheduling. Clean editor, thread split, cross-post to LinkedIn/Threads/Bluesky.</div>
+        <div class="price">$19 / mo</div>
+        <div class="tag">OCCASIONAL</div>
+      </div>
+      <div class="tool">
+        <div class="nm">AuthoredUp</div>
+        <div class="why">LinkedIn editor + analytics. Best value at launch tier. Skip Taplio until you're scaling LI seriously.</div>
+        <div class="price">$20 / mo</div>
+        <div class="tag">OCCASIONAL</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stack-cat avoid">
+    <div class="sc-head">
+      <div class="name"><span class="n">05 ·</span> DELIBERATELY NOT USING</div>
+      <div class="cost">MONTHLY · <span class="v">$0</span></div>
+    </div>
+    <div class="tool-rows">
+      <div class="tool">
+        <div class="nm">n8n</div>
+        <div class="why">Visual workflow tool. Replaced with Vercel cron + serverless functions — code-first, $0 platform fee, versioned in git, debuggable.</div>
+        <div class="price">$0–20 / mo</div>
+        <div class="tag">AVOIDED</div>
+      </div>
+      <div class="tool">
+        <div class="nm">Make.com</div>
+        <div class="why">Same as n8n. Fine for non-technical users; wrong fit for an operator who can write a serverless function in 20 minutes.</div>
+        <div class="price">$9–29 / mo</div>
+        <div class="tag">AVOIDED</div>
+      </div>
+      <div class="tool">
+        <div class="nm">Zapier</div>
+        <div class="why">Even more expensive per-action than the above. The cost-per-workflow at scale doesn't make sense once you can code.</div>
+        <div class="price">$20+ / mo</div>
+        <div class="tag">AVOIDED</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© PRAVINE MANI · 2026 · TORONTO</span>
+    <div class="right"><a href="/portfolio/services/">SERVICES</a><a href="/portfolio/work/">WORK</a><a href="/portfolio/now/">NOW</a><a href="/portfolio/contact/">CONTACT</a><a href="https://aiopsforge.dev">AIOPSFORGE</a></div>
+    <span>OPINIONATED · UPDATED MONTHLY</span>
+  </div>
+</footer>
+</body>
+</html>

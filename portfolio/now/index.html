@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Now — Pravine Mani</title>
+<meta name="description" content="What I'm working on right now — current focus, this week's ships, what I'm reading.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/design-system/tokens.css">
+<link rel="stylesheet" href="/portfolio/_shell.css">
+<script async src="https://plausible.io/js/pa-rDlrb-w9Wsz9vcppD3o0K.js"></script>
+<script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+<style>
+.now-card { background: var(--bg-card); border: 1px solid var(--border); padding: 28px; margin-bottom: 20px; position: relative; }
+.now-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--card-accent, var(--green)); opacity: 0.8; }
+.now-card .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: var(--green); text-transform: uppercase; margin-bottom: 10px; }
+.now-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; margin-bottom: 14px; }
+.now-card p { font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 12px; max-width: 760px; }
+.now-card p strong { color: var(--text-primary); }
+.week-rail { display: flex; flex-direction: column; gap: 0; margin-top: 10px; }
+.week-rail .item { display: grid; grid-template-columns: 80px 1fr auto; gap: 18px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.week-rail .item:last-child { border-bottom: none; }
+.week-rail .item .day { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase; }
+.week-rail .item.done .day { color: var(--green); }
+.week-rail .item.now .day { color: var(--green); }
+.week-rail .item .what { font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; color: var(--text-secondary); line-height: 1.45; }
+.week-rail .item.done .what { color: var(--text-primary); }
+.week-rail .item.now .what { color: var(--text-primary); font-weight: 600; }
+.week-rail .item .check { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-dim); }
+.week-rail .item.done .check { color: var(--green); }
+.week-rail .item.now .check { color: #ffd84a; }
+.now-card:nth-of-type(1) { --card-accent: var(--green); }
+.now-card:nth-of-type(2) { --card-accent: var(--red); }
+.now-card:nth-of-type(3) { --card-accent: #a855f7; }
+.now-card:nth-of-type(4) { --card-accent: var(--blue); }
+.reading-list { display: flex; flex-direction: column; gap: 10px; }
+.reading-list .row { display: grid; grid-template-columns: 1fr auto; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+.reading-list .row:last-child { border-bottom: none; }
+.reading-list .row .title { color: var(--text-primary); font-weight: 500; }
+.reading-list .row .author { color: var(--text-dim); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/portfolio/" class="nav-brand">~/pravine<span class="cursor"></span></a>
+    <div class="nav-links">
+      <a href="/portfolio/services/">Services</a>
+      <a href="/portfolio/work/">Work</a>
+      <a href="/portfolio/writing/">Writing</a>
+      <a href="/portfolio/stack/">Stack</a>
+      <a href="/portfolio/now/" class="active">Now</a>
+      <a href="/portfolio/about/">About</a>
+      <a href="/portfolio/contact/" class="nav-cta">Contact →</a>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="breadcrumb"><span class="gr">$</span> cat ~/now.md <span class="you">→ what i'm on right now</span></div>
+  <h1>Right now.<br><span class="accent">May 18, 2026 · Toronto.</span></h1>
+  <p class="lead">A <a href="https://nownownow.com/about" style="color: var(--green); border-bottom: 1px dashed var(--green);">/now</a> page in the Sivers spirit — what I'm actually working on this week and month, not a snapshot from 2 years ago. Updated weekly.</p>
+</section>
+
+<section class="section">
+
+  <div class="now-card">
+    <div class="label">CURRENT FOCUS · ALL-IN</div>
+    <h3>Ship AIOpsForge to first 50 paying members.</h3>
+    <p><strong>The bet:</strong> a $9.99/month community for solo AI builders, sold on Whop. 9 of 10 founding spots open, $9.99 locked for life for those founding members. Goal: <strong>$500 MRR by July 2026</strong>.</p>
+    <p>Daily work: shipping the community workspace (currently at 20% content, growing weekly), writing the weekly build guides, building the AI coach trained on the curriculum, growing the newsletter to 1,500 subs (current gate for sponsorship monetization).</p>
+    <p>Adjacent to that: <strong>freelance AI automation work</strong>. 2 spots open this quarter — see <a href="/portfolio/services/" style="color: var(--green);">/services</a>.</p>
+  </div>
+
+  <div class="now-card">
+    <div class="label">THIS WEEK · MAY 18–22</div>
+    <h3>Shipping checklist.</h3>
+    <div class="week-rail">
+      <div class="item done"><span class="day">MON · DONE</span><span class="what">Onboarded a new AI System Audit client · 5-day deliverable scoped</span><span class="check">✓</span></div>
+      <div class="item done"><span class="day">TUE · DONE</span><span class="what">Community workspace redesign · 14 areas live with 20% content</span><span class="check">✓</span></div>
+      <div class="item done"><span class="day">WED · DONE</span><span class="what">Weekly build guide #22 · MCP server for X mentions watcher</span><span class="check">✓</span></div>
+      <div class="item now"><span class="day">THU · NOW</span><span class="what">Recording client handoff Looms · audit findings deck</span><span class="check">▸</span></div>
+      <div class="item"><span class="day">FRI · QUEUED</span><span class="what">Booking calls · close 1 of the 2 freelance Q3 slots</span><span class="check">○</span></div>
+      <div class="item"><span class="day">FRI · QUEUED</span><span class="what">Ship newsletter issue #6 · "no n8n / no Make" stack post</span><span class="check">○</span></div>
+    </div>
+  </div>
+
+  <div class="now-card">
+    <div class="label">THIS MONTH · MAY 2026</div>
+    <h3>Bigger ships.</h3>
+    <p><strong>AIOpsForge:</strong> Full community workspace redesign shipped — 14 areas now live with 20% content + roadmap visible. Stats: 32 commits this month on the AOF repo, 607 Claude Code sessions across all projects in 30 days, 51 URLs indexed on aiopsforge.dev.</p>
+    <p><strong>aifounder.ca:</strong> Rebuilt the landing page with 5 fresh design concepts (bento workflow grid, 24-hour schedule ribbon, without/with diptych, ASCII architecture, live metrics marquee). Sibling product positioned as "AI business partner / workflow hub." Moves to its own domain when ready.</p>
+    <p><strong>personalClaudeSkills:</strong> Public Claude Code skill library on GitHub. Shipped <code style="font-family:monospace;color:var(--green);background:var(--bg-tertiary);padding:1px 6px;border:1px solid var(--border);">/growth-sprint</code> and <code style="font-family:monospace;color:var(--green);background:var(--bg-tertiary);padding:1px 6px;border:1px solid var(--border);">/design-system</code> skills. Two more queued for June.</p>
+    <p><strong>Portfolio (this site):</strong> built this week. Will move to its own domain (likely <code style="font-family:monospace;color:var(--green);background:var(--bg-tertiary);padding:1px 6px;border:1px solid var(--border);">pravine.dev</code>) once content settles.</p>
+  </div>
+
+  <div class="now-card">
+    <div class="label">READING · OPERATING NOTES</div>
+    <h3>Inputs this month.</h3>
+    <div class="reading-list">
+      <div class="row"><span class="title">"The Lazy Tax" — on premature optimization in solo SaaS</span><span class="author">SAVED</span></div>
+      <div class="row"><span class="title">Latent Space podcast — "AI engineering is software engineering"</span><span class="author">RE-LISTEN</span></div>
+      <div class="row"><span class="title">Anthropic MCP spec — re-read for the agent build</span><span class="author">REFERENCE</span></div>
+      <div class="row"><span class="title">"Working in Public" — Nadia Eghbal</span><span class="author">RE-READING</span></div>
+      <div class="row"><span class="title">Indie Hackers MRR posts — pattern-matching solo $5k-$20k</span><span class="author">RESEARCH</span></div>
+      <div class="row"><span class="title">Geoffrey Litt blog — on Malleable software</span><span class="author">FRESH</span></div>
+    </div>
+  </div>
+
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© PRAVINE MANI · UPDATED 2026-05-18</span>
+    <div class="right"><a href="/portfolio/services/">SERVICES</a><a href="/portfolio/work/">WORK</a><a href="/portfolio/stack/">STACK</a><a href="/portfolio/contact/">CONTACT</a><a href="https://aiopsforge.dev">AIOPSFORGE</a></div>
+    <span>UPDATED WEEKLY · /NOW PAGE STYLE</span>
+  </div>
+</footer>
+</body>
+</html>

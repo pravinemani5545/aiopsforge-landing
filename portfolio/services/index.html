@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — Pravine Mani · AI Automation</title>
+<meta name="description" content="Productized AI automation services. Audit, build sprint, advisory retainer, custom workflows. Fixed scope, fixed price, fixed delivery.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/design-system/tokens.css">
+<link rel="stylesheet" href="/portfolio/_shell.css">
+<script async src="https://plausible.io/js/pa-rDlrb-w9Wsz9vcppD3o0K.js"></script>
+<script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+<style>
+.tier-card { background: var(--bg-card); border: 1px solid var(--border); margin-bottom: 28px; position: relative; }
+.tier-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--card-accent, var(--green)); }
+.tier-card.featured { border-color: var(--border-green); }
+.tier-head { display: grid; grid-template-columns: 1fr auto; gap: 20px; padding: 24px 30px; border-bottom: 1px solid var(--border); background: var(--bg-tertiary); align-items: center; }
+.tier-head .left .row1 { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: var(--green); text-transform: uppercase; margin-bottom: 6px; }
+.tier-head .left h3 { font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.02em; line-height: 1.15; }
+.tier-head .right { text-align: right; }
+.tier-head .right .price { font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.02em; }
+.tier-head .right .time { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--green); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
+.tier-body { padding: 26px 30px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 32px; }
+.tier-body .col h4 { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; color: var(--green); text-transform: uppercase; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.tier-body .col p { font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 12px; }
+.tier-body .col p strong { color: var(--text-primary); }
+.tier-body .col ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.tier-body .col ul li { padding-left: 18px; position: relative; font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+.tier-body .col ul li::before { content: '+'; position: absolute; left: 0; color: var(--green); font-family: 'JetBrains Mono', monospace; font-weight: 600; }
+.tier-foot { padding: 16px 30px; border-top: 1px solid var(--border); background: var(--bg-tertiary); display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+.tier-foot .meta { color: var(--text-dim); }
+.tier-foot a { color: var(--green); }
+.tier-card:nth-of-type(1) { --card-accent: var(--green); }
+.tier-card:nth-of-type(2) { --card-accent: var(--red); }
+.tier-card:nth-of-type(3) { --card-accent: #a855f7; }
+.tier-card:nth-of-type(4) { --card-accent: var(--blue); }
+.faq-block { display: flex; flex-direction: column; }
+.faq-item { padding: 18px 0; border-bottom: 1px solid var(--border); }
+.faq-item:last-child { border-bottom: none; }
+.faq-item summary { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 500; color: var(--text-primary); cursor: pointer; padding-right: 32px; position: relative; list-style: none; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: '+'; position: absolute; right: 8px; top: 0; font-family: 'JetBrains Mono', monospace; color: var(--green); font-size: 20px; }
+.faq-item[open] summary::after { content: '−'; }
+.faq-item p { margin-top: 10px; font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; color: var(--text-secondary); line-height: 1.65; max-width: 720px; }
+.faq-item p .acc { color: var(--green); }
+@media (max-width: 720px) { .tier-head { grid-template-columns: 1fr; } .tier-head .right { text-align: left; } .tier-body { grid-template-columns: 1fr; gap: 20px; } }
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/portfolio/" class="nav-brand">~/pravine<span class="cursor"></span></a>
+    <div class="nav-links">
+      <a href="/portfolio/services/" class="active">Services</a>
+      <a href="/portfolio/work/">Work</a>
+      <a href="/portfolio/writing/">Writing</a>
+      <a href="/portfolio/stack/">Stack</a>
+      <a href="/portfolio/now/">Now</a>
+      <a href="/portfolio/about/">About</a>
+      <a href="/portfolio/contact/" class="nav-cta">Contact →</a>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="breadcrumb"><span class="gr">$</span> cd ~/services <span class="you">→ productized engagements</span></div>
+  <h1>Four ways to put me to work.<br><span class="accent">Fixed scope. Fixed price.</span></h1>
+  <p class="lead">Each engagement is productized so you know exactly what you're getting and when. No vague "discovery phase," no retainer creep. Pick the tier that matches your problem, sign the Stripe link, work starts.</p>
+</section>
+
+<section class="section">
+
+  <!-- 01 · AUDIT -->
+  <div class="tier-card featured">
+    <div class="tier-head">
+      <div class="left">
+        <div class="row1">01 · AI SYSTEM AUDIT</div>
+        <h3>Find where AI actually saves you the most hours.</h3>
+      </div>
+      <div class="right">
+        <div class="price">$3,500</div>
+        <div class="time">5 DAYS · MOST POPULAR</div>
+      </div>
+    </div>
+    <div class="tier-body">
+      <div class="col">
+        <h4>WHAT YOU GET</h4>
+        <p>A week of focused operator-to-operator analysis. I interview you, watch how your week actually goes, map your workflows, and find the 3–5 places AI gives you back real, measurable time.</p>
+        <p>You leave with: a prioritized opportunity list, vendor recommendations, monthly cost projections, and a concrete 30-day build plan that you (or I) can execute against.</p>
+        <p><strong>This is the right starting point</strong> if you're not sure where to point AI yet.</p>
+      </div>
+      <div class="col">
+        <h4>DELIVERABLES</h4>
+        <ul>
+          <li>3× founder interviews (60 min)</li>
+          <li>Current-state workflow map</li>
+          <li>Ranked opportunity list — effort × impact</li>
+          <li>Vendor + cost projections per opportunity</li>
+          <li>30-day execution plan</li>
+          <li>60-min handoff call + Loom walkthrough</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tier-foot">
+      <span class="meta">2 SLOTS / QUARTER · NET-7 PAYMENT</span>
+      <a href="/portfolio/contact/">→ BOOK AUDIT</a>
+    </div>
+  </div>
+
+  <!-- 02 · BUILD SPRINT -->
+  <div class="tier-card">
+    <div class="tier-head">
+      <div class="left">
+        <div class="row1" style="color: var(--red);">02 · 48-HOUR BUILD SPRINT</div>
+        <h3>One workflow. Productized. Shipped in 2 days.</h3>
+      </div>
+      <div class="right">
+        <div class="price">$3,000</div>
+        <div class="time" style="color: var(--red);">48 HOURS · FIXED SCOPE</div>
+      </div>
+    </div>
+    <div class="tier-body">
+      <div class="col">
+        <h4>WHAT YOU GET</h4>
+        <p>Productized scope, fixed timeline. We agree on one specific workflow Monday morning, I deliver it deployed and documented by Wednesday EOD.</p>
+        <p>If the workflow isn't "send this draft to my inbox at 6am" specific, the sprint doesn't fit — that's deliberate. The 48-hour clock forces clarity on both sides.</p>
+        <p><strong>Best for:</strong> "I know what I want, I just need it built." Daily morning brief, weekly metrics report, sales follow-up automation, content cross-poster, etc.</p>
+      </div>
+      <div class="col">
+        <h4>DELIVERABLES</h4>
+        <ul>
+          <li>One workflow · clear input + output</li>
+          <li>Deployed on your Vercel (or mine)</li>
+          <li>README · cost projection · env-var spec</li>
+          <li>15-min handoff Loom</li>
+          <li>14 days of post-sprint bug fixes</li>
+          <li>You own the code outright</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tier-foot">
+      <span class="meta">3 SLOTS / MONTH · 50% UPFRONT</span>
+      <a href="/portfolio/contact/">→ BOOK SPRINT</a>
+    </div>
+  </div>
+
+  <!-- 03 · ADVISORY -->
+  <div class="tier-card">
+    <div class="tier-head">
+      <div class="left">
+        <div class="row1" style="color: #a855f7;">03 · ADVISORY RETAINER</div>
+        <h3>Reviewer, sounding board, gut check.</h3>
+      </div>
+      <div class="right">
+        <div class="price">$2,500<span style="font-size: 14px; color: var(--text-dim);"> /mo</span></div>
+        <div class="time" style="color: #a855f7;">~10 HRS · MONTH-TO-MONTH</div>
+      </div>
+    </div>
+    <div class="tier-body">
+      <div class="col">
+        <h4>WHAT YOU GET</h4>
+        <p>For founders already building with AI who need a second brain. Not implementation work — the kind of feedback that prevents you from shipping the wrong thing.</p>
+        <p>2 video calls a month, async Slack between, code + prompt reviews on request, cost-audit reviews, vendor strategy. Especially valuable when you're scaling past your first $5k MRR and decisions start to compound.</p>
+      </div>
+      <div class="col">
+        <h4>DELIVERABLES</h4>
+        <ul>
+          <li>2× 60-min video calls / month</li>
+          <li>Async Slack review</li>
+          <li>Code · prompt · cost audits on request</li>
+          <li>Vendor / hiring / scaling feedback</li>
+          <li>30-day cancel · no lock-in</li>
+          <li>Annual option: 2 months free</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tier-foot">
+      <span class="meta">3 SEATS OPEN · MONTHLY</span>
+      <a href="/portfolio/contact/">→ ENQUIRE</a>
+    </div>
+  </div>
+
+  <!-- 04 · CUSTOM -->
+  <div class="tier-card">
+    <div class="tier-head">
+      <div class="left">
+        <div class="row1" style="color: var(--blue);">04 · CUSTOM BUILD</div>
+        <h3>Bigger projects with a real spec.</h3>
+      </div>
+      <div class="right">
+        <div class="price">FROM $8,000</div>
+        <div class="time" style="color: var(--blue);">1–3 WEEKS · QUOTE-BASED</div>
+      </div>
+    </div>
+    <div class="tier-body">
+      <div class="col">
+        <h4>WHAT YOU GET</h4>
+        <p>For multi-workflow builds that need more than a sprint. Examples: end-to-end content engine (RSS → 6 platform variants), competitor watch with weekly digest, Whop-integrated onboarding system, sales pipeline orchestration.</p>
+        <p>We do a 30-min scoping call. I send you a written spec. Once you sign, I work to milestones with daily updates and a demo at each milestone. Fixed price after scoping — no surprise invoices.</p>
+      </div>
+      <div class="col">
+        <h4>DELIVERABLES</h4>
+        <ul>
+          <li>30-min scoping call + written spec</li>
+          <li>Milestone-based delivery</li>
+          <li>Your stack OR my recommended stack</li>
+          <li>Full source + deployment instructions</li>
+          <li>Architecture diagram + cost projections</li>
+          <li>30 days of post-launch fixes</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tier-foot">
+      <span class="meta">1–2 / QUARTER · QUOTE-BASED</span>
+      <a href="/portfolio/contact/">→ START SCOPING</a>
+    </div>
+  </div>
+
+</section>
+
+<hr class="divider">
+
+<section class="section">
+  <div class="section-head">
+    <div class="label">questions</div>
+    <h2>The ones I actually get.</h2>
+    <p>If yours isn't here, ask on the call.</p>
+  </div>
+  <div class="faq-block">
+    <details class="faq-item"><summary>What stack do you build on?</summary><p><span class="acc">Claude Code + Vercel (serverless + cron + KV) + Anthropic API.</span> I'll work in your stack if it matches — TypeScript, Next.js, Supabase, Stripe, Beehiiv, Whop are all comfortable. I <strong>won't</strong> build on n8n, Make, or Zapier — fragile, expensive at scale, and you can't read the code six months from now.</p></details>
+    <details class="faq-item"><summary>Do you sign NDAs?</summary><p>Yes — happy to. Standard mutual NDA at the scoping call stage. For audits where I'm interviewing your team, I sign before any conversation happens.</p></details>
+    <details class="faq-item"><summary>Who owns the code?</summary><p><span class="acc">You do, outright.</span> All deliverables are work-for-hire under a written agreement. You get the full source, the deployment, and the right to modify or sell. I keep no claim. (I do learn from the work — that's the trade-off of working with a solo operator who's also building in public.)</p></details>
+    <details class="faq-item"><summary>Why fixed price instead of hourly?</summary><p>Hourly aligns incentives badly — I'd be incentivized to take longer, you'd be incentivized to micro-manage. Fixed-price aligns us on outcome: we both want the thing done well, fast, and right the first time.</p></details>
+    <details class="faq-item"><summary>What if I'm in a different timezone?</summary><p>I'm in Toronto (ET). Async-default works for most engagements — Slack/email + recorded Loom updates. I'll do live calls in your timezone within 9am–9pm ET; outside that, written-first.</p></details>
+    <details class="faq-item"><summary>Do you do equity-for-work?</summary><p><span class="acc">No.</span> I've watched too many friends regret it. Cash, fair price, no equity entanglement.</p></details>
+    <details class="faq-item"><summary>Can you start next week?</summary><p>Usually yes for sprints, sometimes for custom builds. Audits typically book 2–3 weeks out. Always ask — calendars change.</p></details>
+    <details class="faq-item"><summary>What if the scope changes mid-project?</summary><p>For sprints: scope is fixed, period. For audits and custom builds: anything outside the written spec is a separate quote. I'll tell you the impact before you decide, never silently re-scope.</p></details>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© PRAVINE MANI · 2026 · TORONTO</span>
+    <div class="right">
+      <a href="/portfolio/services/">SERVICES</a>
+      <a href="/portfolio/work/">WORK</a>
+      <a href="/portfolio/stack/">STACK</a>
+      <a href="/portfolio/contact/">CONTACT</a>
+      <a href="https://aiopsforge.dev">AIOPSFORGE</a>
+    </div>
+    <span>FIXED SCOPE · FIXED PRICE · NO LOCK-IN</span>
+  </div>
+</footer>
+</body>
+</html>

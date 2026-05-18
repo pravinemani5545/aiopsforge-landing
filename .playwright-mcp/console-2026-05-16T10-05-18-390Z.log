@@ -1,0 +1,8 @@
+[50526862ms] [INFO] LegacyDataMixin will be applied to all legacy elements.
+Set `_legacyUndefinedCheck: true` on element class to enable. @ https://www.youtube.com/s/_/ytmainappweb/_/js/k=ytmainappweb.kevlar_base.en_US.7mTRRo5SqX4.es5.O/am=AAAAEAAABAAJ/d=1/br=1/rs=AGKMywErTpf9PIy72p5zvmTwrJ3N1j_pZg/m=kevlar_base_module,kevlar_main_module,kevlar_base_sync_mod_chunk:9755
+[50527096ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26hl%3Den%26next%3D%252Fsignin_passive%26feature%3Dpassive&dsh=S-197292760%3A1778976445206899&hl=en&passive=true&service=youtube&uilel=3&flowName=GlifWebSignIn&flowEntry=ServiceLogin&ifkv=AWa2PavU9K89zWnOYIM3i-aBm5YB5aBDAxGk0gx1Ew5b0t2ZxOOVwm_IASY60Z55vGrUxEEpgw_5Ng:0
+[50527446ms] [INFO] Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner. @ https://www.youtube.com/:0
+[50530246ms] [ERROR] requestStorageAccessFor: Permission denied. @ https://www.youtube.com/:0
+[50530246ms] [ERROR] requestStorageAccessFor: Permission denied. @ https://www.youtube.com/:0
+[50530246ms] [ERROR] requestStorageAccessFor: Permission denied. @ https://www.youtube.com/:0
+[50534186ms] [WARNING] The resource https://i.ytimg.com/generate_204 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ https://www.youtube.com/:0

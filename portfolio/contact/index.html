@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Pravine Mani</title>
+<meta name="description" content="Book a 30-min scoping call, email, or DM. 2 freelance slots open this quarter.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/design-system/tokens.css">
+<link rel="stylesheet" href="/portfolio/_shell.css">
+<script async src="https://plausible.io/js/pa-rDlrb-w9Wsz9vcppD3o0K.js"></script>
+<script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+<style>
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.contact-card { background: var(--bg-card); border: 1px solid var(--border); padding: 28px 30px; position: relative; transition: all var(--dur-base, 200ms) var(--ease); }
+.contact-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--card-accent, var(--green)); opacity: 0.85; }
+.contact-card:hover { border-color: var(--border-green); transform: translateY(-2px); }
+.contact-card.featured { border-color: var(--border-green); }
+.contact-card .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: var(--green); text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.contact-card .label .dot { width: 6px; height: 6px; background: var(--green); animation: pulse-dot 1.6s infinite; }
+.contact-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; margin-bottom: 12px; line-height: 1.25; }
+.contact-card p { font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 18px; }
+.contact-card .btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; padding: 12px 20px; background: var(--green); color: var(--bg-primary); transition: all var(--dur-micro, 150ms) var(--ease); }
+.contact-card .btn:hover { background: var(--text-primary); }
+.contact-card .btn.secondary { background: transparent; color: var(--text-primary); border: 1px solid var(--border); }
+.contact-card .btn.secondary:hover { border-color: var(--green); color: var(--green); }
+.contact-card:nth-of-type(1) { --card-accent: var(--green); }
+.contact-card:nth-of-type(2) { --card-accent: var(--red); }
+.contact-card:nth-of-type(3) { --card-accent: #a855f7; }
+.contact-card:nth-of-type(4) { --card-accent: var(--blue); }
+.direct-channels { background: var(--bg-card); border: 1px solid var(--border); padding: 24px 28px; margin-top: 24px; }
+.direct-channels h4 { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: var(--green); text-transform: uppercase; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+.channel { display: grid; grid-template-columns: 100px 1fr auto; gap: 18px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; }
+.channel:last-child { border-bottom: none; }
+.channel .k { font-size: 10px; letter-spacing: 0.14em; color: var(--text-dim); text-transform: uppercase; }
+.channel .v { font-size: 13px; color: var(--text-primary); }
+.channel .v a { color: var(--green); }
+.channel .v a:hover { color: var(--text-primary); }
+.channel .speed { font-size: 9px; letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase; }
+.scheduling-note { margin-top: 24px; padding: 20px 24px; background: var(--bg-tertiary); border: 1px solid var(--border); border-left: 2px solid var(--green); }
+.scheduling-note .lab { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--green); text-transform: uppercase; margin-bottom: 8px; }
+.scheduling-note p { font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+.scheduling-note p strong { color: var(--text-primary); }
+@media (max-width: 720px) { .contact-grid { grid-template-columns: 1fr; } .channel { grid-template-columns: 1fr; gap: 4px; } }
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/portfolio/" class="nav-brand">~/pravine<span class="cursor"></span></a>
+    <div class="nav-links">
+      <a href="/portfolio/services/">Services</a>
+      <a href="/portfolio/work/">Work</a>
+      <a href="/portfolio/writing/">Writing</a>
+      <a href="/portfolio/stack/">Stack</a>
+      <a href="/portfolio/now/">Now</a>
+      <a href="/portfolio/about/">About</a>
+      <a href="/portfolio/contact/" class="nav-cta active">Contact →</a>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="breadcrumb"><span class="gr">$</span> echo "let's talk" <span class="you">→ 30-min call · email · dm</span></div>
+  <h1>Get in touch.<br><span class="accent">Three ways. Pick what fits.</span></h1>
+  <p class="lead">Each route below is a real path that gets you a real answer within 24 hours on weekdays. The 30-min scoping call is the fastest path to a quote. Email works for written-first inquiries. X/LinkedIn DM is fine for "is this a fit before I book."</p>
+</section>
+
+<section class="section">
+
+  <div class="contact-grid">
+
+    <div class="contact-card featured">
+      <div class="label"><span class="dot"></span>FASTEST PATH</div>
+      <h3>Book a 30-min scoping call</h3>
+      <p>Walk me through the problem in plain English. I'll tell you whether AI is the right fix, which service tier matches, and roughly what it'll cost. <strong>No pitch deck, no slides — just operator-to-operator.</strong> Booked within 48 hours.</p>
+      <a href="#" class="btn">cal.com/pravine/30min →</a>
+    </div>
+
+    <div class="contact-card">
+      <div class="label" style="color: var(--red);">WRITTEN-FIRST</div>
+      <h3>Email me</h3>
+      <p>If you'd rather write than talk first — describe what's broken, who you are, when you need it. I read everything personally. Reply within 24 hours on weekdays.</p>
+      <a href="mailto:hello@pravine.dev" class="btn secondary">hello@pravine.dev →</a>
+    </div>
+
+    <div class="contact-card">
+      <div class="label" style="color: #a855f7;">CASUAL</div>
+      <h3>DM on X or LinkedIn</h3>
+      <p>Fine for "quick question" or "are you the right person for this." Slower turnaround than email — usually 1–2 days. Use for fit-check, not formal scoping.</p>
+      <a href="https://x.com/pravine" class="btn secondary">@pravine on X →</a>
+    </div>
+
+    <div class="contact-card">
+      <div class="label" style="color: var(--blue);">OPEN-SOURCE</div>
+      <h3>Issue / PR on GitHub</h3>
+      <p>For questions about <code style="font-family:monospace;color:var(--green);background:var(--bg-tertiary);padding:1px 6px;border:1px solid var(--border);">personalClaudeSkills</code> or other open-source repos. Public discussion = public answer. Faster than DM for tech questions.</p>
+      <a href="https://github.com/pravinemani5545" class="btn secondary">@pravinemani5545 →</a>
+    </div>
+
+  </div>
+
+  <div class="direct-channels">
+    <h4>All channels at a glance</h4>
+    <div class="channel"><span class="k">EMAIL</span><span class="v"><a href="mailto:hello@pravine.dev">hello@pravine.dev</a></span><span class="speed">~24 HRS</span></div>
+    <div class="channel"><span class="k">BOOK CALL</span><span class="v"><a href="#">cal.com/pravine/30min</a></span><span class="speed">~48 HRS</span></div>
+    <div class="channel"><span class="k">X / TWITTER</span><span class="v"><a href="https://x.com/pravine">@pravine</a></span><span class="speed">~1–2 DAYS</span></div>
+    <div class="channel"><span class="k">LINKEDIN</span><span class="v"><a href="https://linkedin.com/in/pravinemani">/in/pravinemani</a></span><span class="speed">~1–2 DAYS</span></div>
+    <div class="channel"><span class="k">GITHUB</span><span class="v"><a href="https://github.com/pravinemani5545">@pravinemani5545</a></span><span class="speed">~SAME DAY</span></div>
+    <div class="channel"><span class="k">TIMEZONE</span><span class="v">Toronto · ET (UTC-5 / UTC-4)</span><span class="speed">9AM–9PM</span></div>
+  </div>
+
+  <div class="scheduling-note">
+    <div class="lab">CURRENT AVAILABILITY · Q3 2026</div>
+    <p><strong>2 freelance slots open this quarter.</strong> Audit slots book 2–3 weeks out. Sprint slots usually available within 1 week. Advisory has 3 seats open right now. Custom builds are quote-based and typically scoped within a week of inquiry.</p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© PRAVINE MANI · 2026 · TORONTO</span>
+    <div class="right"><a href="/portfolio/services/">SERVICES</a><a href="/portfolio/work/">WORK</a><a href="/portfolio/stack/">STACK</a><a href="/portfolio/about/">ABOUT</a><a href="https://aiopsforge.dev">AIOPSFORGE</a></div>
+    <span>~24 HR RESPONSE · WEEKDAYS · TORONTO ET</span>
+  </div>
+</footer>
+</body>
+</html>

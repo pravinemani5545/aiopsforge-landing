@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Pravine Mani</title>
+<meta name="description" content="Toronto-based solo operator. AI automation freelancer. Building AIOpsForge.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/design-system/tokens.css">
+<link rel="stylesheet" href="/portfolio/_shell.css">
+<script async src="https://plausible.io/js/pa-rDlrb-w9Wsz9vcppD3o0K.js"></script>
+<script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+<style>
+.bio-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 32px; }
+.bio-main { display: flex; flex-direction: column; gap: 18px; }
+.bio-main h3 { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; margin-top: 16px; }
+.bio-main h3:first-child { margin-top: 0; }
+.bio-main p { font-family: 'IBM Plex Sans', sans-serif; font-size: 16px; color: var(--text-secondary); line-height: 1.7; max-width: 680px; }
+.bio-main p strong { color: var(--text-primary); }
+.bio-main p a { color: var(--green); border-bottom: 1px dashed var(--green); }
+.bio-side { display: flex; flex-direction: column; gap: 16px; }
+.fact-card { background: var(--bg-card); border: 1px solid var(--border); padding: 22px 24px; position: relative; }
+.fact-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--card-accent, var(--green)); opacity: 0.8; }
+.fact-card .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: var(--green); text-transform: uppercase; margin-bottom: 10px; }
+.fact-card .item { display: grid; grid-template-columns: 100px 1fr; gap: 14px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.fact-card .item:last-child { border-bottom: none; }
+.fact-card .item .k { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; }
+.fact-card .item .v { color: var(--text-primary); }
+.fact-card .item .v .acc { color: var(--green); }
+.fact-card:nth-of-type(1) { --card-accent: var(--green); }
+.fact-card:nth-of-type(2) { --card-accent: var(--red); }
+.fact-card:nth-of-type(3) { --card-accent: #a855f7; }
+.timeline { background: var(--bg-card); border: 1px solid var(--border); padding: 24px 28px; margin-top: 24px; }
+.timeline .yr { display: grid; grid-template-columns: 80px 1fr; gap: 18px; padding: 12px 0; border-bottom: 1px solid var(--border); align-items: baseline; }
+.timeline .yr:last-child { border-bottom: none; }
+.timeline .yr .year { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: var(--green); font-weight: 500; }
+.timeline .yr .what { font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; color: var(--text-secondary); line-height: 1.5; }
+.timeline .yr .what strong { color: var(--text-primary); }
+@media (max-width: 980px) { .bio-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/portfolio/" class="nav-brand">~/pravine<span class="cursor"></span></a>
+    <div class="nav-links">
+      <a href="/portfolio/services/">Services</a>
+      <a href="/portfolio/work/">Work</a>
+      <a href="/portfolio/writing/">Writing</a>
+      <a href="/portfolio/stack/">Stack</a>
+      <a href="/portfolio/now/">Now</a>
+      <a href="/portfolio/about/" class="active">About</a>
+      <a href="/portfolio/contact/" class="nav-cta">Contact →</a>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="breadcrumb"><span class="gr">$</span> cat ~/about.md <span class="you">→ pravine mani · short version</span></div>
+  <h1>Solo operator. AI builder.<br><span class="accent">Toronto, Canada.</span></h1>
+  <p class="lead">Short version: I help solo founders + small teams automate the parts of their business that don't need to be done by a human. Productized services, fixed-price engagements, no retainer creep. Building AIOpsForge on the side as a $9.99/month community for AI builders.</p>
+</section>
+
+<section class="section">
+
+  <div class="bio-grid">
+
+    <div class="bio-main">
+      <h3>The long version.</h3>
+      <p>I started shipping web apps in 2022 — Threads clones, price-scrapers, fine-dining landing pages, the usual indie portfolio. Picked up Next.js, TypeScript, Supabase the way most builders did during the post-ChatGPT scramble: by building something every weekend until the patterns stuck.</p>
+      <p><strong>The pivot point was Claude Code dropping in 2024.</strong> Suddenly "automate this in a weekend" was actually true for me, and the gap between "I have an idea" and "this is running in production" collapsed from weeks to days. I went deep — sub-agents, MCP, hooks, headless mode — and started getting paid to do for other founders what I was already doing for myself.</p>
+      <p>Now I do two things. First: <strong>freelance AI automation</strong> for solo founders + small teams who need workflows shipped fast. <a href="/portfolio/services/">Four productized engagements</a> — audit, sprint, advisory, custom build — fixed scope, fixed price. Second: <strong>AIOpsForge</strong>, a $9.99/month community teaching other operators to do this themselves. Build guides, prompts, skills, workflows, mentoring.</p>
+      <p>I'm not trying to scale into an agency. The whole point is that one operator with the right stack can deliver what teams of 3-5 used to. Solo means I keep ownership of the work, charge fixed prices, and ship without committee.</p>
+
+      <h3>How I work.</h3>
+      <p><strong>Async-first.</strong> Slack/email + recorded Looms. Live calls when they actually need to be live — kickoff, milestone demo, post-launch retro. Otherwise async wins on quality and respect for both calendars.</p>
+      <p><strong>Written-first.</strong> Every engagement starts with a written spec I send before signing. Every milestone ends with a Loom + written summary. I'd rather over-document than re-explain.</p>
+      <p><strong>Opinionated stack.</strong> Claude Code + Vercel + a few well-chosen SaaS. <a href="/portfolio/stack/">Full stack here.</a> If you're committed to a different stack and it makes sense for what you need built, I'll work in it. If you have no preference, I'll use mine.</p>
+      <p><strong>Code-first automation.</strong> No n8n. No Make.com. No Zapier. Workflows are Vercel serverless functions + cron — versioned in git, $0 platform fee, debuggable when something breaks at 3am.</p>
+
+      <h3>What I'm not.</h3>
+      <p>Not a designer (though I have strong opinions). Not a data scientist. Not interested in chatbot-for-customer-service work. Not building anything in the AGI/AI-safety space. Not available for full-time positions — solo by choice.</p>
+    </div>
+
+    <div class="bio-side">
+      <div class="fact-card">
+        <div class="label">QUICK FACTS</div>
+        <div class="item"><span class="k">BASED</span><span class="v">Toronto, Canada</span></div>
+        <div class="item"><span class="k">SHIPPING</span><span class="v">Since 2022</span></div>
+        <div class="item"><span class="k">SOLO</span><span class="v"><span class="acc">By choice</span></span></div>
+        <div class="item"><span class="k">STATUS</span><span class="v"><span class="acc">Open Q3</span> · 2 slots</span></div>
+      </div>
+
+      <div class="fact-card">
+        <div class="label">STACK</div>
+        <div class="item"><span class="k">DEV</span><span class="v">Claude Code, Vercel</span></div>
+        <div class="item"><span class="k">AI</span><span class="v">Claude 4.7, MCP</span></div>
+        <div class="item"><span class="k">DATA</span><span class="v">Vercel KV, Supabase</span></div>
+        <div class="item"><span class="k">DEPLOY</span><span class="v">Vercel cron + serverless</span></div>
+        <div class="item"><span class="k">ANALYTICS</span><span class="v">Plausible</span></div>
+      </div>
+
+      <div class="fact-card">
+        <div class="label">OUTSIDE WORK</div>
+        <div class="item"><span class="k">CITY</span><span class="v">Toronto · year-round</span></div>
+        <div class="item"><span class="k">RUNNING</span><span class="v">5k thrice / week</span></div>
+        <div class="item"><span class="k">READING</span><span class="v">~2 books / month</span></div>
+        <div class="item"><span class="k">NEVER</span><span class="v">Crypto trader, again</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="timeline">
+    <div class="yr"><span class="year">2026</span><span class="what"><strong>AIOpsForge launched</strong> · $9.99/mo community on Whop · 9 founding spots remaining. Active freelance roster.</span></div>
+    <div class="yr"><span class="year">2025</span><span class="what">Pivoted fully to AI automation work. <strong>CISNET marketing site + SEO infrastructure</strong> (200+ pages, Next.js 16, Vercel). First $5k MRR freelance month.</span></div>
+    <div class="yr"><span class="year">2024</span><span class="what">Claude Code released. Went deep — sub-agents, MCP, hooks, headless mode. Built first commercial AI workflows for indie founders.</span></div>
+    <div class="yr"><span class="year">2023</span><span class="what">Solo dev portfolio years. Threads clone, PriceScraper, Prompty, CarHub, Gericht — building one a weekend to learn patterns.</span></div>
+    <div class="yr"><span class="year">2022</span><span class="what">Started shipping web apps in earnest. First Next.js + TypeScript + Supabase project. The "I can actually build this" year.</span></div>
+  </div>
+
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© PRAVINE MANI · 2026 · TORONTO</span>
+    <div class="right"><a href="/portfolio/services/">SERVICES</a><a href="/portfolio/work/">WORK</a><a href="/portfolio/stack/">STACK</a><a href="/portfolio/contact/">CONTACT</a><a href="https://aiopsforge.dev">AIOPSFORGE</a></div>
+    <span>SOLO BY CHOICE · TORONTO YEAR-ROUND</span>
+  </div>
+</footer>
+</body>
+</html>
