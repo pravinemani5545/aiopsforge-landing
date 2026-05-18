@@ -28,6 +28,39 @@
 .group-header .left h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(26px, 3.2vw, 34px); font-weight: 600; color: var(--text-primary); letter-spacing: -0.02em; line-height: 1.15; }
 .group-header .right { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase; }
 .group-header .right .v { color: var(--green); }
+.group-header .left .lab.client { color: var(--blue); }
+.group-header .left .lab.client .dot { background: var(--blue); }
+
+/* Client work card */
+.client-card { background: var(--bg-card); border: 1px solid var(--border); position: relative; margin-bottom: 24px; transition: all 400ms cubic-bezier(0.2, 0, 0, 1); overflow: hidden; }
+.client-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--blue); opacity: 0.85; }
+.client-card:hover { border-color: var(--blue); transform: translateY(-3px); box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4); }
+.cc-top { display: grid; grid-template-columns: 220px 1fr; gap: 0; align-items: stretch; }
+@media (max-width: 720px) { .cc-top { grid-template-columns: 1fr; } }
+.cc-logo { background: var(--bg-tertiary); border-right: 1px solid var(--border); padding: 28px 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-height: 160px; }
+@media (max-width: 720px) { .cc-logo { border-right: none; border-bottom: 1px solid var(--border); min-height: 110px; } }
+.cc-logo .mark { font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.02em; }
+.cc-logo .mark .acc { color: var(--blue); }
+.cc-logo .meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--text-dim); text-transform: uppercase; text-align: center; }
+.cc-body { padding: 26px 30px; display: flex; flex-direction: column; gap: 14px; }
+.cc-body .row1 { display: flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--text-dim); text-transform: uppercase; flex-wrap: wrap; }
+.cc-body .row1 .status { padding: 3px 8px; border: 1px solid var(--blue); color: var(--blue); }
+.cc-body h3 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(20px, 1.7vw, 28px); font-weight: 600; color: var(--text-primary); letter-spacing: -0.015em; line-height: 1.2; }
+.cc-body p { font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(14px, 1.05vw, 17.5px); color: var(--text-secondary); line-height: 1.65; }
+.cc-body p strong { color: var(--text-primary); }
+.cc-stack { display: flex; gap: 5px; flex-wrap: wrap; }
+.cc-stack .chip { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; background: var(--bg-tertiary); border: 1px solid var(--border); color: var(--text-secondary); }
+.cc-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; padding-top: 16px; border-top: 1px solid var(--border); margin-top: 4px; }
+.cc-btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; padding: 10px 16px; background: var(--blue); color: var(--bg-primary); transition: all 150ms; }
+.cc-btn:hover { background: var(--text-primary); transform: translateY(-2px); }
+.cc-btn.ghost { background: transparent; color: var(--text-primary); border: 1px solid var(--border); }
+.cc-btn.ghost:hover { border-color: var(--blue); color: var(--blue); }
+.cc-numbers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border-top: 1px solid var(--border); }
+.cc-numbers .m { background: var(--bg-card); padding: 14px 18px; }
+.cc-numbers .m .k { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 3px; }
+.cc-numbers .m .v { font-family: 'Space Grotesk', sans-serif; font-size: clamp(15px, 1.2vw, 19px); font-weight: 600; color: var(--text-primary); }
+.cc-numbers .m .v .bl { color: var(--blue); }
+@media (max-width: 720px) { .cc-numbers { grid-template-columns: repeat(2, 1fr); } }
 
 /* Work card */
 .work-card { background: var(--bg-card); border: 1px solid var(--border); margin-bottom: 24px; position: relative; overflow: hidden; transition: all 400ms cubic-bezier(0.2, 0, 0, 1); }
@@ -339,6 +372,46 @@
 
 <hr class="divider">
 
+<!-- ===================== CLIENT WORK ===================== -->
+<section class="section">
+  <div class="group-header reveal">
+    <div class="left">
+      <div class="lab client"><span class="dot"></span>CLIENT WORK</div>
+      <h2>Trusted by.</h2>
+    </div>
+    <div class="right">1 PROJECT · <span class="v" style="color: var(--blue);">CASE STUDY LIVE</span></div>
+  </div>
+
+  <div class="client-card reveal">
+    <div class="cc-top">
+      <div class="cc-logo">
+        <div class="mark">CIS<span class="acc">NET</span></div>
+        <div class="meta">Toronto · 2025-Q4</div>
+      </div>
+      <div class="cc-body">
+        <div class="row1"><span class="status">CLIENT</span><span>3 MONTHS · SHIPPED · LIVE</span></div>
+        <h3>Marketing site + SEO infrastructure rebuild</h3>
+        <p>Toronto-based IT certification training company. <strong>Full migration off legacy PHP onto Next.js 16</strong>, programmatic SEO covering cert × city combinations, full lead pipeline with Facebook Lead Ads webhook + Stripe checkout, and admin dashboard. Shipped Q4 2025; ranking authority preserved through redirect strategy.</p>
+        <div class="cc-stack">
+          <span class="chip">Next.js 16</span><span class="chip">TypeScript</span><span class="chip">Supabase</span><span class="chip">Tailwind</span><span class="chip">Vercel</span><span class="chip">Stripe</span><span class="chip">Resend</span><span class="chip">FB Lead Ads API</span>
+        </div>
+        <div class="cc-actions">
+          <a href="/portfolio/work/case-studies/cisnet/" class="cc-btn">Read case study →</a>
+          <a href="/portfolio/contact/" class="cc-btn ghost">Book a similar project</a>
+        </div>
+      </div>
+    </div>
+    <div class="cc-numbers">
+      <div class="m"><div class="k">PSEO PAGES</div><div class="v"><span class="bl">200+</span></div></div>
+      <div class="m"><div class="k">LEGACY REDIRECTS</div><div class="v">70+</div></div>
+      <div class="m"><div class="k">SCHEMA TYPES</div><div class="v">7</div></div>
+      <div class="m"><div class="k">DELIVERY</div><div class="v">3 MO</div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
 <!-- ===================== BUILT ===================== -->
 <section class="section">
   <div class="group-header reveal">
@@ -346,7 +419,7 @@
       <div class="lab shipped"><span class="dot"></span>SHIPPED + LIVE</div>
       <h2>Already in the world.</h2>
     </div>
-    <div class="right">7 PROJECTS · <span class="v">SINCE 2023</span></div>
+    <div class="right">6 PROJECTS · <span class="v">SINCE 2023</span></div>
   </div>
 
   <!-- personalClaudeSkills -->
@@ -383,48 +456,6 @@
           <a href="https://github.com/pravinemani5545/personalClaudeSkills#install">Install command</a>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- CISNET (Client) -->
-  <div class="work-card acc-blue reveal">
-    <div class="wc-top">
-      <div class="wc-visual">
-        <div class="scrim"></div>
-        <div class="frame">
-          <div class="chrome">
-            <div class="dots"><span></span><span></span><span></span></div>
-            <span>cisnet/seo-audit</span>
-            <span class="lab" style="color: var(--blue);">CLIENT</span>
-          </div>
-          <div class="body">
-            <div class="row"><span class="dot gr"></span><span>200+ pSEO pages</span></div>
-            <div class="row"><span class="dot gr"></span><span>70+ legacy redirects</span></div>
-            <div class="row"><span class="dot gr"></span><span>7 schema types</span></div>
-            <div class="row"><span class="dot gr"></span><span>Lead pipeline live</span></div>
-            <div class="row"><span class="dot gr"></span><span>FB Lead Ads webhook</span></div>
-            <div><span class="dim">→ shipped Q4 2025</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="wc-content">
-        <div class="row1"><span class="status client">CLIENT</span><span>2025-Q4 · 3 MONTHS</span></div>
-        <h3>CISNET — marketing site + SEO infrastructure</h3>
-        <p><strong>Full marketing site redesign</strong> for a Toronto IT certification training company. Migrated from legacy PHP to Next.js 16. Built 200+ programmatic SEO pages (cert × city), 70+ legacy URL redirects to preserve ranking authority, full lead-capture pipeline with admin dashboard, Facebook Lead Ads webhook with HMAC verification.</p>
-        <div class="stack">
-          <span class="chip">Next.js 16</span><span class="chip">Supabase</span><span class="chip">TypeScript</span><span class="chip">Tailwind</span><span class="chip">Vercel</span><span class="chip">Stripe</span>
-        </div>
-        <div class="links">
-          <a class="dim">→ Client work (NDA)</a>
-          <span class="sep">·</span>
-          <a class="dim">Case study on request</a>
-        </div>
-      </div>
-    </div>
-    <div class="wc-metrics">
-      <div class="m"><div class="k">PAGES SHIPPED</div><div class="v">200+</div></div>
-      <div class="m"><div class="k">REDIRECTS</div><div class="v">70+</div></div>
-      <div class="m"><div class="k">SCHEMA TYPES</div><div class="v"><span class="gr">7</span></div></div>
     </div>
   </div>
 

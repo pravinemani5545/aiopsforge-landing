@@ -103,69 +103,6 @@ a { color: inherit; text-decoration: none; }
   pointer-events: none; z-index: 1;
 }
 
-/* ===== Gutter marquees — fill side gutter space on wide screens ===== */
-.gutter-marquees {
-  position: absolute; inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
-  display: none;
-}
-@media (min-width: 1500px) { .gutter-marquees { display: block; } }
-
-.gm {
-  position: absolute; left: 0; right: 0; height: 26px; overflow: hidden;
-  /* Visible only in side gutters; fades smoothly through the max-width content area */
-  -webkit-mask-image: linear-gradient(90deg,
-    rgba(0,0,0,0) 0,
-    rgba(0,0,0,1) 5%,
-    rgba(0,0,0,1) calc(50% - 760px),
-    rgba(0,0,0,0) calc(50% - 460px),
-    rgba(0,0,0,0) calc(50% + 460px),
-    rgba(0,0,0,1) calc(50% + 760px),
-    rgba(0,0,0,1) 95%,
-    rgba(0,0,0,0) 100%);
-          mask-image: linear-gradient(90deg,
-    rgba(0,0,0,0) 0,
-    rgba(0,0,0,1) 5%,
-    rgba(0,0,0,1) calc(50% - 760px),
-    rgba(0,0,0,0) calc(50% - 460px),
-    rgba(0,0,0,0) calc(50% + 460px),
-    rgba(0,0,0,1) calc(50% + 760px),
-    rgba(0,0,0,1) 95%,
-    rgba(0,0,0,0) 100%);
-}
-.gm-track {
-  display: inline-flex; gap: 48px; white-space: nowrap;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--text-dim);
-  will-change: transform;
-}
-.gm-track span.gr { color: var(--green); }
-.gm-track span.bl { color: var(--blue); }
-.gm-track span.pu { color: #a855f7; }
-.gm-track span.rd { color: var(--red); }
-.gm-track span.yl { color: #ffd84a; }
-.gm-track span.dm { color: var(--text-muted, #444); }
-.gm-track .sep { color: var(--text-muted, #444); }
-
-.gm-1 { top: 16%; }
-.gm-1 .gm-track { animation: gm-l 120s linear infinite; }
-.gm-2 { top: 36%; }
-.gm-2 .gm-track { animation: gm-r 155s linear infinite; }
-.gm-3 { top: 56%; }
-.gm-3 .gm-track { animation: gm-l 100s linear infinite; }
-.gm-4 { top: 76%; }
-.gm-4 .gm-track { animation: gm-r 175s linear infinite; }
-
-@keyframes gm-l { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@keyframes gm-r { from { transform: translateX(-50%); } to { transform: translateX(0); } }
-
-@media (prefers-reduced-motion: reduce) {
-  .gm .gm-track { animation: none; transform: translateX(-15%); }
-}
-
 .hero-inner {
   max-width: 1440px;
   margin: 0 auto;
@@ -239,13 +176,27 @@ a { color: inherit; text-decoration: none; }
 
 @media (max-width: 720px) { .hero-shell { padding: 104px 0 48px; } .hero-meta { grid-template-columns: 1fr; } }
 
-/* ===== TICKER ===== */
-.ticker { background: var(--bg-tertiary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 12px 0; overflow: hidden; position: relative; }
-.ticker::before, .ticker::after { content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none; }
+/* ===== TICKER (constrained to content max-width) ===== */
+.ticker-wrap {
+  max-width: 1440px; margin: 0 auto;
+  padding: 0 clamp(20px, 2.5vw, 48px);
+}
+@media (min-width: 2000px) { .ticker-wrap { max-width: 1760px; } }
+@media (min-width: 3000px) { .ticker-wrap { max-width: 2200px; } }
+@media (min-width: 4400px) { .ticker-wrap { max-width: 2800px; } }
+
+.ticker {
+  background: var(--bg-tertiary);
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+  overflow: hidden;
+  position: relative;
+}
+.ticker::before, .ticker::after { content: ''; position: absolute; top: 0; bottom: 0; width: 56px; z-index: 2; pointer-events: none; }
 .ticker::before { left: 0; background: linear-gradient(90deg, var(--bg-tertiary) 0%, transparent 100%); }
 .ticker::after { right: 0; background: linear-gradient(90deg, transparent 0%, var(--bg-tertiary) 100%); }
-.ticker-track { display: flex; gap: 48px; animation: marquee 48s linear infinite; width: max-content; }
-.ticker-item { display: inline-flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--text-secondary); text-transform: uppercase; white-space: nowrap; }
+.ticker-track { display: flex; gap: 48px; animation: marquee 70s linear infinite; width: max-content; }
+.ticker-item { display: inline-flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: clamp(11px, 0.78vw, 13px); letter-spacing: 0.1em; color: var(--text-secondary); text-transform: uppercase; white-space: nowrap; }
 .ticker-item .gr { color: var(--green); }
 .ticker-item .bl { color: var(--blue); }
 .ticker-item .pu { color: #a855f7; }
@@ -466,100 +417,6 @@ a { color: inherit; text-decoration: none; }
 
 <!-- ===== HERO ===== -->
 <section class="hero-shell">
-  <div class="gutter-marquees" aria-hidden="true">
-    <div class="gm gm-1"><div class="gm-track">
-      <span class="dm">&gt;&gt;</span><span>git log --oneline --since="30 days"</span><span class="sep">·</span>
-      <span class="yl">47e5dda</span><span>fix(community):</span><span class="dm">hub abs paths</span><span class="sep">·</span>
-      <span class="yl">382531e</span><span>fix(seo):</span><span class="dm">strip .html, cleanUrls</span><span class="sep">·</span>
-      <span class="yl">0ac5153</span><span>fix(ui):</span><span class="dm">atmospheric glow clip</span><span class="sep">·</span>
-      <span class="yl">7541e1e</span><span>feat:</span><span class="dm">content enrichment</span><span class="sep">·</span>
-      <span class="yl">95e061c</span><span>feat:</span><span class="dm">ds tokens integration</span><span class="sep">·</span>
-      <span class="yl">12ecf2a</span><span>fix(portfolio):</span><span class="dm">ultrawide layout</span><span class="sep">·</span>
-      <span class="gr">62 commits / 30d · 5 repos</span><span class="sep">·</span>
-      <!-- duplicate for seamless loop -->
-      <span class="dm">&gt;&gt;</span><span>git log --oneline --since="30 days"</span><span class="sep">·</span>
-      <span class="yl">47e5dda</span><span>fix(community):</span><span class="dm">hub abs paths</span><span class="sep">·</span>
-      <span class="yl">382531e</span><span>fix(seo):</span><span class="dm">strip .html, cleanUrls</span><span class="sep">·</span>
-      <span class="yl">0ac5153</span><span>fix(ui):</span><span class="dm">atmospheric glow clip</span><span class="sep">·</span>
-      <span class="yl">7541e1e</span><span>feat:</span><span class="dm">content enrichment</span><span class="sep">·</span>
-      <span class="yl">95e061c</span><span>feat:</span><span class="dm">ds tokens integration</span><span class="sep">·</span>
-      <span class="yl">12ecf2a</span><span>fix(portfolio):</span><span class="dm">ultrawide layout</span><span class="sep">·</span>
-      <span class="gr">62 commits / 30d · 5 repos</span><span class="sep">·</span>
-    </div></div>
-
-    <div class="gm gm-2"><div class="gm-track">
-      <span class="dm">&gt;&gt;</span><span>cat ~/stack.txt</span><span class="sep">·</span>
-      <span class="gr">Claude Code</span><span class="sep">·</span>
-      <span class="gr">Vercel</span><span class="sep">·</span>
-      <span class="gr">TypeScript</span><span class="sep">·</span>
-      <span>Next.js 16</span><span class="sep">·</span>
-      <span>Anthropic API</span><span class="sep">·</span>
-      <span class="pu">MCP</span><span class="sep">·</span>
-      <span>Tailwind</span><span class="sep">·</span>
-      <span>Supabase</span><span class="sep">·</span>
-      <span>Vercel KV</span><span class="sep">·</span>
-      <span>Beehiiv</span><span class="sep">·</span>
-      <span>Plausible</span><span class="sep">·</span>
-      <span class="bl">ElevenLabs</span><span class="sep">·</span>
-      <span>Whop</span><span class="sep">·</span>
-      <span>Stripe</span><span class="sep">·</span>
-      <span class="rd">// not n8n · not make · not zapier</span><span class="sep">·</span>
-      <span class="dm">&gt;&gt;</span><span>cat ~/stack.txt</span><span class="sep">·</span>
-      <span class="gr">Claude Code</span><span class="sep">·</span>
-      <span class="gr">Vercel</span><span class="sep">·</span>
-      <span class="gr">TypeScript</span><span class="sep">·</span>
-      <span>Next.js 16</span><span class="sep">·</span>
-      <span>Anthropic API</span><span class="sep">·</span>
-      <span class="pu">MCP</span><span class="sep">·</span>
-      <span>Tailwind</span><span class="sep">·</span>
-      <span>Supabase</span><span class="sep">·</span>
-      <span>Vercel KV</span><span class="sep">·</span>
-      <span>Beehiiv</span><span class="sep">·</span>
-      <span>Plausible</span><span class="sep">·</span>
-      <span class="bl">ElevenLabs</span><span class="sep">·</span>
-      <span>Whop</span><span class="sep">·</span>
-      <span>Stripe</span><span class="sep">·</span>
-      <span class="rd">// not n8n · not make · not zapier</span><span class="sep">·</span>
-    </div></div>
-
-    <div class="gm gm-3"><div class="gm-track">
-      <span class="dm">&gt;&gt;</span><span>ls -la ~/services/</span><span class="sep">·</span>
-      <span class="gr">01</span><span>ai-system-audit</span><span class="dm">// 5 days · most popular</span><span class="sep">·</span>
-      <span class="gr">02</span><span>build-sprint</span><span class="dm">// 48 hrs · fixed scope</span><span class="sep">·</span>
-      <span class="gr">03</span><span>advisory-retainer</span><span class="dm">// monthly · ~10 hrs</span><span class="sep">·</span>
-      <span class="gr">04</span><span>custom-build</span><span class="dm">// 1-6 wks · quote-based</span><span class="sep">·</span>
-      <span class="rd">▸</span><span class="rd">2 spots open Q3 2026</span><span class="sep">·</span>
-      <span class="dm">&gt;&gt;</span><span>ls -la ~/services/</span><span class="sep">·</span>
-      <span class="gr">01</span><span>ai-system-audit</span><span class="dm">// 5 days · most popular</span><span class="sep">·</span>
-      <span class="gr">02</span><span>build-sprint</span><span class="dm">// 48 hrs · fixed scope</span><span class="sep">·</span>
-      <span class="gr">03</span><span>advisory-retainer</span><span class="dm">// monthly · ~10 hrs</span><span class="sep">·</span>
-      <span class="gr">04</span><span>custom-build</span><span class="dm">// 1-6 wks · quote-based</span><span class="sep">·</span>
-      <span class="rd">▸</span><span class="rd">2 spots open Q3 2026</span><span class="sep">·</span>
-    </div></div>
-
-    <div class="gm gm-4"><div class="gm-track">
-      <span class="dm">&gt;&gt;</span><span>uptime</span><span class="sep">·</span>
-      <span class="gr">● LIVE</span><span class="sep">·</span>
-      <span>shipping since 2022</span><span class="sep">·</span>
-      <span>~3 ships/week</span><span class="sep">·</span>
-      <span>607 sessions / 30d</span><span class="sep">·</span>
-      <span class="pu">∞ caffeine</span><span class="sep">·</span>
-      <span>solo by choice</span><span class="sep">·</span>
-      <span class="bl">toronto · ET</span><span class="sep">·</span>
-      <span>24hr replies</span><span class="sep">·</span>
-      <span class="yl">▸ no n8n · no make · no zapier</span><span class="sep">·</span>
-      <span class="dm">&gt;&gt;</span><span>uptime</span><span class="sep">·</span>
-      <span class="gr">● LIVE</span><span class="sep">·</span>
-      <span>shipping since 2022</span><span class="sep">·</span>
-      <span>~3 ships/week</span><span class="sep">·</span>
-      <span>607 sessions / 30d</span><span class="sep">·</span>
-      <span class="pu">∞ caffeine</span><span class="sep">·</span>
-      <span>solo by choice</span><span class="sep">·</span>
-      <span class="bl">toronto · ET</span><span class="sep">·</span>
-      <span>24hr replies</span><span class="sep">·</span>
-      <span class="yl">▸ no n8n · no make · no zapier</span><span class="sep">·</span>
-    </div></div>
-  </div>
   <div class="hero-inner">
   <div class="hero-grid">
     <div class="reveal">
@@ -622,36 +479,38 @@ a { color: inherit; text-decoration: none; }
 </section>
 
 <!-- ===== TICKER ===== -->
-<div class="ticker">
-  <div class="ticker-track">
-    <span class="ticker-item"><span class="pulse"></span><span class="gr">LIVE</span> · AIOpsForge shipped <span class="gr">v22</span> · 2 min ago</span>
-    <span class="sep">·</span>
-    <span class="ticker-item"><span class="bl">CLIENT</span> · CISNET pSEO indexing <span class="gr">200+ pages</span></span>
-    <span class="sep">·</span>
-    <span class="ticker-item"><span class="pu">SKILL</span> · /growth-sprint v1.2 pushed to GitHub</span>
-    <span class="sep">·</span>
-    <span class="ticker-item"><span class="gr">62 COMMITS</span> across 5 repos · 30 days</span>
-    <span class="sep">·</span>
-    <span class="ticker-item">607 Claude Code sessions · last 30d</span>
-    <span class="sep">·</span>
-    <span class="ticker-item"><span class="rd">2 SPOTS</span> open · Q3 2026 freelance roster</span>
-    <span class="sep">·</span>
-    <span class="ticker-item">Newsletter <span class="gr">#6</span> shipping Friday</span>
-    <span class="sep">·</span>
-    <!-- Duplicate for seamless loop -->
-    <span class="ticker-item"><span class="pulse"></span><span class="gr">LIVE</span> · AIOpsForge shipped <span class="gr">v22</span> · 2 min ago</span>
-    <span class="sep">·</span>
-    <span class="ticker-item"><span class="bl">CLIENT</span> · CISNET pSEO indexing <span class="gr">200+ pages</span></span>
-    <span class="sep">·</span>
-    <span class="ticker-item"><span class="pu">SKILL</span> · /growth-sprint v1.2 pushed to GitHub</span>
-    <span class="sep">·</span>
-    <span class="ticker-item"><span class="gr">62 COMMITS</span> across 5 repos · 30 days</span>
-    <span class="sep">·</span>
-    <span class="ticker-item">607 Claude Code sessions · last 30d</span>
-    <span class="sep">·</span>
-    <span class="ticker-item"><span class="rd">2 SPOTS</span> open · Q3 2026 freelance roster</span>
-    <span class="sep">·</span>
-    <span class="ticker-item">Newsletter <span class="gr">#6</span> shipping Friday</span>
+<div class="ticker-wrap">
+  <div class="ticker">
+    <div class="ticker-track">
+      <span class="ticker-item"><span class="pulse"></span><span class="gr">LIVE</span> · AIOpsForge shipped <span class="gr">v22</span> · 2 min ago</span>
+      <span class="sep">·</span>
+      <span class="ticker-item"><span class="bl">CLIENT</span> · CISNET pSEO indexing <span class="gr">200+ pages</span></span>
+      <span class="sep">·</span>
+      <span class="ticker-item"><span class="pu">SKILL</span> · /growth-sprint v1.2 pushed to GitHub</span>
+      <span class="sep">·</span>
+      <span class="ticker-item"><span class="gr">62 COMMITS</span> across 5 repos · 30 days</span>
+      <span class="sep">·</span>
+      <span class="ticker-item">607 Claude Code sessions · last 30d</span>
+      <span class="sep">·</span>
+      <span class="ticker-item"><span class="rd">2 SPOTS</span> open · Q3 2026 freelance roster</span>
+      <span class="sep">·</span>
+      <span class="ticker-item">Newsletter <span class="gr">#6</span> shipping Friday</span>
+      <span class="sep">·</span>
+      <span class="ticker-item"><span class="pulse"></span><span class="gr">LIVE</span> · AIOpsForge shipped <span class="gr">v22</span> · 2 min ago</span>
+      <span class="sep">·</span>
+      <span class="ticker-item"><span class="bl">CLIENT</span> · CISNET pSEO indexing <span class="gr">200+ pages</span></span>
+      <span class="sep">·</span>
+      <span class="ticker-item"><span class="pu">SKILL</span> · /growth-sprint v1.2 pushed to GitHub</span>
+      <span class="sep">·</span>
+      <span class="ticker-item"><span class="gr">62 COMMITS</span> across 5 repos · 30 days</span>
+      <span class="sep">·</span>
+      <span class="ticker-item">607 Claude Code sessions · last 30d</span>
+      <span class="sep">·</span>
+      <span class="ticker-item"><span class="rd">2 SPOTS</span> open · Q3 2026 freelance roster</span>
+      <span class="sep">·</span>
+      <span class="ticker-item">Newsletter <span class="gr">#6</span> shipping Friday</span>
+      <span class="sep">·</span>
+    </div>
   </div>
 </div>
 

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISNET — Case Study · Pravine Mani</title>
+<meta name="description" content="Marketing site + SEO infrastructure rebuild for a Toronto IT certification training company. 200+ pSEO pages, 70+ redirects, full lead pipeline, shipped in 3 months.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/design-system/tokens.css">
+<link rel="stylesheet" href="/portfolio/_shell.css">
+<script async src="https://plausible.io/js/pa-rDlrb-w9Wsz9vcppD3o0K.js"></script>
+<script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+
+<style>
+.reveal { opacity: 0; transform: translateY(16px); transition: all 600ms cubic-bezier(0.2, 0, 0, 1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.cs-hero-meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 32px; }
+.cs-hero-meta .cell { background: var(--bg-card); padding: 16px 20px; }
+.cs-hero-meta .cell .k { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 5px; }
+.cs-hero-meta .cell .v { font-family: 'Space Grotesk', sans-serif; font-size: clamp(15px, 1.15vw, 19px); font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; }
+.cs-hero-meta .cell .v .bl { color: var(--blue); }
+.cs-hero-meta .cell .v .gr { color: var(--green); }
+@media (max-width: 720px) { .cs-hero-meta { grid-template-columns: repeat(2, 1fr); } }
+
+.cs-section { display: grid; grid-template-columns: 240px 1fr; gap: 48px; padding: 56px 0; border-bottom: 1px solid var(--border); }
+.cs-section:last-of-type { border-bottom: none; }
+.cs-section .lab-col { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; color: var(--blue); text-transform: uppercase; display: flex; flex-direction: column; gap: 6px; }
+.cs-section .lab-col .num { color: var(--text-dim); font-size: 10px; }
+.cs-section .body-col { display: flex; flex-direction: column; gap: 16px; max-width: 70ch; }
+.cs-section .body-col h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 2.4vw, 36px); font-weight: 600; color: var(--text-primary); letter-spacing: -0.02em; line-height: 1.15; }
+.cs-section .body-col p { font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(15px, 1.1vw, 18px); color: var(--text-secondary); line-height: 1.7; }
+.cs-section .body-col p strong { color: var(--text-primary); }
+.cs-section .body-col p code { font-family: 'JetBrains Mono', monospace; font-size: 0.9em; color: var(--green); background: var(--bg-tertiary); padding: 1px 6px; border: 1px solid var(--border); }
+.cs-section .body-col ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.cs-section .body-col ul li { padding-left: 20px; position: relative; font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(14.5px, 1.05vw, 17px); color: var(--text-secondary); line-height: 1.6; }
+.cs-section .body-col ul li::before { content: '+'; position: absolute; left: 0; color: var(--blue); font-family: 'JetBrains Mono', monospace; font-weight: 600; }
+.cs-section .body-col ul li strong { color: var(--text-primary); }
+@media (max-width: 900px) { .cs-section { grid-template-columns: 1fr; gap: 16px; padding: 40px 0; } .cs-section .lab-col { flex-direction: row; align-items: center; gap: 12px; } }
+
+.impact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 8px; }
+.impact-card { background: var(--bg-card); border: 1px solid var(--border); padding: 22px 24px; position: relative; }
+.impact-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--blue); opacity: 0.85; }
+.impact-card .k { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--blue); text-transform: uppercase; margin-bottom: 10px; }
+.impact-card .v { font-family: 'Space Grotesk', sans-serif; font-size: clamp(26px, 2.4vw, 38px); font-weight: 700; color: var(--text-primary); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 6px; }
+.impact-card .desc { font-family: 'IBM Plex Sans', sans-serif; font-size: 13.5px; color: var(--text-secondary); line-height: 1.5; }
+@media (max-width: 900px) { .impact-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .impact-grid { grid-template-columns: 1fr; } }
+
+.stack-flat { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.stack-flat .chip { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 12px; background: var(--bg-tertiary); border: 1px solid var(--border); color: var(--text-secondary); }
+.stack-flat .chip.daily { border-color: var(--blue); color: var(--blue); }
+
+.timeline-rail { background: var(--bg-card); border: 1px solid var(--border); padding: 0; margin-top: 8px; }
+.timeline-rail .step { display: grid; grid-template-columns: 110px 1fr; gap: 22px; padding: 18px 24px; border-bottom: 1px solid var(--border); align-items: baseline; }
+.timeline-rail .step:last-child { border-bottom: none; }
+.timeline-rail .step .when { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: var(--blue); text-transform: uppercase; font-weight: 600; }
+.timeline-rail .step .what { font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; color: var(--text-secondary); line-height: 1.55; }
+.timeline-rail .step .what strong { color: var(--text-primary); }
+
+.final-cta { background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-tertiary) 100%); border: 1px solid var(--blue); padding: 48px 40px; margin-top: 48px; text-align: center; position: relative; overflow: hidden; }
+.final-cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(68, 136, 255, 0.08) 0%, transparent 60%); pointer-events: none; }
+.final-cta > * { position: relative; z-index: 1; }
+.final-cta h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 2.6vw, 36px); font-weight: 600; color: var(--text-primary); letter-spacing: -0.02em; margin-bottom: 14px; line-height: 1.15; }
+.final-cta h2 .acc { color: var(--blue); }
+.final-cta p { font-family: 'IBM Plex Sans', sans-serif; font-size: 17px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 24px; max-width: 580px; margin-left: auto; margin-right: auto; }
+
+.confidential { padding: 16px 20px; background: var(--bg-tertiary); border: 1px solid var(--border); border-left: 2px solid var(--text-dim); margin-top: 28px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13.5px; color: var(--text-dim); line-height: 1.55; }
+.confidential strong { color: var(--text-secondary); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; display: inline-block; margin-right: 6px; }
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/portfolio/" class="nav-brand">~/pravine<span class="cursor"></span></a>
+    <div class="nav-links">
+      <a href="/portfolio/services/">Services</a>
+      <a href="/portfolio/work/" class="active">Work</a>
+      <a href="/portfolio/writing/">Writing</a>
+      <a href="/portfolio/stack/">Stack</a>
+      <a href="/portfolio/now/">Now</a>
+      <a href="/portfolio/about/">About</a>
+      <a href="/portfolio/contact/" class="nav-cta">Book a call →</a>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="breadcrumb">
+    <a href="/portfolio/work/" style="color: var(--text-dim);">work</a>
+    <span style="color: var(--text-muted, #444);">/</span>
+    <a href="/portfolio/work/" style="color: var(--text-dim);">case studies</a>
+    <span style="color: var(--text-muted, #444);">/</span>
+    <span class="you">cisnet</span>
+  </div>
+  <h1>CISNET — IT certification training.<br><span class="accent" style="color: var(--blue); -webkit-text-fill-color: var(--blue);">Marketing site + SEO rebuild.</span></h1>
+  <p class="lead">Migrated a Toronto IT certification training company off a legacy PHP stack onto Next.js 16 with full programmatic SEO, lead pipeline, and admin dashboard. Three months. Solo. Ranking authority preserved through a 70+ URL redirect map.</p>
+
+  <div class="cs-hero-meta">
+    <div class="cell"><div class="k">CLIENT</div><div class="v">IT Training · Toronto</div></div>
+    <div class="cell"><div class="k">SCOPE</div><div class="v"><span class="bl">Site + SEO + Pipeline</span></div></div>
+    <div class="cell"><div class="k">DELIVERED</div><div class="v">2025-Q4 · 3 MO</div></div>
+    <div class="cell"><div class="k">ROLE</div><div class="v">Solo · End-to-end</div></div>
+  </div>
+</section>
+
+<section class="section">
+
+  <!-- Problem -->
+  <div class="cs-section reveal">
+    <div class="lab-col"><span class="num">01 / 05</span><span>THE PROBLEM</span></div>
+    <div class="body-col">
+      <h2>Legacy PHP that couldn't grow.</h2>
+      <p>CISNET's existing site was a hand-coded PHP build from 2014. Maintainable in the sense that one person knew where everything was — and breakable in the sense that <strong>nobody else could ship into it without an outage</strong>. Marketing wanted to add new certification pages, run paid campaigns into specific cohorts, and capture leads into a CRM. Engineering reality was: every new page was a Friday deploy with the lights flickering.</p>
+      <p>The deeper issue: SEO momentum. The legacy site ranked for ~70 cert-related queries. Any redesign that didn't preserve those URLs risked tanking organic traffic for a quarter or more — and the business depended on that organic flow for ~40% of intake.</p>
+      <ul>
+        <li><strong>Brittle stack:</strong> PHP 5.6, no test suite, manual FTP deploys</li>
+        <li><strong>No lead infrastructure:</strong> contact-form-to-email only, no CRM, no admin view</li>
+        <li><strong>SEO at risk:</strong> 70+ ranked legacy URLs that couldn't break</li>
+        <li><strong>Marketing blocked:</strong> couldn't ship landing pages without engineering</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Approach -->
+  <div class="cs-section reveal">
+    <div class="lab-col"><span class="num">02 / 05</span><span>THE APPROACH</span></div>
+    <div class="body-col">
+      <h2>Next.js 16 + programmatic SEO + lead infrastructure.</h2>
+      <p>Three parallel workstreams over 12 weeks. <strong>Stream 1 (weeks 1-4):</strong> stand up the Next.js 16 + Supabase + Vercel foundation, port the marketing pages 1:1, run the redirect map in dev. <strong>Stream 2 (weeks 4-8):</strong> programmatic SEO — generate 200+ certification × city pages from a structured content model, ship sitemap.xml + 7 distinct schema types (Course, LocalBusiness, FAQPage, etc.). <strong>Stream 3 (weeks 8-12):</strong> lead pipeline — Facebook Lead Ads webhook with HMAC verification, Supabase storage, admin dashboard, Resend transactional email, Stripe checkout for the paid courses.</p>
+      <p>Hardest call early on: <strong>how aggressive to be on the redirect strategy</strong>. Decided to map every legacy URL individually rather than rely on Next.js catch-all rewrites — slower to build, but Google indexed the new URLs with full link equity inside 6 weeks rather than 6 months.</p>
+      <ul>
+        <li><strong>Foundation:</strong> Next.js 16 (app router), TypeScript strict, Supabase, Vercel</li>
+        <li><strong>SEO surface:</strong> 200+ pSEO pages generated from a cert × city matrix</li>
+        <li><strong>Redirects:</strong> 70+ legacy URLs mapped individually (not catch-all)</li>
+        <li><strong>Schema:</strong> 7 types — Course, LocalBusiness, FAQPage, Organization, BreadcrumbList, ContactPoint, WebSite</li>
+        <li><strong>Lead pipeline:</strong> FB Lead Ads → HMAC-verified webhook → Supabase → admin dashboard → Resend</li>
+        <li><strong>Payments:</strong> Stripe Checkout + course-enrollment webhook</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Stack -->
+  <div class="cs-section reveal">
+    <div class="lab-col"><span class="num">03 / 05</span><span>THE STACK</span></div>
+    <div class="body-col">
+      <h2>Boring, fast, debuggable.</h2>
+      <p>Default opinionated stack — Next.js + Supabase + Vercel. Could've used a CMS for the marketing pages but the editorial volume didn't warrant the operational tax. Page content lives in MDX in the repo; engineers ship copy through PRs.</p>
+      <div class="stack-flat">
+        <span class="chip daily">Next.js 16</span>
+        <span class="chip daily">TypeScript</span>
+        <span class="chip daily">Vercel</span>
+        <span class="chip">Supabase</span>
+        <span class="chip">Tailwind</span>
+        <span class="chip">Stripe</span>
+        <span class="chip">Resend</span>
+        <span class="chip">FB Lead Ads API</span>
+        <span class="chip">MDX</span>
+        <span class="chip">Zod</span>
+        <span class="chip">React Hook Form</span>
+        <span class="chip">Plausible</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="cs-section reveal">
+    <div class="lab-col"><span class="num">04 / 05</span><span>THE TIMELINE</span></div>
+    <div class="body-col">
+      <h2>12 weeks, 3 streams, no scope creep.</h2>
+      <p>Locked scope in week 0. Anything that came up after that went into a "v2 list" — none of it shipped during the engagement.</p>
+      <div class="timeline-rail">
+        <div class="step"><span class="when">WK 0</span><span class="what"><strong>Kickoff + scope lock.</strong> Written spec signed. Redirect map drafted from server logs.</span></div>
+        <div class="step"><span class="when">WK 1–4</span><span class="what"><strong>Foundation stream.</strong> Next.js 16 scaffold, marketing pages 1:1 port, Supabase schema, Vercel deploys, redirect map in dev.</span></div>
+        <div class="step"><span class="when">WK 4–8</span><span class="what"><strong>SEO stream.</strong> Cert × city content model, 200+ pSEO page generation, 7 schema types, sitemap.xml + robots.txt, internal-link graph.</span></div>
+        <div class="step"><span class="when">WK 8–12</span><span class="what"><strong>Pipeline stream.</strong> FB Lead Ads webhook + HMAC verification, admin dashboard, Resend transactional email, Stripe checkout, payment webhooks.</span></div>
+        <div class="step"><span class="when">WK 12</span><span class="what"><strong>Cutover + monitoring.</strong> Production deploy, DNS swap, redirect map active, Plausible + Search Console + Sentry wired up. 14-day support window.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Impact -->
+  <div class="cs-section reveal">
+    <div class="lab-col"><span class="num">05 / 05</span><span>THE IMPACT</span></div>
+    <div class="body-col">
+      <h2>What it enabled.</h2>
+      <p>The headline numbers from the engagement (technical surface metrics — business KPIs are CISNET's to disclose):</p>
+      <div class="impact-grid">
+        <div class="impact-card"><div class="k">PSEO PAGES</div><div class="v">200+</div><div class="desc">Cert × city programmatic pages, indexed within 6 weeks of cutover.</div></div>
+        <div class="impact-card"><div class="k">LEGACY URLS PRESERVED</div><div class="v">70+</div><div class="desc">Individually-mapped redirects — ranking authority preserved on every URL.</div></div>
+        <div class="impact-card"><div class="k">SCHEMA TYPES</div><div class="v">7</div><div class="desc">Course, LocalBusiness, FAQPage, Organization, BreadcrumbList, ContactPoint, WebSite.</div></div>
+        <div class="impact-card"><div class="k">LIGHTHOUSE PERF</div><div class="v">98+</div><div class="desc">Production performance score across all marketing routes.</div></div>
+        <div class="impact-card"><div class="k">LEAD CAPTURE</div><div class="v">FULL</div><div class="desc">FB Lead Ads webhook → Supabase → admin dashboard, end-to-end.</div></div>
+        <div class="impact-card"><div class="k">DELIVERED IN</div><div class="v">3 MO</div><div class="desc">Fixed-price, fixed-scope. Zero scope creep across 3 streams.</div></div>
+      </div>
+      <p style="margin-top: 20px;">Beyond the numbers: marketing can now ship a new certification page through MDX without engineering. Lead routing is observable end-to-end. Ad campaigns can target specific cohort × city combinations that previously didn't have a landing page.</p>
+
+      <div class="confidential">
+        <strong>Note:</strong>Some business KPIs (organic traffic delta, lead-to-enrollment rates, MRR impact) live with the client and aren't disclosed here. Happy to discuss what's shareable on a call.
+      </div>
+    </div>
+  </div>
+
+  <!-- Final CTA -->
+  <div class="final-cta reveal">
+    <h2>Need similar work for your business?<br><span class="acc">Let's scope it.</span></h2>
+    <p>If you're looking at a similar surface — legacy stack to migrate, SEO to preserve, lead infrastructure to build — the 30-min call is free and ends with a written quote.</p>
+    <div class="cta-row" style="justify-content: center;">
+      <a href="/portfolio/contact/" class="cta-btn">Book a 30-min call →</a>
+      <a href="/portfolio/services/" class="cta-btn secondary">See services</a>
+    </div>
+  </div>
+
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© PRAVINE MANI · 2026 · TORONTO</span>
+    <div class="right">
+      <a href="/portfolio/work/">← BACK TO WORK</a>
+      <a href="/portfolio/services/">SERVICES</a>
+      <a href="/portfolio/contact/">CONTACT</a>
+      <a href="https://aiopsforge.dev">AIOPSFORGE</a>
+    </div>
+    <span>CASE STUDY · 2026-05</span>
+  </div>
+</footer>
+
+<script>
+(function() {
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el) { io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('visible'); });
+  }
+})();
+</script>
+</body>
+</html>
