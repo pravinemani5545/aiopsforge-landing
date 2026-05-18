@@ -4,46 +4,103 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Work — Pravine Mani</title>
-<meta name="description" content="Selected work — products shipped, client projects, and current builds. AIOpsForge, aifounder.ca, personalClaudeSkills, and more.">
+<meta name="description" content="What I'm building right now + what I've shipped. AIOpsForge, aifounder.ca, personalClaudeSkills, CISNET client work, and more.">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/design-system/tokens.css">
 <link rel="stylesheet" href="/portfolio/_shell.css">
 <script async src="https://plausible.io/js/pa-rDlrb-w9Wsz9vcppD3o0K.js"></script>
 <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+
 <style>
-.work-card { background: var(--bg-card); border: 1px solid var(--border); margin-bottom: 20px; position: relative; overflow: hidden; transition: all var(--dur-base, 200ms) var(--ease); }
+.reveal { opacity: 0; transform: translateY(16px); transition: all 600ms cubic-bezier(0.2, 0, 0, 1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* Group header — BUILDING vs BUILT */
+.group-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 14px; margin-bottom: 28px; padding-bottom: 18px; border-bottom: 2px solid var(--border); }
+.group-header .left { display: flex; flex-direction: column; gap: 6px; }
+.group-header .left .lab { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
+.group-header .left .lab .dot { width: 8px; height: 8px; }
+.group-header .left .lab.live { color: var(--green); }
+.group-header .left .lab.live .dot { background: var(--green); animation: pulse-dot 1.6s infinite; }
+.group-header .left .lab.shipped { color: var(--text-secondary); }
+.group-header .left .lab.shipped .dot { background: var(--text-secondary); }
+.group-header .left h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(26px, 3.2vw, 34px); font-weight: 600; color: var(--text-primary); letter-spacing: -0.02em; line-height: 1.15; }
+.group-header .right { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase; }
+.group-header .right .v { color: var(--green); }
+
+/* Work card */
+.work-card { background: var(--bg-card); border: 1px solid var(--border); margin-bottom: 24px; position: relative; overflow: hidden; transition: all 400ms cubic-bezier(0.2, 0, 0, 1); }
 .work-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--card-accent, var(--green)); opacity: 0.85; }
-.work-card:hover { border-color: var(--border-green); transform: translateY(-2px); }
-.wc-head { display: grid; grid-template-columns: 1fr auto; gap: 20px; padding: 20px 26px; border-bottom: 1px solid var(--border); background: var(--bg-tertiary); align-items: center; }
-.wc-head .left .row1 { display: flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 6px; }
-.wc-head .left .row1 .status { padding: 3px 7px; border: 1px solid currentColor; }
-.wc-head .left .row1 .status.shipping { color: var(--green); }
-.wc-head .left .row1 .status.live { color: var(--green); }
-.wc-head .left .row1 .status.shipped { color: var(--text-primary); border-color: var(--border-strong, #3a3a3a); }
-.wc-head .left .row1 .status.client { color: var(--blue); }
-.wc-head .left .row1 .status.research { color: #a855f7; }
-.wc-head .left h3 { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; line-height: 1.2; }
-.wc-head .right { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase; text-align: right; }
-.wc-head .right a { color: var(--green); }
-.wc-body { padding: 22px 26px; }
-.wc-body p { font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 14px; max-width: 760px; }
-.wc-body p strong { color: var(--text-primary); }
-.wc-stack { display: flex; gap: 6px; flex-wrap: wrap; }
-.wc-stack .chip { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; background: var(--bg-tertiary); border: 1px solid var(--border); color: var(--text-secondary); }
+.work-card:hover { border-color: var(--border-green); transform: translateY(-3px); box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4); }
+.wc-top { display: grid; grid-template-columns: 1.2fr 1fr; gap: 0; }
+
+/* Screenshot placeholder (CSS-drawn mock) */
+.wc-visual { background: var(--bg-tertiary); border-right: 1px solid var(--border); padding: 24px; min-height: 240px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.wc-visual.dark { background: var(--bg-primary); }
+.wc-visual .scrim { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.6) 100%); pointer-events: none; z-index: 1; }
+.wc-visual .frame { position: relative; z-index: 2; width: 100%; max-width: 320px; background: var(--bg-card); border: 1px solid var(--border-strong, #3a3a3a); }
+.wc-visual .frame .chrome { display: flex; align-items: center; gap: 6px; padding: 8px 12px; border-bottom: 1px solid var(--border); background: var(--bg-tertiary); font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; justify-content: space-between; }
+.wc-visual .frame .chrome .dots { display: flex; gap: 4px; }
+.wc-visual .frame .chrome .dots span { width: 7px; height: 7px; background: var(--border); }
+.wc-visual .frame .chrome .lab { color: var(--green); }
+.wc-visual .frame .body { padding: 14px 16px; font-family: 'JetBrains Mono', monospace; font-size: 10px; line-height: 1.6; color: var(--text-secondary); }
+.wc-visual .frame .body .gr { color: var(--green); }
+.wc-visual .frame .body .dim { color: var(--text-dim); }
+.wc-visual .frame .body .yl { color: #ffd84a; }
+.wc-visual .frame .body .ac { color: #a855f7; }
+.wc-visual .frame .body .bl { color: var(--blue); }
+.wc-visual .frame .body .row { display: flex; align-items: center; gap: 8px; padding: 2px 0; }
+.wc-visual .frame .body .row .dot { width: 6px; height: 6px; }
+.wc-visual .frame .body .row .dot.gr { background: var(--green); }
+.wc-visual .frame .body .row .dot.yl { background: #ffd84a; animation: pulse-dot 1.2s infinite; }
+.wc-visual .frame .body .row .dot.dim { background: var(--text-muted, #444); }
+.wc-visual .frame .body .cursor { display: inline-block; width: 6px; height: 11px; background: var(--green); animation: blink 1s step-end infinite; vertical-align: middle; margin-left: 3px; }
+
+.wc-content { padding: 26px 28px; display: flex; flex-direction: column; gap: 14px; }
+.wc-content .row1 { display: flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--text-dim); text-transform: uppercase; }
+.wc-content .row1 .status { padding: 3px 8px; border: 1px solid currentColor; }
+.wc-content .row1 .status.shipping { color: var(--green); }
+.wc-content .row1 .status.live { color: var(--green); }
+.wc-content .row1 .status.shipped { color: var(--text-primary); border-color: var(--border-strong, #3a3a3a); }
+.wc-content .row1 .status.client { color: var(--blue); }
+.wc-content .row1 .status.research { color: #a855f7; }
+.wc-content h3 { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; line-height: 1.2; }
+.wc-content p { font-family: 'IBM Plex Sans', sans-serif; font-size: 14.5px; color: var(--text-secondary); line-height: 1.6; }
+.wc-content p strong { color: var(--text-primary); }
+.wc-content .stack { display: flex; gap: 5px; flex-wrap: wrap; }
+.wc-content .stack .chip { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; background: var(--bg-tertiary); border: 1px solid var(--border); color: var(--text-secondary); }
+.wc-content .links { display: flex; gap: 14px; flex-wrap: wrap; padding-top: 14px; border-top: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+.wc-content .links a { color: var(--green); transition: color 150ms; }
+.wc-content .links a:hover { color: var(--text-primary); }
+.wc-content .links a.dim { color: var(--text-dim); }
+.wc-content .links .sep { color: var(--text-muted, #444); }
+
 .wc-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border-top: 1px solid var(--border); }
-.wc-metrics .m { background: var(--bg-card); padding: 12px 18px; }
-.wc-metrics .m .k { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 2px; }
+.wc-metrics .m { background: var(--bg-card); padding: 14px 20px; }
+.wc-metrics .m .k { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 3px; }
 .wc-metrics .m .v { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; color: var(--text-primary); }
 .wc-metrics .m .v .gr { color: var(--green); }
-.work-card:nth-of-type(1) { --card-accent: var(--green); }
-.work-card:nth-of-type(2) { --card-accent: var(--red); }
-.work-card:nth-of-type(3) { --card-accent: #a855f7; }
-.work-card:nth-of-type(4) { --card-accent: var(--blue); }
-.work-card:nth-of-type(5) { --card-accent: #1e40af; }
-.work-card:nth-of-type(6) { --card-accent: var(--green); }
-.work-card:nth-of-type(7) { --card-accent: var(--red); }
-@media (max-width: 720px) { .wc-head { grid-template-columns: 1fr; } .wc-head .right { text-align: left; } .wc-metrics { grid-template-columns: 1fr; } }
+
+/* Status badge for "currently shipping" pieces */
+.section-status { background: var(--bg-tertiary); border: 1px solid var(--border-green); border-left: 2px solid var(--green); padding: 14px 22px; margin-bottom: 24px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.section-status .pulse { width: 8px; height: 8px; background: var(--green); animation: pulse-dot 1.6s infinite; }
+.section-status .txt { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-primary); letter-spacing: 0.06em; }
+.section-status .txt .gr { color: var(--green); }
+.section-status .txt .dim { color: var(--text-dim); }
+
+@media (max-width: 900px) {
+  .wc-top { grid-template-columns: 1fr; }
+  .wc-visual { border-right: none; border-bottom: 1px solid var(--border); min-height: 180px; }
+  .wc-metrics { grid-template-columns: 1fr; }
+}
+
+/* Per-card accent */
+.work-card:nth-of-type(odd) { --card-accent: var(--green); }
+.work-card.acc-red { --card-accent: var(--red); }
+.work-card.acc-purple { --card-accent: #a855f7; }
+.work-card.acc-blue { --card-accent: var(--blue); }
+.work-card.acc-darkblue { --card-accent: #1e40af; }
 </style>
 </head>
 <body>
@@ -57,60 +114,109 @@
       <a href="/portfolio/stack/">Stack</a>
       <a href="/portfolio/now/">Now</a>
       <a href="/portfolio/about/">About</a>
-      <a href="/portfolio/contact/" class="nav-cta">Contact →</a>
+      <a href="/portfolio/contact/" class="nav-cta">Book a call →</a>
     </div>
   </div>
 </nav>
 
 <section class="page-hero">
-  <div class="breadcrumb"><span class="gr">$</span> ls ~/work <span class="you">→ shipped + shipping + archived</span></div>
-  <h1>Selected work.<br><span class="accent">Built, shipped, sometimes archived.</span></h1>
-  <p class="lead">Personal products, client builds, open-source — what I've actually been on for the last 18 months. The current focus is AIOpsForge + freelance AI automation. Everything else is either learning, R&amp;D, or paid client work I can't disclose.</p>
+  <div class="breadcrumb"><span class="gr">$</span> ls -la ~/work <span class="you">→ building + built</span></div>
+  <h1>What I'm building<br><span class="accent">and what I've shipped.</span></h1>
+  <p class="lead">Two groups, split by status. <strong style="color: var(--text-primary);">Building</strong> = active development this week; commits visible in the GitHub history if you want to see the work in motion. <strong style="color: var(--text-primary);">Built</strong> = shipped + live (or shipped + client-confidential, marked).</p>
 </section>
 
+<!-- ===================== BUILDING ===================== -->
 <section class="section">
-
-  <div class="work-card">
-    <div class="wc-head">
-      <div class="left">
-        <div class="row1"><span class="status shipping">SHIPPING</span><span>2026 · ACTIVE</span></div>
-        <h3>AIOpsForge — community + content platform</h3>
-      </div>
-      <div class="right">
-        <div>32 COMMITS / 30D</div>
-        <div><a href="https://aiopsforge.dev">→ aiopsforge.dev</a></div>
-      </div>
+  <div class="group-header reveal">
+    <div class="left">
+      <div class="lab live"><span class="dot"></span>CURRENTLY BUILDING</div>
+      <h2>Active this week.</h2>
     </div>
-    <div class="wc-body">
-      <p><strong>What it is:</strong> a $9.99/month community for solo AI builders. Weekly build guides, prompts/skills/workflows libraries, AI coach, cheatsheets, community mentoring. 14-area workspace currently at 20% content and growing weekly. Whop-gated, served from a static Vercel stack with Plausible analytics.</p>
-      <p><strong>What I built:</strong> the full platform top to bottom — landing page, Whop checkout integration, gated <code style="font-family:monospace;color:var(--green);background:var(--bg-tertiary);padding:1px 6px;border:1px solid var(--border);">/community/*</code> workspace with 14 sub-areas, Terminal Design System tokens, Beehiiv integration, Kit migration path, SEO/GEO infrastructure (sitemap, robots, JSON-LD, FAQ schema).</p>
-      <div class="wc-stack">
-        <span class="chip">Vanilla HTML/CSS</span><span class="chip">Vercel</span><span class="chip">Whop</span><span class="chip">Beehiiv</span><span class="chip">Plausible</span><span class="chip">Anthropic API</span><span class="chip">Terminal DS</span>
+    <div class="right">5 PROJECTS · <span class="v">62 COMMITS / 30D</span></div>
+  </div>
+
+  <div class="section-status reveal">
+    <span class="pulse"></span>
+    <span class="txt"><span class="gr">Live shipping cadence:</span> AIOpsForge leads at 32 commits/mo · bet-tracker 16 · betterSpeaking 10. <span class="dim">All visible on GitHub.</span></span>
+  </div>
+
+  <!-- AIOpsForge -->
+  <div class="work-card reveal">
+    <div class="wc-top">
+      <div class="wc-visual">
+        <div class="scrim"></div>
+        <div class="frame">
+          <div class="chrome">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <span>~/aiopsforge/live</span>
+            <span class="lab">● LIVE</span>
+          </div>
+          <div class="body">
+            <div><span class="gr">$</span> tail -f community.log</div>
+            <div class="row"><span class="dot gr"></span><span class="dim">2s</span><span>@pravine shipped <span class="gr">"v22"</span></span></div>
+            <div class="row"><span class="dot yl"></span><span class="dim">14s</span><span>build: claude code + mcp</span></div>
+            <div class="row"><span class="dot gr"></span><span class="dim">1m</span><span>@founding_03 forked</span></div>
+            <div class="row"><span class="dot dim"></span><span class="dim">3m</span><span>47 systems shipped</span></div>
+            <div><span class="gr">$</span><span class="cursor"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="wc-content">
+        <div class="row1"><span class="status shipping">SHIPPING</span><span>2026 · ACTIVE · v0.4</span></div>
+        <h3>AIOpsForge</h3>
+        <p><strong>The bet:</strong> $9.99/month community for solo AI builders. Weekly build guides, AI coach, 14-area workspace, community mentoring. Built top-to-bottom: landing, Whop integration, gated workspace, Beehiiv, Plausible, SEO+GEO infrastructure.</p>
+        <div class="stack">
+          <span class="chip">Vanilla HTML/CSS</span><span class="chip">Vercel</span><span class="chip">Whop</span><span class="chip">Beehiiv</span><span class="chip">Anthropic API</span><span class="chip">Terminal DS</span>
+        </div>
+        <div class="links">
+          <a href="https://aiopsforge.dev">→ Live site</a>
+          <span class="sep">·</span>
+          <a href="https://github.com/pravinemani5545/aiopsforge-landing">GitHub</a>
+          <span class="sep">·</span>
+          <a href="https://whop.com/ai-ops-forge/" class="dim">Whop checkout</a>
+        </div>
       </div>
     </div>
     <div class="wc-metrics">
       <div class="m"><div class="k">URLS LIVE</div><div class="v">51</div></div>
       <div class="m"><div class="k">FOUNDING SPOTS</div><div class="v"><span class="gr">9 / 10</span></div></div>
-      <div class="m"><div class="k">DEPLOYED</div><div class="v">PRODUCTION</div></div>
+      <div class="m"><div class="k">COMMITS / 30D</div><div class="v">32</div></div>
     </div>
   </div>
 
-  <div class="work-card">
-    <div class="wc-head">
-      <div class="left">
-        <div class="row1"><span class="status live">LIVE</span><span>2026-05 · SIBLING PRODUCT</span></div>
-        <h3>aifounder.ca landing — AI business partner pitch</h3>
+  <!-- aifounder.ca -->
+  <div class="work-card acc-red reveal">
+    <div class="wc-top">
+      <div class="wc-visual dark">
+        <div class="scrim"></div>
+        <div class="frame">
+          <div class="chrome">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <span>aifounder/morning-brief</span>
+            <span class="lab" style="color: var(--red);">● LIVE</span>
+          </div>
+          <div class="body">
+            <div><span class="gr">$</span> ai-founder briefing</div>
+            <div class="row"><span class="dot" style="background: var(--red);"></span><span class="dim">06:02</span><span style="color: var(--red);">! 2 deals stalled</span></div>
+            <div class="row"><span class="dot gr"></span><span class="dim">06:03</span><span>✓ 12 emails queued</span></div>
+            <div class="row"><span class="dot yl"></span><span class="dim">06:05</span><span class="yl">▸ competitor watch</span></div>
+            <div class="row"><span class="dot" style="background: #a855f7;"></span><span class="dim">06:08</span><span class="ac">✎ investor update</span></div>
+            <div><span class="gr">$</span><span class="cursor"></span></div>
+          </div>
+        </div>
       </div>
-      <div class="right">
-        <div>SHIPPED IN 4 HRS</div>
-        <div><a href="https://aiopsforge.dev/aifounder/">→ /aifounder/</a></div>
-      </div>
-    </div>
-    <div class="wc-body">
-      <p><strong>What it is:</strong> the landing page for aifounder.ca — pre-built AI workflows for solo founders (sales, marketing, onboarding, finance, ops, strategy). Lives under aiopsforge.dev for now, moves to its own domain when ready.</p>
-      <p><strong>Design innovations:</strong> bento workflow grid (uneven cells, 1 flagship + 5 supporting), 24-hour schedule ribbon, without/with diptych (red-tinted "drowning" vs green-tinted "shipping" Tuesday morning narrative), ASCII architecture diagram, live metrics marquee, actions-needed panel under hero terminal.</p>
-      <div class="wc-stack">
-        <span class="chip">Vanilla HTML/CSS</span><span class="chip">Terminal DS</span><span class="chip">CSS Grid</span>
+      <div class="wc-content">
+        <div class="row1"><span class="status live">DESIGN COMPLETE</span><span>2026-05 · SIBLING PRODUCT</span></div>
+        <h3>aifounder.ca landing</h3>
+        <p><strong>Pitched as your AI business partner:</strong> pre-built AI workflows for sales, marketing, onboarding, finance, ops, strategy. <strong>5 fresh design concepts</strong> ship on this page: bento workflow grid, 24-hour schedule ribbon, without/with diptych, ASCII architecture diagram, live metrics marquee.</p>
+        <div class="stack">
+          <span class="chip">Vanilla HTML/CSS</span><span class="chip">Terminal DS</span><span class="chip">CSS Grid</span>
+        </div>
+        <div class="links">
+          <a href="https://aiopsforge.dev/aifounder/">→ Live site</a>
+          <span class="sep">·</span>
+          <a href="https://github.com/pravinemani5545/aiopsforge-landing" class="dim">GitHub</a>
+        </div>
       </div>
     </div>
     <div class="wc-metrics">
@@ -120,111 +226,401 @@
     </div>
   </div>
 
-  <div class="work-card">
-    <div class="wc-head">
-      <div class="left">
+  <!-- bet-tracker -->
+  <div class="work-card acc-purple reveal">
+    <div class="wc-top">
+      <div class="wc-visual">
+        <div class="scrim"></div>
+        <div class="frame">
+          <div class="chrome">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <span>bet-tracker/dash</span>
+            <span class="lab" style="color: #a855f7;">PRIVATE</span>
+          </div>
+          <div class="body">
+            <div class="row"><span class="ac">▍▍▍▍</span><span class="dim">EV +$847</span></div>
+            <div class="row"><span class="ac">▍▍▍</span><span class="dim">CLV +6.2%</span></div>
+            <div class="row"><span class="ac">▍▍▍▍▍</span><span class="dim">ROI 11.4%</span></div>
+            <div class="row"><span class="ac">▍▍</span><span class="dim">Variance σ 2.1</span></div>
+            <div><span class="dim">Bankroll: <span class="gr">$8,420</span></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="wc-content">
+        <div class="row1"><span class="status shipping">PERSONAL</span><span>2026 · DAILY-USE</span></div>
+        <h3>bet-tracker</h3>
+        <p><strong>Solves my own problem.</strong> Sports-betting analytics: variance tracking, bankroll drawdown, expected-value vs realized, CLV trends. Not for sale. Mentioned because it shows the "build the tool you need" pattern — full-stack, deployed, real data flowing through it.</p>
+        <div class="stack">
+          <span class="chip">Next.js</span><span class="chip">TypeScript</span><span class="chip">Supabase</span><span class="chip">Recharts</span>
+        </div>
+        <div class="links">
+          <a class="dim">→ Private build</a>
+          <span class="sep">·</span>
+          <a class="dim">16 commits / 30d</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- betterSpeaking -->
+  <div class="work-card acc-blue reveal">
+    <div class="wc-top">
+      <div class="wc-visual">
+        <div class="scrim"></div>
+        <div class="frame">
+          <div class="chrome">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <span>betterspeaking/grade</span>
+            <span class="lab" style="color: var(--blue);">ALPHA</span>
+          </div>
+          <div class="body">
+            <div class="row"><span style="color: var(--blue);">▍▍▍▍▍▍▍▍</span><span class="dim">CLARITY 87</span></div>
+            <div class="row"><span style="color: var(--blue);">▍▍▍▍▍▍</span><span class="dim">PACE 72</span></div>
+            <div class="row"><span style="color: var(--blue);">▍▍▍</span><span class="dim">FILLER 31</span></div>
+            <div><span class="dim">"You said <span class="bl">'um'</span> 14× in 2 min."</span></div>
+            <div><span class="gr">→ Try again</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="wc-content">
+        <div class="row1"><span class="status shipping">CLOSED ALPHA</span><span>2026 · AI APP</span></div>
+        <h3>betterSpeaking</h3>
+        <p>Record yourself speaking, AI grades clarity, pace, filler-word density, gives a one-paragraph coaching note. ElevenLabs (transcript) + Claude (analysis) on Vercel. <strong>R&amp;D project</strong> — might become a product, might stay personal-use.</p>
+        <div class="stack">
+          <span class="chip">Next.js</span><span class="chip">ElevenLabs</span><span class="chip">Claude API</span><span class="chip">Vercel</span>
+        </div>
+        <div class="links">
+          <a class="dim">→ Closed alpha</a>
+          <span class="sep">·</span>
+          <a class="dim">10 commits / 30d</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- agentic-os -->
+  <div class="work-card acc-darkblue reveal">
+    <div class="wc-top">
+      <div class="wc-visual">
+        <div class="scrim"></div>
+        <div class="frame">
+          <div class="chrome">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <span>agentic-os/research</span>
+            <span class="lab" style="color: #1e40af;">R&amp;D</span>
+          </div>
+          <div class="body">
+            <div><span style="color: #1e40af;">// orchestrator</span></div>
+            <div><span class="bl">spawn</span> agent.research</div>
+            <div><span class="bl">spawn</span> agent.synth</div>
+            <div><span class="bl">spawn</span> agent.review</div>
+            <div class="dim">→ trade-offs at N=5+</div>
+            <div class="dim">→ memory bus latency</div>
+            <div><span class="gr">$</span><span class="cursor"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="wc-content">
+        <div class="row1"><span class="status research">EXPLORATORY</span><span>2026 · BENCH</span></div>
+        <h3>agentic-os</h3>
+        <p>Benching project. <strong>What breaks past 5 concurrent agents?</strong> How to handle inter-agent state, when to use sub-agents vs separate processes, where token cost crosses the line. Not a product — output is internal write-ups that feed into client work and AOF curriculum.</p>
+        <div class="stack">
+          <span class="chip">Claude API</span><span class="chip">TypeScript</span><span class="chip">MCP</span><span class="chip">Sub-agents</span>
+        </div>
+        <div class="links">
+          <a class="dim">→ Research only</a>
+          <span class="sep">·</span>
+          <a class="dim">4 commits / 30d</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ===================== BUILT ===================== -->
+<section class="section">
+  <div class="group-header reveal">
+    <div class="left">
+      <div class="lab shipped"><span class="dot"></span>SHIPPED + LIVE</div>
+      <h2>Already in the world.</h2>
+    </div>
+    <div class="right">7 PROJECTS · <span class="v">SINCE 2023</span></div>
+  </div>
+
+  <!-- personalClaudeSkills -->
+  <div class="work-card reveal">
+    <div class="wc-top">
+      <div class="wc-visual">
+        <div class="scrim"></div>
+        <div class="frame">
+          <div class="chrome">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <span>~/.claude/skills</span>
+            <span class="lab">3 LIVE</span>
+          </div>
+          <div class="body">
+            <div class="row"><span class="dot gr"></span><span class="gr">/growth-sprint</span></div>
+            <div class="row"><span class="dot gr"></span><span class="gr">/design-system</span></div>
+            <div class="row"><span class="dot gr"></span><span class="gr">/artifact</span></div>
+            <div class="row"><span class="dot dim"></span><span class="dim">/preserve (eliaalberti)</span></div>
+            <div class="row"><span class="dot dim"></span><span class="dim">/compress (eliaalberti)</span></div>
+            <div><span class="gr">$</span> curl install <span class="cursor"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="wc-content">
         <div class="row1"><span class="status live">LIVE</span><span>2026-05 · OPEN-SOURCE</span></div>
-        <h3>personalClaudeSkills — Claude Code skill library</h3>
-      </div>
-      <div class="right">
-        <div>3 SKILLS · GROWING</div>
-        <div><a href="https://github.com/pravinemani5545/personalClaudeSkills">→ GITHUB</a></div>
-      </div>
-    </div>
-    <div class="wc-body">
-      <p><strong>What it is:</strong> a public Claude Code skill library — pre-built slash commands installable via curl into <code style="font-family:monospace;color:var(--green);background:var(--bg-tertiary);padding:1px 6px;border:1px solid var(--border);">~/.claude/skills/</code>. Skills are markdown files with YAML frontmatter that Claude Code auto-discovers.</p>
-      <p><strong>Skills shipped:</strong> <code style="font-family:monospace;color:var(--green);background:var(--bg-tertiary);padding:1px 6px;border:1px solid var(--border);">/growth-sprint</code> (60-day plan generator with project audit), <code style="font-family:monospace;color:var(--green);background:var(--bg-tertiary);padding:1px 6px;border:1px solid var(--border);">/design-system</code> (Terminal DS application skill), <code style="font-family:monospace;color:var(--green);background:var(--bg-tertiary);padding:1px 6px;border:1px solid var(--border);">/artifact</code> (self-contained browser artifact generator). Plus the EliaAlberti <code style="font-family:monospace;color:var(--green);background:var(--bg-tertiary);padding:1px 6px;border:1px solid var(--border);">/compress, /preserve, /resume</code> bundle.</p>
-      <div class="wc-stack">
-        <span class="chip">Claude Code</span><span class="chip">Markdown</span><span class="chip">YAML</span><span class="chip">Open Source</span>
+        <h3>personalClaudeSkills</h3>
+        <p><strong>Public Claude Code skill library</strong> on GitHub. Slash commands installable via curl into <code style="font-family:monospace;color:var(--green);background:var(--bg-tertiary);padding:1px 6px;border:1px solid var(--border);">~/.claude/skills/</code>. Skills shipped: <code style="font-family:monospace;color:var(--green);">/growth-sprint</code>, <code style="font-family:monospace;color:var(--green);">/design-system</code>, <code style="font-family:monospace;color:var(--green);">/artifact</code>. Plus EliaAlberti's <code style="font-family:monospace;color:var(--green);">compress/preserve/resume</code> bundle.</p>
+        <div class="stack">
+          <span class="chip">Claude Code</span><span class="chip">Markdown</span><span class="chip">YAML</span><span class="chip">Open Source</span>
+        </div>
+        <div class="links">
+          <a href="https://github.com/pravinemani5545/personalClaudeSkills">→ GitHub repo</a>
+          <span class="sep">·</span>
+          <a href="https://github.com/pravinemani5545/personalClaudeSkills#install">Install command</a>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="work-card">
-    <div class="wc-head">
-      <div class="left">
-        <div class="row1"><span class="status shipping">SHIPPING</span><span>2026 · PERSONAL</span></div>
-        <h3>bet-tracker — sports betting variance + bankroll analytics</h3>
+  <!-- CISNET (Client) -->
+  <div class="work-card acc-blue reveal">
+    <div class="wc-top">
+      <div class="wc-visual">
+        <div class="scrim"></div>
+        <div class="frame">
+          <div class="chrome">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <span>cisnet/seo-audit</span>
+            <span class="lab" style="color: var(--blue);">CLIENT</span>
+          </div>
+          <div class="body">
+            <div class="row"><span class="dot gr"></span><span>200+ pSEO pages</span></div>
+            <div class="row"><span class="dot gr"></span><span>70+ legacy redirects</span></div>
+            <div class="row"><span class="dot gr"></span><span>7 schema types</span></div>
+            <div class="row"><span class="dot gr"></span><span>Lead pipeline live</span></div>
+            <div class="row"><span class="dot gr"></span><span>FB Lead Ads webhook</span></div>
+            <div><span class="dim">→ shipped Q4 2025</span></div>
+          </div>
+        </div>
       </div>
-      <div class="right">
-        <div>16 COMMITS / 30D</div>
-        <div><span style="color: var(--text-dim);">PRIVATE</span></div>
-      </div>
-    </div>
-    <div class="wc-body">
-      <p><strong>What it is:</strong> a personal analytics tool for tracking bet results, variance, bankroll drawdown, expected value vs realized. Not for sale. Solves a problem I had myself.</p>
-      <p>Mentioned here because it's a representative example of "solo operator builds the tool" — full-stack, deployed, with real data flowing through it. Not every project needs to be a product.</p>
-      <div class="wc-stack">
-        <span class="chip">Next.js</span><span class="chip">TypeScript</span><span class="chip">Supabase</span><span class="chip">Recharts</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="work-card">
-    <div class="wc-head">
-      <div class="left">
-        <div class="row1"><span class="status shipping">ALPHA</span><span>2026 · AI APP</span></div>
-        <h3>betterSpeaking — voice clarity coach</h3>
-      </div>
-      <div class="right">
-        <div>10 COMMITS / 30D</div>
-        <div><span style="color: var(--text-dim);">CLOSED ALPHA</span></div>
-      </div>
-    </div>
-    <div class="wc-body">
-      <p><strong>What it is:</strong> record yourself speaking, AI grades clarity, pace, filler-word density, and gives you a one-paragraph coaching note. Built on ElevenLabs (transcript) + Claude (analysis) on Vercel.</p>
-      <p>R&amp;D project that may or may not become a product. The interesting bit is the prompt pattern that gives genuinely useful coaching feedback without sounding like a SaaS chatbot.</p>
-      <div class="wc-stack">
-        <span class="chip">Next.js</span><span class="chip">ElevenLabs</span><span class="chip">Claude API</span><span class="chip">Vercel</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="work-card">
-    <div class="wc-head">
-      <div class="left">
-        <div class="row1"><span class="status client">CLIENT</span><span>2025-Q4 · CONFIDENTIAL</span></div>
-        <h3>CISNET — Next.js marketing site + SEO infrastructure</h3>
-      </div>
-      <div class="right">
-        <div>3-MONTH ENGAGEMENT</div>
-        <div><span style="color: var(--text-dim);">CLIENT WORK</span></div>
-      </div>
-    </div>
-    <div class="wc-body">
-      <p><strong>What it was:</strong> full marketing site redesign + SEO infrastructure build for a Toronto IT certification training company. Migration from a legacy PHP site to Next.js 16, 200+ programmatic SEO pages (cert × city), Google Ads campaign structure, full lead-capture pipeline.</p>
-      <p><strong>What shipped:</strong> 8 certification overview pages with 6 sub-pages each, 80+ city training pages with cross-links, 8 comparison pages, /funding grants page, admin dashboard with lead management, Facebook Lead Ads webhook integration with HMAC verification, 70+ legacy URL redirects to preserve ranking authority.</p>
-      <div class="wc-stack">
-        <span class="chip">Next.js 16</span><span class="chip">Supabase</span><span class="chip">TypeScript</span><span class="chip">Tailwind</span><span class="chip">Vercel</span><span class="chip">Stripe</span>
+      <div class="wc-content">
+        <div class="row1"><span class="status client">CLIENT</span><span>2025-Q4 · 3 MONTHS</span></div>
+        <h3>CISNET — marketing site + SEO infrastructure</h3>
+        <p><strong>Full marketing site redesign</strong> for a Toronto IT certification training company. Migrated from legacy PHP to Next.js 16. Built 200+ programmatic SEO pages (cert × city), 70+ legacy URL redirects to preserve ranking authority, full lead-capture pipeline with admin dashboard, Facebook Lead Ads webhook with HMAC verification.</p>
+        <div class="stack">
+          <span class="chip">Next.js 16</span><span class="chip">Supabase</span><span class="chip">TypeScript</span><span class="chip">Tailwind</span><span class="chip">Vercel</span><span class="chip">Stripe</span>
+        </div>
+        <div class="links">
+          <a class="dim">→ Client work (NDA)</a>
+          <span class="sep">·</span>
+          <a class="dim">Case study on request</a>
+        </div>
       </div>
     </div>
     <div class="wc-metrics">
       <div class="m"><div class="k">PAGES SHIPPED</div><div class="v">200+</div></div>
-      <div class="m"><div class="k">LEGACY REDIRECTS</div><div class="v">70+</div></div>
+      <div class="m"><div class="k">REDIRECTS</div><div class="v">70+</div></div>
       <div class="m"><div class="k">SCHEMA TYPES</div><div class="v"><span class="gr">7</span></div></div>
     </div>
   </div>
 
-  <div class="work-card">
-    <div class="wc-head">
-      <div class="left">
-        <div class="row1"><span class="status research">R&amp;D</span><span>2026 · EXPLORATORY</span></div>
-        <h3>agentic-os — exploring AI agent orchestration</h3>
+  <!-- Portfolio (this site) -->
+  <div class="work-card acc-purple reveal">
+    <div class="wc-top">
+      <div class="wc-visual">
+        <div class="scrim"></div>
+        <div class="frame">
+          <div class="chrome">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <span>~/portfolio</span>
+            <span class="lab" style="color: #a855f7;">META</span>
+          </div>
+          <div class="body">
+            <div class="row"><span class="dot gr"></span><span>/portfolio</span></div>
+            <div class="row"><span class="dot gr"></span><span>/services</span></div>
+            <div class="row"><span class="dot gr"></span><span>/work</span></div>
+            <div class="row"><span class="dot gr"></span><span>/stack</span></div>
+            <div class="row"><span class="dot gr"></span><span>/now /about /contact</span></div>
+            <div><span class="dim">8 pages · 7 nav links</span></div>
+          </div>
+        </div>
       </div>
-      <div class="right">
-        <div>4 COMMITS / 30D</div>
-        <div><span style="color: var(--text-dim);">RESEARCH</span></div>
-      </div>
-    </div>
-    <div class="wc-body">
-      <p><strong>What it is:</strong> a benching project to understand the trade-offs of multi-agent orchestration at scale. Specifically: what breaks past 5 concurrent agents, how to handle inter-agent state, when to use sub-agents vs separate processes.</p>
-      <p>Not a product. Output is internal write-ups + opinions that feed into client work and the AOF curriculum.</p>
-      <div class="wc-stack">
-        <span class="chip">Claude API</span><span class="chip">TypeScript</span><span class="chip">MCP</span><span class="chip">Sub-agents</span>
+      <div class="wc-content">
+        <div class="row1"><span class="status live">LIVE</span><span>2026-05 · THIS SITE</span></div>
+        <h3>Portfolio — pravine.dev (in transit)</h3>
+        <p><strong>This site you're reading right now.</strong> Built in two days using the same Terminal Design System I sell clients on. 8 pages, scroll-reveal animations, Plausible analytics, Person JSON-LD. Lives under aiopsforge.dev/portfolio/ for now; moves to its own domain when ready.</p>
+        <div class="stack">
+          <span class="chip">Vanilla HTML/CSS</span><span class="chip">Vercel</span><span class="chip">Terminal DS</span><span class="chip">Plausible</span>
+        </div>
+        <div class="links">
+          <a href="/portfolio/">→ You're here</a>
+          <span class="sep">·</span>
+          <a href="https://github.com/pravinemani5545/aiopsforge-landing">View on GitHub</a>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- Threads clone -->
+  <div class="work-card acc-red reveal">
+    <div class="wc-top">
+      <div class="wc-visual">
+        <div class="scrim"></div>
+        <div class="frame">
+          <div class="chrome">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <span>~/threads-clone</span>
+            <span class="lab">2024</span>
+          </div>
+          <div class="body">
+            <div class="dim">// weekend build · 6.4k views</div>
+            <div class="row"><span class="dot gr"></span><span>Server components</span></div>
+            <div class="row"><span class="dot gr"></span><span>Clerk auth</span></div>
+            <div class="row"><span class="dot gr"></span><span>Threading + feed</span></div>
+            <div class="row"><span class="dot gr"></span><span>MongoDB</span></div>
+            <div><span class="dim">Learned: RSC patterns</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="wc-content">
+        <div class="row1"><span class="status shipped">SHIPPED</span><span>2024 · LEARNING BUILD</span></div>
+        <h3>Threads clone</h3>
+        <p>Weekend build to learn React server components + Clerk auth. Threading, feed, auth — the works. <strong>6.4k views</strong> when posted publicly. Code archived; reference for "this is what I can ship in 2 days when constraints are right."</p>
+        <div class="stack">
+          <span class="chip">Next.js</span><span class="chip">TypeScript</span><span class="chip">MongoDB</span><span class="chip">Clerk</span>
+        </div>
+        <div class="links">
+          <a class="dim">→ Archive</a>
+          <span class="sep">·</span>
+          <a class="dim">Demo on request</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PriceScraper -->
+  <div class="work-card acc-purple reveal">
+    <div class="wc-top">
+      <div class="wc-visual">
+        <div class="scrim"></div>
+        <div class="frame">
+          <div class="chrome">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <span>~/pricescraper</span>
+            <span class="lab" style="color: #a855f7;">2024</span>
+          </div>
+          <div class="body">
+            <div><span class="ac">// scrape · diff · alert</span></div>
+            <div class="row"><span class="dot gr"></span><span>Amazon ASIN tracker</span></div>
+            <div class="row"><span class="dot gr"></span><span>Puppeteer + Cheerio</span></div>
+            <div class="row"><span class="dot gr"></span><span>Email on drop</span></div>
+            <div class="row"><span class="dot dim"></span><span class="dim">retired 2025</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="wc-content">
+        <div class="row1"><span class="status shipped">SHIPPED · ARCHIVED</span><span>2024</span></div>
+        <h3>PriceScraper</h3>
+        <p>Tracks Amazon prices, emails you when they drop. Puppeteer + Cheerio + MongoDB. Personal-use, ran for ~9 months before retiring. <strong>Notable for being the first project I built that "ran on autopilot"</strong> — set it up, forgot about it, it just worked.</p>
+        <div class="stack">
+          <span class="chip">Next.js</span><span class="chip">MongoDB</span><span class="chip">Puppeteer</span><span class="chip">Cheerio</span>
+        </div>
+        <div class="links">
+          <a class="dim">→ Archived</a>
+          <span class="sep">·</span>
+          <a class="dim">Code available on request</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Prompty -->
+  <div class="work-card reveal">
+    <div class="wc-top">
+      <div class="wc-visual">
+        <div class="scrim"></div>
+        <div class="frame">
+          <div class="chrome">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <span>prompty.app</span>
+            <span class="lab">2024</span>
+          </div>
+          <div class="body">
+            <div class="row"><span class="dot gr"></span><span>Share prompts</span></div>
+            <div class="row"><span class="dot gr"></span><span>OAuth login</span></div>
+            <div class="row"><span class="dot gr"></span><span>Discover feed</span></div>
+            <div class="row"><span class="dot gr"></span><span>Vote + collect</span></div>
+            <div><span class="dim">→ pre-ChatGPT plugins era</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="wc-content">
+        <div class="row1"><span class="status shipped">SHIPPED</span><span>2024 · PROMPT SHARING</span></div>
+        <h3>Prompty</h3>
+        <p>Share and discover production-grade prompts. Pre-ChatGPT-plugins era — built to scratch the itch of "where do I save the prompts I want to remember?" OAuth login, prompt CRUD, discovery feed, voting. Code lives on; product hasn't been promoted.</p>
+        <div class="stack">
+          <span class="chip">Next.js</span><span class="chip">MongoDB</span><span class="chip">OAuth</span><span class="chip">TypeScript</span>
+        </div>
+        <div class="links">
+          <a class="dim">→ Code archived</a>
+          <span class="sep">·</span>
+          <a class="dim">Walkthrough available</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CarHub + Gericht (combined as portfolio entries) -->
+  <div class="work-card acc-blue reveal">
+    <div class="wc-top">
+      <div class="wc-visual">
+        <div class="scrim"></div>
+        <div class="frame">
+          <div class="chrome">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <span>~/earlier-work</span>
+            <span class="lab" style="color: var(--blue);">2023</span>
+          </div>
+          <div class="body">
+            <div class="row"><span class="dot gr"></span><span>CarHub</span><span class="dim">RapidAPI · rental browser</span></div>
+            <div class="row"><span class="dot gr"></span><span>Gericht</span><span class="dim">React · landing study</span></div>
+            <div class="row"><span class="dot dim"></span><span class="dim">+ assorted small projects</span></div>
+            <div><span class="dim">// portfolio years</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="wc-content">
+        <div class="row1"><span class="status shipped">SHIPPED · ARCHIVED</span><span>2023 · PORTFOLIO YEARS</span></div>
+        <h3>Earlier work — CarHub, Gericht, others</h3>
+        <p>The 2023 "build something every weekend to learn patterns" era. <strong>CarHub:</strong> vehicle rental browser with an open-source car API (RapidAPI). <strong>Gericht:</strong> fine-dining landing page — a layout-study build. Both shipped, both archived. Mentioned because they laid the muscle for everything that followed.</p>
+        <div class="stack">
+          <span class="chip">Next.js</span><span class="chip">React</span><span class="chip">TypeScript</span><span class="chip">Tailwind</span><span class="chip">RapidAPI</span>
+        </div>
+        <div class="links">
+          <a class="dim">→ Archived</a>
+          <span class="sep">·</span>
+          <a class="dim">Available on request</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA ===================== -->
+<section class="section">
+  <div style="background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-tertiary) 100%); border: 1px solid var(--border-green); padding: 44px 36px; text-align: center; position: relative; overflow: hidden;" class="reveal">
+    <div style="position: absolute; inset: -40px -10vw 0; background: radial-gradient(ellipse at center top, rgba(0,255,65,0.06) 0%, transparent 60%); pointer-events: none;"></div>
+    <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(26px, 3.4vw, 34px); font-weight: 600; color: var(--text-primary); letter-spacing: -0.02em; margin-bottom: 14px; position: relative;">See something you'd want me to build for you?</h2>
+    <p style="font-family: 'IBM Plex Sans', sans-serif; font-size: 17px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 24px; position: relative;">Each of the active builds above was scoped + built solo. The same toolkit works on your problem. The 30-min call is free.</p>
+    <div class="cta-row" style="justify-content: center; position: relative;">
+      <a href="/portfolio/contact/" class="cta-btn">Book a 30-min call →</a>
+      <a href="/portfolio/services/" class="cta-btn secondary">See services</a>
+    </div>
+  </div>
 </section>
 
 <footer class="site-footer">
@@ -237,8 +633,21 @@
       <a href="/portfolio/contact/">CONTACT</a>
       <a href="https://aiopsforge.dev">AIOPSFORGE</a>
     </div>
-    <span>SHIPS WEEKLY · BUILDS IN PUBLIC</span>
+    <span>BUILDING IN PUBLIC · COMMITS VISIBLE ON GITHUB</span>
   </div>
 </footer>
+
+<script>
+(function() {
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el) { io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('visible'); });
+  }
+})();
+</script>
 </body>
 </html>

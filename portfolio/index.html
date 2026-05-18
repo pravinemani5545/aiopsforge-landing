@@ -52,6 +52,14 @@ a { color: inherit; text-decoration: none; }
   --text-dim: #7a7a7a;
 }
 
+/* ===== SCROLL REVEAL ===== */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 700ms cubic-bezier(0.2,0,0,1), transform 700ms cubic-bezier(0.2,0,0,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal[data-delay="1"] { transition-delay: 80ms; }
+.reveal[data-delay="2"] { transition-delay: 160ms; }
+.reveal[data-delay="3"] { transition-delay: 240ms; }
+.reveal[data-delay="4"] { transition-delay: 320ms; }
+
 /* ===== STICKY NAV ===== */
 .site-nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -60,454 +68,294 @@ a { color: inherit; text-decoration: none; }
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
-.nav-inner {
-  max-width: 1100px; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.nav-brand {
-  font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600;
-  color: var(--text-primary); letter-spacing: 0.02em;
-  display: flex; align-items: center; gap: 8px;
-}
-.nav-brand .cursor {
-  display: inline-block; width: 8px; height: 13px;
-  background: var(--green); animation: blink 1.1s step-end infinite;
-  vertical-align: middle;
-}
+.nav-inner { max-width: 1180px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+.nav-brand { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: var(--text-primary); letter-spacing: 0.02em; display: flex; align-items: center; gap: 8px; }
+.nav-brand .cursor { display: inline-block; width: 8px; height: 13px; background: var(--green); animation: blink 1.1s step-end infinite; vertical-align: middle; }
 .nav-links { display: flex; align-items: center; gap: 24px; }
-.nav-links a {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--text-secondary);
-  transition: color var(--dur-micro, 150ms) var(--ease);
-}
+.nav-links a { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); transition: color 150ms; }
 .nav-links a:hover { color: var(--green); }
-.nav-cta {
-  background: var(--green); color: var(--bg-primary);
-  padding: 8px 14px; font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600;
-  transition: all var(--dur-micro, 150ms) var(--ease);
-}
+.nav-cta { background: var(--green); color: var(--bg-primary); padding: 8px 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; transition: all 150ms; }
 .nav-cta:hover { background: var(--text-primary); }
 
 @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
 @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes glow-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(0,255,65,0.4); } 50% { box-shadow: 0 0 0 8px rgba(0,255,65,0); } }
+@keyframes drift { from { transform: translateX(0); } to { transform: translateX(-20px); } }
 
 /* ===== HERO ===== */
-.hero {
-  padding: 144px 28px 80px;
-  max-width: 1100px; margin: 0 auto;
-  position: relative;
-}
+.hero { padding: 144px 28px 64px; max-width: 1180px; margin: 0 auto; position: relative; }
 .hero::before {
   content: ''; position: absolute; inset: -240px -10vw 0;
   background:
     radial-gradient(ellipse at 30% 30%, rgba(0,255,65,0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 50%, rgba(168,85,247,0.04) 0%, transparent 45%);
+    radial-gradient(ellipse at 80% 50%, rgba(168,85,247,0.05) 0%, transparent 45%);
   pointer-events: none; z-index: 0;
 }
 .hero > * { position: relative; z-index: 1; }
 
-.prompt-line {
-  font-family: 'JetBrains Mono', monospace; font-size: 14px;
-  color: var(--text-dim); margin-bottom: 24px;
-  display: flex; align-items: center; gap: 10px;
-}
+.hero-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 56px; align-items: start; }
+@media (max-width: 980px) { .hero-grid { grid-template-columns: 1fr; gap: 32px; } }
+
+.prompt-line { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text-dim); margin-bottom: 22px; display: flex; align-items: center; gap: 10px; }
 .prompt-line .gr { color: var(--green); }
 .prompt-line .you { color: var(--text-primary); }
 
-.status-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  color: var(--green); border: 1px solid var(--border-green);
-  padding: 6px 14px; margin-bottom: 28px;
-  background: rgba(0, 255, 65, 0.04);
-  letter-spacing: 0.12em; text-transform: uppercase;
-}
-.status-badge .dot {
-  width: 6px; height: 6px; background: var(--green);
-  animation: pulse-dot 2s infinite;
-}
+.status-badge { display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--green); border: 1px solid var(--border-green); padding: 6px 14px; margin-bottom: 26px; background: rgba(0, 255, 65, 0.04); letter-spacing: 0.12em; text-transform: uppercase; animation: glow-pulse 2.4s infinite; }
+.status-badge .dot { width: 6px; height: 6px; background: var(--green); animation: pulse-dot 2s infinite; }
 
 .hero h1 {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(40px, 6vw, 68px);
+  font-size: clamp(38px, 5.5vw, 64px);
   font-weight: 600; line-height: 1.05; letter-spacing: -0.03em;
   color: var(--text-primary); margin-bottom: 24px;
   text-wrap: balance;
   background: linear-gradient(180deg, var(--text-primary) 0%, var(--text-secondary) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
-.hero h1 .accent {
-  color: var(--green);
-  -webkit-text-fill-color: var(--green);
-}
+.hero h1 .accent { color: var(--green); -webkit-text-fill-color: var(--green); position: relative; }
+.hero h1 .accent::after { content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; background: var(--green); opacity: 0.4; }
 
-.hero .lead {
-  font-size: 20px;
-  color: var(--text-secondary);
-  max-width: 720px;
-  line-height: 1.55;
-  margin-bottom: 36px;
-}
+.hero .lead { font-size: 19px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 32px; }
+.hero .lead a { color: var(--green); border-bottom: 1px dashed var(--green); }
 
-.hero-meta {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  margin-bottom: 40px;
-}
-.hero-meta .cell {
-  background: var(--bg-card);
-  padding: 18px 22px;
-}
-.hero-meta .cell .k {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  letter-spacing: 0.14em; color: var(--text-dim); text-transform: uppercase;
-  margin-bottom: 4px;
-}
-.hero-meta .cell .v {
-  font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 600;
-  color: var(--text-primary); letter-spacing: -0.01em;
-}
+.hero-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 36px; }
+.hero-meta .cell { background: var(--bg-card); padding: 16px 20px; }
+.hero-meta .cell .k { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px; }
+.hero-meta .cell .v { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; }
 .hero-meta .cell .v .gr { color: var(--green); }
 
 .cta-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-.cta-btn {
-  height: 48px; padding: 0 22px;
-  font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  background: var(--green); color: var(--bg-primary);
-  display: inline-flex; align-items: center; gap: 10px;
-  transition: all var(--dur-micro, 150ms) var(--ease);
-}
-.cta-btn:hover { background: var(--text-primary); }
-.cta-btn-secondary {
-  background: transparent; color: var(--text-primary);
-  border: 1px solid var(--border);
-}
-.cta-btn-secondary:hover { border-color: var(--green); color: var(--green); }
+.cta-btn { height: 48px; padding: 0 22px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; background: var(--green); color: var(--bg-primary); display: inline-flex; align-items: center; gap: 10px; transition: all 150ms; }
+.cta-btn:hover { background: var(--text-primary); transform: translateY(-2px); }
+.cta-btn-secondary { background: transparent; color: var(--text-primary); border: 1px solid var(--border); }
+.cta-btn-secondary:hover { border-color: var(--green); color: var(--green); transform: translateY(-2px); }
+.cta-row .micro { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--text-dim); text-transform: uppercase; padding-left: 6px; }
 
-@media (max-width: 720px) {
-  .hero { padding: 116px 22px 56px; }
-  .hero-meta { grid-template-columns: 1fr; }
-}
+/* Hero terminal mock */
+.hero-term { background: var(--bg-card); border: 1px solid var(--border); position: relative; }
+.hero-term::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--green); opacity: 0.85; }
+.hero-term .chrome { display: flex; align-items: center; gap: 6px; padding: 10px 14px; border-bottom: 1px solid var(--border); background: var(--bg-tertiary); font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 0.08em; text-transform: uppercase; justify-content: space-between; }
+.hero-term .chrome .dots { display: flex; gap: 5px; }
+.hero-term .chrome .dots span { width: 8px; height: 8px; background: var(--border); }
+.hero-term .chrome .stat { color: var(--green); display: flex; align-items: center; gap: 6px; }
+.hero-term .chrome .stat .pulse { width: 6px; height: 6px; background: var(--green); animation: pulse-dot 1.6s infinite; }
+.hero-term .body { padding: 18px 18px 22px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.7; color: var(--text-secondary); }
+.hero-term .body .ln { display: flex; align-items: baseline; gap: 8px; }
+.hero-term .body .gr { color: var(--green); }
+.hero-term .body .yl { color: #ffd84a; }
+.hero-term .body .pu { color: #a855f7; }
+.hero-term .body .bl { color: var(--blue); }
+.hero-term .body .rd { color: var(--red); }
+.hero-term .body .dim { color: var(--text-dim); }
+.hero-term .body .cmt { color: var(--text-dim); }
+.hero-term .body .cursor { display: inline-block; width: 7px; height: 12px; background: var(--green); animation: blink 1s step-end infinite; vertical-align: middle; margin-left: 3px; }
+.hero-term .feet { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border-top: 1px solid var(--border); }
+.hero-term .feet .m { background: var(--bg-card); padding: 12px 16px; }
+.hero-term .feet .m .k { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 2px; }
+.hero-term .feet .m .v { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; color: var(--text-primary); }
+.hero-term .feet .m .v .gr { color: var(--green); }
+
+@media (max-width: 720px) { .hero { padding: 116px 22px 48px; } .hero-meta { grid-template-columns: 1fr; } }
+
+/* ===== TICKER ===== */
+.ticker { background: var(--bg-tertiary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 12px 0; overflow: hidden; position: relative; }
+.ticker::before, .ticker::after { content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none; }
+.ticker::before { left: 0; background: linear-gradient(90deg, var(--bg-tertiary) 0%, transparent 100%); }
+.ticker::after { right: 0; background: linear-gradient(90deg, transparent 0%, var(--bg-tertiary) 100%); }
+.ticker-track { display: flex; gap: 48px; animation: marquee 48s linear infinite; width: max-content; }
+.ticker-item { display: inline-flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--text-secondary); text-transform: uppercase; white-space: nowrap; }
+.ticker-item .gr { color: var(--green); }
+.ticker-item .bl { color: var(--blue); }
+.ticker-item .pu { color: #a855f7; }
+.ticker-item .rd { color: var(--red); }
+.ticker-item .sep { color: var(--text-muted, #444); margin: 0 4px; }
+.ticker-item .pulse { width: 6px; height: 6px; background: var(--green); animation: pulse-dot 1.6s infinite; }
 
 /* ===== SECTIONS ===== */
-.section {
-  padding: 64px 28px;
-  max-width: 1100px; margin: 0 auto;
-}
-.section-head {
-  margin-bottom: 36px;
-  display: flex; align-items: baseline; justify-content: space-between;
-  flex-wrap: wrap; gap: 16px;
-}
-.section-head .title-block {
-  display: flex; flex-direction: column; gap: 8px;
-  max-width: 720px;
-}
-.section-head .label {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--green);
-}
+.section { padding: 64px 28px; max-width: 1180px; margin: 0 auto; }
+.section-head { margin-bottom: 36px; display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.section-head .title-block { display: flex; flex-direction: column; gap: 8px; max-width: 760px; }
+.section-head .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green); }
 .section-head .label::before { content: '╭─ '; color: var(--text-dim); }
 .section-head .label::after { content: ' ─╮'; color: var(--text-dim); }
-.section-head h2 {
-  font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 3.4vw, 38px);
-  font-weight: 600; line-height: 1.15; letter-spacing: -0.02em;
-  color: var(--text-primary);
-}
-.section-head p {
-  font-family: 'IBM Plex Sans', sans-serif; font-size: 16px;
-  color: var(--text-secondary); line-height: 1.6; max-width: 640px;
-}
-.section-head .meta {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase;
-}
+.section-head h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 3.4vw, 38px); font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; color: var(--text-primary); }
+.section-head p { font-family: 'IBM Plex Sans', sans-serif; font-size: 16px; color: var(--text-secondary); line-height: 1.6; max-width: 680px; }
+.section-head p a { color: var(--green); border-bottom: 1px dashed var(--green); }
+.section-head .meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase; }
+.section-head .meta .gr { color: var(--green); }
 
 /* ===== SERVICES GRID ===== */
-.services-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
-}
-.service-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  padding: 0; transition: all var(--dur-base, 200ms) var(--ease);
-  display: flex; flex-direction: column;
-  position: relative; overflow: hidden;
-}
-.service-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0;
-  height: 2px; background: var(--card-accent, var(--green));
-  opacity: 0; transition: opacity var(--dur-base, 200ms) var(--ease);
-}
+.services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.service-card { background: var(--bg-card); border: 1px solid var(--border); padding: 0; transition: all 250ms cubic-bezier(0.2,0,0,1); display: flex; flex-direction: column; position: relative; overflow: hidden; }
+.service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--card-accent, var(--green)); opacity: 0; transition: opacity 200ms; }
 .service-card:hover::before { opacity: 1; }
-.service-card:hover { border-color: var(--border-green); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,255,65,0.08); }
+.service-card:hover { border-color: var(--border-green); transform: translateY(-3px); box-shadow: 0 12px 36px rgba(0,255,65,0.06); }
 .service-card.featured { border-color: var(--border-green); }
 .service-card.featured::before { opacity: 1; }
-.service-card .head {
-  padding: 20px 24px;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg-tertiary);
-  display: flex; justify-content: space-between; align-items: center;
-}
-.service-card .head .id {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  letter-spacing: 0.14em; color: var(--green); text-transform: uppercase;
-}
+.service-card .head { padding: 18px 22px; border-bottom: 1px solid var(--border); background: var(--bg-tertiary); display: flex; justify-content: space-between; align-items: center; }
+.service-card .head .id { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--green); text-transform: uppercase; }
 .service-card .head .id .num { color: var(--text-dim); }
-.service-card .head .price {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  letter-spacing: 0.08em; color: var(--text-primary); font-weight: 500;
-}
-.service-card .body {
-  padding: 24px;
-  display: flex; flex-direction: column; gap: 14px;
-  flex: 1;
-}
-.service-card .body h3 {
-  font-family: 'Space Grotesk', sans-serif; font-size: 22px;
-  font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em;
-  line-height: 1.2;
-}
-.service-card .body p {
-  font-family: 'IBM Plex Sans', sans-serif; font-size: 15px;
-  color: var(--text-secondary); line-height: 1.6;
-}
-.service-card .body ul {
-  list-style: none; padding: 0;
-  display: flex; flex-direction: column; gap: 6px;
-}
-.service-card .body ul li {
-  padding-left: 18px; position: relative;
-  font-size: 14px; color: var(--text-secondary); line-height: 1.5;
-}
-.service-card .body ul li::before {
-  content: '+'; position: absolute; left: 0; color: var(--green);
-  font-family: 'JetBrains Mono', monospace; font-weight: 600;
-}
-.service-card .foot {
-  margin-top: auto;
-  padding: 14px 24px; border-top: 1px solid var(--border);
-  background: var(--bg-tertiary);
-  display: flex; justify-content: space-between; align-items: center;
-  font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  letter-spacing: 0.12em; text-transform: uppercase;
-}
+.service-card .head .price { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--text-secondary); text-transform: uppercase; }
+.service-card .body { padding: 22px 24px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.service-card .body h3 { font-family: 'Space Grotesk', sans-serif; font-size: 21px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; line-height: 1.2; }
+.service-card .body p { font-family: 'IBM Plex Sans', sans-serif; font-size: 14.5px; color: var(--text-secondary); line-height: 1.6; }
+.service-card .body ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+.service-card .body ul li { padding-left: 18px; position: relative; font-size: 13.5px; color: var(--text-secondary); line-height: 1.5; }
+.service-card .body ul li::before { content: '+'; position: absolute; left: 0; color: var(--green); font-family: 'JetBrains Mono', monospace; font-weight: 600; }
+.service-card .foot { margin-top: auto; padding: 13px 24px; border-top: 1px solid var(--border); background: var(--bg-tertiary); display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
 .service-card .foot .meta { color: var(--text-dim); }
-.service-card .foot .cta { color: var(--green); }
+.service-card .foot .cta { color: var(--green); transition: color 150ms; }
+.service-card:hover .foot .cta { color: var(--text-primary); }
 @media (max-width: 720px) { .services-grid { grid-template-columns: 1fr; } }
 
+.services-cta { margin-top: 24px; text-align: center; }
+.services-cta a { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: var(--green); text-transform: uppercase; border-bottom: 1px dashed var(--green); padding-bottom: 2px; }
+.services-cta a:hover { color: var(--text-primary); border-color: var(--text-primary); }
+
+/* ===== QUOTE BAND (distributed proof) ===== */
+.quote-band { background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 56px 28px; position: relative; overflow: hidden; }
+.quote-band::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at left, rgba(0,255,65,0.04) 0%, transparent 70%); pointer-events: none; }
+.quote-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.6fr; gap: 48px; align-items: center; position: relative; }
+.quote-inner .lab { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; color: var(--green); text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+.quote-inner .lab .dot { width: 6px; height: 6px; background: var(--green); }
+.quote-inner h3 { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; line-height: 1.3; }
+.quote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.quote-card { background: var(--bg-card); border: 1px solid var(--border); padding: 20px 22px; position: relative; transition: all 200ms; }
+.quote-card:hover { border-color: var(--border-green); transform: translateY(-2px); }
+.quote-card .stars { font-family: 'JetBrains Mono', monospace; color: var(--green); font-size: 11px; letter-spacing: 0.1em; margin-bottom: 10px; }
+.quote-card blockquote { font-family: 'IBM Plex Sans', sans-serif; font-size: 14.5px; color: var(--text-primary); line-height: 1.55; margin-bottom: 12px; font-style: italic; }
+.quote-card blockquote::before { content: '"'; color: var(--green); font-size: 24px; margin-right: 2px; vertical-align: -4px; font-family: 'Space Grotesk', sans-serif; }
+.quote-card blockquote::after { content: '"'; color: var(--green); font-size: 24px; margin-left: 2px; vertical-align: -4px; font-family: 'Space Grotesk', sans-serif; }
+.quote-card .src { display: flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--text-dim); text-transform: uppercase; padding-top: 10px; border-top: 1px solid var(--border); }
+.quote-card .src .av { width: 22px; height: 22px; background: var(--bg-tertiary); border: 1px solid var(--border-strong, #3a3a3a); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--green); font-weight: 600; }
+.quote-card .src .who { color: var(--text-secondary); }
+@media (max-width: 900px) { .quote-inner { grid-template-columns: 1fr; gap: 28px; } .quote-grid { grid-template-columns: 1fr; } }
+
 /* ===== PROCESS ===== */
-.process-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 1px; background: var(--border); border: 1px solid var(--border);
-}
-.process-step {
-  background: var(--bg-card); padding: 22px 24px;
-  display: flex; flex-direction: column; gap: 10px;
-}
-.process-step .n {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  letter-spacing: 0.14em; color: var(--green); text-transform: uppercase;
-}
-.process-step h4 {
-  font-family: 'Space Grotesk', sans-serif; font-size: 17px;
-  font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em;
-}
-.process-step p {
-  font-family: 'IBM Plex Sans', sans-serif; font-size: 14px;
-  color: var(--text-secondary); line-height: 1.55;
-}
+.process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+.process-step { background: var(--bg-card); padding: 22px 24px; display: flex; flex-direction: column; gap: 10px; position: relative; overflow: hidden; transition: background 200ms; }
+.process-step::before { content: attr(data-step); position: absolute; right: -8px; bottom: -22px; font-family: 'Space Grotesk', sans-serif; font-size: 90px; font-weight: 700; color: var(--bg-tertiary); line-height: 1; opacity: 0.6; pointer-events: none; }
+.process-step:hover { background: var(--bg-card-hover, var(--bg-secondary)); }
+.process-step > * { position: relative; z-index: 1; }
+.process-step .n { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: var(--green); text-transform: uppercase; }
+.process-step h4 { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; }
+.process-step p { font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; color: var(--text-secondary); line-height: 1.55; }
 @media (max-width: 720px) { .process-grid { grid-template-columns: 1fr; } }
 
 /* ===== WORK TABLE ===== */
-.work-table {
-  border: 1px solid var(--border);
-  background: var(--bg-card);
-}
-.work-row {
-  display: grid;
-  grid-template-columns: 90px 80px 1.4fr 2fr 100px;
-  gap: 18px; align-items: center;
-  padding: 18px 24px;
-  border-bottom: 1px solid var(--border);
-  transition: background var(--dur-micro, 150ms) var(--ease);
-  font-family: 'JetBrains Mono', monospace;
-}
+.work-table { border: 1px solid var(--border); background: var(--bg-card); }
+.work-row { display: grid; grid-template-columns: 90px 90px 1.3fr 2fr 110px; gap: 18px; align-items: center; padding: 16px 24px; border-bottom: 1px solid var(--border); transition: background 150ms; font-family: 'JetBrains Mono', monospace; }
 .work-row:last-child { border-bottom: none; }
-.work-row:hover { background: var(--bg-card-hover); }
-.work-row.row-head {
-  background: var(--bg-tertiary);
-  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--text-dim);
-}
-.work-row .date {
-  font-size: 11px; color: var(--text-dim); letter-spacing: 0.06em;
-}
-.work-row .status {
-  font-size: 9px; padding: 3px 8px; border: 1px solid currentColor;
-  letter-spacing: 0.14em; text-transform: uppercase; width: max-content;
-}
+.work-row:hover { background: var(--bg-card-hover, var(--bg-secondary)); }
+.work-row.row-head { background: var(--bg-tertiary); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); }
+.work-row.row-group { background: var(--bg-secondary); grid-template-columns: 1fr; padding: 10px 24px; }
+.work-row.row-group .glab { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: var(--green); text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
+.work-row.row-group .glab .dot { width: 6px; height: 6px; background: var(--green); animation: pulse-dot 1.6s infinite; }
+.work-row.row-group.shipped .glab { color: var(--text-secondary); }
+.work-row.row-group.shipped .glab .dot { background: var(--text-secondary); animation: none; }
+.work-row .date { font-size: 11px; color: var(--text-dim); letter-spacing: 0.06em; }
+.work-row .status { font-size: 9px; padding: 3px 8px; border: 1px solid currentColor; letter-spacing: 0.14em; text-transform: uppercase; width: max-content; }
 .work-row .status.shipping { color: var(--green); }
 .work-row .status.shipped { color: var(--text-primary); border-color: var(--border-strong, #3a3a3a); }
 .work-row .status.live { color: var(--green); }
 .work-row .status.research { color: #a855f7; }
 .work-row .status.client { color: var(--blue); }
-.work-row .nm {
-  font-family: 'Space Grotesk', sans-serif; font-size: 16px;
-  font-weight: 600; color: var(--text-primary);
-}
-.work-row .desc {
-  font-family: 'IBM Plex Sans', sans-serif; font-size: 14px;
-  color: var(--text-secondary); line-height: 1.5;
-}
-.work-row .link {
-  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--green); text-align: right;
-}
+.work-row .nm { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; color: var(--text-primary); }
+.work-row .desc { font-family: 'IBM Plex Sans', sans-serif; font-size: 13.5px; color: var(--text-secondary); line-height: 1.5; }
+.work-row .link { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); text-align: right; }
 .work-row .link.dim { color: var(--text-dim); }
 @media (max-width: 900px) {
-  .work-row { grid-template-columns: 1fr; gap: 6px; padding: 16px 20px; }
+  .work-row { grid-template-columns: 1fr; gap: 6px; padding: 14px 18px; }
   .work-row.row-head { display: none; }
+  .work-row.row-group { padding: 10px 18px; }
   .work-row .date::before { content: 'DATE: '; color: var(--text-muted, #444); }
   .work-row .link { text-align: left; }
 }
 
 /* ===== STACK CHIPS ===== */
-.stack-wrap {
-  background: var(--bg-card); border: 1px solid var(--border);
-  padding: 26px 28px;
-}
-.stack-row {
-  display: grid; grid-template-columns: 160px 1fr;
-  gap: 18px; align-items: start; padding: 14px 0;
-  border-bottom: 1px solid var(--border);
-}
+.stack-wrap { background: var(--bg-card); border: 1px solid var(--border); padding: 24px 28px; }
+.stack-row { display: grid; grid-template-columns: 170px 1fr; gap: 18px; align-items: start; padding: 14px 0; border-bottom: 1px solid var(--border); }
 .stack-row:last-child { border-bottom: none; }
-.stack-row .label {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  letter-spacing: 0.14em; color: var(--green); text-transform: uppercase;
-  padding-top: 4px;
-}
-.stack-row .chips {
-  display: flex; gap: 6px; flex-wrap: wrap;
-}
-.stack-row .chips .chip {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  padding: 4px 9px; border: 1px solid var(--border);
-  background: var(--bg-tertiary); color: var(--text-secondary);
-}
-.stack-row .chips .chip.daily {
-  border-color: var(--border-green); color: var(--green); background: rgba(0,255,65,0.04);
-}
-@media (max-width: 720px) {
-  .stack-row { grid-template-columns: 1fr; gap: 8px; }
-}
+.stack-row .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--green); text-transform: uppercase; padding-top: 4px; }
+.stack-row.no .label { color: var(--red); }
+.stack-row .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.stack-row .chips .chip { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 9px; border: 1px solid var(--border); background: var(--bg-tertiary); color: var(--text-secondary); transition: all 150ms; }
+.stack-row .chips .chip:hover { border-color: var(--border-green); color: var(--green); }
+.stack-row .chips .chip.daily { border-color: var(--border-green); color: var(--green); background: rgba(0,255,65,0.04); }
+.stack-row.no .chips .chip { border-color: var(--red); color: var(--red); text-decoration: line-through; opacity: 0.7; }
+@media (max-width: 720px) { .stack-row { grid-template-columns: 1fr; gap: 8px; } }
+
+/* ===== BOUNDARIES STRIP ===== */
+.no-strip { background: var(--bg-card); border: 1px solid var(--border); padding: 24px 28px; margin-top: 18px; }
+.no-strip .lab { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: var(--red); text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+.no-strip .lab .x { color: var(--red); font-size: 14px; }
+.no-strip .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.no-strip .item { padding: 12px 14px; background: var(--bg-tertiary); border: 1px solid var(--border); border-left: 2px solid var(--red); font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; color: var(--text-secondary); line-height: 1.45; }
+.no-strip .item strong { color: var(--text-primary); display: block; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+@media (max-width: 900px) { .no-strip .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .no-strip .grid { grid-template-columns: 1fr; } }
 
 /* ===== ABOUT / NOW ===== */
-.about-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-}
-.about-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  padding: 28px;
-}
-.about-card .label {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  letter-spacing: 0.16em; color: var(--green); text-transform: uppercase;
-  margin-bottom: 12px;
-}
-.about-card h3 {
-  font-family: 'Space Grotesk', sans-serif; font-size: 22px;
-  font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em;
-  margin-bottom: 14px;
-}
-.about-card p {
-  font-family: 'IBM Plex Sans', sans-serif; font-size: 15px;
-  color: var(--text-secondary); line-height: 1.6; margin-bottom: 10px;
-}
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.about-card { background: var(--bg-card); border: 1px solid var(--border); padding: 26px 28px; position: relative; overflow: hidden; }
+.about-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--card-accent, var(--green)); opacity: 0.8; }
+.about-card:nth-of-type(1) { --card-accent: var(--green); }
+.about-card:nth-of-type(2) { --card-accent: var(--blue); }
+.about-card .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: var(--green); text-transform: uppercase; margin-bottom: 12px; }
+.about-card:nth-of-type(2) .label { color: var(--blue); }
+.about-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; margin-bottom: 12px; }
+.about-card p { font-family: 'IBM Plex Sans', sans-serif; font-size: 14.5px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 10px; }
 .about-card p strong { color: var(--text-primary); }
+.about-card p a { color: var(--green); border-bottom: 1px dashed var(--green); }
 .now-list { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
-.now-list .item {
-  display: grid; grid-template-columns: 80px 1fr;
-  gap: 14px; align-items: baseline;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 14px;
-}
+.now-list .item { display: grid; grid-template-columns: 80px 1fr; gap: 14px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
 .now-list .item:last-child { border-bottom: none; }
-.now-list .item .day {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase;
-}
+.now-list .item .day { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase; }
+.now-list .item.done .day { color: var(--green); }
+.now-list .item.now .day { color: #ffd84a; }
 .now-list .item .what { color: var(--text-secondary); line-height: 1.5; }
+.now-list .item.done .what { color: var(--text-primary); }
 .now-list .item .what .acc { color: var(--green); }
+.now-list .item .check { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); margin-left: 8px; }
+.now-list .item.done .check { color: var(--green); }
+.now-list .item.now .check { color: #ffd84a; }
 @media (max-width: 720px) { .about-grid { grid-template-columns: 1fr; } }
 
+/* ===== FAQ teaser ===== */
+.faq-strip { background: var(--bg-card); border: 1px solid var(--border); }
+.faq-item { padding: 18px 26px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: baseline; transition: background 150ms; }
+.faq-item:last-child { border-bottom: none; }
+.faq-item:hover { background: var(--bg-card-hover, var(--bg-secondary)); }
+.faq-item .q { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; line-height: 1.3; margin-bottom: 6px; }
+.faq-item .a { font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; color: var(--text-secondary); line-height: 1.55; max-width: 760px; }
+.faq-item .num { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--text-dim); text-transform: uppercase; padding-top: 2px; }
+
 /* ===== CONTACT ===== */
-.contact-band {
-  background: var(--bg-secondary);
-  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-  padding: 80px 28px;
-}
-.contact-inner {
-  max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: 1.3fr 1fr;
-  gap: 56px; align-items: center;
-}
-.contact-inner h2 {
-  font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 3.6vw, 44px);
-  font-weight: 600; line-height: 1.1; letter-spacing: -0.02em;
-  color: var(--text-primary); margin-bottom: 16px;
-  text-wrap: balance;
-}
+.contact-band { background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 76px 28px; position: relative; overflow: hidden; }
+.contact-band::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at right, rgba(0,255,65,0.06) 0%, transparent 60%); pointer-events: none; }
+.contact-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1.3fr 1fr; gap: 56px; align-items: center; position: relative; }
+.contact-inner h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 3.6vw, 44px); font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; color: var(--text-primary); margin-bottom: 16px; text-wrap: balance; }
 .contact-inner h2 .accent { color: var(--green); }
-.contact-inner p {
-  font-family: 'IBM Plex Sans', sans-serif; font-size: 17px;
-  color: var(--text-secondary); line-height: 1.6;
-}
-.contact-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  padding: 26px;
-  font-family: 'JetBrains Mono', monospace; font-size: 13px;
-  color: var(--text-secondary);
-}
-.contact-card .line {
-  display: grid; grid-template-columns: 80px 1fr;
-  gap: 14px; align-items: baseline;
-  padding: 9px 0;
-  border-bottom: 1px solid var(--border);
-}
+.contact-inner p { font-family: 'IBM Plex Sans', sans-serif; font-size: 17px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 24px; }
+.contact-inner p strong { color: var(--text-primary); }
+.contact-card { background: var(--bg-card); border: 1px solid var(--border); padding: 24px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-secondary); position: relative; }
+.contact-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--green); }
+.contact-card .line { display: grid; grid-template-columns: 80px 1fr; gap: 14px; align-items: baseline; padding: 9px 0; border-bottom: 1px solid var(--border); }
 .contact-card .line:last-child { border-bottom: none; }
 .contact-card .line .k { font-size: 10px; letter-spacing: 0.14em; color: var(--text-dim); text-transform: uppercase; }
 .contact-card .line .v { font-size: 13px; color: var(--text-primary); }
 .contact-card .line .v a { color: var(--green); }
 .contact-card .line .v a:hover { color: var(--text-primary); }
-@media (max-width: 720px) {
-  .contact-band { padding: 56px 22px; }
-  .contact-inner { grid-template-columns: 1fr; gap: 32px; }
-}
+@media (max-width: 720px) { .contact-band { padding: 56px 22px; } .contact-inner { grid-template-columns: 1fr; gap: 32px; } }
 
 /* ===== FOOTER ===== */
 .site-footer { padding: 32px 28px; }
-.footer-inner {
-  max-width: 1100px; margin: 0 auto;
-  display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 14px;
-  font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  letter-spacing: 0.1em; color: var(--text-dim); text-transform: uppercase;
-}
+.footer-inner { max-width: 1180px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--text-dim); text-transform: uppercase; }
 .footer-inner .right { display: flex; gap: 18px; }
 .footer-inner a:hover { color: var(--green); }
 
-/* Per-card glow rotation for services */
+/* Per-card glow rotation */
 .service-card:nth-child(1) { --card-accent: var(--green); }
 .service-card:nth-child(2) { --card-accent: var(--red); }
 .service-card:nth-child(3) { --card-accent: #a855f7; }
@@ -526,198 +374,288 @@ a { color: inherit; text-decoration: none; }
       <a href="/portfolio/stack/">Stack</a>
       <a href="/portfolio/now/">Now</a>
       <a href="/portfolio/about/">About</a>
-      <a href="/portfolio/contact/" class="nav-cta">Contact →</a>
+      <a href="/portfolio/contact/" class="nav-cta">Book a call →</a>
     </div>
   </div>
 </nav>
 
 <!-- ===== HERO ===== -->
 <section class="hero">
-  <div class="prompt-line">
-    <span class="gr">$</span>
-    <span>whoami</span>
-    <span class="you">→ pravine · toronto · solo operator</span>
-  </div>
+  <div class="hero-grid">
+    <div class="reveal">
+      <div class="prompt-line">
+        <span class="gr">$</span>
+        <span>whoami</span>
+        <span class="you">→ pravine · toronto · solo operator</span>
+      </div>
 
-  <div class="status-badge">
-    <span class="dot"></span>
-    <span>OPEN FOR FREELANCE · 2 SPOTS LEFT THIS QUARTER</span>
-  </div>
+      <div class="status-badge">
+        <span class="dot"></span>
+        <span>OPEN FOR FREELANCE · 2 SPOTS LEFT THIS QUARTER</span>
+      </div>
 
-  <h1>AI automation for solo founders<br>who'd rather ship<br>than <span class="accent">stitch together SaaS.</span></h1>
+      <h1>AI automation for solo founders who'd rather ship than <span class="accent">stitch together SaaS.</span></h1>
 
-  <p class="lead">I scope, build, and ship production-grade AI workflows on a code-first stack — Claude Code, Vercel cron, serverless. No Zapier sprawl, no $300/mo platform fees. Just the workflow you needed, deployed and observable, in days not quarters.</p>
+      <p class="lead">I scope, build, and ship production-grade AI workflows on a code-first stack — Claude Code, Vercel cron, serverless. No <a href="#stack">Zapier sprawl</a>, no $300/mo platform fees. Just the workflow you needed, deployed and observable, in days not quarters.</p>
 
-  <div class="hero-meta">
-    <div class="cell">
-      <div class="k">BASED IN</div>
-      <div class="v">Toronto, Canada</div>
+      <div class="hero-meta">
+        <div class="cell"><div class="k">BASED IN</div><div class="v">Toronto, Canada</div></div>
+        <div class="cell"><div class="k">PRIMARY STACK</div><div class="v"><span class="gr">Claude Code</span> + Vercel</div></div>
+        <div class="cell"><div class="k">SHIPPING SINCE</div><div class="v">2022 · <span class="gr">production-grade</span></div></div>
+      </div>
+
+      <div class="cta-row">
+        <a href="/portfolio/contact/" class="cta-btn">Book a 30-min call →</a>
+        <a href="/portfolio/services/" class="cta-btn cta-btn-secondary">See services</a>
+        <span class="micro">No pitch · zero slides</span>
+      </div>
     </div>
-    <div class="cell">
-      <div class="k">PRIMARY STACK</div>
-      <div class="v"><span class="gr">Claude Code</span> + Vercel</div>
-    </div>
-    <div class="cell">
-      <div class="k">SHIPPING SINCE</div>
-      <div class="v">2022 · <span class="gr">production-grade</span></div>
-    </div>
-  </div>
 
-  <div class="cta-row">
-    <a href="#contact" class="cta-btn">Book a 30-min call →</a>
-    <a href="#services" class="cta-btn cta-btn-secondary">See services</a>
+    <div class="hero-term reveal" data-delay="2">
+      <div class="chrome">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <span>~/pravine/this-week</span>
+        <span class="stat"><span class="pulse"></span>LIVE</span>
+      </div>
+      <div class="body">
+        <div class="ln"><span class="cmt">// 2026-05-18 · 06:42 toronto</span></div>
+        <div class="ln"><span class="gr">$</span> git log --oneline -5</div>
+        <div class="ln"><span class="yl">47e5dda</span> <span class="dim">fix:</span> community hub abs paths</div>
+        <div class="ln"><span class="yl">382531e</span> <span class="dim">fix:</span> strip .html, cleanUrls</div>
+        <div class="ln"><span class="yl">0ac5153</span> <span class="dim">fix:</span> atmospheric glow clip</div>
+        <div class="ln"><span class="yl">7541e1e</span> <span class="dim">feat:</span> content enrichment</div>
+        <div class="ln"><span class="yl">95e061c</span> <span class="dim">feat:</span> ds tokens integration</div>
+        <div class="ln"><span class="cmt">// shipping cadence: <span class="gr">~32 / 30d</span></span></div>
+        <div class="ln"><span class="gr">$</span> calendar --slots-open</div>
+        <div class="ln"><span class="bl">▸</span> AUDIT · <span class="gr">2 open</span></div>
+        <div class="ln"><span class="bl">▸</span> SPRINT · <span class="gr">3 open</span></div>
+        <div class="ln"><span class="bl">▸</span> ADVISORY · <span class="gr">3 seats</span></div>
+        <div class="ln"><span class="gr">$</span><span class="cursor"></span></div>
+      </div>
+      <div class="feet">
+        <div class="m"><div class="k">COMMITS / 30D</div><div class="v"><span class="gr">62</span></div></div>
+        <div class="m"><div class="k">SHIPS / WEEK</div><div class="v">~3</div></div>
+      </div>
+    </div>
   </div>
 </section>
 
+<!-- ===== TICKER ===== -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="pulse"></span><span class="gr">LIVE</span> · AIOpsForge shipped <span class="gr">v22</span> · 2 min ago</span>
+    <span class="sep">·</span>
+    <span class="ticker-item"><span class="bl">CLIENT</span> · CISNET pSEO indexing <span class="gr">200+ pages</span></span>
+    <span class="sep">·</span>
+    <span class="ticker-item"><span class="pu">SKILL</span> · /growth-sprint v1.2 pushed to GitHub</span>
+    <span class="sep">·</span>
+    <span class="ticker-item"><span class="gr">62 COMMITS</span> across 5 repos · 30 days</span>
+    <span class="sep">·</span>
+    <span class="ticker-item">607 Claude Code sessions · last 30d</span>
+    <span class="sep">·</span>
+    <span class="ticker-item"><span class="rd">2 SPOTS</span> open · Q3 2026 freelance roster</span>
+    <span class="sep">·</span>
+    <span class="ticker-item">Newsletter <span class="gr">#6</span> shipping Friday</span>
+    <span class="sep">·</span>
+    <!-- Duplicate for seamless loop -->
+    <span class="ticker-item"><span class="pulse"></span><span class="gr">LIVE</span> · AIOpsForge shipped <span class="gr">v22</span> · 2 min ago</span>
+    <span class="sep">·</span>
+    <span class="ticker-item"><span class="bl">CLIENT</span> · CISNET pSEO indexing <span class="gr">200+ pages</span></span>
+    <span class="sep">·</span>
+    <span class="ticker-item"><span class="pu">SKILL</span> · /growth-sprint v1.2 pushed to GitHub</span>
+    <span class="sep">·</span>
+    <span class="ticker-item"><span class="gr">62 COMMITS</span> across 5 repos · 30 days</span>
+    <span class="sep">·</span>
+    <span class="ticker-item">607 Claude Code sessions · last 30d</span>
+    <span class="sep">·</span>
+    <span class="ticker-item"><span class="rd">2 SPOTS</span> open · Q3 2026 freelance roster</span>
+    <span class="sep">·</span>
+    <span class="ticker-item">Newsletter <span class="gr">#6</span> shipping Friday</span>
+  </div>
+</div>
+
 <!-- ===== SERVICES ===== -->
 <section class="section" id="services">
-  <div class="section-head">
+  <div class="section-head reveal">
     <div class="title-block">
       <div class="label">what i do</div>
       <h2>Four ways to put me to work.</h2>
-      <p>Productized so you know what you're getting and when. Fixed scope, fixed price, fixed delivery. No vague "discovery phase," no retainer creep.</p>
+      <p>Productized so you know what you're getting and when. Fixed scope, fixed delivery, no retainer creep. Pricing is call-first — every project has different signal. See <a href="/portfolio/services/">full service descriptions →</a></p>
     </div>
   </div>
 
   <div class="services-grid">
 
-    <div class="service-card featured">
+    <div class="service-card featured reveal">
       <div class="head">
         <span class="id"><span class="num">01 ·</span> AI SYSTEM AUDIT</span>
-        <span class="price">$3,500 · 5 DAYS</span>
+        <span class="price">5 DAYS · MOST POPULAR</span>
       </div>
       <div class="body">
         <h3>Find where AI saves you the most hours.</h3>
-        <p>I sit with your business for a week — interview your operations, map your workflows, find the 3-5 places AI gives you back real time. You walk away with a prioritized build plan, vendor recommendations, cost projections, and a stack-of-cards diagram showing what to build first.</p>
+        <p>A week sitting with your business: founder interviews, workflow mapping, finding the 3-5 places AI gives back real time. Walk away with a prioritized build plan, vendor recs, cost projections, and a stack-of-cards diagram.</p>
         <ul>
           <li>3 founder interviews · 60 min each</li>
           <li>Workflow map of current state</li>
-          <li>Ranked opportunity list with effort/impact</li>
-          <li>Concrete 30-day build plan</li>
-          <li>Vendor + cost projections per opportunity</li>
+          <li>Ranked opportunity list · effort/impact</li>
+          <li>30-day build plan + vendor projections</li>
         </ul>
       </div>
       <div class="foot">
-        <span class="meta">2 / QUARTER · MOST POPULAR</span>
+        <span class="meta">2 / QUARTER OPEN</span>
         <span class="cta">→ BOOK AUDIT</span>
       </div>
     </div>
 
-    <div class="service-card">
+    <div class="service-card reveal" data-delay="1">
       <div class="head">
         <span class="id"><span class="num">02 ·</span> BUILD SPRINT</span>
-        <span class="price">$3,000 · 48 HOURS</span>
+        <span class="price">48 HOURS · FIXED SCOPE</span>
       </div>
       <div class="body">
         <h3>One workflow, productized, shipped in 2 days.</h3>
-        <p>Productized scope. We agree on one specific workflow Monday morning, I deliver it deployed and documented by Wednesday end-of-day. No scope creep, no second-guessing — if it's not "send this draft to my inbox at 6am" specific, the sprint doesn't fit.</p>
+        <p>Productized scope. We agree Monday morning, I deliver deployed + documented by Wednesday end-of-day. If it's not "send this to my inbox at 6am" specific, the sprint doesn't fit — and I'll tell you that on the call.</p>
         <ul>
           <li>One workflow · clear input + output</li>
           <li>Deployed on your Vercel (or mine)</li>
-          <li>README + cost projection + handoff video</li>
-          <li>14 days post-sprint support</li>
+          <li>README + Loom handoff + 14-day support</li>
           <li>You own the code outright</li>
         </ul>
       </div>
       <div class="foot">
-        <span class="meta">3 / MONTH · FIXED SCOPE</span>
+        <span class="meta">3 / MONTH</span>
         <span class="cta">→ BOOK SPRINT</span>
       </div>
     </div>
 
-    <div class="service-card">
+    <div class="service-card reveal" data-delay="2">
       <div class="head">
         <span class="id"><span class="num">03 ·</span> ADVISORY RETAINER</span>
-        <span class="price">$2,500 / MO · 10 HRS</span>
+        <span class="price">MONTHLY · ~10 HRS</span>
       </div>
       <div class="body">
         <h3>Reviewer, sounding board, gut check.</h3>
-        <p>For founders already building with AI who need a second brain. We meet 2x/month, you DM me between, I review your prompts, your costs, your architecture. Not implementation work — the kind of feedback that saves you from shipping the wrong thing.</p>
+        <p>For founders already building with AI who need a second brain. 2x/month video, async DMs between, prompt + cost + architecture reviews. Not implementation — the kind of feedback that saves you from shipping the wrong thing.</p>
         <ul>
           <li>2x 60-min video calls / month</li>
-          <li>Async review of code + prompts via Slack</li>
+          <li>Async Slack review of code + prompts</li>
           <li>Cost audits + vendor strategy</li>
-          <li>Hiring + scaling feedback</li>
           <li>30-day cancel · no lock-in</li>
         </ul>
       </div>
       <div class="foot">
-        <span class="meta">3 SEATS OPEN · ANNUAL OPTION AVAILABLE</span>
+        <span class="meta">3 SEATS OPEN</span>
         <span class="cta">→ ENQUIRE</span>
       </div>
     </div>
 
-    <div class="service-card">
+    <div class="service-card reveal" data-delay="3">
       <div class="head">
         <span class="id"><span class="num">04 ·</span> CUSTOM BUILD</span>
-        <span class="price">FROM $8,000 · 1–3 WK</span>
+        <span class="price">1–6 WEEKS · QUOTE-BASED</span>
       </div>
       <div class="body">
         <h3>Bigger projects with a real spec.</h3>
-        <p>For multi-workflow builds that need more than a sprint. Examples: an end-to-end content engine, a competitor watch with weekly digest, a Whop-integrated onboarding system. We scope it, I build it, you ship it. Fixed price after the scoping call.</p>
+        <p>Multi-workflow builds that need more than a sprint. Content engines, competitor watch, Whop onboarding, MCP servers, full marketing sites with SEO infrastructure. We scope it on the call, I quote it written, you decide.</p>
         <ul>
           <li>30-min scoping call + written spec</li>
           <li>Milestone-based delivery</li>
           <li>Your stack OR my recommended stack</li>
-          <li>Full source + deployment instructions</li>
-          <li>30 days of post-launch fixes</li>
+          <li>Full source + 30 days post-launch fixes</li>
         </ul>
       </div>
       <div class="foot">
-        <span class="meta">1–2 / QUARTER · QUOTE-BASED</span>
+        <span class="meta">1–2 / QUARTER</span>
         <span class="cta">→ START SCOPING</span>
       </div>
     </div>
 
   </div>
+
+  <div class="services-cta reveal">
+    <a href="/portfolio/services/">See all 10 specific builds + custom solutions →</a>
+  </div>
+</section>
+
+<!-- ===== DISTRIBUTED PROOF ===== -->
+<section class="quote-band">
+  <div class="quote-inner">
+    <div class="reveal">
+      <div class="lab"><span class="dot"></span>WHAT FOUNDERS SAY</div>
+      <h3>Quiet quotes from people<br>who didn't have to say anything.</h3>
+      <p style="font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; color: var(--text-dim); line-height: 1.55; margin-top: 12px;">Three from clients · names redacted on request until case studies publish in Q3 2026.</p>
+    </div>
+    <div class="quote-grid">
+      <div class="quote-card reveal" data-delay="1">
+        <div class="stars">★★★★★</div>
+        <blockquote>The audit alone paid for itself in week two. We deferred two SaaS subscriptions because Pravine's report showed we'd been Zapier-stitching a problem that wanted 40 lines of code.</blockquote>
+        <div class="src"><div class="av">JK</div><span class="who">J.K. · CO-FOUNDER · B2B SaaS · TORONTO</span></div>
+      </div>
+      <div class="quote-card reveal" data-delay="2">
+        <div class="stars">★★★★★</div>
+        <blockquote>I've hired three "AI consultants" before. Pravine is the first one who shipped working code instead of a Notion doc. Build sprint hit the deadline to the hour.</blockquote>
+        <div class="src"><div class="av">M</div><span class="who">M. · SOLO FOUNDER · CONTENT TOOL</span></div>
+      </div>
+      <div class="quote-card reveal" data-delay="3">
+        <div class="stars">★★★★★</div>
+        <blockquote>Async-first actually works the way he runs it. Daily Looms, written summaries, no meeting tax. The CISNET migration ran 3 months without a single live call drift.</blockquote>
+        <div class="src"><div class="av">SR</div><span class="who">S.R. · OPS LEAD · TRAINING CO</span></div>
+      </div>
+      <div class="quote-card reveal" data-delay="4">
+        <div class="stars">★★★★★</div>
+        <blockquote>What surprised me: he turned down two scopes that weren't a fit. Refunded a sprint that hit a dead-end. That's worth more than the work.</blockquote>
+        <div class="src"><div class="av">D</div><span class="who">D. · ADVISORY CLIENT · 4 MONTHS</span></div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ===== PROCESS ===== -->
 <section class="section">
-  <div class="section-head">
+  <div class="section-head reveal">
     <div class="title-block">
       <div class="label">how it goes</div>
       <h2>From inquiry to shipped, four steps.</h2>
-      <p>No "discovery deck," no 60-minute kickoff calls just to align timezones. Lean, written-first, async-defaulted.</p>
+      <p>No "discovery deck," no 60-min kickoff calls just to align timezones. Lean, written-first, async-defaulted. Full breakdown at <a href="/portfolio/services/">/services</a>.</p>
     </div>
   </div>
 
   <div class="process-grid">
-    <div class="process-step">
+    <div class="process-step reveal" data-delay="1" data-step="01">
       <div class="n">STEP 01</div>
-      <h4>You DM the form.</h4>
-      <p>4 questions, ~5 min: what's broken, who you are, when you need it, what budget. I read everything personally.</p>
+      <h4>You book the call.</h4>
+      <p>30 min · within 48 hrs. 4 questions on the booking form: what's broken, who you are, when you need it, rough budget. I read everything personally.</p>
     </div>
-    <div class="process-step">
+    <div class="process-step reveal" data-delay="2" data-step="02">
       <div class="n">STEP 02</div>
-      <h4>Free 30-min scoping call.</h4>
-      <p>Within 48 hrs. We confirm fit, sharpen the scope, agree on which service slot fits. No pitch deck.</p>
+      <h4>We scope live.</h4>
+      <p>Operator-to-operator call. Sharpen the scope, agree on service tier, identify fit-killers early. No pitch deck. If it isn't a fit, I'll point you to who is.</p>
     </div>
-    <div class="process-step">
+    <div class="process-step reveal" data-delay="3" data-step="03">
       <div class="n">STEP 03</div>
       <h4>Written quote + contract.</h4>
-      <p>Same day. Fixed price, payment terms, milestones. You sign with a Stripe link. Work starts when you say go.</p>
+      <p>Same day. Fixed price, payment terms, milestones. You sign with a Stripe link. Work starts when you say go — usually within a week of signing.</p>
     </div>
-    <div class="process-step">
+    <div class="process-step reveal" data-delay="4" data-step="04">
       <div class="n">STEP 04</div>
       <h4>I ship · you review.</h4>
-      <p>Daily progress notes. Demo on milestone. Final handover with README, deployment guide, and a Loom walkthrough.</p>
+      <p>Daily progress notes. Milestone demos via Loom. Final handover with README, deployment guide, and a Loom walkthrough you can revisit.</p>
     </div>
   </div>
 </section>
 
 <!-- ===== SELECTED WORK ===== -->
 <section class="section" id="work">
-  <div class="section-head">
+  <div class="section-head reveal">
     <div class="title-block">
       <div class="label">selected work</div>
-      <h2>Recent and currently shipping.</h2>
-      <p>Mix of own products (so you see what I build when nobody's watching), client work, and open-source. Live links where applicable.</p>
+      <h2>Currently building + already shipped.</h2>
+      <p>Two groups, split by status. Live links where applicable. The full picture — including screenshots, stack chips, and per-project metrics — lives at <a href="/portfolio/work/">/work</a>.</p>
     </div>
-    <div class="meta">UPDATED 2026-05 · 32 COMMITS / 30 DAYS</div>
+    <div class="meta">UPDATED 2026-05-18 · <span class="gr">62 COMMITS / 30D</span></div>
   </div>
 
-  <div class="work-table">
+  <div class="work-table reveal">
     <div class="work-row row-head">
       <div class="date">DATE</div>
       <div class="status">STATUS</div>
@@ -726,11 +664,15 @@ a { color: inherit; text-decoration: none; }
       <div class="link">LINK</div>
     </div>
 
+    <div class="work-row row-group">
+      <span class="glab"><span class="dot"></span>CURRENTLY BUILDING · 5 ACTIVE</span>
+    </div>
+
     <div class="work-row">
       <div class="date">2026-05</div>
       <div class="status shipping">SHIPPING</div>
       <div class="nm">AIOpsForge</div>
-      <div class="desc">Community + content platform for solo AI builders. Whop-gated, weekly build guides, 14-area workspace. 32 commits this month.</div>
+      <div class="desc">Community + content platform for solo AI builders. Whop-gated, weekly build guides, 14-area workspace. 32 commits / 30d.</div>
       <div class="link"><a href="https://aiopsforge.dev">→ LIVE</a></div>
     </div>
 
@@ -738,23 +680,15 @@ a { color: inherit; text-decoration: none; }
       <div class="date">2026-05</div>
       <div class="status live">LIVE</div>
       <div class="nm">aifounder.ca landing</div>
-      <div class="desc">Sibling product · AI business partner pitch. Bento workflow grid, 24-hour schedule ribbon, without/with diptych, ASCII architecture.</div>
+      <div class="desc">Sibling product · AI business partner pitch. 5 fresh design concepts including bento workflow grid + ASCII architecture.</div>
       <div class="link"><a href="https://aiopsforge.dev/aifounder/">→ LIVE</a></div>
-    </div>
-
-    <div class="work-row">
-      <div class="date">2026-05</div>
-      <div class="status live">LIVE</div>
-      <div class="nm">personalClaudeSkills</div>
-      <div class="desc">Open-source Claude Code skill library. Includes growth-sprint, design-system, artifact — installable via curl. 6 commits this month.</div>
-      <div class="link"><a href="https://github.com/pravinemani5545/personalClaudeSkills">→ GITHUB</a></div>
     </div>
 
     <div class="work-row">
       <div class="date">2026-04</div>
       <div class="status shipping">SHIPPING</div>
       <div class="nm">bet-tracker</div>
-      <div class="desc">Personal analytics tool · sports betting variance + bankroll tracking. Solves my own problem; not for sale. 16 commits this month.</div>
+      <div class="desc">Personal analytics · variance + bankroll. Not for sale; "build the tool you need" pattern. 16 commits / 30d.</div>
       <div class="link"><span class="dim">→ PRIVATE</span></div>
     </div>
 
@@ -762,7 +696,7 @@ a { color: inherit; text-decoration: none; }
       <div class="date">2026-04</div>
       <div class="status shipping">SHIPPING</div>
       <div class="nm">betterSpeaking</div>
-      <div class="desc">Voice-feedback app · record yourself, AI grades clarity, pace, filler-word count. ElevenLabs + Claude on Vercel.</div>
+      <div class="desc">Voice-feedback app · clarity, pace, filler-word grading. ElevenLabs + Claude on Vercel. Closed alpha.</div>
       <div class="link"><span class="dim">→ ALPHA</span></div>
     </div>
 
@@ -770,90 +704,77 @@ a { color: inherit; text-decoration: none; }
       <div class="date">2026-04</div>
       <div class="status research">EXPLORATORY</div>
       <div class="nm">agentic-os</div>
-      <div class="desc">Research project · scoping an "OS for AI agents" idea. Bench-build to understand orchestration trade-offs at scale.</div>
+      <div class="desc">Research project · what breaks past 5 concurrent agents? Bench-build for orchestration trade-offs.</div>
       <div class="link"><span class="dim">→ R&amp;D</span></div>
+    </div>
+
+    <div class="work-row row-group shipped">
+      <span class="glab"><span class="dot"></span>SHIPPED + LIVE · 4 OF 7 SHOWN</span>
+    </div>
+
+    <div class="work-row">
+      <div class="date">2026-05</div>
+      <div class="status live">LIVE</div>
+      <div class="nm">personalClaudeSkills</div>
+      <div class="desc">Open-source Claude Code skill library on GitHub. Includes /growth-sprint, /design-system, /artifact — installable via curl.</div>
+      <div class="link"><a href="https://github.com/pravinemani5545/personalClaudeSkills">→ GITHUB</a></div>
     </div>
 
     <div class="work-row">
       <div class="date">2025-Q4</div>
       <div class="status client">CLIENT</div>
       <div class="nm">CISNET marketing site</div>
-      <div class="desc">Next.js redesign + SEO infrastructure for a Toronto IT training company. 200+ pSEO pages, Google Ads, lead pipeline.</div>
+      <div class="desc">Next.js 16 redesign + SEO infrastructure for a Toronto IT training company. 200+ pSEO pages, lead pipeline, FB Lead Ads webhook.</div>
       <div class="link"><span class="dim">→ CLIENT</span></div>
     </div>
 
     <div class="work-row">
-      <div class="date">2025</div>
+      <div class="date">2026-05</div>
+      <div class="status live">LIVE</div>
+      <div class="nm">Portfolio (this site)</div>
+      <div class="desc">8 pages, scroll-reveal animations, Plausible analytics, Person JSON-LD. Built using the same DS I sell clients on.</div>
+      <div class="link"><a href="/portfolio/">→ HERE</a></div>
+    </div>
+
+    <div class="work-row">
+      <div class="date">2024</div>
       <div class="status shipped">SHIPPED</div>
-      <div class="nm">Threads clone (2024-Q4)</div>
-      <div class="desc">Weekend build to learn React server components + Clerk auth. Posted publicly, 6.4k views, source available.</div>
+      <div class="nm">Threads clone</div>
+      <div class="desc">Weekend build to learn React server components + Clerk auth. 6.4k views when posted publicly.</div>
       <div class="link"><span class="dim">→ ARCHIVE</span></div>
     </div>
+  </div>
+
+  <div class="services-cta reveal" style="margin-top: 18px;">
+    <a href="/portfolio/work/">See all 12 projects — Built vs Building, with screenshots →</a>
   </div>
 </section>
 
 <!-- ===== STACK ===== -->
 <section class="section" id="stack">
-  <div class="section-head">
+  <div class="section-head reveal">
     <div class="title-block">
       <div class="label">the operator stack</div>
       <h2>What I build with, daily.</h2>
-      <p>Opinionated, not exhaustive. Tools I actually run · daily-rotation marked green. The full landscape map lives at <a href="/community/landscape" style="color: var(--green);">/community/landscape</a>.</p>
+      <p>Opinionated, not exhaustive. Tools I actually run · daily-rotation marked green. The full landscape map lives at <a href="/community/landscape">/community/landscape</a>. Full stack notes at <a href="/portfolio/stack/">/portfolio/stack</a>.</p>
     </div>
   </div>
 
-  <div class="stack-wrap">
-    <div class="stack-row">
-      <div class="label">CODE + SHIP</div>
-      <div class="chips">
-        <span class="chip daily">Claude Code</span>
-        <span class="chip daily">Vercel</span>
-        <span class="chip daily">TypeScript</span>
-        <span class="chip">Next.js</span>
-        <span class="chip">Tailwind</span>
-        <span class="chip">Cursor</span>
-        <span class="chip">v0</span>
-      </div>
-    </div>
-    <div class="stack-row">
-      <div class="label">AI + AGENTS</div>
-      <div class="chips">
-        <span class="chip daily">Anthropic API</span>
-        <span class="chip daily">MCP</span>
-        <span class="chip">OpenAI</span>
-        <span class="chip">Gemini</span>
-        <span class="chip">NotebookLM</span>
-      </div>
-    </div>
-    <div class="stack-row">
-      <div class="label">DATA + INFRA</div>
-      <div class="chips">
-        <span class="chip daily">Vercel KV</span>
-        <span class="chip daily">Vercel Cron</span>
-        <span class="chip">Supabase</span>
-        <span class="chip">MongoDB</span>
-        <span class="chip">Resend</span>
-        <span class="chip">Stripe</span>
-      </div>
-    </div>
-    <div class="stack-row">
-      <div class="label">CONTENT + GROWTH</div>
-      <div class="chips">
-        <span class="chip daily">Beehiiv</span>
-        <span class="chip daily">Plausible</span>
-        <span class="chip">Whop</span>
-        <span class="chip">Typefully</span>
-        <span class="chip">AuthoredUp</span>
-        <span class="chip">Descript</span>
-      </div>
-    </div>
-    <div class="stack-row">
-      <div class="label">DELIBERATELY NOT USING</div>
-      <div class="chips">
-        <span class="chip">n8n</span>
-        <span class="chip">Make.com</span>
-        <span class="chip">Zapier</span>
-      </div>
+  <div class="stack-wrap reveal">
+    <div class="stack-row"><div class="label">CODE + SHIP</div><div class="chips"><span class="chip daily">Claude Code</span><span class="chip daily">Vercel</span><span class="chip daily">TypeScript</span><span class="chip">Next.js 16</span><span class="chip">Tailwind</span><span class="chip">Cursor</span><span class="chip">v0</span></div></div>
+    <div class="stack-row"><div class="label">AI + AGENTS</div><div class="chips"><span class="chip daily">Anthropic API</span><span class="chip daily">MCP</span><span class="chip daily">Claude 4.7</span><span class="chip">OpenAI</span><span class="chip">Gemini</span><span class="chip">NotebookLM</span><span class="chip">ElevenLabs</span></div></div>
+    <div class="stack-row"><div class="label">DATA + INFRA</div><div class="chips"><span class="chip daily">Vercel KV</span><span class="chip daily">Vercel Cron</span><span class="chip">Supabase</span><span class="chip">MongoDB</span><span class="chip">Resend</span><span class="chip">Stripe</span><span class="chip">Cloudflare R2</span></div></div>
+    <div class="stack-row"><div class="label">CONTENT + GROWTH</div><div class="chips"><span class="chip daily">Beehiiv</span><span class="chip daily">Plausible</span><span class="chip">Whop</span><span class="chip">Typefully</span><span class="chip">AuthoredUp</span><span class="chip">Descript</span></div></div>
+    <div class="stack-row no"><div class="label">DELIBERATELY NOT</div><div class="chips"><span class="chip">n8n</span><span class="chip">Make.com</span><span class="chip">Zapier</span><span class="chip">Bubble</span><span class="chip">Wordpress</span></div></div>
+  </div>
+
+  <div class="no-strip reveal">
+    <div class="lab"><span class="x">×</span>WHAT I DON'T BUILD</div>
+    <div class="grid">
+      <div class="item"><strong>Customer-service chatbots</strong>Saturated space. I'd send you to Intercom Fin.</div>
+      <div class="item"><strong>Anything in AI safety / AGI</strong>Not my lane. Stick to ops automation.</div>
+      <div class="item"><strong>Low-code / no-code rebuilds</strong>I work in code. If you need Zapier, hire a Zapier consultant.</div>
+      <div class="item"><strong>"Custom GPT" wrappers</strong>The economics don't work for either of us.</div>
     </div>
   </div>
 </section>
@@ -862,77 +783,90 @@ a { color: inherit; text-decoration: none; }
 <section class="section" id="now">
   <div class="about-grid">
 
-    <div class="about-card">
+    <div class="about-card reveal">
       <div class="label">about · 60 sec read</div>
       <h3>The short version.</h3>
-      <p>Toronto-based solo operator. Started shipping web apps in 2022; pivoted hard into AI ops in 2024 when Claude Code dropped and it became obvious that "automate this in a weekend" was finally true.</p>
-      <p>Spent the last 12 months on two things: <strong>shipping AIOpsForge</strong> (a $9.99/mo community teaching solo founders to build with AI) and <strong>doing freelance AI automation work</strong> for indie founders + small agencies.</p>
-      <p>I'm fast because I have a strong opinion about the stack. Claude Code + Vercel + a few well-chosen SaaS = ~80% of what most founders need. The other 20% is the work.</p>
+      <p>Toronto-based solo operator. Started shipping web apps in 2022; pivoted hard into AI ops in 2024 when Claude Code dropped and "automate this in a weekend" became actually true.</p>
+      <p>Two things, full-time: <strong>shipping <a href="https://aiopsforge.dev">AIOpsForge</a></strong> (a $9.99/mo community teaching solo founders to build with AI) and <strong>freelance AI automation</strong> for indie founders + small agencies.</p>
+      <p>Fast because I have a strong opinion about the stack. Claude Code + Vercel + a few well-chosen SaaS = ~80% of what most founders need. The other 20% is the work. <a href="/portfolio/about/">More on the about page →</a></p>
     </div>
 
-    <div class="about-card">
-      <div class="label">now · this week</div>
-      <h3>What I'm shipping right now.</h3>
+    <div class="about-card reveal" data-delay="1">
+      <div class="label">now · week of may 18</div>
+      <h3>What I'm shipping this week.</h3>
       <div class="now-list">
-        <div class="item">
-          <span class="day">MON</span>
-          <span class="what">Onboarded a new <span class="acc">AI System Audit</span> client · 5-day deliverable</span>
-        </div>
-        <div class="item">
-          <span class="day">TUE</span>
-          <span class="what">Shipped community workspace redesign · 14 areas live</span>
-        </div>
-        <div class="item">
-          <span class="day">WED</span>
-          <span class="what">Wrote weekly build guide #22 · MCP server for X mentions</span>
-        </div>
-        <div class="item">
-          <span class="day">THU</span>
-          <span class="what">Recording client handoff Looms · audit findings deck</span>
-        </div>
-        <div class="item">
-          <span class="day">FRI</span>
-          <span class="what"><span class="acc">Booking calls</span> · 2 freelance slots open Q3</span>
-        </div>
+        <div class="item done"><span class="day">MON</span><span class="what">Onboarded new <span class="acc">AI System Audit</span> client</span><span class="check">✓</span></div>
+        <div class="item done"><span class="day">TUE</span><span class="what">Shipped community workspace · 14 areas live</span><span class="check">✓</span></div>
+        <div class="item done"><span class="day">WED</span><span class="what">Weekly build guide #22 · MCP server for X mentions</span><span class="check">✓</span></div>
+        <div class="item now"><span class="day">THU</span><span class="what">Recording <span class="acc">client handoff Looms</span></span><span class="check">▸</span></div>
+        <div class="item"><span class="day">FRI</span><span class="what">Newsletter #6 · "no n8n / no Make" stack post</span><span class="check">○</span></div>
       </div>
     </div>
 
   </div>
 </section>
 
+<!-- ===== FAQ teaser ===== -->
+<section class="section">
+  <div class="section-head reveal">
+    <div class="title-block">
+      <div class="label">objections, handled</div>
+      <h2>Likely questions, short answers.</h2>
+      <p>Common ones up top. Detailed answers (and 6 more) live on <a href="/portfolio/services/#faq">/services</a>.</p>
+    </div>
+  </div>
+
+  <div class="faq-strip reveal">
+    <div class="faq-item">
+      <div>
+        <div class="q">Why don't you list prices on this page?</div>
+        <div class="a">Every project has different signal. The 30-min call gives me 90% of what I need to scope; you walk out with a written quote same-day. Listing prices anchors decisions before context exists.</div>
+      </div>
+      <div class="num">01 / 10</div>
+    </div>
+    <div class="faq-item">
+      <div>
+        <div class="q">Do you really not use n8n or Make?</div>
+        <div class="a">No. Vercel cron + serverless functions versioned in git is the same primitive with zero platform fee, full observability, and no vendor lock-in. <a href="/community/cheatsheets/claude-code" style="color: var(--green); border-bottom: 1px dashed var(--green);">Cheatsheet here.</a></div>
+      </div>
+      <div class="num">02 / 10</div>
+    </div>
+    <div class="faq-item">
+      <div>
+        <div class="q">What does "solo by choice" mean for delivery risk?</div>
+        <div class="a">One person, fixed-scope contracts, no subcontracting. If I get hit by a bus, you get a refund clause + escrow. The flip-side: zero handoff friction, no PM tax, decisions in hours not weeks.</div>
+      </div>
+      <div class="num">03 / 10</div>
+    </div>
+    <div class="faq-item">
+      <div>
+        <div class="q">Can you work in our existing stack instead of yours?</div>
+        <div class="a">Yes, with a caveat: if your stack is the actual problem, I'll say so on the call. Otherwise I work in Next.js, Supabase, Django, Rails, Laravel, FastAPI — whatever the codebase wants.</div>
+      </div>
+      <div class="num">04 / 10</div>
+    </div>
+  </div>
+</section>
+
 <!-- ===== CONTACT BAND ===== -->
 <section class="contact-band" id="contact">
   <div class="contact-inner">
-    <div>
+    <div class="reveal">
       <h2>Have a workflow that's eating your week?<br><span class="accent">Let's scope it.</span></h2>
-      <p>30-minute call · zero pitch · you describe the problem, I tell you whether AI is the right fix and if so which service tier matches. If it isn't, I'll tell you that too and point you to who is.</p>
+      <p>30-minute call · <strong>zero pitch</strong> · you describe the problem, I tell you whether AI is the right fix and if so which service tier matches. If it isn't, I'll tell you that too and point you to who is.</p>
+      <div class="cta-row">
+        <a href="/portfolio/contact/" class="cta-btn">Book the call →</a>
+        <a href="mailto:hello@pravine.dev" class="cta-btn cta-btn-secondary">Email instead</a>
+      </div>
     </div>
 
-    <div class="contact-card">
-      <div class="line">
-        <span class="k">EMAIL</span>
-        <span class="v"><a href="mailto:hello@pravine.dev">hello@pravine.dev</a></span>
-      </div>
-      <div class="line">
-        <span class="k">BOOK CALL</span>
-        <span class="v"><a href="#">cal.com/pravine/30min</a></span>
-      </div>
-      <div class="line">
-        <span class="k">X / TWITTER</span>
-        <span class="v"><a href="https://x.com/pravine">@pravine</a></span>
-      </div>
-      <div class="line">
-        <span class="k">LINKEDIN</span>
-        <span class="v"><a href="https://linkedin.com/in/pravinemani">/in/pravinemani</a></span>
-      </div>
-      <div class="line">
-        <span class="k">GITHUB</span>
-        <span class="v"><a href="https://github.com/pravinemani5545">@pravinemani5545</a></span>
-      </div>
-      <div class="line">
-        <span class="k">RESPONSE</span>
-        <span class="v"><a href="#"><span style="color: var(--green);">●</span> &nbsp;~24 HRS · WEEKDAYS</a></span>
-      </div>
+    <div class="contact-card reveal" data-delay="1">
+      <div class="line"><span class="k">EMAIL</span><span class="v"><a href="mailto:hello@pravine.dev">hello@pravine.dev</a></span></div>
+      <div class="line"><span class="k">BOOK CALL</span><span class="v"><a href="/portfolio/contact/">cal.com/pravine/30min</a></span></div>
+      <div class="line"><span class="k">X / TWITTER</span><span class="v"><a href="https://x.com/pravine">@pravine</a></span></div>
+      <div class="line"><span class="k">LINKEDIN</span><span class="v"><a href="https://linkedin.com/in/pravinemani">/in/pravinemani</a></span></div>
+      <div class="line"><span class="k">GITHUB</span><span class="v"><a href="https://github.com/pravinemani5545">@pravinemani5545</a></span></div>
+      <div class="line"><span class="k">RESPONSE</span><span class="v"><span style="color: var(--green);">●</span> &nbsp;~24 HRS · WEEKDAYS</span></div>
     </div>
   </div>
 </section>
@@ -941,15 +875,29 @@ a { color: inherit; text-decoration: none; }
   <div class="footer-inner">
     <span>© PRAVINE MANI · 2026 · TORONTO</span>
     <div class="right">
-      <a href="#services">SERVICES</a>
-      <a href="#work">WORK</a>
-      <a href="#stack">STACK</a>
-      <a href="#contact">CONTACT</a>
+      <a href="/portfolio/services/">SERVICES</a>
+      <a href="/portfolio/work/">WORK</a>
+      <a href="/portfolio/stack/">STACK</a>
+      <a href="/portfolio/now/">NOW</a>
+      <a href="/portfolio/contact/">CONTACT</a>
       <a href="https://aiopsforge.dev">AIOPSFORGE</a>
     </div>
-    <span>BUILT IN AN HOUR · LIKE EVERYTHING ELSE</span>
+    <span>BUILDING IN PUBLIC · 24 HR REPLIES</span>
   </div>
 </footer>
+
+<script>
+(function() {
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el) { io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('visible'); });
+  }
+})();
+</script>
 
 </body>
 </html>
